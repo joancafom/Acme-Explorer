@@ -5,7 +5,6 @@ import java.util.Collection;
 
 import javax.transaction.Transactional;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +12,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.Assert;
 
-import security.LoginService;
+import security.UserAccount;
 import utilities.AbstractTest;
 import domain.Actor;
 import domain.Ranger;
@@ -25,87 +24,136 @@ import domain.Ranger;
 @Transactional
 public class ActorServiceTest extends AbstractTest {
 
-	//Service under test
+	// Service under test ------------------
+
 	@Autowired
 	private ActorService	actorService;
 
-	//Other required Services
-	@Autowired
-	private RangerService	rangerService;
 
-	//Working Variables
-	private Ranger			ranger1;
+	// Supporting repositories -------------
 
+	// Supporting services -----------------
 
-	@Before
-	public void setUpWorkingVariables() {
+	// Tests -------------------------------
 
-		this.authenticate("ranger1");
+	@Test
+	public void testCreate() {
+		Actor actor;
 
-		this.ranger1 = this.rangerService.findByUserAccount(LoginService.getPrincipal());
+		this.authenticate("admin1");
+
+		final UserAccount userAccount = new UserAccount();
+		final Class<Ranger> clase = Ranger.class;
+
+		actor = this.actorService.create(userAccount, clase);
+
+		Assert.isTrue(!actor.getIsSuspicious());
+		Assert.isTrue(!actor.getIsBanned());
+
+		Assert.notNull(actor.getSocialIDs());
+		Assert.isTrue(actor.getSocialIDs().isEmpty());
+		Assert.notNull(actor.getFolders());
+		Assert.isTrue(!actor.getFolders().isEmpty());
+		// Comprobar que el método para crear las systemFolders funciona correctamente?
+		Assert.notNull(actor.getSentMessages());
+		Assert.isTrue(actor.getSentMessages().isEmpty());
+		Assert.notNull(actor.getReceivedMessages());
+		Assert.isTrue(actor.getReceivedMessages().isEmpty());
+		Assert.notNull(actor.getUserAccount());
 
 		this.unauthenticate();
 	}
 
 	@Test
 	public void testFindAll() {
+		// REVISAR !!!
+		// Cómo se comprueba que el findAll() funciona correctamente?
+
+		final Integer currentNumberOfActorsInTheXML = 15;
 
 		this.authenticate("admin1");
 
-		final Collection<Actor> result = this.actorService.findAll();
+		final Collection<Actor> actors = this.actorService.findAll();
 
-		//In the XML, there are 15 DISTICT actors
-
-		Assert.notNull(result);
-		Assert.isTrue(!result.isEmpty());
-		Assert.isTrue(result.size() == 15);
+		Assert.notNull(actors);
+		Assert.isTrue(actors.size() == currentNumberOfActorsInTheXML);
 
 		this.unauthenticate();
+	}
 
+	@Test
+	public void testFindOne() {
+		Actor actor1 = null;
+		Actor actor2 = null;
+
+		this.authenticate("admin1");
+
+		final Collection<Actor> actors = this.actorService.findAll();
+
+		for (final Actor a : actors)
+			if (a != null) {
+				actor1 = a;
+				break;
+			}
+
+		actor2 = this.actorService.findOne(actor1.getId());
+
+		Assert.isTrue(actor1.equals(actor2));
+
+		this.unauthenticate();
 	}
 
 	@Test
 	public void testFindByUserAccount() {
-
-		this.authenticate("ranger1");
-
-		final Actor actorFound = this.actorService.findByUserAccount(LoginService.getPrincipal());
-		final Ranger ranger = this.rangerService.findByUserAccount(LoginService.getPrincipal());
-
-		Assert.notNull(actorFound);
-		Assert.isTrue(actorFound.equals(ranger));
-
-		this.unauthenticate();
-
-	}
-
-	@Test
-	public void testBan() {
+		Actor actor1 = null;
+		Actor actor2 = null;
 
 		this.authenticate("admin1");
 
-		this.actorService.ban(this.ranger1);
+		final Collection<Actor> actors = this.actorService.findAll();
 
-		Assert.notNull(this.ranger1);
-		Assert.isTrue(this.rangerService.findByUserAccount(this.ranger1.getUserAccount()).getIsBanned());
+		for (final Actor a : actors)
+			if (a != null) {
+				actor1 = a;
+				break;
+			}
 
-		this.unauthenticate();
+		actor2 = this.actorService.findByUserAccount(actor1.getUserAccount());
 
-	}
-
-	@Test
-	public void testUnban() {
-
-		this.authenticate("admin1");
-
-		this.actorService.ban(this.ranger1);
-
-		this.actorService.unban(this.ranger1);
-
-		Assert.notNull(this.ranger1);
-		Assert.isTrue(!this.rangerService.findByUserAccount(this.ranger1.getUserAccount()).getIsBanned());
+		Assert.isTrue(actor1.equals(actor2));
 
 		this.unauthenticate();
 
 	}
+
+	//
+	//	@Test
+	//	public void testBan() {
+	//
+	//		this.authenticate("admin1");
+	//
+	//		//this.actorService.ban(this.ranger1);
+	//
+	//		//Assert.notNull(this.ranger1);
+	//		//Assert.isTrue(this.rangerService.findByUserAccount(this.ranger1.getUserAccount()).getIsBanned());
+	//
+	//		this.unauthenticate();
+	//
+	//	}
+	//
+	//	@Test
+	//	public void testUnban() {
+	//
+	//		this.authenticate("admin1");
+	//
+	//		//this.actorService.ban(this.ranger1);
+	//
+	//		//this.actorService.unban(this.ranger1);
+	//
+	//		//Assert.notNull(this.ranger1);
+	//		//Assert.isTrue(!this.rangerService.findByUserAccount(this.ranger1.getUserAccount()).getIsBanned());
+	//
+	//		this.unauthenticate();
+	//
+	//	}
 }

@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.transaction.Transactional;
@@ -10,11 +11,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.ActorRepository;
-import security.LoginService;
 import security.UserAccount;
 import domain.Actor;
-import domain.Explorer;
-import domain.Ranger;
+import domain.Folder;
+import domain.Message;
+import domain.SocialID;
 
 @Service
 @Transactional
@@ -28,10 +29,7 @@ public class ActorService {
 	// Supporting services -----------------
 
 	@Autowired
-	private RangerService	rangerService;
-
-	@Autowired
-	private ExplorerService	explorerService;
+	private FolderService	folderService;
 
 
 	// Constructors ------------------------
@@ -42,82 +40,95 @@ public class ActorService {
 
 	// Simple CRUD methods -----------------
 
+	public Actor create(final UserAccount userAccount, final Class<? extends Actor> clase) {
+		Assert.notNull(userAccount);
+		Assert.notNull(clase);
+
+		// REVISAR !!!
+		// Assert.isTrue(userAccount.getAuthorities().contains(clase.toString()));
+
+		Actor actor = null;
+		final Collection<SocialID> socialIDs = new ArrayList<SocialID>();
+		final Collection<Folder> folders;
+		final Collection<Message> sentMessages = new ArrayList<Message>();
+		final Collection<Message> receivedMessages = new ArrayList<Message>();
+
+		try {
+			actor = clase.newInstance();
+		} catch (final InstantiationException e) {
+		} catch (final IllegalAccessException e) {
+		}
+
+		folders = this.folderService.createSystemFolders(actor);
+
+		actor.setIsSuspicious(false);
+		actor.setIsBanned(false);
+
+		actor.setSocialIDs(socialIDs);
+		actor.setFolders(folders);
+		actor.setSentMessages(sentMessages);
+		actor.setReceivedMessages(receivedMessages);
+		actor.setUserAccount(userAccount);
+
+		return actor;
+	}
+
 	public Collection<Actor> findAll() {
 		Collection<Actor> actors;
 
+		Assert.notNull(this.actorRepository);
 		actors = this.actorRepository.findAll();
 		Assert.notNull(actors);
 
 		return actors;
 	}
 
-	public Actor save(final Actor actor) {
-		UserAccount userAccount;
-		userAccount = LoginService.getPrincipal();
-
-		Assert.notNull(actor);
-		Assert.isTrue(actor.getUserAccount().equals(userAccount));
-
-		return this.actorRepository.save(actor);
-	}
-
-	// Other business methods --------------
-
-	public void registerAsARanger() {
-		UserAccount userAccount;
-
-		userAccount = LoginService.getPrincipal();
-		Assert.isNull(userAccount);
-
-		Ranger ranger;
-
-		ranger = this.rangerService.create();
-
-		this.rangerService.save(ranger);
-	}
-
-	public void registerAsAnExplorer() {
-		UserAccount userAccount;
-
-		userAccount = LoginService.getPrincipal();
-		Assert.isNull(userAccount);
-
-		Explorer explorer;
-
-		explorer = this.explorerService.create();
-
-		this.explorerService.save(explorer);
-	}
-
-	public Actor findByUserAccount(final UserAccount userAccount) {
+	public Actor findOne(final int actorId) {
+		// REVISAR !!!
+		// Debe tener algún assert?
 		Actor actor;
 
-		actor = this.actorRepository.findByUserAccountId(userAccount.getId());
+		actor = this.actorRepository.findOne(actorId);
 
 		return actor;
 	}
 
-	public void ban(final Actor actor) {
-		UserAccount userAccount;
+	// REVISAR !!!
+	// Tiene sentido hacer un método save de Actor?
+	// Tiene sentido hacer un método delete de Actor?
 
-		userAccount = LoginService.getPrincipal();
-		Assert.isTrue(!this.actorRepository.findByUserAccountId(userAccount.getId()).equals(userAccount.getId()));
+	// Other business methods --------------
 
-		Assert.notNull(actor);
-		Assert.isTrue(actor.getIsSuspicious());
+	public Actor findByUserAccount(final UserAccount userAccount) {
+		Assert.notNull(userAccount);
 
-		actor.setIsBanned(true);
+		final Actor actor = this.actorRepository.findByUserAccountId(userAccount.getId());
+
+		return actor;
 	}
 
-	public void unban(final Actor actor) {
-		UserAccount userAccount;
-
-		userAccount = LoginService.getPrincipal();
-		Assert.isTrue(!this.actorRepository.findByUserAccountId(userAccount.getId()).equals(userAccount.getId()));
-
-		Assert.notNull(actor);
-
-		actor.setIsBanned(false);
-	}
+	//
+	//	public void ban(final Actor actor) {
+	//		UserAccount userAccount;
+	//
+	//		userAccount = LoginService.getPrincipal();
+	//		Assert.isTrue(!this.actorRepository.findByUserAccountId(userAccount.getId()).equals(userAccount.getId()));
+	//
+	//		Assert.notNull(actor);
+	//		Assert.isTrue(actor.getIsSuspicious());
+	//
+	//		actor.setIsBanned(true);
+	//	}
+	//
+	//	public void unban(final Actor actor) {
+	//		UserAccount userAccount;
+	//
+	//		userAccount = LoginService.getPrincipal();
+	//		Assert.isTrue(!this.actorRepository.findByUserAccountId(userAccount.getId()).equals(userAccount.getId()));
+	//
+	//		Assert.notNull(actor);
+	//
+	//		actor.setIsBanned(false);
+	//	}
 
 }
