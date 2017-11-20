@@ -21,7 +21,7 @@ import domain.Ranger;
 public class ActorService {
 
 	// Managed repository ------------------
-
+	//Hola
 	@Autowired
 	private ActorRepository	actorRepository;
 
