@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import javax.transaction.Transactional;
@@ -14,7 +15,10 @@ import repositories.CurriculumRepository;
 import security.LoginService;
 import security.UserAccount;
 import domain.Curriculum;
-import domain.PersonalRecord;
+import domain.EducationRecord;
+import domain.EndorserRecord;
+import domain.MiscellaneousRecord;
+import domain.ProfessionalRecord;
 import domain.Ranger;
 import domain.Trip;
 
@@ -33,21 +37,17 @@ public class CurriculumService {
 
 	//CRUD operations
 
-	public Curriculum create(final PersonalRecord personalRecord) {
-		String ticker = "";
-
-		Assert.notNull(personalRecord);
+	public Curriculum create() {
 
 		final UserAccount userAccount = LoginService.getPrincipal();
-
 		final Ranger ranger = this.rangerService.findByUserAccount(userAccount);
 
-		Assert.isTrue(personalRecord.getCurriculum().getRanger().equals(ranger));
+		Assert.notNull(ranger);
 
 		final Curriculum res = new Curriculum();
 
-		res.setRanger(ranger);
-		res.setPersonalRecord(personalRecord);
+		//Generation of a ticker
+		String ticker = "";
 
 		final LocalDate date = new LocalDate();
 		final Integer year = new Integer(date.getYear());
@@ -69,29 +69,31 @@ public class CurriculumService {
 
 		ticker = yy.substring(2).toUpperCase() + mm.toUpperCase() + dd.toUpperCase() + "-" + wwww.toUpperCase();
 
+		//End of ticker generation
+
 		res.setTicker(ticker);
-		personalRecord.setCurriculum(res);
+		res.setRanger(ranger);
+		res.setEducationRecords(new ArrayList<EducationRecord>());
+		res.setProfessionalRecords(new ArrayList<ProfessionalRecord>());
+		res.setEndorserRecords(new ArrayList<EndorserRecord>());
+		res.setMiscellaneousRecords(new ArrayList<MiscellaneousRecord>());
+		ranger.setCurriculum(res);
 
 		return res;
 	}
 
 	public Curriculum findOne(final int curriculumId) {
 
-		final UserAccount userAccount = LoginService.getPrincipal();
-
-		final Ranger ranger = this.rangerService.findByUserAccount(userAccount);
-
 		final Curriculum res = this.curriculumRepository.findOne(curriculumId);
-
-		Assert.isTrue(res.getRanger().equals(ranger));
 
 		return res;
 	}
 
+	//findAll makes no sense here
+
 	public Curriculum save(final Curriculum curriculum) {
 
 		final UserAccount userAccount = LoginService.getPrincipal();
-
 		Assert.isTrue(userAccount.equals(curriculum.getRanger().getUserAccount()));
 
 		return this.curriculumRepository.save(curriculum);
@@ -100,7 +102,6 @@ public class CurriculumService {
 	public void delete(final Curriculum curriculum) {
 
 		final UserAccount userAccount = LoginService.getPrincipal();
-
 		Assert.isTrue(userAccount.equals(curriculum.getRanger().getUserAccount()));
 
 		this.curriculumRepository.delete(curriculum);
@@ -120,7 +121,6 @@ public class CurriculumService {
 	public Curriculum findByActualRanger() {
 
 		final UserAccount userAccount = LoginService.getPrincipal();
-
 		final Ranger ranger = this.rangerService.findByUserAccount(userAccount);
 
 		return this.curriculumRepository.findByRangerId(ranger.getId());
