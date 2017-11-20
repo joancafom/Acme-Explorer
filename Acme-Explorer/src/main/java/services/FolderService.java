@@ -128,6 +128,7 @@ public class FolderService {
 			final Folder f = this.create(actor);
 			f.setIsSystem(true);
 			f.setName(s);
+			f.setActor(actor);
 			res.add(f);
 		}
 		return res;
