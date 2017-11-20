@@ -22,7 +22,7 @@ public class ActorService {
 
 	// Managed repository ------------------
 	//Bonjour
-	//Hola
+	//Loquequiera
 	//Adiós
 	@Autowired
 	private ActorRepository	actorRepository;
