@@ -22,7 +22,11 @@ public class ActorService {
 
 	// Managed repository ------------------
 	//Bonjour
+<<<<<<< HEAD
 	//Loquequiera
+=======
+	//Alicia
+>>>>>>> 3dccb9b6e7d4f83f2aff5a396428f2dd732d60e2
 	//Adiós
 	@Autowired
 	private ActorRepository	actorRepository;
