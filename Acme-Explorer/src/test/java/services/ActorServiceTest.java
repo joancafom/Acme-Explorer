@@ -47,6 +47,11 @@ public class ActorServiceTest extends AbstractTest {
 
 		actor = this.actorService.create(userAccount, clase);
 
+		Assert.isNull(actor.getName());
+		Assert.isNull(actor.getSurname());
+		Assert.isNull(actor.getEmail());
+		Assert.isNull(actor.getPhoneNumber());
+		Assert.isNull(actor.getAddress());
 		Assert.isTrue(!actor.getIsSuspicious());
 		Assert.isTrue(!actor.getIsBanned());
 

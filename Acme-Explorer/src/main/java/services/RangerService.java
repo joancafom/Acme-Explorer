@@ -3,7 +3,6 @@ package services;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 import javax.transaction.Transactional;
 
@@ -12,12 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.RangerRepository;
-import security.Authority;
 import security.UserAccount;
-import domain.Folder;
-import domain.Message;
 import domain.Ranger;
-import domain.SocialID;
 import domain.Trip;
 
 @Service
@@ -32,7 +27,7 @@ public class RangerService {
 	// Supporting services -----------------
 
 	@Autowired
-	private FolderService		folderService;
+	private ActorService		actorService;
 
 
 	// Constructors ------------------------
@@ -43,38 +38,37 @@ public class RangerService {
 
 	// Simple CRUD methods -----------------
 
-	public Ranger create() {
-		Ranger ranger;
-		final UserAccount userAccountRanger;
-		final List<SocialID> socialIDs = new ArrayList<SocialID>();
-		final List<Trip> trips = new ArrayList<Trip>();
-		final List<Message> sentMessages = new ArrayList<Message>();
-		final List<Message> receivedMessages = new ArrayList<Message>();
-		final List<Authority> authorities = new ArrayList<Authority>();
-		Authority authority;
+	public Ranger create(final UserAccount userAccount) {
+		Assert.notNull(userAccount);
 
-		ranger = new Ranger();
+		// REVISAR !!!
+		// Pasar la UserAccount por parámetros?
 
-		ranger.setIsSuspicious(false);
-		ranger.setIsBanned(false);
-		ranger.setSocialIDs(socialIDs);
+		final Ranger ranger = (Ranger) this.actorService.create(userAccount, Ranger.class);
 
-		final Collection<Folder> systemFolders = this.folderService.createSystemFolders(ranger);
-		ranger.setFolders(systemFolders);
+		final Collection<Trip> trips = new ArrayList<Trip>();
 
-		ranger.setSentMessages(sentMessages);
-		ranger.setReceivedMessages(receivedMessages);
 		ranger.setTrips(trips);
 
-		userAccountRanger = new UserAccount();
+		return ranger;
+	}
 
-		authority = new Authority();
-		authority.setAuthority(Authority.RANGER);
-		authorities.add(authority);
+	public Collection<Ranger> findAll() {
+		Collection<Ranger> rangers;
 
-		userAccountRanger.setAuthorities(authorities);
+		Assert.notNull(this.rangerRepository);
+		rangers = this.rangerRepository.findAll();
+		Assert.notNull(rangers);
 
-		ranger.setUserAccount(userAccountRanger);
+		return rangers;
+	}
+
+	public Ranger findOne(final int rangerId) {
+		// REVISAR !!!
+		// Debe tener algún assert?
+		Ranger ranger;
+
+		ranger = this.rangerRepository.findOne(rangerId);
 
 		return ranger;
 	}
@@ -85,21 +79,26 @@ public class RangerService {
 		return this.rangerRepository.save(ranger);
 	}
 
+	// REVISAR !!!
+	// Es necesario hacer el delete?
+
 	// Other business methods --------------
 
-	public Collection<Ranger> findAllSuspicious() {
-		Collection<Ranger> rangers;
-
-		rangers = this.rangerRepository.findAllSuspicious();
-
-		Assert.notNull(rangers);
-
-		return rangers;
-	}
+	//	public Collection<Ranger> findAllSuspicious() {
+	//		Collection<Ranger> rangers;
+	//
+	//		rangers = this.rangerRepository.findAllSuspicious();
+	//
+	//		Assert.notNull(rangers);
+	//
+	//		return rangers;
+	//	}
 
 	public Ranger findByUserAccount(final UserAccount userAccount) {
 		Assert.notNull(userAccount);
+
 		final Ranger ranger = this.rangerRepository.findByUserAccountId(userAccount.getId());
+
 		return ranger;
 	}
 }

@@ -45,6 +45,7 @@ public class ActorService {
 		Assert.notNull(clase);
 
 		// REVISAR !!!
+		// Pasar la UserAccount por parámetros?
 		// Assert.isTrue(userAccount.getAuthorities().contains(clase.toString()));
 
 		Actor actor = null;

@@ -50,9 +50,6 @@ public class NoteServiceTest extends AbstractTest {
 	@Autowired
 	private CategoryService		categoryService;
 
-	@Autowired
-	private RangerService		rangerService;
-
 	//Working Variables
 	Trip						trip1;
 	Stage						stageBronx;
@@ -85,7 +82,7 @@ public class NoteServiceTest extends AbstractTest {
 		this.categoryNYC = this.categoryService.create();
 		this.categoryNYC.setName("New York City");
 
-		this.rangerNYC = this.rangerService.create();
+		//this.rangerNYC = this.rangerService.create();
 		this.rangerNYC.setAddress("C/ Zarzamora 13, 41900 Sevilla");
 		this.rangerNYC.setEmail("imenorque3nyc@gmail.com");
 		this.rangerNYC.setName("Icaro");

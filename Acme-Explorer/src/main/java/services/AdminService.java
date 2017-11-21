@@ -32,9 +32,6 @@ public class AdminService {
 	private ManagerService	managerService;
 
 	@Autowired
-	private RangerService	rangerService;
-
-	@Autowired
 	private MessageService	messageService;
 
 	@Autowired
@@ -53,11 +50,13 @@ public class AdminService {
 	}
 	public Ranger createRanger() {
 
-		final Ranger res = this.rangerService.create();
+		//final Ranger res = this.rangerService.create();
 
-		this.rangerService.save(res);
+		//this.rangerService.save(res);
 
-		return res;
+		//return res;
+
+		return null;
 	}
 
 	public void broadcastNotification(final Message message) {
