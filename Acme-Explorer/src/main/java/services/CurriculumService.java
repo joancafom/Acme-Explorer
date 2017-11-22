@@ -20,7 +20,6 @@ import domain.EndorserRecord;
 import domain.MiscellaneousRecord;
 import domain.ProfessionalRecord;
 import domain.Ranger;
-import domain.Trip;
 
 @Service
 @Transactional
@@ -93,13 +92,18 @@ public class CurriculumService {
 
 	public Curriculum save(final Curriculum curriculum) {
 
+		Assert.notNull(curriculum);
+
 		final UserAccount userAccount = LoginService.getPrincipal();
+		Assert.notNull(userAccount);
 		Assert.isTrue(userAccount.equals(curriculum.getRanger().getUserAccount()));
 
 		return this.curriculumRepository.save(curriculum);
 	}
 
 	public void delete(final Curriculum curriculum) {
+
+		Assert.notNull(curriculum);
 
 		final UserAccount userAccount = LoginService.getPrincipal();
 		Assert.isTrue(userAccount.equals(curriculum.getRanger().getUserAccount()));
@@ -109,15 +113,7 @@ public class CurriculumService {
 
 	//Business operations
 
-	public Curriculum findByTrip(final Trip t) {
-		Assert.notNull(t);
-
-		//final UserAccount userAccount = LoginService.getPrincipal();
-		//Assert.isNull(userAccount);
-
-		return this.curriculumRepository.findByTripId(t.getId());
-	}
-
+	//A ranger can manage HIS own curriculum
 	public Curriculum findByActualRanger() {
 
 		final UserAccount userAccount = LoginService.getPrincipal();
@@ -126,10 +122,10 @@ public class CurriculumService {
 		return this.curriculumRepository.findByRangerId(ranger.getId());
 	}
 
+	//An unauthenticated user can display the curriculum of the ranger associated to a Trip
 	public Curriculum findByRanger(final Ranger ranger) {
 
-		//final UserAccount userAccount = LoginService.getPrincipal();
-		//Assert.isNull(userAccount);
+		Assert.notNull(ranger);
 
 		return this.curriculumRepository.findByRangerId(ranger.getId());
 	}

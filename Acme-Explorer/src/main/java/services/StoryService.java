@@ -2,6 +2,7 @@
 package services;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 
 import javax.transaction.Transactional;
@@ -23,7 +24,6 @@ import domain.TripApplication;
 public class StoryService {
 
 	//Managed Repository
-	@SuppressWarnings("unused")
 	@Autowired
 	private StoryRepository			storyRepository;
 
@@ -37,11 +37,44 @@ public class StoryService {
 
 	//Simple CRUD operations
 
-	public Story create(final Trip trip) {
+	public Story create() {
 
 		final UserAccount userAccount = LoginService.getPrincipal();
-
 		final Explorer explorer = this.explorerService.findByUserAccount(userAccount);
+		Assert.notNull(explorer);
+
+		final Story res = new Story();
+
+		res.setAttachments(new ArrayList<String>());
+		res.setExplorer(explorer);
+
+		explorer.getStories().add(res);
+
+		return res;
+	}
+
+	public Story findOne(final int storyId) {
+
+		return this.storyRepository.findOne(storyId);
+	}
+
+	public Collection<Story> findAll() {
+
+		return this.storyRepository.findAll();
+	}
+
+	public Story save(final Story story) {
+
+		Assert.notNull(story);
+		Assert.notNull(story.getTrip());
+
+		final UserAccount userAccount = LoginService.getPrincipal();
+		Assert.notNull(userAccount);
+		Assert.isTrue(userAccount.equals(story.getExplorer().getUserAccount()));
+
+		//We check that the Explorer has an accepted TripApplication for that Trip
+
+		final Trip trip = story.getTrip();
 
 		boolean tripMatched = false;
 
@@ -52,18 +85,9 @@ public class StoryService {
 			}
 
 		Assert.isTrue(tripMatched);
-
-		final Story res = new Story();
-
-		res.setAttachments(new ArrayList<String>());
-		res.setExplorer(explorer);
-		res.setTrip(trip);
 		Assert.isTrue(trip.getEndingDate().after(new Date()));
 
-		trip.getStories().add(res);
-		explorer.getStories().add(res);
+		return this.storyRepository.save(story);
 
-		return res;
 	}
-
 }

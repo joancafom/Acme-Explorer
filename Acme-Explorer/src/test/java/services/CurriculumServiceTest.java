@@ -113,7 +113,6 @@ public class CurriculumServiceTest extends AbstractTest {
 		final Ranger ranger = this.rangerService.findByUserAccount(userAccount);
 
 		final Curriculum curriculum = ranger.getCurriculum();
-		System.out.println(ranger.getCurriculum());
 
 		this.curriculumService.delete(curriculum);
 
@@ -124,37 +123,38 @@ public class CurriculumServiceTest extends AbstractTest {
 		this.unauthenticate();
 	}
 
-	//TODO:  21/11/2017, done till here
-
-	//	@Test
-	//	public void testFindByTrip() {
-	//
-	//		final List<Trip> trips = new ArrayList<Trip>(this.tripRepository.findAll());
-	//
-	//		final Trip rTrip = trips.get(2);
-	//		Assert.isTrue(rTrip.getRanger().getCurriculum().equals(this.curriculumService.findByTrip(rTrip)));
-	//		this.unauthenticate();
-	//
-	//	}
-
 	@Test
 	public void testFindByActualRanger() {
-		super.authenticate("ranger1");
+
+		this.authenticate("ranger1");
 		final UserAccount userAccount = LoginService.getPrincipal();
 		final Ranger ranger = this.rangerService.findByUserAccount(userAccount);
 
-		Assert.isTrue(ranger.getCurriculum().equals(this.curriculumService.findByActualRanger()));
+		final Curriculum actualCurriculum = ranger.getCurriculum();
+		final Curriculum foundCurriculum = this.curriculumService.findByActualRanger();
+
+		Assert.notNull(foundCurriculum);
+		Assert.isTrue(actualCurriculum.equals(foundCurriculum));
+
 		this.unauthenticate();
+
 	}
 
 	@Test
 	public void testFindByRanger() {
-		super.authenticate("ranger1");
+
+		this.authenticate("ranger1");
 		final UserAccount userAccount = LoginService.getPrincipal();
 		final Ranger ranger = this.rangerService.findByUserAccount(userAccount);
-		super.authenticate(null);
-		Assert.isTrue(ranger.getCurriculum().equals(this.curriculumService.findByRanger(ranger)));
+
+		final Curriculum actualCurriculum = ranger.getCurriculum();
+
 		this.unauthenticate();
+
+		final Curriculum foundCurriculum = this.curriculumService.findByRanger(ranger);
+
+		Assert.notNull(foundCurriculum);
+		Assert.isTrue(actualCurriculum.equals(foundCurriculum));
 	}
 
 }
