@@ -34,7 +34,7 @@ public interface TripRepository extends JpaRepository<Trip, Integer> {
 	// REVISAR
 
 	@Query("select t from Trip t where t.price > ?1 and t.price < ?2 and t.startingDate > ?3 and t.endingDate < ?4 and (t.ticker like %?5% or t.title like %?5% or t.description like %?5%)")
-	Collection<Trip> findFilterFinder(double minPrice, double maxPrice, Date minDate, Date maxDate, String keyWord);
+	Collection<Trip> findByFinderAttributes(double minPrice, double maxPrice, Date minDate, Date maxDate, String keyWord);
 
 	@Query("select t.trip from TripApplication t where t.explorer.id = ?1 and t.status = 'ACCEPTED'")
 	Collection<Trip> findExplorerAcceptedTrips(int explorerId);

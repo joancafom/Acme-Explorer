@@ -16,10 +16,8 @@ import org.springframework.util.Assert;
 
 import repositories.TripRepository;
 import security.LoginService;
-import security.UserAccount;
 import domain.Audition;
 import domain.Category;
-import domain.Curriculum;
 import domain.Explorer;
 import domain.Finder;
 import domain.LegalText;
@@ -41,15 +39,12 @@ public class TripService {
 	// Managed repository ------------------
 
 	@Autowired
-	private TripRepository		tripRepository;
+	private TripRepository	tripRepository;
 
 	// Supporting services -----------------
 
 	@Autowired
-	private CurriculumService	curriculumService;
-
-	@Autowired
-	private ExplorerService		explorerService;
+	private ExplorerService	explorerService;
 
 
 	// Constructors ------------------------
@@ -218,8 +213,8 @@ public class TripService {
 		this.tripRepository.save(trip);
 	}
 
-	// ANTIGUO
 	public Collection<Trip> findAllManagedBy(final Manager manager) {
+		Assert.notNull(manager);
 
 		Collection<Trip> trips;
 
@@ -228,54 +223,26 @@ public class TripService {
 		Assert.notNull(trips);
 
 		return trips;
-
 	}
 
-	// ANTIGUO
-	public Curriculum findRangerCurriculum(final Trip trip) {
-		Curriculum curriculum;
+	public Collection<Trip> findByFinder(final Finder finder) {
+		Assert.notNull(finder);
 
-		Assert.notNull(trip);
-		Assert.notNull(trip.getRanger());
-
-		curriculum = this.curriculumService.findByRanger(trip.getRanger());
-
-		Assert.notNull(curriculum);
-
-		return curriculum;
-	}
-
-	// ANTIGUO
-	public Collection<Audition> findAuditions(final Trip trip) {
-		Collection<Audition> auditions;
-
-		Assert.notNull(trip);
-		Assert.notNull(trip.getAuditions());
-
-		auditions = trip.getAuditions();
-
-		Assert.notNull(auditions);
-
-		return auditions;
-	}
-
-	// ANTIGUO
-	public Collection<Trip> searchTripsFinder(final Finder finder) {
-		UserAccount userAccount;
 		Explorer explorer;
 		Collection<Trip> trips;
 
-		userAccount = LoginService.getPrincipal();
-		explorer = this.explorerService.findByUserAccount(userAccount);
+		explorer = this.explorerService.findByUserAccount(LoginService.getPrincipal());
 
 		Assert.isTrue(finder.getId() == explorer.getFinder().getId());
 
-		trips = this.tripRepository.findFilterFinder(finder.getMinRange(), finder.getMaxRange(), finder.getMinDate(), finder.getMaxDate(), finder.getKeyword());
+		if (finder.getMinRange() == null && finder.getMaxRange() == null && finder.getMinDate() == null && finder.getMaxDate() == null)
+			trips = this.tripRepository.findPublishedButNotStarted();
+		else
+			trips = this.tripRepository.findByFinderAttributes(finder.getMinRange(), finder.getMaxRange(), finder.getMinDate(), finder.getMaxDate(), finder.getKeyword());
 
 		Assert.notNull(trips);
 
 		return trips;
-
 	}
 
 }

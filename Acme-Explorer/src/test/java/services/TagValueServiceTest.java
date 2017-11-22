@@ -2,11 +2,10 @@
 package services;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
 
 import javax.transaction.Transactional;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,64 +25,97 @@ import domain.Trip;
 @Transactional
 public class TagValueServiceTest extends AbstractTest {
 
-	//Service under test
+	// Service under test ------------------
+
 	@Autowired
 	private TagValueService	tagValueService;
 
-	//Other required Services
-	@Autowired
-	private TripService		tripService;
 
-	@Autowired
-	private TagService		tagService;
+	// Supporting services -----------------
 
-	//Working Variables
-	private Trip			trip1;
-	private Tag				tag1;
-
-
-	@Before
-	public void setUpWorkingVariables() {
-
-		this.authenticate("admin1");
-
-		final List<Trip> allTrips = new ArrayList<Trip>(this.tripService.findAll());
-		this.trip1 = allTrips.get(0);
-
-		final Tag tagPre = this.tagService.create();
-		tagPre.setName("Fnac");
-		this.tag1 = this.tagService.save(tagPre);
-
-		this.unauthenticate();
-	}
+	// Tests -------------------------------
 
 	@Test
 	public void testCreate() {
+		TagValue tagValue;
 
 		this.authenticate("admin1");
 
-		final TagValue testTagValue = this.tagValueService.create(this.trip1, this.tag1);
+		final Trip trip = new Trip();
+		final Collection<TagValue> tagValues = new ArrayList<TagValue>();
+		trip.setTagValues(tagValues);
+		final Tag tag = new Tag();
+		tag.setTagValues(tagValues);
 
-		Assert.notNull(testTagValue);
-		Assert.isNull(testTagValue.getValue());
-		Assert.notNull(testTagValue.getTag());
-		Assert.isTrue(testTagValue.getTag().equals(this.tag1));
-		Assert.notNull(testTagValue.getTrip());
-		Assert.isTrue(testTagValue.getTrip().equals(this.trip1));
+		tagValue = this.tagValueService.create(trip, tag);
+
+		Assert.isNull(tagValue.getValue());
+		Assert.notNull(tagValue.getTrip());
+		Assert.isTrue(tagValue.getTrip().equals(trip));
+		Assert.notNull(tagValue.getTag());
+		Assert.isTrue(tagValue.getTag().equals(tag));
 
 		this.unauthenticate();
 	}
 
 	@Test
-	public void testDelete() {
+	public void testFindAll() {
+		// REVISAR !!!
+		// Cómo se comprueba que el findAll() funciona correctamente?
+
+		final Integer currentNumberOfTagValuesInTheXML = 2;
 
 		this.authenticate("admin1");
 
-		final List<TagValue> tagValuesOfTrip = new ArrayList<TagValue>(this.trip1.getTagValues());
+		final Collection<TagValue> tagValues = this.tagValueService.findAll();
 
-		final TagValue tagValueToRemove = tagValuesOfTrip.get(0);
+		Assert.notNull(tagValues);
+		Assert.isTrue(tagValues.size() == currentNumberOfTagValuesInTheXML);
 
-		this.tagValueService.delete(tagValueToRemove);
+		this.unauthenticate();
+	}
+
+	@Test
+	public void testFindOne() {
+		TagValue tagValue1 = null;
+		TagValue tagValue2 = null;
+
+		this.authenticate("admin1");
+
+		final Collection<TagValue> tagValues = this.tagValueService.findAll();
+
+		for (final TagValue tv : tagValues)
+			if (tv != null) {
+				tagValue1 = tv;
+				break;
+			}
+
+		tagValue2 = this.tagValueService.findOne(tagValue1.getId());
+
+		Assert.isTrue(tagValue1.equals(tagValue2));
+
+		this.unauthenticate();
+	}
+
+	// REVISAR !!!
+	// No se puede editar un tagValue (método save)
+
+	@Test
+	public void testDelete() {
+		TagValue tagValue = null;
+
+		this.authenticate("admin1");
+
+		final Collection<TagValue> tagValues = this.tagValueService.findAll();
+
+		for (final TagValue tv : tagValues)
+			if (tv != null) {
+				tagValue = tv;
+				break;
+			}
+
+		this.tagValueService.delete(tagValue);
+		Assert.isNull(this.tagValueService.findOne(tagValue.getId()));
 
 		this.unauthenticate();
 	}
