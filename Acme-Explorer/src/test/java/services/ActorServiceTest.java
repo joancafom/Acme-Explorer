@@ -30,8 +30,6 @@ public class ActorServiceTest extends AbstractTest {
 	private ActorService	actorService;
 
 
-	// Supporting repositories -------------
-
 	// Supporting services -----------------
 
 	// Tests -------------------------------

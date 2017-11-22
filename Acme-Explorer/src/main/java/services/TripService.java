@@ -4,7 +4,6 @@ package services;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 
@@ -47,9 +46,6 @@ public class TripService {
 	// Supporting services -----------------
 
 	@Autowired
-	private ManagerService		managerService;
-
-	@Autowired
 	private CurriculumService	curriculumService;
 
 	@Autowired
@@ -64,7 +60,11 @@ public class TripService {
 
 	// Simple CRUD methods -----------------
 
-	public Trip create(final Collection<Stage> stages, final LegalText legalText, final Category category, final Ranger ranger) {
+	public Trip create(final Collection<Stage> stages, final LegalText legalText, final Category category, final Ranger ranger, final Manager manager) {
+
+		// REVISAR !!!
+		// Un manager puede crear trips que no son suyos?
+
 		String ticker = "";
 		double price = 0.0;
 		final List<Sponsorship> sponsorships = new ArrayList<Sponsorship>();
@@ -74,11 +74,7 @@ public class TripService {
 		final List<TripApplication> tripApplications = new ArrayList<TripApplication>();
 		final List<TagValue> tagValues = new ArrayList<TagValue>();
 		final List<SurvivalClass> survivalClasses = new ArrayList<SurvivalClass>();
-		UserAccount userAccount;
 		Trip trip;
-
-		userAccount = LoginService.getPrincipal();
-		final Manager manager = this.managerService.findByUserAccount(userAccount);
 
 		trip = new Trip();
 
@@ -140,6 +136,7 @@ public class TripService {
 
 		return trip;
 	}
+
 	public Collection<Trip> findAll() {
 		Collection<Trip> trips;
 
@@ -151,41 +148,28 @@ public class TripService {
 	}
 
 	public Trip findOne(final int tripId) {
+		// REVISAR !!!
+		// Debe tener algún assert?
 		Trip trip;
+
 		trip = this.tripRepository.findOne(tripId);
 
 		return trip;
 	}
 
 	public Trip save(final Trip trip) {
-		UserAccount userAccount;
-		Date currentDate;
-
-		userAccount = LoginService.getPrincipal();
-
 		Assert.notNull(trip);
-		Assert.isTrue(userAccount.equals(trip.getManager().getUserAccount()));
 
-		currentDate = new Date();
-
+		final Date currentDate = new Date();
 		Assert.isTrue(trip.getPublicationDate().after(currentDate));
-		Assert.isTrue(trip.getStartingDate().after(currentDate));
-		Assert.isTrue(trip.getEndingDate().after(currentDate));
 
 		return this.tripRepository.save(trip);
 	}
 
 	public void delete(final Trip trip) {
-		UserAccount userAccount;
-		Date currentDate;
-
-		userAccount = LoginService.getPrincipal();
-
 		Assert.notNull(trip);
-		Assert.isTrue(userAccount.equals(trip.getManager().getUserAccount()));
 
-		currentDate = new Date();
-
+		final Date currentDate = new Date();
 		Assert.isTrue(trip.getPublicationDate().after(currentDate));
 		Assert.isTrue(this.tripRepository.exists(trip.getId()));
 
@@ -194,24 +178,47 @@ public class TripService {
 
 	// Other business methods --------------
 
-	public Collection<Trip> browseAllTrips() {
+	public Collection<Trip> findByKeyWord(final String keyWord) {
+		Assert.notNull(keyWord);
 
 		Collection<Trip> trips;
 
-		trips = this.tripRepository.findAll();
+		Assert.notNull(this.tripRepository);
+		trips = this.tripRepository.findByKeyWord(keyWord);
+		Assert.notNull(trips);
 
 		return trips;
 	}
 
-	public Collection<Trip> searchTripsKeyWord(final String keyWord) {
+	// REVISAR !!!
+	// Qué significa navegar el tree de categories?
+	public Collection<Trip> findByCategory(final Category category) {
+		Assert.notNull(category);
 
-		Collection<Trip> trips;
+		final Collection<Trip> trips;
 
-		trips = this.tripRepository.findKeyWord(keyWord);
+		Assert.notNull(this.tripRepository);
+		trips = this.tripRepository.findByCategoryId(category.getId());
+		Assert.notNull(trips);
 
 		return trips;
 	}
 
+	public void cancel(final Trip trip) {
+		Assert.notNull(trip);
+
+		Date currentDate;
+		currentDate = new Date();
+
+		Assert.notNull(trip.getCancelationReason());
+		Assert.isTrue(trip.getPublicationDate().before(currentDate));
+		Assert.isTrue(trip.getStartingDate().after(currentDate));
+		Assert.isTrue(trip.getEndingDate().after(currentDate));
+
+		this.tripRepository.save(trip);
+	}
+
+	// ANTIGUO
 	public Collection<Trip> findAllManagedBy(final Manager manager) {
 
 		Collection<Trip> trips;
@@ -224,20 +231,7 @@ public class TripService {
 
 	}
 
-	public void cancel(final Trip trip) {
-		Date currentDate;
-		Assert.notNull(trip);
-
-		currentDate = new Date();
-
-		Assert.notNull(trip.getCancelationReason());
-		Assert.isTrue(trip.getPublicationDate().before(currentDate));
-		Assert.isTrue(trip.getStartingDate().after(currentDate));
-		Assert.isTrue(trip.getEndingDate().after(currentDate));
-
-		this.tripRepository.save(trip);
-	}
-
+	// ANTIGUO
 	public Curriculum findRangerCurriculum(final Trip trip) {
 		Curriculum curriculum;
 
@@ -251,6 +245,7 @@ public class TripService {
 		return curriculum;
 	}
 
+	// ANTIGUO
 	public Collection<Audition> findAuditions(final Trip trip) {
 		Collection<Audition> auditions;
 
@@ -264,6 +259,7 @@ public class TripService {
 		return auditions;
 	}
 
+	// ANTIGUO
 	public Collection<Trip> searchTripsFinder(final Finder finder) {
 		UserAccount userAccount;
 		Explorer explorer;
@@ -282,14 +278,4 @@ public class TripService {
 
 	}
 
-	public Collection<Trip> browseTripsByCategory(final Category category) {
-		final Collection<Trip> trips = new HashSet<Trip>();
-
-		Assert.notNull(category);
-
-		trips.addAll(this.tripRepository.findByCategory(category.getId()));
-
-		return trips;
-
-	}
 }

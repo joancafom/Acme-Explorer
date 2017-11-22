@@ -14,10 +14,10 @@ import domain.Trip;
 public interface TripRepository extends JpaRepository<Trip, Integer> {
 
 	@Query("select t from Trip t where t.ticker like %?1% or t.title like %?1% or t.description like %?1%")
-	Collection<Trip> findKeyWord(String keyWord);
+	Collection<Trip> findByKeyWord(String keyWord);
 
 	@Query("select t from Trip t where t.category.id = ?1")
-	Collection<Trip> findByCategory(int categoryId);
+	Collection<Trip> findByCategoryId(int categoryId);
 
 	@Query("select t from Trip t where t.publicationDate > CURRENT_DATE")
 	Collection<Trip> findAllNotPublished();

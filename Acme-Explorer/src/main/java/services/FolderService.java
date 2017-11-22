@@ -15,7 +15,6 @@ import repositories.FolderRepository;
 import security.LoginService;
 import security.UserAccount;
 import domain.Actor;
-import domain.Admin;
 import domain.Folder;
 import domain.Message;
 
@@ -33,9 +32,6 @@ public class FolderService {
 	@Autowired
 	private ActorService		actorService;
 
-	@Autowired
-	private AdminService		adminService;
-
 
 	// Constructors ------------------------
 
@@ -46,64 +42,61 @@ public class FolderService {
 	// Simple CRUD methods -----------------
 
 	public Folder create(final Actor actor) {
+		Assert.notNull(actor);
+
 		Folder folder;
-		UserAccount userAccount;
+		final UserAccount userAccount = LoginService.getPrincipal();
+
 		final List<Message> messages = new ArrayList<Message>();
 		final List<Folder> childFolders = new ArrayList<Folder>();
 
-		userAccount = LoginService.getPrincipal();
-		final Admin admin = this.adminService.findByUserAccount(userAccount);
-		Assert.isTrue(admin != null || userAccount.equals(actor.getUserAccount()));
+		// REVISAR !!!
+		// El método para crear las systemFolders cuando se crea un actor puede ser invocado por alguien no autentificado (registro)
+		// Cómo comprobar que no hay nadie autentificado si el método .getPrincipal() tiene un Assert.notNull()
+		Assert.isTrue(userAccount == null || userAccount.equals(actor.getUserAccount()));
 
 		folder = new Folder();
 		folder.setIsSystem(false);
-		folder.setActor(actor);
 		folder.setMessages(messages);
 		folder.setChildFolders(childFolders);
-
-		if (actor.getFolders() != null)
-			actor.getFolders().add(folder);
+		folder.setActor(actor);
+		actor.getFolders().add(folder);
 
 		return folder;
 	}
 
 	public Collection<Folder> findAll() {
-		final UserAccount userAccount;
 		final Collection<Folder> folders;
 
-		userAccount = LoginService.getPrincipal();
-		Assert.notNull(userAccount);
-
-		folders = this.folderRepository.findAllFoldersOfActor(this.actorService.findByUserAccount(userAccount).getId());
+		Assert.notNull(this.folderRepository);
+		folders = this.folderRepository.findAll();
+		Assert.notNull(folders);
 
 		return folders;
 	}
 
 	public Folder findOne(final int folderId) {
-		UserAccount userAccount;
+		// REVISAR !!!
+		// Debe tener algún assert?
 		Folder folder;
 
-		userAccount = LoginService.getPrincipal();
-		Assert.notNull(userAccount);
-
 		folder = this.folderRepository.findOne(folderId);
-		Assert.notNull(folder);
-		Assert.isTrue(userAccount.equals(folder.getActor().getUserAccount()));
 
 		return folder;
 	}
 
 	public Folder save(final Folder folder) {
-		UserAccount userAccount;
-		userAccount = LoginService.getPrincipal();
-
 		Assert.notNull(folder);
-		Assert.isTrue(userAccount.equals(folder.getActor().getUserAccount()));
 		Assert.isTrue(!folder.getIsSystem());
+		Assert.isTrue(folder.getActor().getUserAccount().equals(LoginService.getPrincipal()));
 
 		return this.folderRepository.save(folder);
 	}
 
+	// REVISAR !!!
+	// Es necesario hacer el delete?
+
+	// ANTIGUO
 	public void delete(final Folder folder) {
 		UserAccount userAccount;
 		userAccount = LoginService.getPrincipal();
@@ -134,23 +127,40 @@ public class FolderService {
 		return res;
 	}
 
-	public Collection<Folder> findAllGivenActor(final Actor actor) {
-		Collection<Folder> folders;
+	public Collection<Folder> findAllByPrincipal() {
+		final Collection<Folder> folders;
 
-		folders = this.folderRepository.findAllFoldersOfActor(actor.getId());
+		final UserAccount userAccount = LoginService.getPrincipal();
+		final Actor actor = this.actorService.findByUserAccount(userAccount);
+
+		Assert.notNull(this.folderRepository);
+		folders = this.folderRepository.findAllByActorId(actor.getId());
+		Assert.notNull(folders);
 
 		return folders;
-
 	}
 
-	public Folder findOneGivenActor(final int folderID, final Actor actor) {
+	public Folder findOneByPrincipal(final int folderId) {
+		// REVISAR !!!
+		// Debe tener algún assert?
 		Folder folder;
 
-		folder = this.folderRepository.findOne(folderID);
+		folder = this.folderRepository.findOne(folderId);
+
+		Assert.isTrue(folder.getActor().getUserAccount().equals(LoginService.getPrincipal()));
 
 		return folder;
 	}
 
+	public void deleteByPrincipal(final Folder folder) {
+		Assert.notNull(folder);
+		Assert.isTrue(!folder.getIsSystem());
+		Assert.isTrue(folder.getActor().getUserAccount().equals(LoginService.getPrincipal()));
+
+		this.folderRepository.delete(folder);
+	}
+
+	// ANTIGUO
 	public Folder findByActorAndName(final Actor actor, final String name) {
 		Folder folder;
 

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.RangerRepository;
+import security.LoginService;
 import security.UserAccount;
 import domain.Ranger;
 import domain.Trip;
@@ -75,6 +76,10 @@ public class RangerService {
 
 	public Ranger save(final Ranger ranger) {
 		Assert.notNull(ranger);
+		Assert.isTrue(ranger.getUserAccount().equals(LoginService.getPrincipal()));
+
+		// REVISAR !!!
+		// Si el ranger tiene currículum, debo setear el ranger de ese curriculum como el ranger actual?
 
 		return this.rangerRepository.save(ranger);
 	}

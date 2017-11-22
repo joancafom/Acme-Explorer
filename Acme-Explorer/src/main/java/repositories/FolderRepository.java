@@ -19,7 +19,7 @@ public interface FolderRepository extends JpaRepository<Folder, Integer> {
 	Collection<Folder> findAllNotificationBoxExceptMine(int adminId);
 
 	@Query("select f from Folder f where f.actor.id = ?1")
-	Collection<Folder> findAllFoldersOfActor(int actorId);
+	Collection<Folder> findAllByActorId(int actorId);
 
 	@Query("select f from Folder f where f.actor.id = ?1 and f.name = ?2")
 	Folder findByActorIdAndName(int actorId, String name);

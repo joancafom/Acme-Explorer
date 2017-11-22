@@ -4,7 +4,6 @@ package services;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 
 import javax.transaction.Transactional;
 
@@ -15,18 +14,20 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.Assert;
 
-import repositories.RangerRepository;
-import repositories.StageRepository;
-import repositories.TripRepository;
-import security.LoginService;
-import security.UserAccount;
 import utilities.AbstractTest;
+import domain.Audition;
 import domain.Category;
 import domain.LegalText;
 import domain.Manager;
+import domain.Note;
 import domain.Ranger;
+import domain.Sponsorship;
 import domain.Stage;
+import domain.Story;
+import domain.SurvivalClass;
+import domain.TagValue;
 import domain.Trip;
+import domain.TripApplication;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
@@ -38,29 +39,12 @@ public class TripServiceTest extends AbstractTest {
 	// Service under test ------------------
 
 	@Autowired
-	private TripService			tripService;
-
-	// Supporting repositories -------------
-
-	@Autowired
-	private StageRepository		stageRepository;
-
-	@Autowired
-	private RangerRepository	rangerRepository;
-
-	@Autowired
-	private TripRepository		tripRepository;
+	private TripService		tripService;
 
 	// Supporting services -----------------
 
 	@Autowired
-	private LegalTextService	legalTextService;
-
-	@Autowired
-	private CategoryService		categoryService;
-
-	@Autowired
-	private ManagerService		managerService;
+	private CategoryService	categoryService;
 
 
 	// Tests -------------------------------
@@ -71,49 +55,26 @@ public class TripServiceTest extends AbstractTest {
 
 		this.authenticate("manager1");
 
-		final UserAccount userAccount = LoginService.getPrincipal();
-		final Manager manager = this.managerService.findByUserAccount(userAccount);
+		final Collection<Stage> stages = new ArrayList<Stage>();
+		stages.add(new Stage());
+		final Collection<Trip> trips = new ArrayList<Trip>();
+		final LegalText legalText = new LegalText();
+		legalText.setTrips(trips);
+		final Category category = new Category();
+		category.setTrips(trips);
+		final Ranger ranger = new Ranger();
+		ranger.setTrips(trips);
+		final Manager manager = new Manager();
+		final Collection<Trip> trips2 = new ArrayList<Trip>();
+		manager.setTrips(trips2);
 
-		final Collection<Stage> stagesR = this.stageRepository.findAll();
-		final Collection<LegalText> legalTexts = this.legalTextService.findAll();
-		final Collection<Category> categories = this.categoryService.findAll();
-		final Collection<Ranger> rangers = this.rangerRepository.findAll();
-
-		Stage stage = null;
-
-		final List<Stage> stages = new ArrayList<Stage>();
-		LegalText legalText = null;
-		Category category = null;
-		Ranger ranger = null;
-
-		for (final Stage s : stagesR) {
-			stage = s;
-			break;
-		}
-
-		stages.add(stage);
-
-		for (final LegalText l : legalTexts) {
-			legalText = l;
-			break;
-		}
-
-		for (final Category c : categories) {
-			category = c;
-			break;
-		}
-
-		for (final Ranger r : rangers) {
-			ranger = r;
-			break;
-		}
-
-		trip = this.tripService.create(stages, legalText, category, ranger);
+		trip = this.tripService.create(stages, legalText, category, ranger, manager);
 
 		Assert.notNull(trip.getTicker());
 		Assert.isNull(trip.getTitle());
 		Assert.isNull(trip.getDescription());
-		Assert.notNull(trip.getPrice());
+
+		Assert.notNull(trip.getStages());
 
 		double sum = 0d;
 
@@ -146,7 +107,6 @@ public class TripServiceTest extends AbstractTest {
 		Assert.isTrue(trip.getLegalText().equals(legalText));
 		Assert.isTrue(legalText.getTrips().contains(trip));
 
-		Assert.notNull(trip.getStages());
 		Assert.isTrue(trip.getStages().equals(stages));
 
 		for (final Stage s : trip.getStages())
@@ -173,84 +133,145 @@ public class TripServiceTest extends AbstractTest {
 
 	@Test
 	public void testFindAll() {
+		// REVISAR !!!
+		// Cómo se comprueba que el findAll() funciona correctamente?
+
+		final Integer currentNumberOfTripsInTheXML = 4;
+
+		this.authenticate("manager1");
+
 		final Collection<Trip> trips = this.tripService.findAll();
-		final Collection<Trip> trips2 = this.tripRepository.findAll();
 
-		Assert.isTrue(trips.containsAll(trips2) && trips.size() == trips2.size());
-	}
-
-	@Test
-	public void testSearchTripsKeyWord() {
-		final String keyword = "Brownie";
-		final Collection<Trip> trips = this.tripRepository.findAll();
-		final Collection<Trip> tripsk = new ArrayList<Trip>();
-		final Collection<Trip> trips2 = this.tripService.searchTripsKeyWord(keyword);
-
-		for (final Trip t : trips)
-			if (t.getTicker().contains(keyword) || t.getTitle().contains(keyword) || t.getDescription().contains(keyword))
-				tripsk.add(t);
-
-		Assert.isTrue(trips2.containsAll(tripsk) && trips2.size() == tripsk.size());
+		Assert.notNull(trips);
+		Assert.isTrue(trips.size() == currentNumberOfTripsInTheXML);
 
 		this.unauthenticate();
 	}
 
 	@Test
-	public void testBrowseTripsByCategory() {
-		Category category = null;
-		final Collection<Trip> trips = this.tripRepository.findAll();
-		final Collection<Trip> tripsC = new ArrayList<Trip>();
+	public void testFindOne() {
+		Trip trip1 = null;
+		Trip trip2 = null;
 
-		int i = 0;
-		for (final Category c : this.categoryService.findAll()) {
-			i += 1;
-			if (i == 2) {
-				category = c;
-				break;
-			}
-		}
+		this.authenticate("manager1");
 
-		final Collection<Trip> trips2 = this.tripService.browseTripsByCategory(category);
+		final Collection<Trip> trips = this.tripService.findAll();
 
 		for (final Trip t : trips)
-			if (t.getCategory().equals(category))
-				tripsC.add(t);
-
-		Assert.isTrue(trips2.containsAll(tripsC) && trips2.size() == tripsC.size());
-
-		this.unauthenticate();
-	}
-
-	@Test
-	public void testDelete() {
-		Trip trip = null;
-
-		for (final Trip t : this.tripRepository.findAll())
-			if (t.getPublicationDate().after(new Date())) {
-				trip = t;
+			if (t != null) {
+				trip1 = t;
 				break;
 			}
 
-		this.authenticate("manager3");
+		trip2 = this.tripService.findOne(trip1.getId());
 
-		this.tripService.delete(trip);
-		Assert.isTrue(this.tripRepository.findOne(trip.getId()) == null);
+		Assert.isTrue(trip1.equals(trip2));
 
 		this.unauthenticate();
 	}
 
 	@Test
 	public void testSave() {
-		Trip trip = null;
-		Category category = null;
+		Trip trip1 = null;
+		Trip trip2 = null;
 
-		for (final Trip t : this.tripRepository.findAll())
-			if (t.getPublicationDate().after(new Date())) {
+		this.authenticate("manager1");
+
+		final Collection<Trip> trips = this.tripService.findAll();
+
+		for (final Trip t : trips)
+			if (t != null) {
+				trip1 = t;
+				break;
+			}
+
+		// El ticker no se puede editar
+		trip1.setTitle("Title");
+		trip1.setDescription("Description");
+		// El price no se puede editar manualmente, depende de los precios de las stages
+		// REVISAR !!!
+		// Cómo crear una fecha futura con los métodos deprecados?
+		trip1.setRequirements("Requirements");
+		trip1.setCancelationReason("Cancelation Reason");
+
+		trip1.getSponsorships().add(new Sponsorship());
+		trip1.getStories().add(new Story());
+		trip1.getNotes().add(new Note());
+		trip1.getAuditions().add(new Audition());
+		trip1.getTripApplications().add(new TripApplication());
+		trip1.getTagValues().add(new TagValue());
+		trip1.setLegalText(new LegalText());
+		trip1.getStages().add(new Stage());
+		trip1.setCategory(new Category());
+		trip1.setRanger(new Ranger());
+		trip1.getSurvivalClasses().add(new SurvivalClass());
+		trip1.setManager(new Manager());
+
+		trip2 = this.tripService.save(trip1);
+
+		Assert.notNull(trip2);
+		Assert.isTrue(trip1.getTitle().equals(trip2.getTitle()));
+		Assert.isTrue(trip1.getDescription().equals(trip2.getDescription()));
+		Assert.isTrue(trip1.getRequirements().equals(trip2.getRequirements()));
+		Assert.isTrue(trip1.getCancelationReason().equals(trip2.getCancelationReason()));
+		Assert.isTrue(trip1.getSponsorships().equals(trip2.getSponsorships()));
+		Assert.isTrue(trip1.getStories().equals(trip2.getStories()));
+		Assert.isTrue(trip1.getNotes().equals(trip2.getNotes()));
+		Assert.isTrue(trip1.getAuditions().equals(trip2.getAuditions()));
+		Assert.isTrue(trip1.getTripApplications().equals(trip2.getTripApplications()));
+		Assert.isTrue(trip1.getTagValues().equals(trip2.getTagValues()));
+		Assert.isTrue(trip1.getLegalText().equals(trip2.getLegalText()));
+		Assert.isTrue(trip1.getStages().equals(trip2.getStages()));
+		Assert.isTrue(trip1.getCategory().equals(trip2.getCategory()));
+		Assert.isTrue(trip1.getRanger().equals(trip2.getRanger()));
+		Assert.isTrue(trip1.getSurvivalClasses().equals(trip2.getSurvivalClasses()));
+		Assert.isTrue(trip1.getManager().equals(trip2.getManager()));
+	}
+
+	@Test
+	public void testDelete() {
+		Trip trip = null;
+
+		this.authenticate("manager1");
+
+		final Collection<Trip> trips = this.tripService.findAll();
+
+		for (final Trip t : trips)
+			if (t != null) {
 				trip = t;
 				break;
 			}
 
-		this.authenticate("manager3");
+		this.tripService.delete(trip);
+		Assert.isNull(this.tripService.findOne(trip.getId()));
+
+		this.unauthenticate();
+	}
+
+	@Test
+	public void testFindByKeyWord() {
+		this.authenticate("admin1");
+
+		final String keyword = "Brownie";
+		final Collection<Trip> trips = this.tripService.findAll();
+		final Collection<Trip> tripsKeyWord1 = new ArrayList<Trip>();
+		final Collection<Trip> tripsKeyWord2 = this.tripService.findByKeyWord(keyword);
+
+		for (final Trip t : trips)
+			if (t.getTicker().contains(keyword) || t.getTitle().contains(keyword) || t.getDescription().contains(keyword))
+				tripsKeyWord1.add(t);
+
+		Assert.isTrue(tripsKeyWord2.containsAll(tripsKeyWord1));
+		Assert.isTrue(tripsKeyWord2.size() == tripsKeyWord1.size());
+
+		this.unauthenticate();
+	}
+
+	@Test
+	public void testFindByCategory() {
+		this.authenticate("admin1");
+
+		Category category = null;
 
 		int i = 0;
 		for (final Category c : this.categoryService.findAll()) {
@@ -259,31 +280,27 @@ public class TripServiceTest extends AbstractTest {
 				category = c;
 				break;
 			}
-
 		}
 
-		final String description = "Description";
-		final String requirements = "Requirements";
-		final String title = "Title";
+		final Collection<Trip> trips = this.tripService.findAll();
+		final Collection<Trip> tripsCategory1 = new ArrayList<Trip>();
+		final Collection<Trip> tripsCategory2 = this.tripService.findByCategory(category);
 
-		trip.setCategory(category);
-		trip.setDescription(description);
-		trip.setRequirements(requirements);
-		trip.setTitle(title);
+		for (final Trip t : trips)
+			if (t.getCategory().equals(category))
+				tripsCategory1.add(t);
 
-		final Trip tripS = this.tripService.save(trip);
+		Assert.isTrue(tripsCategory2.containsAll(tripsCategory1));
+		Assert.isTrue(tripsCategory2.size() == tripsCategory1.size());
 
-		Assert.isTrue(tripS.getCategory().equals(category));
-		Assert.isTrue(tripS.getDescription().equals(description));
-		Assert.isTrue(tripS.getRequirements().equals(requirements));
-		Assert.isTrue(tripS.getTitle().equals(title));
+		this.unauthenticate();
 	}
 
 	@Test
 	public void testCancel() {
 		Trip trip = null;
 
-		for (final Trip t : this.tripRepository.findAll())
+		for (final Trip t : this.tripService.findAll())
 			if (t.getPublicationDate().before(new Date()) && t.getStartingDate().after(new Date())) {
 				trip = t;
 				break;
@@ -293,8 +310,7 @@ public class TripServiceTest extends AbstractTest {
 
 		this.tripService.cancel(trip);
 
-		Assert.notNull(trip.getCancelationReason());
-
+		Assert.notNull(this.tripService.findOne(trip.getId()).getCancelationReason());
 	}
 
 }
