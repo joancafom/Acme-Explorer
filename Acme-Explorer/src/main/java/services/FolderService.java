@@ -45,7 +45,7 @@ public class FolderService {
 		Assert.notNull(actor);
 
 		Folder folder;
-		final UserAccount userAccount = LoginService.getPrincipal();
+		//final UserAccount userAccount = LoginService.getPrincipal();
 
 		final List<Message> messages = new ArrayList<Message>();
 		final List<Folder> childFolders = new ArrayList<Folder>();
@@ -53,7 +53,8 @@ public class FolderService {
 		// REVISAR !!!
 		// El método para crear las systemFolders cuando se crea un actor puede ser invocado por alguien no autentificado (registro)
 		// Cómo comprobar que no hay nadie autentificado si el método .getPrincipal() tiene un Assert.notNull()
-		Assert.isTrue(userAccount == null || userAccount.equals(actor.getUserAccount()));
+
+		// Assert.isTrue(userAccount == null || userAccount.equals(actor.getUserAccount()));
 
 		folder = new Folder();
 		folder.setIsSystem(false);
@@ -95,18 +96,6 @@ public class FolderService {
 
 	// REVISAR !!!
 	// Es necesario hacer el delete?
-
-	// ANTIGUO
-	public void delete(final Folder folder) {
-		UserAccount userAccount;
-		userAccount = LoginService.getPrincipal();
-
-		Assert.notNull(folder);
-		Assert.isTrue(userAccount.equals(folder.getActor().getUserAccount()));
-		Assert.isTrue(!folder.getIsSystem());
-
-		this.folderRepository.delete(folder);
-	}
 
 	// Other business methods --------------
 
@@ -160,7 +149,6 @@ public class FolderService {
 		this.folderRepository.delete(folder);
 	}
 
-	// ANTIGUO
 	public Folder findByActorAndName(final Actor actor, final String name) {
 		Folder folder;
 

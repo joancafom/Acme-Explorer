@@ -89,21 +89,21 @@ public class RangerService {
 
 	// Other business methods --------------
 
-	//	public Collection<Ranger> findAllSuspicious() {
-	//		Collection<Ranger> rangers;
-	//
-	//		rangers = this.rangerRepository.findAllSuspicious();
-	//
-	//		Assert.notNull(rangers);
-	//
-	//		return rangers;
-	//	}
-
 	public Ranger findByUserAccount(final UserAccount userAccount) {
 		Assert.notNull(userAccount);
 
 		final Ranger ranger = this.rangerRepository.findByUserAccountId(userAccount.getId());
 
 		return ranger;
+	}
+
+	public Collection<Ranger> findAllSuspicious() {
+		Collection<Ranger> rangers;
+
+		Assert.notNull(this.rangerRepository);
+		rangers = this.rangerRepository.findAllSuspicious();
+		Assert.notNull(rangers);
+
+		return rangers;
 	}
 }

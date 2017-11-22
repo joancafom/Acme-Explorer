@@ -18,6 +18,7 @@ import org.springframework.util.Assert;
 import security.LoginService;
 import utilities.AbstractTest;
 import domain.Admin;
+import domain.Auditor;
 import domain.Folder;
 import domain.Message;
 
@@ -37,6 +38,9 @@ public class FolderServiceTest extends AbstractTest {
 
 	@Autowired
 	private AdminService	adminService;
+
+	@Autowired
+	private AuditorService	auditorService;
 
 
 	// Tests -------------------------------
@@ -238,178 +242,30 @@ public class FolderServiceTest extends AbstractTest {
 				break;
 			}
 
-		this.folderService.delete(folder);
+		this.folderService.deleteByPrincipal(folder);
 
 		Assert.isNull(this.folderService.findOne(folder.getId()));
 
 		this.unauthenticate();
 	}
 
-	//	@Before
-	//	public void setUpWorkingVariables() {
-	//
-	//		this.authenticate("auditor1");
-	//
-	//		this.auditor1 = this.auditorService.findByUserAccount(LoginService.getPrincipal());
-	//
-	//		this.unauthenticate();
-	//	}
+	@Test
+	public void testFindByActorAndName() {
+		this.authenticate("auditor1");
 
-	//
-	//	@Test
-	//	public void testSave() {
-	//
-	//		this.authenticate("auditor1");
-	//
-	//		final Folder testFolder1 = this.folderService.create(this.auditor1, null);
-	//		final Folder testFolder2 = this.folderService.create(this.auditor1, null);
-	//
-	//		testFolder1.setName("Mis Foldito");
-	//		testFolder2.setName("Mis Folder");
-	//		testFolder1.setParentFolder(testFolder2);
-	//		testFolder2.getChildFolders().add(testFolder1);
-	//
-	//		final Folder testFolder1Saved = this.folderService.save(testFolder1);
-	//		final Folder testFolder2Saved = this.folderService.save(testFolder2);
-	//
-	//		Assert.isTrue(testFolder1.getIsSystem() == testFolder1Saved.getIsSystem());
-	//		Assert.isTrue(testFolder1.getActor().equals(testFolder1Saved.getActor()));
-	//		Assert.isTrue(testFolder1.getChildFolders().equals(testFolder1Saved.getChildFolders()));
-	//		Assert.isTrue(testFolder1.getParentFolder().equals(testFolder1Saved.getParentFolder()));
-	//		Assert.isTrue(testFolder1.getMessages().equals(testFolder1Saved.getMessages()));
-	//		Assert.isTrue(testFolder1.getName().equals(testFolder1Saved.getName()));
-	//
-	//		Assert.isTrue(testFolder2.getIsSystem() == testFolder2Saved.getIsSystem());
-	//		Assert.isTrue(testFolder2.getActor().equals(testFolder2Saved.getActor()));
-	//		Assert.isTrue(testFolder2.getChildFolders().equals(testFolder2Saved.getChildFolders()));
-	//		Assert.isTrue(testFolder2.getParentFolder() == testFolder2Saved.getParentFolder());
-	//		Assert.isTrue(testFolder2.getMessages().equals(testFolder2Saved.getMessages()));
-	//		Assert.isTrue(testFolder2.getName().equals(testFolder2Saved.getName()));
-	//
-	//		this.unauthenticate();
-	//
-	//	}
-	//
-	//	@Test
-	//	public void testDelete() {
-	//
-	//		this.authenticate("auditor1");
-	//
-	//		final Folder testFolder1 = this.folderService.create(this.auditor1);
-	//		final Folder testFolder2 = this.folderService.create(this.auditor1);
-	//
-	//		testFolder1.setName("Mis Foldito");
-	//		testFolder2.setName("Mis Folder");
-	//		testFolder1.setParentFolder(testFolder2);
-	//		testFolder2.getChildFolders().add(testFolder1);
-	//
-	//		final Folder testFolder1Saved = this.folderService.save(testFolder1);
-	//		final Folder testFolder2Saved = this.folderService.save(testFolder2);
-	//
-	//		this.folderService.delete(testFolder1Saved);
-	//		this.folderService.delete(testFolder2Saved);
-	//
-	//		Assert.isTrue(!this.auditor1.getFolders().contains(testFolder1Saved));
-	//		Assert.isTrue(!this.auditor1.getFolders().contains(testFolder2Saved));
-	//
-	//		this.unauthenticate();
-	//
-	//	}
-	//
+		final Auditor auditor = this.auditorService.findByUserAccount(LoginService.getPrincipal());
+		final Folder folder = this.folderService.create(auditor);
+		folder.setName("Mis Cosas");
 
-	//
+		final Folder savedFolder = this.folderService.save(folder);
 
-	//	@Test
-	//	public void testFindOne() {
-	//
-	//		this.authenticate("auditor1");
-	//
-	//		final Folder testFolder = this.folderService.create(this.auditor1);
-	//		testFolder.setName("Mis Cosas");
-	//
-	//		final Folder savedTestFolder = this.folderService.save(testFolder);
-	//
-	//		final Folder foundFolder = this.folderService.findOne(savedTestFolder.getId());
-	//
-	//		Assert.isTrue(savedTestFolder.equals(foundFolder));
-	//
-	//		this.unauthenticate();
-	//
-	//	}
-	//
-	//	@Test
-	//	public void testFindAllGivenActor() {
-	//
-	//		this.authenticate("auditor1");
-	//
-	//		final Folder testFolder = this.folderService.create(this.auditor1);
-	//		testFolder.setName("Mis Cosas");
-	//
-	//		this.folderService.save(testFolder);
-	//
-	//		final Collection<Folder> foundFolders = this.folderService.findAll();
-	//
-	//		this.unauthenticate();
-	//
-	//		this.authenticate("admin1");
-	//
-	//		final Collection<Folder> foundFoldersGivenActor = this.folderService.findAllGivenActor(this.auditor1);
-	//
-	//		Assert.notNull(foundFoldersGivenActor);
-	//		Assert.isTrue(foundFolders.equals(foundFoldersGivenActor));
-	//
-	//		this.unauthenticate();
-	//
-	//	}
-	//
-	//	@Test
-	//	public void testFindOneGivenActor() {
-	//
-	//		this.authenticate("auditor1");
-	//
-	//		final Folder testFolder = this.folderService.create(this.auditor1);
-	//		testFolder.setName("Mis Cosas");
-	//
-	//		final Folder savedTestFolder = this.folderService.save(testFolder);
-	//
-	//		final Folder foundFolder = this.folderService.findOne(savedTestFolder.getId());
-	//
-	//		this.unauthenticate();
-	//
-	//		this.authenticate("admin1");
-	//
-	//		final Folder foundFolderGivenActor = this.folderService.findOneGivenActor(savedTestFolder.getId(), this.auditor1);
-	//
-	//		Assert.notNull(foundFolderGivenActor);
-	//		Assert.isTrue(foundFolder.equals(foundFolderGivenActor));
-	//
-	//		this.unauthenticate();
-	//
-	//	}
-	//
-	//	@Test
-	//	public void testFindByActorAndName() {
-	//
-	//		this.authenticate("auditor1");
-	//
-	//		final Folder testFolder = this.folderService.create(this.auditor1);
-	//		testFolder.setName("Mis Cosas");
-	//
-	//		final Folder savedTestFolder = this.folderService.save(testFolder);
-	//
-	//		final Folder foundFolder = this.folderService.findOne(savedTestFolder.getId());
-	//
-	//		this.unauthenticate();
-	//
-	//		this.authenticate("admin1");
-	//
-	//		final Folder foundFolderByActorAndName = this.folderService.findByActorAndName(this.auditor1, "Mis Cosas");
-	//
-	//		Assert.notNull(foundFolderByActorAndName);
-	//		Assert.isTrue(foundFolder.equals(foundFolderByActorAndName));
-	//
-	//		this.unauthenticate();
-	//
-	//	}
+		final Folder foundFolder = this.folderService.findByActorAndName(auditor, "Mis Cosas");
+
+		Assert.notNull(foundFolder);
+		Assert.isTrue(savedFolder.equals(foundFolder));
+
+		this.unauthenticate();
+
+	}
 
 }

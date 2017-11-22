@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.ActorRepository;
+import security.LoginService;
 import security.UserAccount;
 import domain.Actor;
 import domain.Folder;
@@ -50,7 +51,7 @@ public class ActorService {
 
 		Actor actor = null;
 		final Collection<SocialID> socialIDs = new ArrayList<SocialID>();
-		final Collection<Folder> folders;
+		final Collection<Folder> folders = new ArrayList<Folder>();
 		final Collection<Message> sentMessages = new ArrayList<Message>();
 		final Collection<Message> receivedMessages = new ArrayList<Message>();
 
@@ -60,13 +61,13 @@ public class ActorService {
 		} catch (final IllegalAccessException e) {
 		}
 
-		folders = this.folderService.createSystemFolders(actor);
-
 		actor.setIsSuspicious(false);
 		actor.setIsBanned(false);
 
 		actor.setSocialIDs(socialIDs);
 		actor.setFolders(folders);
+		final Collection<Folder> systemfolders = this.folderService.createSystemFolders(actor);
+		actor.setFolders(systemfolders);
 		actor.setSentMessages(sentMessages);
 		actor.setReceivedMessages(receivedMessages);
 		actor.setUserAccount(userAccount);
@@ -108,28 +109,30 @@ public class ActorService {
 		return actor;
 	}
 
-	//
-	//	public void ban(final Actor actor) {
-	//		UserAccount userAccount;
-	//
-	//		userAccount = LoginService.getPrincipal();
-	//		Assert.isTrue(!this.actorRepository.findByUserAccountId(userAccount.getId()).equals(userAccount.getId()));
-	//
-	//		Assert.notNull(actor);
-	//		Assert.isTrue(actor.getIsSuspicious());
-	//
-	//		actor.setIsBanned(true);
-	//	}
-	//
-	//	public void unban(final Actor actor) {
-	//		UserAccount userAccount;
-	//
-	//		userAccount = LoginService.getPrincipal();
-	//		Assert.isTrue(!this.actorRepository.findByUserAccountId(userAccount.getId()).equals(userAccount.getId()));
-	//
-	//		Assert.notNull(actor);
-	//
-	//		actor.setIsBanned(false);
-	//	}
+	public Actor ban(final Actor actor) {
+		Assert.notNull(actor);
+
+		UserAccount userAccount;
+		userAccount = LoginService.getPrincipal();
+		Assert.isTrue(!this.actorRepository.findByUserAccountId(userAccount.getId()).equals(actor));
+
+		Assert.isTrue(actor.getIsSuspicious());
+
+		actor.setIsBanned(true);
+		return this.actorRepository.save(actor);
+	}
+
+	public Actor unban(final Actor actor) {
+		Assert.notNull(actor);
+
+		UserAccount userAccount;
+		userAccount = LoginService.getPrincipal();
+		Assert.isTrue(!this.actorRepository.findByUserAccountId(userAccount.getId()).equals(actor));
+
+		Assert.isTrue(actor.getIsSuspicious());
+
+		actor.setIsBanned(false);
+		return this.actorRepository.save(actor);
+	}
 
 }

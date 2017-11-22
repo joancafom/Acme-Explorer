@@ -14,9 +14,12 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.Assert;
 
+import security.LoginService;
 import utilities.AbstractTest;
 import domain.Audition;
 import domain.Category;
+import domain.Explorer;
+import domain.Finder;
 import domain.LegalText;
 import domain.Manager;
 import domain.Note;
@@ -45,6 +48,9 @@ public class TripServiceTest extends AbstractTest {
 
 	@Autowired
 	private CategoryService	categoryService;
+
+	@Autowired
+	private ExplorerService	explorerService;
 
 
 	// Tests -------------------------------
@@ -313,4 +319,24 @@ public class TripServiceTest extends AbstractTest {
 		Assert.notNull(this.tripService.findOne(trip.getId()).getCancelationReason());
 	}
 
+	@Test
+	public void testFindByFinder() {
+		this.authenticate("explorer2");
+
+		final Explorer explorer = this.explorerService.findByUserAccount(LoginService.getPrincipal());
+		final Finder finder = explorer.getFinder();
+
+		final Collection<Trip> trips = this.tripService.findAll();
+		final Collection<Trip> tripsFinder1 = new ArrayList<Trip>();
+		final Collection<Trip> tripsFinder2 = this.tripService.findByFinder(finder);
+
+		for (final Trip t : trips)
+			if (t.getPrice() > finder.getMinRange() && t.getPrice() < finder.getMaxRange() && t.getStartingDate().after(finder.getMinDate()) && t.getEndingDate().before(finder.getMaxDate()))
+				tripsFinder1.add(t);
+
+		Assert.isTrue(tripsFinder2.containsAll(tripsFinder1));
+		Assert.isTrue(tripsFinder2.size() == tripsFinder1.size());
+
+		this.unauthenticate();
+	}
 }
