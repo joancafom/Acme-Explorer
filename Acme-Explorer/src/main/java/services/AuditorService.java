@@ -31,8 +31,10 @@ public class AuditorService {
 
 		final Auditor res = this.auditorRepository.findByUserAccountId(userAccount.getId());
 
-		Assert.notNull(res);
-
 		return res;
+	}
+
+	public Auditor save(final Auditor a) {
+		return this.save(a);
 	}
 }

@@ -16,7 +16,6 @@ import security.UserAccount;
 import domain.Auditor;
 import domain.Manager;
 import domain.Note;
-import domain.Trip;
 
 @Service
 @Transactional
@@ -37,13 +36,12 @@ public class NoteService {
 	//Supporting Services
 
 	//Simple CRUD operations
-	public Note create(final Trip trip) {
-
-		Assert.notNull(trip);
+	public Note create() {
 
 		final UserAccount userAccount = LoginService.getPrincipal();
-
 		final Auditor auditor = this.auditorService.findByUserAccount(userAccount);
+
+		Assert.notNull(auditor);
 
 		final Note res = new Note();
 
@@ -52,9 +50,7 @@ public class NoteService {
 
 		res.setWrittenMoment(writtenMoment);
 		res.setAuditor(auditor);
-		res.setTrip(trip);
 
-		trip.getNotes().add(res);
 		auditor.getNotes().add(res);
 
 		return res;
@@ -62,34 +58,45 @@ public class NoteService {
 
 	public Note findOne(final int noteId) {
 
-		final UserAccount userAccount = LoginService.getPrincipal();
 		final Note res = this.noteRepository.findOne(noteId);
-		final Manager manager = this.managerService.findByUserAccount(userAccount);
 
-		if (manager != null)
-			Assert.isTrue(manager.getTrips().contains(res.getTrip()));
-		else {
-			final Auditor auditor = this.auditorService.findByUserAccount(userAccount);
-			Assert.isTrue(res == null || res.getAuditor().equals(auditor));
-		}
+		return res;
+	}
+
+	public Collection<Note> findAll() {
+
+		final Collection<Note> res = this.noteRepository.findAll();
 
 		return res;
 	}
 
 	public Note save(final Note note) {
+
+		//An Auditor can WRITE a note only
+		//A Manager can write a reply to a Note, and hence MODIFY only this fields (not save a new one).
+
+		Assert.notNull(note);
+		Assert.notNull(note.getAuditor());
+		Assert.notNull(note.getTrip());
+
 		final UserAccount userAccount = LoginService.getPrincipal();
 		final Auditor auditor = this.auditorService.findByUserAccount(userAccount);
+
+		//If it is an Auditor, we check that the Note id = 0 (freshly new)
 		if (auditor != null)
-			Assert.isNull(this.noteRepository.findOne(note.getId()));
+			Assert.isTrue(note.getId() == 0);
 		else {
+
+			//If it's not an Auditor, it must be a Manager the one who's trying to write a reply
 			final Manager manager = this.managerService.findByUserAccount(userAccount);
 			Assert.notNull(manager);
-			final Note previous = this.noteRepository.findOne(note.getId());
-			Assert.notNull(previous);
-
 			Assert.isTrue(manager.getTrips().contains(note.getTrip()));
-			Assert.isTrue(note.getWrittenMoment().equals(previous.getWrittenMoment()));
-			Assert.isTrue(note.getRemark().equals(previous.getRemark()));
+
+			//Hence, reply and replyMoment cannot be null
+
+			Assert.notNull(note.getReply());
+			Assert.notNull(note.getReplyMoment());
+
 		}
 
 		return this.noteRepository.save(note);
@@ -99,30 +106,34 @@ public class NoteService {
 
 	//Other Business
 
-	public Collection<Note> findByCurrentManager() {
-
-		final UserAccount userAccount = LoginService.getPrincipal();
-
-		final Manager manager = this.managerService.findByUserAccount(userAccount);
-
-		return this.noteRepository.findByManagerId(manager.getId());
-	}
-
 	public Collection<Note> findByCurrentAuditor() {
 
 		final UserAccount userAccount = LoginService.getPrincipal();
 		final Auditor auditor = this.auditorService.findByUserAccount(userAccount);
 
+		Assert.notNull(auditor);
+
 		return this.noteRepository.findByAuditorId(auditor.getId());
 	}
 
+	//A Manager can list the notes of his/her Trips
+	public Collection<Note> findByCurrentManager() {
+
+		final UserAccount userAccount = LoginService.getPrincipal();
+		final Manager manager = this.managerService.findByUserAccount(userAccount);
+
+		return this.noteRepository.findByManagerId(manager.getId());
+	}
+
+	//A Manager can list the Notes an Auditor has written on his/her trips
 	public Collection<Note> findByAuditorAndCurrentManager(final Auditor auditor) {
 
 		Assert.notNull(auditor);
 
 		final UserAccount userAccount = LoginService.getPrincipal();
-
 		final Manager manager = this.managerService.findByUserAccount(userAccount);
+
+		Assert.notNull(manager);
 
 		return this.noteRepository.findByAuditorAndManagerIds(auditor.getId(), manager.getId());
 
@@ -145,4 +156,5 @@ public class NoteService {
 
 		return this.save(note);
 	}
+
 }
