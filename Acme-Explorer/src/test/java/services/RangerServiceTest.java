@@ -14,6 +14,7 @@ import org.springframework.util.Assert;
 
 import security.UserAccount;
 import utilities.AbstractTest;
+import domain.Curriculum;
 import domain.Ranger;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -28,8 +29,6 @@ public class RangerServiceTest extends AbstractTest {
 	@Autowired
 	private RangerService	rangerService;
 
-
-	// Supporting repositories -------------
 
 	// Supporting services -----------------
 
@@ -91,45 +90,48 @@ public class RangerServiceTest extends AbstractTest {
 		this.unauthenticate();
 	}
 
-	//	@Test
-	//	public void testSave() {
-	//		Ranger ranger1 = null;
-	//		Collection<Ranger> rangers;
-	//
-	//		this.authenticate("admin1");
-	//
-	//		rangers = this.rangerRespository.findAll();
-	//
-	//		for (final Ranger r : rangers) {
-	//			ranger1 = r;
-	//			break;
-	//		}
-	//
-	//		final String name = "Name";
-	//		final String surname = "Surname";
-	//		final String email = "email@gmail.com";
-	//		final String phoneNumber = "954674359";
-	//		final String address = "C/ Address Nº1 1ºA";
-	//		final boolean isSuspicious = true;
-	//
-	//		ranger1.setAddress(address);
-	//		ranger1.setEmail(email);
-	//		ranger1.setIsSuspicious(isSuspicious);
-	//		ranger1.setName(name);
-	//		ranger1.setPhoneNumber(phoneNumber);
-	//		ranger1.setSurname(surname);
-	//
-	//		final Ranger ranger2 = this.rangerService.save(ranger1);
-	//
-	//		Assert.isTrue(ranger2.getAddress().equals(address));
-	//		Assert.isTrue(ranger2.getEmail().equals(email));
-	//		Assert.isTrue(ranger2.getIsSuspicious());
-	//		Assert.isTrue(ranger2.getName().equals(name));
-	//		Assert.isTrue(ranger2.getPhoneNumber().equals(phoneNumber));
-	//		Assert.isTrue(ranger2.getSurname().equals(surname));
-	//
-	//		this.unauthenticate();
-	//	}
+	@Test
+	public void testSave() {
+		// REVISAR !!!
+		// Qué se debe comprobar en el save?
+		Ranger ranger1 = null;
+		Ranger ranger2 = null;
+
+		this.authenticate("ranger1");
+
+		final Collection<Ranger> rangers = this.rangerService.findAll();
+
+		for (final Ranger r : rangers)
+			if (r != null) {
+				ranger1 = r;
+				break;
+			}
+
+		ranger1.setName("Name");
+		ranger1.setSurname("Surname");
+		ranger1.setEmail("email@gmail.com");
+		ranger1.setPhoneNumber("954673648");
+		ranger1.setIsSuspicious(true);
+		ranger1.setIsBanned(true);
+		// REVISAR !!!
+		// Se puede cambiar el currículum de un ranger a otro?
+		ranger1.setCurriculum(new Curriculum());
+		ranger1.getTrips().remove(ranger1.getTrips().toArray()[0]);
+
+		ranger2 = this.rangerService.save(ranger1);
+
+		Assert.notNull(ranger2);
+		Assert.isTrue(ranger1.getName().equals(ranger2.getName()));
+		Assert.isTrue(ranger1.getSurname().equals(ranger2.getSurname()));
+		Assert.isTrue(ranger1.getEmail().equals(ranger2.getEmail()));
+		Assert.isTrue(ranger1.getPhoneNumber().equals(ranger2.getPhoneNumber()));
+		Assert.isTrue(ranger1.getIsSuspicious() == ranger2.getIsSuspicious());
+		Assert.isTrue(ranger1.getIsBanned() == ranger2.getIsBanned());
+		Assert.isTrue(ranger1.getCurriculum().equals(ranger2.getCurriculum()));
+		Assert.isTrue(ranger1.getTrips().equals(ranger2.getTrips()));
+
+		this.unauthenticate();
+	}
 
 	@Test
 	public void testFindByUserAccount() {

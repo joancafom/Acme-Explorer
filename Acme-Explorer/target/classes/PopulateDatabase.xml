@@ -795,7 +795,7 @@
 		<property name="body" value="La entrada de Katy Perry está prohibida y se declara completamente ilegal por razones de salud."></property>
 		<property name="numberOfApplicableLaws" value="155"></property>
 		<property name="registrationMoment" value="2010/01/01 16:00"></property>
-		<property name="isFinal" value="true"></property>
+		<property name="isFinal" value="false"></property>
 		<property name="trips">
 			<list>
 			</list>
@@ -1470,9 +1470,9 @@
 		<property name="title" value="Reputation World Tour - Madrid"></property>
 		<property name="description" value="Que viene la Taylor!! Prepárate para quedarte calva, linda!!"></property>
 		<property name="price" value="800"></property>
-		<property name="publicationDate" value="2017/10/28 19:00"></property>
-		<property name="startingDate" value="2017/11/10 00:01"></property>
-		<property name="endingDate" value="2017/11/10 23:59"></property>
+		<property name="publicationDate" value="2018/10/28 19:00"></property>
+		<property name="startingDate" value="2018/11/10 00:01"></property>
+		<property name="endingDate" value="2018/11/10 23:59"></property>
 		<property name="requirements" value="No ser Katy Perry ni Kanye West. Muerte a la Kim."></property>
 		<property name="sponsorships">
 			<list>
@@ -1504,7 +1504,7 @@
 				<ref bean="tagValue1"/>
 			</list>
 		</property>
-		<property name="legalText" ref="legalText1"></property>
+		<property name="legalText" ref="legalText2"></property>
 		<property name="stages">
 			<list>
 				<ref bean="stage1"/>
@@ -1609,7 +1609,7 @@
 			<list>
 			</list>
 		</property>
-		<property name="legalText" ref="legalText1"></property>
+		<property name="legalText" ref="legalText2"></property>
 		<property name="stages">
 			<list>
 				<ref bean="stage3"/>
@@ -1659,7 +1659,7 @@
 			<list>
 			</list>
 		</property>
-		<property name="legalText" ref="legalText1"></property>
+		<property name="legalText" ref="legalText2"></property>
 		<property name="stages">
 			<list>
 				<ref bean="stage4"/>

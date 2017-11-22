@@ -48,6 +48,7 @@ public class LegalTextService {
 		registrationMoment = new Date(millis);
 
 		legalText.setRegistrationMoment(registrationMoment);
+		legalText.setIsFinal(false);
 		legalText.setTrips(trips);
 
 		return legalText;
@@ -91,6 +92,7 @@ public class LegalTextService {
 
 		this.legalTextRepository.delete(legalText);
 	}
+
 	// Other business methods --------------
 
 }
