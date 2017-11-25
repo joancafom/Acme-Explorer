@@ -68,6 +68,9 @@ public class StoryService {
 		Assert.notNull(story);
 		Assert.notNull(story.getTrip());
 
+		//An Explorer cannot modify a story
+		Assert.isTrue(story.getId() == 0);
+
 		final UserAccount userAccount = LoginService.getPrincipal();
 		Assert.notNull(userAccount);
 		Assert.isTrue(userAccount.equals(story.getExplorer().getUserAccount()));

@@ -1,7 +1,10 @@
+
 package services;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -17,106 +20,236 @@ import security.LoginService;
 import security.UserAccount;
 import utilities.AbstractTest;
 import domain.Explorer;
+import domain.Location;
 import domain.Manager;
 import domain.SurvivalClass;
 import domain.Trip;
-import domain.TripApplication;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
-		"classpath:spring/datasource.xml",
-		"classpath:spring/config/packages.xml"})
+	"classpath:spring/datasource.xml", "classpath:spring/config/packages.xml"
+})
 @Transactional
-public class SurvivalClassServiceTest extends AbstractTest{
-	
+public class SurvivalClassServiceTest extends AbstractTest {
+
 	@Autowired
-	private SurvivalClassService survivalClassService;
+	private SurvivalClassService	survivalClassService;
+
 	@Autowired
-	private ManagerService managerService;
+	private ManagerService			managerService;
+
 	@Autowired
-	private ExplorerService explorerService;
+	private ExplorerService			explorerService;
+
 	@Autowired
-	private TripApplicationService tripApplicationService;
-	
-	
+	private TripService				tripService;
+
+
 	@Test
-	public void testCreate(){
-		super.authenticate("manager1");
-		UserAccount userAccount = LoginService.getPrincipal();
-		Manager manager = this.managerService.findByUserAccount(userAccount);
-		List<Trip> trips = new ArrayList<Trip>(manager.getTrips());
-		Trip trip = trips.get(0);
-		
-		SurvivalClass survivalClass = this.survivalClassService.create(trip);
+	public void testCreate() {
+
+		this.authenticate("manager1");
+
+		final UserAccount userAccount = LoginService.getPrincipal();
+		final Manager manager = this.managerService.findByUserAccount(userAccount);
+
+		final SurvivalClass survivalClass = this.survivalClassService.create();
+
 		Assert.notNull(survivalClass);
 		Assert.isTrue(survivalClass.getManager().equals(manager));
-		Assert.isTrue(survivalClass.getTrip().equals(trip));
-		
-	}
-	
-	@Test
-	public void testSave(){
-		super.authenticate("manager1");
-		UserAccount userAccount = LoginService.getPrincipal();
-		Manager manager = this.managerService.findByUserAccount(userAccount);
-		List<Trip> trips = new ArrayList<Trip>(manager.getTrips());
-		Trip trip = trips.get(0);
-		SurvivalClass survivalClass = this.survivalClassService.create(trip);
-		survivalClass.setTitle("Lust For Life");
-		
-		this.survivalClassService.save(survivalClass);
-		Assert.isTrue(manager.getSurvivalClasses().contains(survivalClass));
-		Assert.isTrue(trip.getSurvivalClasses().contains(survivalClass));
-		Assert.isTrue(survivalClass.getTitle().equals("Lust For Life"));
-		
-	}
-	
-	@Test
-	public void testDelete(){
-		super.authenticate("manager1");
-		UserAccount userAccount = LoginService.getPrincipal();
-		Manager manager = this.managerService.findByUserAccount(userAccount);
-		List<Trip> trips = new ArrayList<Trip>(manager.getTrips());
-		Trip trip = trips.get(0);
-		SurvivalClass survivalClass = this.survivalClassService.create(trip);
-		this.survivalClassService.delete(survivalClass);
-	}
-	
-	@Test
-	public void testFindByCurrentManager(){
-		super.authenticate("manager1");
-		UserAccount userAccount = LoginService.getPrincipal();
-		Manager manager = this.managerService.findByUserAccount(userAccount);
-		List<SurvivalClass> survivalClasses = new ArrayList<SurvivalClass>(manager.getSurvivalClasses());
-		Assert.isTrue(survivalClasses.containsAll(this.survivalClassService.findByCurrentManager())
-				&& survivalClasses.size()==this.survivalClassService.findByCurrentManager().size());
-	}
-	
-	@Test
-	public void testFindOneByCurrentManager(){
-		super.authenticate("manager1");
-		UserAccount userAccount = LoginService.getPrincipal();
-		Manager manager = this.managerService.findByUserAccount(userAccount);
-		List<SurvivalClass> survivalClasses = new ArrayList<SurvivalClass>(manager.getSurvivalClasses());
-		SurvivalClass survivalClass = survivalClasses.get(0);
-		
-		Assert.isTrue(manager.getSurvivalClasses().contains(this.survivalClassService.findOneCurrentManager(survivalClass.getId())));
-	}
-	
-	@SuppressWarnings("deprecation")
-	@Test
-	public void testEnrroll(){
-		super.authenticate("explorer2");
-		UserAccount userAccount2 = LoginService.getPrincipal();
-		Explorer explorer = this.explorerService.findByUserAccount(userAccount2);
-		List<TripApplication> tripApplications = new ArrayList<TripApplication>(this.tripApplicationService.findAcceptedByCurrentExplorer());
-		List<SurvivalClass> survivalClasses = new ArrayList<SurvivalClass>(tripApplications.get(0).getTrip().getSurvivalClasses());
-		SurvivalClass survivalClass = survivalClasses.get(0);
-		survivalClass.setMoment(new Date(2017, 12, 02));
-		this.survivalClassService.enroll(survivalClass);
-		
-		Assert.isTrue(survivalClass.getExplorers().contains(explorer));
-		Assert.isTrue(explorer.getSurvivalClasses().contains(survivalClass));
+		Assert.isNull(survivalClass.getTitle());
+		Assert.isNull(survivalClass.getDescription());
+		Assert.isNull(survivalClass.getMoment());
+		Assert.isNull(survivalClass.getLocation());
+		Assert.isNull(survivalClass.getTrip());
+		Assert.notNull(survivalClass.getExplorers());
+		Assert.isTrue(survivalClass.getExplorers().isEmpty());
+
+		this.unauthenticate();
+
 	}
 
+	@Test
+	public void testSave() {
+
+		this.authenticate("manager1");
+
+		final UserAccount userAccount = LoginService.getPrincipal();
+		final Manager manager = this.managerService.findByUserAccount(userAccount);
+
+		final List<Trip> trips = new ArrayList<Trip>(manager.getTrips());
+		final Trip trip = trips.get(0);
+		final Location etsii = new Location();
+		etsii.setCoordinateX(-0.988);
+		etsii.setCoordinateY(9.876);
+		etsii.setName("ETSII");
+
+		final SurvivalClass testSurvivalClass = this.survivalClassService.create();
+		testSurvivalClass.setTitle("How to get away with 3rd grade of Software Engineering");
+		testSurvivalClass.setDescription("Don't enroll this survivalClass if you want to remain alive");
+		testSurvivalClass.setLocation(etsii);
+		testSurvivalClass.setMoment(new Date(1858707446000L));
+		testSurvivalClass.setTrip(trip);
+
+		final SurvivalClass savedSurvivalClass = this.survivalClassService.save(testSurvivalClass);
+
+		Assert.notNull(savedSurvivalClass);
+		Assert.isTrue(testSurvivalClass.getTitle().equals(savedSurvivalClass.getTitle()));
+		Assert.isTrue(testSurvivalClass.getDescription().equals(savedSurvivalClass.getDescription()));
+		Assert.notNull(savedSurvivalClass.getLocation());
+		Assert.isTrue(testSurvivalClass.getLocation().getName().equals(savedSurvivalClass.getLocation().getName()));
+		Assert.isTrue(testSurvivalClass.getLocation().getCoordinateX() == savedSurvivalClass.getLocation().getCoordinateX());
+		Assert.isTrue(testSurvivalClass.getLocation().getCoordinateY() == savedSurvivalClass.getLocation().getCoordinateY());
+		Assert.isTrue(testSurvivalClass.getMoment().equals(savedSurvivalClass.getMoment()));
+		Assert.isTrue(testSurvivalClass.getTrip().equals(savedSurvivalClass.getTrip()));
+		Assert.isTrue(this.survivalClassService.findAll().contains(savedSurvivalClass));
+
+		this.unauthenticate();
+
+	}
+
+	@Test
+	public void testDelete() {
+
+		this.authenticate("manager1");
+
+		final UserAccount userAccount = LoginService.getPrincipal();
+		final Manager manager = this.managerService.findByUserAccount(userAccount);
+
+		final List<Trip> trips = new ArrayList<Trip>(manager.getTrips());
+		final Trip trip = trips.get(0);
+		final Location etsii = new Location();
+		etsii.setCoordinateX(-0.988);
+		etsii.setCoordinateY(9.876);
+		etsii.setName("ETSII");
+
+		final SurvivalClass testSurvivalClass = this.survivalClassService.create();
+		testSurvivalClass.setTitle("How to get away with 3rd grade of Software Engineering");
+		testSurvivalClass.setDescription("Don't enroll this survivalClass if you want to remain alive");
+		testSurvivalClass.setLocation(etsii);
+		testSurvivalClass.setMoment(new Date(1858707446000L));
+		testSurvivalClass.setTrip(trip);
+
+		final SurvivalClass savedSurvivalClass = this.survivalClassService.save(testSurvivalClass);
+
+		this.survivalClassService.delete(savedSurvivalClass);
+
+		Assert.isNull(this.survivalClassService.findOne(savedSurvivalClass.getId()));
+
+		this.unauthenticate();
+	}
+
+	@Test
+	public void testFindOne() {
+
+		this.authenticate("manager1");
+
+		final UserAccount userAccount = LoginService.getPrincipal();
+		final Manager mananger = this.managerService.findByUserAccount(userAccount);
+
+		final List<SurvivalClass> scs = new ArrayList<SurvivalClass>(mananger.getSurvivalClasses());
+		final SurvivalClass sc = scs.get(0);
+		final SurvivalClass foundSurvivalClass = this.survivalClassService.findOne(sc.getId());
+
+		Assert.notNull(foundSurvivalClass);
+		Assert.isTrue(sc.equals(foundSurvivalClass));
+
+		this.unauthenticate();
+
+	}
+
+	@Test
+	public void testFindAll() {
+
+		this.authenticate("manager1");
+
+		final Collection<SurvivalClass> allScs = new HashSet<SurvivalClass>();
+
+		for (final Trip t : this.tripService.findAll())
+			allScs.addAll(t.getSurvivalClasses());
+
+		final Collection<SurvivalClass> foundSurvivalClasses = this.survivalClassService.findAll();
+
+		Assert.notNull(foundSurvivalClasses);
+		Assert.isTrue(allScs.size() == foundSurvivalClasses.size());
+		Assert.isTrue(allScs.containsAll(foundSurvivalClasses));
+		Assert.isTrue(foundSurvivalClasses.containsAll(allScs));
+
+		this.unauthenticate();
+
+	}
+
+	@Test
+	public void testFindByCurrentManager() {
+
+		this.authenticate("manager1");
+		final UserAccount userAccount = LoginService.getPrincipal();
+		final Manager manager = this.managerService.findByUserAccount(userAccount);
+
+		final List<SurvivalClass> survivalClasses = new ArrayList<SurvivalClass>(manager.getSurvivalClasses());
+		final List<SurvivalClass> foundSc = new ArrayList<SurvivalClass>(this.survivalClassService.findByCurrentManager());
+
+		Assert.notNull(foundSc);
+		Assert.isTrue(survivalClasses.containsAll(foundSc));
+		Assert.isTrue(foundSc.containsAll(survivalClasses));
+
+		this.unauthenticate();
+	}
+	@Test
+	public void testFindOneByCurrentManager() {
+
+		this.authenticate("manager1");
+
+		final UserAccount userAccount = LoginService.getPrincipal();
+		final Manager mananger = this.managerService.findByUserAccount(userAccount);
+
+		final List<SurvivalClass> scs = new ArrayList<SurvivalClass>(mananger.getSurvivalClasses());
+		final SurvivalClass sc = scs.get(0);
+		final SurvivalClass foundSurvivalClass = this.survivalClassService.findOneCurrentManager(sc.getId());
+
+		Assert.notNull(foundSurvivalClass);
+		Assert.isTrue(sc.equals(foundSurvivalClass));
+
+		this.unauthenticate();
+
+	}
+
+	@Test
+	public void testEnrroll() {
+
+		this.authenticate("manager1");
+
+		final UserAccount userAccount = LoginService.getPrincipal();
+		final Manager manager = this.managerService.findByUserAccount(userAccount);
+
+		final List<Trip> trips = new ArrayList<Trip>(manager.getTrips());
+		final Trip trip = trips.get(0);
+		final Location etsii = new Location();
+		etsii.setCoordinateX(-0.988);
+		etsii.setCoordinateY(9.876);
+		etsii.setName("ETSII");
+
+		final SurvivalClass testSurvivalClass = this.survivalClassService.create();
+		testSurvivalClass.setTitle("How to get away with 3rd grade of Software Engineering");
+		testSurvivalClass.setDescription("Don't enroll this survivalClass if you want to remain alive");
+		testSurvivalClass.setLocation(etsii);
+		testSurvivalClass.setMoment(new Date(1858707446000L));
+		testSurvivalClass.setTrip(trip);
+
+		final SurvivalClass savedSurvivalClass = this.survivalClassService.save(testSurvivalClass);
+
+		this.unauthenticate();
+
+		this.authenticate("explorer1");
+
+		final UserAccount userAccountE = LoginService.getPrincipal();
+		final Explorer explorer = this.explorerService.findByUserAccount(userAccountE);
+
+		this.survivalClassService.enroll(savedSurvivalClass);
+
+		Assert.isTrue(explorer.getSurvivalClasses().contains(savedSurvivalClass));
+		Assert.isTrue(savedSurvivalClass.getExplorers().contains(explorer));
+
+		this.unauthenticate();
+	}
 }

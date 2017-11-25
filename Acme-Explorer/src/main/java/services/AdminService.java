@@ -15,9 +15,7 @@ import security.LoginService;
 import security.UserAccount;
 import domain.Actor;
 import domain.Admin;
-import domain.Manager;
 import domain.Message;
-import domain.Ranger;
 
 @Service
 @Transactional
@@ -28,8 +26,6 @@ public class AdminService {
 	private AdminRepository	adminRepository;
 
 	//Supporting Services
-	@Autowired
-	private ManagerService	managerService;
 
 	@Autowired
 	private MessageService	messageService;
@@ -39,25 +35,6 @@ public class AdminService {
 
 
 	//Other Business process
-
-	public Manager createManager() {
-
-		final Manager res = this.managerService.create();
-		this.managerService.save(res);
-
-		return res;
-
-	}
-	public Ranger createRanger() {
-
-		//final Ranger res = this.rangerService.create();
-
-		//this.rangerService.save(res);
-
-		//return res;
-
-		return null;
-	}
 
 	public void broadcastNotification(final Message message) {
 
@@ -73,8 +50,8 @@ public class AdminService {
 	}
 
 	public Admin findByUserAccount(final UserAccount userAccount) {
-		Assert.notNull(userAccount);
 
+		Assert.notNull(userAccount);
 		final Admin res = this.adminRepository.findByUserAccountId(userAccount.getId());
 
 		return res;

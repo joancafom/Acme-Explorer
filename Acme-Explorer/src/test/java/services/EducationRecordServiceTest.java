@@ -4,6 +4,7 @@ package services;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -15,9 +16,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.Assert;
 
-import repositories.CurriculumRepository;
-import repositories.EducationRecordRepository;
 import security.LoginService;
+import security.UserAccount;
 import utilities.AbstractTest;
 import domain.Curriculum;
 import domain.EducationRecord;
@@ -33,23 +33,15 @@ public class EducationRecordServiceTest extends AbstractTest {
 	// Service under test ------------------
 
 	@Autowired
-	private EducationRecordService		educationRecordService;
-
-	// Supporting repositories -------------
-
-	@Autowired
-	private CurriculumRepository		curriculumRepository;
-
-	@Autowired
-	private EducationRecordRepository	educationRecordRepository;
+	private EducationRecordService	educationRecordService;
 
 	// Supporting services -----------------
 
 	@Autowired
-	private CurriculumService			curriculumService;
+	private CurriculumService		curriculumService;
 
 	@Autowired
-	private RangerService				rangerService;
+	private RangerService			rangerService;
 
 
 	// Tests -------------------------------
@@ -117,19 +109,63 @@ public class EducationRecordServiceTest extends AbstractTest {
 		Assert.isTrue(educationRecordS.getEndingDate().equals(endingDate));
 		Assert.isTrue(educationRecordS.getStartingDate().equals(startingDate));
 		Assert.isTrue(educationRecordS.getTitleOfDiploma().equals(titleOfDiploma));
+		Assert.notNull(this.educationRecordService.findOne(educationRecordS.getId()));
+		Assert.isTrue(this.educationRecordService.findOne(educationRecordS.getId()).equals(educationRecordS));
 
 		this.unauthenticate();
 	}
 
 	@Test
+	public void testFindOne() {
+
+		this.authenticate("ranger1");
+
+		final UserAccount userAccount = LoginService.getPrincipal();
+		final Ranger ranger = this.rangerService.findByUserAccount(userAccount);
+
+		final List<EducationRecord> educationRecords = new ArrayList<EducationRecord>(ranger.getCurriculum().getEducationRecords());
+		final EducationRecord educationRecord = educationRecords.get(0);
+		final EducationRecord foundEucationRecord = this.educationRecordService.findOne(educationRecord.getId());
+
+		Assert.notNull(foundEucationRecord);
+		Assert.isTrue(educationRecord.equals(foundEucationRecord));
+
+		this.unauthenticate();
+
+	}
+
+	@Test
+	public void testFindAll() {
+
+		this.authenticate("ranger1");
+
+		final Collection<EducationRecord> educationRecords = new HashSet<EducationRecord>();
+
+		for (final Curriculum c : this.curriculumService.findAll())
+			educationRecords.addAll(c.getEducationRecords());
+
+		final Collection<EducationRecord> foundEducationRecords = this.educationRecordService.findAll();
+
+		Assert.notNull(foundEducationRecords);
+		Assert.isTrue(educationRecords.containsAll(foundEducationRecords));
+		Assert.isTrue(foundEducationRecords.containsAll(educationRecords));
+		Assert.isTrue(educationRecords.size() == foundEducationRecords.size());
+
+		this.unauthenticate();
+
+	}
+
+	@Test
 	public void testFindByCurriculum() {
+
 		Curriculum curriculum = null;
 		Collection<Curriculum> curriculums;
+
 		final Collection<EducationRecord> educationRecords;
 
 		this.authenticate("ranger1");
 
-		curriculums = this.curriculumRepository.findAll();
+		curriculums = this.curriculumService.findAll();
 
 		for (final Curriculum c : curriculums) {
 			curriculum = c;
@@ -139,10 +175,11 @@ public class EducationRecordServiceTest extends AbstractTest {
 		educationRecords = this.educationRecordService.findByCurriculum(curriculum);
 
 		Assert.isTrue(educationRecords.containsAll(curriculum.getEducationRecords()));
+		Assert.isTrue(curriculum.getEducationRecords().containsAll(educationRecords));
+		Assert.isTrue(curriculum.getEducationRecords().size() == educationRecords.size());
 
 		this.unauthenticate();
 	}
-
 	@Test
 	public void testDelete() {
 		Ranger ranger;
@@ -159,7 +196,7 @@ public class EducationRecordServiceTest extends AbstractTest {
 
 		this.educationRecordService.delete(educationRecord);
 
-		Assert.isTrue(this.educationRecordRepository.findOne(educationRecord.getId()) == null);
+		Assert.isNull(this.educationRecordService.findOne(educationRecord.getId()));
 
 		this.unauthenticate();
 	}

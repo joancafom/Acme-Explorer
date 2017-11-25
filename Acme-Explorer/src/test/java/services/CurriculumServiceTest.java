@@ -101,6 +101,7 @@ public class CurriculumServiceTest extends AbstractTest {
 		Assert.isTrue(curriculum.getProfessionalRecords().equals(savedCurriculum.getProfessionalRecords()));
 		Assert.isTrue(curriculum.getEndorserRecords().equals(savedCurriculum.getEndorserRecords()));
 		Assert.isTrue(curriculum.getMiscellaneousRecords().equals(savedCurriculum.getMiscellaneousRecords()));
+		Assert.notNull(this.curriculumService.findOne(savedCurriculum.getId()));
 
 		this.unauthenticate();
 	}

@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 
@@ -16,7 +17,6 @@ import security.UserAccount;
 import domain.Explorer;
 import domain.Manager;
 import domain.SurvivalClass;
-import domain.Trip;
 import domain.TripApplication;
 
 @Service
@@ -40,25 +40,31 @@ public class SurvivalClassService {
 
 	//Simple CRUD operations
 
-	public SurvivalClass create(final Trip trip) {
-
-		Assert.notNull(trip);
+	public SurvivalClass create() {
 
 		final UserAccount userAccount = LoginService.getPrincipal();
 
 		final Manager manager = this.managerService.findByUserAccount(userAccount);
-
-		Assert.isTrue(manager.getTrips().contains(trip));
+		Assert.notNull(manager);
 
 		final SurvivalClass res = new SurvivalClass();
 
 		res.setManager(manager);
-		res.setTrip(trip);
+		res.setExplorers(new ArrayList<Explorer>());
 
 		manager.getSurvivalClasses().add(res);
-		trip.getSurvivalClasses().add(res);
 
 		return res;
+	}
+
+	public SurvivalClass findOne(final int survivalClassId) {
+
+		return this.survivalClassRepository.findOne(survivalClassId);
+	}
+
+	public Collection<SurvivalClass> findAll() {
+
+		return this.survivalClassRepository.findAll();
 	}
 
 	public SurvivalClass save(final SurvivalClass survivalClass) {
@@ -66,9 +72,11 @@ public class SurvivalClassService {
 		Assert.notNull(survivalClass);
 
 		final UserAccount userAccount = LoginService.getPrincipal();
+		final Manager manager = this.managerService.findByUserAccount(userAccount);
+		Assert.notNull(manager);
 
-		Assert.isTrue(survivalClass.getManager().getUserAccount().equals(userAccount));
-		Assert.isTrue(survivalClass.getManager().getTrips().contains(survivalClass.getTrip()));
+		Assert.isTrue(survivalClass.getManager().equals(manager));
+		Assert.isTrue(manager.getTrips().contains(survivalClass.getTrip()));
 
 		return this.survivalClassRepository.save(survivalClass);
 	}
@@ -91,12 +99,14 @@ public class SurvivalClassService {
 		final UserAccount userAccount = LoginService.getPrincipal();
 		final Manager manager = this.managerService.findByUserAccount(userAccount);
 
+		Assert.notNull(manager);
+
 		return this.survivalClassRepository.findByManagerId(manager.getId());
 	}
 
 	public SurvivalClass findOneCurrentManager(final int survivalClassId) {
-		final UserAccount userAccount = LoginService.getPrincipal();
 
+		final UserAccount userAccount = LoginService.getPrincipal();
 		final SurvivalClass survivalClass = this.survivalClassRepository.findOne(survivalClassId);
 
 		Assert.isTrue(survivalClass.getManager().getUserAccount().equals(userAccount));
@@ -105,13 +115,13 @@ public class SurvivalClassService {
 	}
 
 	public void enroll(final SurvivalClass survivalClass) {
-		UserAccount userAccount;
-		Explorer explorer;
-		Date currentDate;
 
-		userAccount = LoginService.getPrincipal();
+		Assert.notNull(survivalClass);
 
-		explorer = this.explorerService.findByUserAccount(userAccount);
+		final UserAccount userAccount = LoginService.getPrincipal();
+		final Explorer explorer = this.explorerService.findByUserAccount(userAccount);
+
+		Assert.notNull(explorer);
 
 		Boolean res = false;
 
@@ -121,9 +131,7 @@ public class SurvivalClassService {
 				break;
 			}
 
-		currentDate = new Date();
-
-		Assert.isTrue(survivalClass.getMoment().after(currentDate));
+		Assert.isTrue(survivalClass.getMoment().after(new Date()));
 		Assert.isTrue(res);
 
 		explorer.getSurvivalClasses().add(survivalClass);

@@ -2,6 +2,7 @@
 package services;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Random;
 
 import javax.transaction.Transactional;
@@ -88,7 +89,10 @@ public class CurriculumService {
 		return res;
 	}
 
-	//findAll makes no sense here
+	public Collection<Curriculum> findAll() {
+
+		return this.curriculumRepository.findAll();
+	}
 
 	public Curriculum save(final Curriculum curriculum) {
 
