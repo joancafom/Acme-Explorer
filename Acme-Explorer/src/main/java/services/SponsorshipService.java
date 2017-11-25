@@ -65,6 +65,17 @@ public class SponsorshipService {
 		return this.sponsorshipRepository.save(ss);
 	}
 
+	public void delete(final Sponsorship sponsorship) {
+
+		final UserAccount userAccount = LoginService.getPrincipal();
+		final Sponsor sponsor = this.sponsorService.findByUserAccount(userAccount);
+
+		Assert.notNull(sponsorship);
+		Assert.notNull(sponsor);
+		Assert.isTrue(sponsorship.getSponsor().equals(sponsor));
+
+		this.sponsorshipRepository.delete(sponsorship.getId());
+	}
 	//Other Business methods
 
 	public Collection<Sponsorship> findByTrip(final Trip trip) {

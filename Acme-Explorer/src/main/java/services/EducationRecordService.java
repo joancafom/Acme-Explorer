@@ -36,15 +36,29 @@ public class EducationRecordService {
 		Assert.notNull(curriculum);
 
 		final UserAccount userAccount = LoginService.getPrincipal();
+		final Ranger ranger = this.rangerService.findByUserAccount(userAccount);
 
-		Assert.isTrue(curriculum.getRanger().getUserAccount().equals(userAccount));
+		Assert.notNull(ranger);
+		Assert.isTrue(curriculum.getRanger().equals(ranger));
 
 		final EducationRecord educationRecord = new EducationRecord();
-		curriculum.getEducationRecords().add(educationRecord);
+
 		educationRecord.setCurriculum(curriculum);
 		educationRecord.setComments(new ArrayList<String>());
 
+		curriculum.getEducationRecords().add(educationRecord);
+
 		return educationRecord;
+	}
+
+	public EducationRecord findOne(final int educationRecordId) {
+
+		return this.educationRecordRepository.findOne(educationRecordId);
+	}
+
+	public Collection<EducationRecord> findAll() {
+
+		return this.educationRecordRepository.findAll();
 	}
 
 	public EducationRecord save(final EducationRecord educationRecord) {
@@ -52,7 +66,6 @@ public class EducationRecordService {
 		Assert.notNull(educationRecord);
 
 		final UserAccount userAccount = LoginService.getPrincipal();
-
 		final Ranger ranger = this.rangerService.findByUserAccount(userAccount);
 
 		Assert.notNull(ranger);
@@ -67,17 +80,13 @@ public class EducationRecordService {
 		Assert.notNull(educationRecord);
 
 		final UserAccount userAccount = LoginService.getPrincipal();
-
 		final Ranger ranger = this.rangerService.findByUserAccount(userAccount);
-
 		Assert.notNull(ranger);
 
 		final Curriculum rangerCurriculum = ranger.getCurriculum();
 
 		Assert.notNull(rangerCurriculum);
-		Assert.isTrue(rangerCurriculum.equals(ranger.getCurriculum()));
-
-		rangerCurriculum.getEducationRecords().remove(educationRecord);
+		Assert.isTrue(rangerCurriculum.equals(educationRecord.getCurriculum()));
 
 		this.educationRecordRepository.delete(educationRecord);
 	}
@@ -85,10 +94,12 @@ public class EducationRecordService {
 	//Other Business methods
 
 	public Collection<EducationRecord> findByCurriculum(final Curriculum curriculum) {
+
 		final UserAccount userAccount = LoginService.getPrincipal();
+		final Ranger ranger = this.rangerService.findByUserAccount(userAccount);
 
 		Assert.notNull(curriculum);
-		Assert.isTrue(curriculum.getRanger().getUserAccount().equals(userAccount));
+		Assert.isTrue(curriculum.getRanger().equals(ranger));
 
 		return this.educationRecordRepository.findByCurriculumId(curriculum.getId());
 	}
