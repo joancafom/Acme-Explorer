@@ -61,4 +61,8 @@ public class SocialIDService {
 		Assert.notNull(userAccount);
 		this.socialIDRepository.delete(socialID);
 	}
+
+	public SocialID findOne(final int id) {
+		return this.socialIDRepository.findOne(id);
+	}
 }

@@ -1,6 +1,9 @@
 
 package services;
 
+import java.util.Collection;
+import java.util.HashSet;
+
 import javax.transaction.Transactional;
 
 import org.junit.Test;
@@ -13,6 +16,7 @@ import org.springframework.util.Assert;
 import security.LoginService;
 import security.UserAccount;
 import utilities.AbstractTest;
+import domain.Actor;
 import domain.Explorer;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -24,6 +28,8 @@ public class ExplorerServiceTest extends AbstractTest {
 
 	@Autowired
 	private ExplorerService	explorerService;
+	@Autowired
+	private ActorService	actorService;
 
 
 	@Test
@@ -50,6 +56,45 @@ public class ExplorerServiceTest extends AbstractTest {
 		final UserAccount userAccount = LoginService.getPrincipal();
 		final Explorer e = this.explorerService.findByUserAccount(userAccount);
 		Assert.isTrue(e.getUserAccount().getUsername().equals("explorer1"));
+		this.unauthenticate();
+
+	}
+
+	@Test
+	public void testFindOne() {
+
+		this.authenticate("explorer1");
+
+		final UserAccount userAccount = LoginService.getPrincipal();
+		final Explorer explorer = this.explorerService.findByUserAccount(userAccount);
+
+		final Explorer foundExplorer = this.explorerService.findOne(explorer.getId());
+
+		Assert.notNull(foundExplorer);
+		Assert.isTrue(explorer.equals(foundExplorer));
+
+		this.unauthenticate();
+
+	}
+
+	@Test
+	public void testFindAll() {
+
+		this.authenticate("admin1");
+
+		final Collection<Explorer> allExplorers = new HashSet<Explorer>();
+
+		for (final Actor a : this.actorService.findAll())
+			if (a instanceof Explorer)
+				allExplorers.add((Explorer) a);
+
+		final Collection<Explorer> foundExplorers = this.explorerService.findAll();
+
+		Assert.notNull(foundExplorers);
+		Assert.isTrue(allExplorers.size() == foundExplorers.size());
+		Assert.isTrue(allExplorers.containsAll(foundExplorers));
+		Assert.isTrue(foundExplorers.containsAll(allExplorers));
+
 		this.unauthenticate();
 
 	}

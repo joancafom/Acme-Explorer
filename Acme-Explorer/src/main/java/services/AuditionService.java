@@ -93,6 +93,14 @@ public class AuditionService {
 		this.auditionRepository.delete(audition);
 	}
 
+	public Collection<Audition> findAll() {
+		return this.auditionRepository.findAll();
+	}
+
+	public Audition findOne(final int id) {
+		return this.auditionRepository.findOne(id);
+	}
+
 	public Collection<Audition> findByTrip(final Trip t) {
 		Assert.notNull(t);
 		return this.auditionRepository.findByTripId(t.getId());

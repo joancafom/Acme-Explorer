@@ -1,8 +1,11 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
 
 import javax.transaction.Transactional;
 
@@ -14,9 +17,12 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.Assert;
 
+import security.LoginService;
+import security.UserAccount;
 import utilities.AbstractTest;
 import domain.Curriculum;
 import domain.MiscellaneousRecord;
+import domain.Ranger;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
@@ -32,6 +38,9 @@ public class MiscellaneousRecordServiceTest extends AbstractTest {
 	//Other required Services
 	@Autowired
 	private CurriculumService			curriculumService;
+
+	@Autowired
+	private RangerService				rangerService;
 
 	//Working Variables
 	private Curriculum					curriculum;
@@ -76,6 +85,46 @@ public class MiscellaneousRecordServiceTest extends AbstractTest {
 
 		Assert.isTrue(rangerCurriculum.getMiscellaneousRecords().containsAll(retrievedRecords));
 		Assert.isTrue(rangerCurriculum.getMiscellaneousRecords().size() == retrievedRecords.size());
+
+		this.unauthenticate();
+
+	}
+
+	@Test
+	public void testFindOne() {
+
+		this.authenticate("ranger1");
+
+		final UserAccount userAccount = LoginService.getPrincipal();
+		final Ranger ranger = this.rangerService.findByUserAccount(userAccount);
+
+		final List<MiscellaneousRecord> miscellaneousRecords = new ArrayList<MiscellaneousRecord>(ranger.getCurriculum().getMiscellaneousRecords());
+		final MiscellaneousRecord miscellaneousRecord = miscellaneousRecords.get(0);
+		final MiscellaneousRecord foundMiscellaneousRecord = this.miscellaneousRecordService.findOne(miscellaneousRecord.getId());
+
+		Assert.notNull(foundMiscellaneousRecord);
+		Assert.isTrue(miscellaneousRecord.equals(foundMiscellaneousRecord));
+
+		this.unauthenticate();
+
+	}
+
+	@Test
+	public void testFindAll() {
+
+		this.authenticate("ranger1");
+
+		final Collection<MiscellaneousRecord> miscellaneousRecords = new HashSet<MiscellaneousRecord>();
+
+		for (final Curriculum c : this.curriculumService.findAll())
+			miscellaneousRecords.addAll(c.getMiscellaneousRecords());
+
+		final Collection<MiscellaneousRecord> foundMiscellaneousRecords = this.miscellaneousRecordService.findAll();
+
+		Assert.notNull(foundMiscellaneousRecords);
+		Assert.isTrue(miscellaneousRecords.containsAll(foundMiscellaneousRecords));
+		Assert.isTrue(foundMiscellaneousRecords.containsAll(miscellaneousRecords));
+		Assert.isTrue(miscellaneousRecords.size() == foundMiscellaneousRecords.size());
 
 		this.unauthenticate();
 

@@ -2,6 +2,7 @@
 package services;
 
 import java.util.Collection;
+import java.util.HashSet;
 
 import javax.transaction.Transactional;
 
@@ -14,6 +15,7 @@ import org.springframework.util.Assert;
 
 import repositories.CurriculumRepository;
 import security.LoginService;
+import security.UserAccount;
 import utilities.AbstractTest;
 import domain.Curriculum;
 import domain.PersonalRecord;
@@ -102,6 +104,45 @@ public class PersonalRecordServiceTest extends AbstractTest {
 		Assert.isTrue(personalRecordS.getLinkedInProfile().equals(linkedInProfile));
 
 		this.unauthenticate();
+	}
+
+	@Test
+	public void testFindOne() {
+
+		this.authenticate("ranger1");
+
+		final UserAccount userAccount = LoginService.getPrincipal();
+		final Ranger ranger = this.rangerService.findByUserAccount(userAccount);
+
+		final PersonalRecord personalRecord = ranger.getCurriculum().getPersonalRecord();
+		final PersonalRecord foundPersonalRecord = this.personalRecordService.findOne(personalRecord.getId());
+
+		Assert.notNull(foundPersonalRecord);
+		Assert.isTrue(personalRecord.equals(foundPersonalRecord));
+
+		this.unauthenticate();
+
+	}
+
+	@Test
+	public void testFindAll() {
+
+		this.authenticate("ranger1");
+
+		final Collection<PersonalRecord> personalRecords = new HashSet<PersonalRecord>();
+
+		for (final Curriculum c : this.curriculumService.findAll())
+			personalRecords.add(c.getPersonalRecord());
+
+		final Collection<PersonalRecord> foundPersonalRecords = this.personalRecordService.findAll();
+
+		Assert.notNull(foundPersonalRecords);
+		Assert.isTrue(personalRecords.containsAll(foundPersonalRecords));
+		Assert.isTrue(foundPersonalRecords.containsAll(personalRecords));
+		Assert.isTrue(personalRecords.size() == foundPersonalRecords.size());
+
+		this.unauthenticate();
+
 	}
 
 	@Test

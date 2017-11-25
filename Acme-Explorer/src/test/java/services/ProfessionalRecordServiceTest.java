@@ -1,8 +1,11 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
 
 import javax.transaction.Transactional;
 
@@ -14,9 +17,12 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.Assert;
 
+import security.LoginService;
+import security.UserAccount;
 import utilities.AbstractTest;
 import domain.Curriculum;
 import domain.ProfessionalRecord;
+import domain.Ranger;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
@@ -32,6 +38,9 @@ public class ProfessionalRecordServiceTest extends AbstractTest {
 	//Other required Services
 	@Autowired
 	private CurriculumService			curriculumService;
+
+	@Autowired
+	private RangerService				rangerService;
 
 	//Working Variables
 	private Curriculum					curriculum;
@@ -145,4 +154,45 @@ public class ProfessionalRecordServiceTest extends AbstractTest {
 		this.unauthenticate();
 
 	}
+
+	@Test
+	public void testFindOne() {
+
+		this.authenticate("ranger1");
+
+		final UserAccount userAccount = LoginService.getPrincipal();
+		final Ranger ranger = this.rangerService.findByUserAccount(userAccount);
+
+		final List<ProfessionalRecord> professionalRecords = new ArrayList<ProfessionalRecord>(ranger.getCurriculum().getProfessionalRecords());
+		final ProfessionalRecord professionalRecord = professionalRecords.get(0);
+		final ProfessionalRecord foundProfessionalRecord = this.professionalRecordService.findOne(professionalRecord.getId());
+
+		Assert.notNull(foundProfessionalRecord);
+		Assert.isTrue(professionalRecord.equals(foundProfessionalRecord));
+
+		this.unauthenticate();
+
+	}
+
+	@Test
+	public void testFindAll() {
+
+		this.authenticate("ranger1");
+
+		final Collection<ProfessionalRecord> professionalRecords = new HashSet<ProfessionalRecord>();
+
+		for (final Curriculum c : this.curriculumService.findAll())
+			professionalRecords.addAll(c.getProfessionalRecords());
+
+		final Collection<ProfessionalRecord> foundProfessionalRecords = this.professionalRecordService.findAll();
+
+		Assert.notNull(foundProfessionalRecords);
+		Assert.isTrue(professionalRecords.containsAll(foundProfessionalRecords));
+		Assert.isTrue(foundProfessionalRecords.containsAll(professionalRecords));
+		Assert.isTrue(professionalRecords.size() == foundProfessionalRecords.size());
+
+		this.unauthenticate();
+
+	}
+
 }

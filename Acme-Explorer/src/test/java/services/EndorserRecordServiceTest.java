@@ -1,8 +1,11 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
 
 import javax.transaction.Transactional;
 
@@ -14,9 +17,12 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.Assert;
 
+import security.LoginService;
+import security.UserAccount;
 import utilities.AbstractTest;
 import domain.Curriculum;
 import domain.EndorserRecord;
+import domain.Ranger;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
@@ -32,6 +38,9 @@ public class EndorserRecordServiceTest extends AbstractTest {
 	//Other required Services
 	@Autowired
 	private CurriculumService		curriculumService;
+
+	@Autowired
+	private RangerService			rangerService;
 
 	//Working Variables
 	private Curriculum				curriculum;
@@ -94,6 +103,47 @@ public class EndorserRecordServiceTest extends AbstractTest {
 		this.unauthenticate();
 
 	}
+
+	@Test
+	public void testFindOne() {
+
+		this.authenticate("ranger1");
+
+		final UserAccount userAccount = LoginService.getPrincipal();
+		final Ranger ranger = this.rangerService.findByUserAccount(userAccount);
+
+		final List<EndorserRecord> endorserRecords = new ArrayList<EndorserRecord>(ranger.getCurriculum().getEndorserRecords());
+		final EndorserRecord endorserRecord = endorserRecords.get(0);
+		final EndorserRecord foundEndorserRecord = this.endorserRecordService.findOne(endorserRecord.getId());
+
+		Assert.notNull(foundEndorserRecord);
+		Assert.isTrue(endorserRecord.equals(foundEndorserRecord));
+
+		this.unauthenticate();
+
+	}
+
+	@Test
+	public void testFindAll() {
+
+		this.authenticate("ranger1");
+
+		final Collection<EndorserRecord> endorserRecords = new HashSet<EndorserRecord>();
+
+		for (final Curriculum c : this.curriculumService.findAll())
+			endorserRecords.addAll(c.getEndorserRecords());
+
+		final Collection<EndorserRecord> foundEndorserRecords = this.endorserRecordService.findAll();
+
+		Assert.notNull(foundEndorserRecords);
+		Assert.isTrue(endorserRecords.containsAll(foundEndorserRecords));
+		Assert.isTrue(foundEndorserRecords.containsAll(endorserRecords));
+		Assert.isTrue(endorserRecords.size() == foundEndorserRecords.size());
+
+		this.unauthenticate();
+
+	}
+
 	@Test
 	public void testDelete() {
 

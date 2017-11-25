@@ -81,6 +81,14 @@ public class MiscellaneousRecordService {
 		this.miscellaneousRecordRepository.delete(miscellaneousRecord);
 	}
 
+	public Collection<MiscellaneousRecord> findAll() {
+		return this.miscellaneousRecordRepository.findAll();
+	}
+
+	public MiscellaneousRecord findOne(final int id) {
+		return this.miscellaneousRecordRepository.findOne(id);
+	}
+
 	//Other business methods
 
 	public Collection<MiscellaneousRecord> findByCurriculum(final Curriculum curriculum) {

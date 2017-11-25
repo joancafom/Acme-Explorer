@@ -47,87 +47,98 @@ public class TripApplicationServiceTest extends AbstractTest {
 	private TripService				tripService;
 
 
-		@Test
-		public void testCreate() {
-			super.authenticate("explorer1");
-			final UserAccount userAccount = LoginService.getPrincipal();
-			final Explorer explorer = this.explorerService.findByUserAccount(userAccount);
-	
-			TripApplication tripApplicationC;
-	
-			Trip trip = new Trip();
-	
-			final List<TripApplication> tripApplications = new LinkedList<TripApplication>();
-			for (final Trip t : this.tripService.findAll())
-				tripApplications.addAll(t.getTripApplications());
-			tripApplications.removeAll(explorer.getTripApplications());
-			trip = tripApplications.get(0).getTrip();
-	
-			tripApplicationC = this.tripApplicationService.create(trip);
-	
-			final long nowMillis = System.currentTimeMillis() - 1000;
-			final Date createMoment = new Date(nowMillis);
-	
-			Assert.notNull(tripApplicationC);
-			Assert.isTrue(tripApplicationC.getTrip().equals(trip));
-			Assert.isTrue(tripApplicationC.getMoment().equals(createMoment));
-			Assert.isTrue(tripApplicationC.getExplorer().equals(explorer));
-			Assert.notNull(tripApplicationC.getComments());
-			Assert.isTrue(tripApplicationC.getComments().isEmpty());
-			Assert.isNull(tripApplicationC.getCreditCard());
-			Assert.isTrue(tripApplicationC.getStatus().equals(ApplicationStatus.PENDING));
-			super.authenticate(null);
-	
-		}
+	@Test
+	public void testCreate() {
+		super.authenticate("explorer1");
+		final UserAccount userAccount = LoginService.getPrincipal();
+		final Explorer explorer = this.explorerService.findByUserAccount(userAccount);
 
-		@Test
-		public void testSave() {
-			super.authenticate("explorer1");
-			final UserAccount userAccount = LoginService.getPrincipal();
-			final Explorer explorer = this.explorerService.findByUserAccount(userAccount);
-	
-			Trip trip = new Trip();
-			final List<TripApplication> tripApplications = new LinkedList<TripApplication>();
-			for (final Trip t : this.tripService.findAll())
-				tripApplications.addAll(t.getTripApplications());
-			tripApplications.removeAll(explorer.getTripApplications());
-			trip = tripApplications.get(0).getTrip();
-			final TripApplication tripApplication = this.tripApplicationService.create(trip);
-	
-			Assert.isTrue(explorer.getTripApplications().contains(tripApplication));
-			super.authenticate(null);
-		}
+		TripApplication tripApplicationC;
 
-		@Test
-		public void testFindByCurrentExplorer() {
-			super.authenticate("explorer1");
-			final UserAccount userAccount = LoginService.getPrincipal();
-			final Explorer explorer = this.explorerService.findByUserAccount(userAccount);
-	
-			final Collection<Trip> trips = this.tripService.findAll();
-			final Collection<TripApplication> tripApplications = new HashSet<TripApplication>();
-			for (final Trip t : trips)
-				for (final TripApplication tA : t.getTripApplications())
-					if (tA.getExplorer().equals(explorer))
-						tripApplications.add(tA);
-			Assert.isTrue(tripApplications.containsAll(this.tripApplicationService.findByCurrentExplorer()));
-	
-		}
+		Trip trip = new Trip();
 
-		@Test
-		public void testFindAcceptedByCurrentExplorer() {
-			super.authenticate("explorer1");
-			final UserAccount userAccount = LoginService.getPrincipal();
-			final Explorer explorer = this.explorerService.findByUserAccount(userAccount);
-	
-			final Collection<Trip> trips = this.tripService.findAll();
-			final Collection<TripApplication> tripApplications = new HashSet<TripApplication>();
-			for (final Trip t : trips)
-				for (final TripApplication tA : t.getTripApplications())
-					if (tA.getExplorer().equals(explorer) && tA.getStatus().equals(ApplicationStatus.ACCEPTED))
-						tripApplications.add(tA);
-			Assert.isTrue(tripApplications.containsAll(this.tripApplicationService.findAcceptedByCurrentExplorer()));
-		}
+		final List<TripApplication> tripApplications = new LinkedList<TripApplication>();
+		for (final Trip t : this.tripService.findAll())
+			tripApplications.addAll(t.getTripApplications());
+		tripApplications.removeAll(explorer.getTripApplications());
+		trip = tripApplications.get(0).getTrip();
+
+		tripApplicationC = this.tripApplicationService.create(trip);
+
+		final long nowMillis = System.currentTimeMillis() - 1000;
+		final Date createMoment = new Date(nowMillis);
+
+		Assert.notNull(tripApplicationC);
+		Assert.isTrue(tripApplicationC.getTrip().equals(trip));
+		Assert.isTrue(tripApplicationC.getMoment().equals(createMoment));
+		Assert.isTrue(tripApplicationC.getExplorer().equals(explorer));
+		Assert.notNull(tripApplicationC.getComments());
+		Assert.isTrue(tripApplicationC.getComments().isEmpty());
+		Assert.isNull(tripApplicationC.getCreditCard());
+		Assert.isTrue(tripApplicationC.getStatus().equals(ApplicationStatus.PENDING));
+		super.authenticate(null);
+
+	}
+
+	@Test
+	public void testSave() {
+		super.authenticate("explorer1");
+		final UserAccount userAccount = LoginService.getPrincipal();
+		final Explorer explorer = this.explorerService.findByUserAccount(userAccount);
+
+		Trip trip = new Trip();
+		final List<TripApplication> tripApplications = new LinkedList<TripApplication>();
+		for (final Trip t : this.tripService.findAll())
+			tripApplications.addAll(t.getTripApplications());
+		tripApplications.removeAll(explorer.getTripApplications());
+		trip = tripApplications.get(0).getTrip();
+		final TripApplication tripApplication = this.tripApplicationService.create(trip);
+
+		Assert.isTrue(explorer.getTripApplications().contains(tripApplication));
+		super.authenticate(null);
+	}
+
+	@Test
+	public void testFindAll() {
+		final Collection<TripApplication> tripApplications = new HashSet<TripApplication>();
+		for (final Trip t : this.tripService.findAll())
+			tripApplications.addAll(t.getTripApplications());
+
+		Assert.isTrue(tripApplications.containsAll(this.tripApplicationService.findAll()));
+		Assert.isTrue(this.tripApplicationService.findAll().containsAll(tripApplications));
+		Assert.isTrue(tripApplications.size() == this.tripApplicationService.findAll().size());
+	}
+
+	@Test
+	public void testFindByCurrentExplorer() {
+		super.authenticate("explorer1");
+		final UserAccount userAccount = LoginService.getPrincipal();
+		final Explorer explorer = this.explorerService.findByUserAccount(userAccount);
+
+		final Collection<Trip> trips = this.tripService.findAll();
+		final Collection<TripApplication> tripApplications = new HashSet<TripApplication>();
+		for (final Trip t : trips)
+			for (final TripApplication tA : t.getTripApplications())
+				if (tA.getExplorer().equals(explorer))
+					tripApplications.add(tA);
+		Assert.isTrue(tripApplications.containsAll(this.tripApplicationService.findByCurrentExplorer()));
+
+	}
+
+	@Test
+	public void testFindAcceptedByCurrentExplorer() {
+		super.authenticate("explorer1");
+		final UserAccount userAccount = LoginService.getPrincipal();
+		final Explorer explorer = this.explorerService.findByUserAccount(userAccount);
+
+		final Collection<Trip> trips = this.tripService.findAll();
+		final Collection<TripApplication> tripApplications = new HashSet<TripApplication>();
+		for (final Trip t : trips)
+			for (final TripApplication tA : t.getTripApplications())
+				if (tA.getExplorer().equals(explorer) && tA.getStatus().equals(ApplicationStatus.ACCEPTED))
+					tripApplications.add(tA);
+		Assert.isTrue(tripApplications.containsAll(this.tripApplicationService.findAcceptedByCurrentExplorer()));
+	}
 
 	@Test
 	public void testChangeApplicationStatus() {
@@ -151,20 +162,20 @@ public class TripApplicationServiceTest extends AbstractTest {
 		Assert.isTrue(tripStatusToChange.getStatus().equals(ApplicationStatus.DUE));
 	}
 
-		@Test
-		public void testFindByCurrentManager() {
-			super.authenticate("manager1");
-			final UserAccount userAccount = LoginService.getPrincipal();
-			final Manager manager = this.managerService.findByUserAccount(userAccount);
-	
-			final Collection<Trip> trips = this.tripService.findAll();
-			final Collection<TripApplication> tripApplications = new HashSet<TripApplication>();
-			for (final Trip t : trips)
-				if (t.getManager().equals(manager))
-					tripApplications.addAll(t.getTripApplications());
-			Assert.isTrue(tripApplications.containsAll(this.tripApplicationService.findByCurrentManager()));
-	
-		}
+	@Test
+	public void testFindByCurrentManager() {
+		super.authenticate("manager1");
+		final UserAccount userAccount = LoginService.getPrincipal();
+		final Manager manager = this.managerService.findByUserAccount(userAccount);
+
+		final Collection<Trip> trips = this.tripService.findAll();
+		final Collection<TripApplication> tripApplications = new HashSet<TripApplication>();
+		for (final Trip t : trips)
+			if (t.getManager().equals(manager))
+				tripApplications.addAll(t.getTripApplications());
+		Assert.isTrue(tripApplications.containsAll(this.tripApplicationService.findByCurrentManager()));
+
+	}
 
 	@Test
 	public void testEnterCreditCard() {

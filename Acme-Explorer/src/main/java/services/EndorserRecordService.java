@@ -44,11 +44,19 @@ public class EndorserRecordService {
 		return this.endorserRecordRepository.save(endorserRecord);
 	}
 
+	public Collection<EndorserRecord> findAll() {
+		return this.endorserRecordRepository.findAll();
+	}
+
+	public EndorserRecord findOne(final int Id) {
+		return this.endorserRecordRepository.findOne(Id);
+	}
+
 	public void delete(final EndorserRecord endorserRecord) {
 		this.endorserRecordRepository.delete(endorserRecord);
 	}
-	
-	public Collection<EndorserRecord> findByCurriculum(final Curriculum curriculum){
+
+	public Collection<EndorserRecord> findByCurriculum(final Curriculum curriculum) {
 		final UserAccount userAccount = LoginService.getPrincipal();
 
 		Assert.notNull(curriculum);

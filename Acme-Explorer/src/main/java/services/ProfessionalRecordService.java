@@ -81,6 +81,14 @@ public class ProfessionalRecordService {
 		this.professionalRecordRepository.delete(professionalRecord);
 	}
 
+	public Collection<ProfessionalRecord> findAll() {
+		return this.professionalRecordRepository.findAll();
+	}
+
+	public ProfessionalRecord findOne(final int id) {
+		return this.professionalRecordRepository.findOne(id);
+	}
+
 	//Other business methods
 
 	public Collection<ProfessionalRecord> findByCurriculum(final Curriculum curriculum) {

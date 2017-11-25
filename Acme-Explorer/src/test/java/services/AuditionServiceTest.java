@@ -163,6 +163,26 @@ public class AuditionServiceTest extends AbstractTest {
 	}
 
 	@Test
+	public void testFindAll() {
+		final Collection<Audition> auditions = new HashSet<Audition>();
+		for (final Trip t : this.tripService.findAll())
+			auditions.addAll(t.getAuditions());
+
+		Assert.isTrue(auditions.containsAll(this.auditionService.findAll()) && auditions.size() == this.auditionService.findAll().size());
+	}
+
+	@Test
+	public void testFindOne() {
+		Audition audition = new Audition();
+		for (final Trip t : this.tripService.findAll())
+			for (final Audition a : t.getAuditions()) {
+				audition = a;
+				break;
+			}
+
+		Assert.isTrue(audition.equals(this.auditionService.findOne(audition.getId())));
+	}
+	@Test
 	public void testFindByTrip() {
 		Collection<Audition> auditions;
 		Trip trip = new Trip();

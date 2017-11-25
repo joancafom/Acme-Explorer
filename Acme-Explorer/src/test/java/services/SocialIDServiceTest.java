@@ -88,4 +88,16 @@ public class SocialIDServiceTest extends AbstractTest {
 
 	}
 
+	@Test
+	public void testFindOne() {
+		super.authenticate("admin1");
+		final UserAccount userAccount = LoginService.getPrincipal();
+		final Actor explorer = this.actorService.findByUserAccount(userAccount);
+
+		final List<SocialID> socialIDs = new LinkedList<SocialID>(explorer.getSocialIDs());
+		final SocialID socialID = socialIDs.get(0);
+
+		Assert.isTrue(socialID.equals(this.socialIDService.findOne(socialID.getId())));
+	}
+
 }

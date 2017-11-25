@@ -2,6 +2,7 @@
 package services;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 import javax.transaction.Transactional;
 
@@ -45,6 +46,14 @@ public class ExplorerService {
 		explorer.setEmergencyContacts(new ArrayList<Contact>());
 
 		return explorer;
+	}
+
+	public Collection<Explorer> findAll() {
+		return this.explorerRepository.findAll();
+	}
+
+	public Explorer findOne(final int id) {
+		return this.explorerRepository.findOne(id);
 	}
 
 	public Explorer save(final Explorer explorer) {

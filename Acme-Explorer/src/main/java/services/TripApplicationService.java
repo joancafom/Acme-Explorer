@@ -67,22 +67,18 @@ public class TripApplicationService {
 		final Collection<String> comments = new ArrayList<String>();
 
 		tripApplication.setComments(comments);
-		
+
 		final long nowMillis = System.currentTimeMillis() - 1000;
 		final Date createMoment = new Date(nowMillis);
-		
+
 		tripApplication.setMoment(createMoment);
 		tripApplication.setStatus(ApplicationStatus.PENDING);
 
 		e.getTripApplications().add(tripApplication);
 		t.getTripApplications().add(tripApplication);
 
-
 		return tripApplication;
 	}
-	
-	
-	
 
 	public TripApplication save(final TripApplication application) {
 		Assert.notNull(application);
@@ -90,8 +86,16 @@ public class TripApplicationService {
 		return this.applicationRepository.save(application);
 	}
 
+	public Collection<TripApplication> findAll() {
+		return this.applicationRepository.findAll();
+	}
+
+	public TripApplication findOne(final int id) {
+		return this.applicationRepository.findOne(id);
+	}
+
 	/* Business Methods */
-	
+
 	public Collection<TripApplication> findByCurrentExplorer() {
 		final UserAccount userAccount = LoginService.getPrincipal();
 
@@ -118,7 +122,7 @@ public class TripApplicationService {
 		Assert.isTrue(application.getTrip().getManager().equals(this.managerService.findByUserAccount(userAccount)));
 		Assert.isTrue(status.equals(ApplicationStatus.REJECTED) || status.equals(ApplicationStatus.DUE));
 		Assert.isTrue(application.getStatus().equals(ApplicationStatus.PENDING));
-		
+
 		application.setStatus(status);
 		this.save(application);
 	}
@@ -127,7 +131,7 @@ public class TripApplicationService {
 		/* OK */
 		final UserAccount userAccount = LoginService.getPrincipal();
 		Assert.notNull(userAccount);
-		
+
 		final Manager manager = this.managerService.findByUserAccount(userAccount);
 		final Collection<TripApplication> tripApplications = this.applicationRepository.findTripApplicationsManagedByManager(manager.getId());
 
@@ -150,9 +154,6 @@ public class TripApplicationService {
 		tripApplication.setCreditCard(creditCard);
 
 	}
-	
-	
-	
 
 	public void cancel(final TripApplication tripApplication) {
 		UserAccount userAccount;

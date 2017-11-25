@@ -1,6 +1,8 @@
 
 package services;
 
+import java.util.Collection;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,6 +59,14 @@ public class PersonalRecordService {
 		Assert.isTrue(personalRecord.getCurriculum().equals(ranger.getCurriculum()));
 
 		return this.personalRecordRepository.save(personalRecord);
+	}
+
+	public Collection<PersonalRecord> findAll() {
+		return this.personalRecordRepository.findAll();
+	}
+
+	public PersonalRecord findOne(final int id) {
+		return this.personalRecordRepository.findOne(id);
 	}
 
 	//Other business methods
