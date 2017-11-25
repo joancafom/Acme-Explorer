@@ -2,8 +2,6 @@
 package services;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 
 import javax.transaction.Transactional;
 
@@ -12,14 +10,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.ExplorerRepository;
-import security.Authority;
 import security.UserAccount;
 import domain.Contact;
 import domain.Explorer;
-import domain.Finder;
-import domain.Folder;
-import domain.Message;
-import domain.SocialID;
 import domain.Story;
 import domain.SurvivalClass;
 import domain.TripApplication;
@@ -30,51 +23,26 @@ public class ExplorerService {
 
 	/* Repository */
 	@Autowired
-	ExplorerRepository	explorerRepository;
+	private ExplorerRepository	explorerRepository;
 
 	/* Services */
 	@Autowired
-	FolderService		folderService;
+	private ActorService		actorService;
 
 
-	public Explorer create() {
+	public Explorer create(final UserAccount userAccount) {
 
-		Explorer explorer;
-		UserAccount userAccount;
-		final List<SocialID> socialIDs = new ArrayList<SocialID>();
-		final List<Message> sentMessages = new ArrayList<Message>();
-		final List<Message> receivedMessages = new ArrayList<Message>();
-		final List<Authority> authorities = new ArrayList<Authority>();
-		final List<SurvivalClass> survivalClasses = new ArrayList<SurvivalClass>();
-		final List<Story> stories = new ArrayList<Story>();
-		final List<TripApplication> tripApplications = new ArrayList<TripApplication>();
-		final List<Contact> emergencyContacts = new ArrayList<Contact>();
-		Authority authority;
+		Assert.notNull(userAccount);
 
-		explorer = new Explorer();
+		// REVISAR !!!
+		// Pasar la UserAccount por parámetros?
 
-		explorer.setIsSuspicious(false);
-		explorer.setIsBanned(false);
-		explorer.setSocialIDs(socialIDs);
+		final Explorer explorer = (Explorer) this.actorService.create(userAccount, Explorer.class);
 
-		final Collection<Folder> systemFolders = this.folderService.createSystemFolders(explorer);
-		explorer.setFolders(systemFolders);
-		explorer.setSentMessages(sentMessages);
-		explorer.setReceivedMessages(receivedMessages);
-		explorer.setStories(stories);
-		explorer.setSurvivalClasses(survivalClasses);
-		explorer.setTripApplications(tripApplications);
-		explorer.setEmergencyContacts(emergencyContacts);
-
-		userAccount = new UserAccount();
-
-		authority = new Authority();
-		authority.setAuthority(Authority.EXPLORER);
-		authorities.add(authority);
-
-		userAccount.setAuthorities(authorities);
-		
-		explorer.setUserAccount(userAccount);
+		explorer.setStories(new ArrayList<Story>());
+		explorer.setSurvivalClasses(new ArrayList<SurvivalClass>());
+		explorer.setTripApplications(new ArrayList<TripApplication>());
+		explorer.setEmergencyContacts(new ArrayList<Contact>());
 
 		return explorer;
 	}

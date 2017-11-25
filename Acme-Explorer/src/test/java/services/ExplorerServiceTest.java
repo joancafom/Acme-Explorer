@@ -28,9 +28,12 @@ public class ExplorerServiceTest extends AbstractTest {
 
 	@Test
 	public void testCreate() {
+
 		super.authenticate("admin1");
 
-		final Explorer explorer = this.explorerService.create();
+		final UserAccount userAccount = new UserAccount();
+
+		final Explorer explorer = this.explorerService.create(userAccount);
 		Assert.notNull(explorer.getSentMessages());
 		Assert.notNull(explorer.getReceivedMessages());
 		Assert.notNull(explorer.getEmergencyContacts());

@@ -146,42 +146,33 @@ public class AuditionServiceTest extends AbstractTest {
 		Assert.isTrue(this.auditionRepository.findOne(audition.getId()) == null);
 
 	}
-	
+
 	@Test
-	public void testFindByAuditor(){
+	public void testFindByAuditor() {
 		Auditor auditor;
-		Collection<Audition> auditions = new HashSet<Audition>();
+		final Collection<Audition> auditions = new HashSet<Audition>();
 
 		this.authenticate("auditor1");
 
 		auditor = this.auditorService.findByUserAccount(LoginService.getPrincipal());
-		for(Audition a: this.auditionRepository.findAll()){
-			if(a.getAuditor().equals(auditor)){
+		for (final Audition a : this.auditionRepository.findAll())
+			if (a.getAuditor().equals(auditor))
 				auditions.add(a);
-			}
-		}
-		Assert.isTrue(auditor.getAuditions().containsAll(this.auditionService.findByCurrentAuditor()) &&
-				auditor.getAuditions().size()==this.auditionService.findByCurrentAuditor().size());
-		
+		Assert.isTrue(auditor.getAuditions().containsAll(this.auditionService.findByCurrentAuditor()) && auditor.getAuditions().size() == this.auditionService.findByCurrentAuditor().size());
+
 	}
-	
+
 	@Test
-	public void testFindByTrip(){
+	public void testFindByTrip() {
 		Collection<Audition> auditions;
 		Trip trip = new Trip();
 
-
-		for(Trip t: this.tripService.findAll()){
+		for (final Trip t : this.tripService.findAll()) {
 			trip = t;
 			break;
 		}
-		
-		
-		
+
 		auditions = new HashSet<Audition>(trip.getAuditions());
-		System.out.println("auditions: "+auditions);
-		System.out.println("findbyTrip: "+this.auditionService.findByTrip(trip));
-		Assert.isTrue(this.auditionService.findByTrip(trip).containsAll(auditions) &&
-				auditions.size()==this.auditionService.findByTrip(trip).size());
+		Assert.isTrue(this.auditionService.findByTrip(trip).containsAll(auditions) && auditions.size() == this.auditionService.findByTrip(trip).size());
 	}
 }

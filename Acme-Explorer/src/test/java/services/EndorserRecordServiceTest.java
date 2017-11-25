@@ -17,7 +17,6 @@ import org.springframework.util.Assert;
 import utilities.AbstractTest;
 import domain.Curriculum;
 import domain.EndorserRecord;
-import domain.MiscellaneousRecord;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
@@ -117,7 +116,7 @@ public class EndorserRecordServiceTest extends AbstractTest {
 		this.unauthenticate();
 
 	}
-	
+
 	@Test
 	public void testFindByCurriculum() {
 
