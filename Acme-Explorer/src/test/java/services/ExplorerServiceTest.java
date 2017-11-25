@@ -37,7 +37,6 @@ public class ExplorerServiceTest extends AbstractTest {
 		Assert.notNull(explorer.getStories());
 		Assert.notNull(explorer.getSurvivalClasses());
 		Assert.notNull(explorer.getTripApplications());
-
 		this.unauthenticate();
 
 	}

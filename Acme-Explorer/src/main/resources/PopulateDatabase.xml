@@ -335,7 +335,7 @@
 		<property name="email" value="marinasdiamonds@gmail.com"></property>
 		<property name="phoneNumber" value="651980500"></property>
 		<property name="address" value="Av/ Lonely Hearts Club nº14"></property>
-		<property name="isSuspicious" value="true"></property>
+		<property name="isSuspicious" value="false"></property>
 		<property name="isBanned" value="true"></property>
 		<property name="socialIDs">
 			<list>
@@ -1146,7 +1146,7 @@
 		<property name="name" value="Sojantonio"></property>
 		<property name="surname" value="Carmona"></property>
 		<property name="email" value="sojita@gmail.com"></property>
-		<property name="isSuspicious" value="true"></property>
+		<property name="isSuspicious" value="false"></property>
 		<property name="isBanned" value="true"></property>
 		<property name="socialIDs">
 			<list>
@@ -1782,8 +1782,8 @@
 	</bean>
 	
 	<bean id="folder4" class="domain.Folder">
-		<property name="isSystem" value="false"></property>
-		<property name="name" value="Australia"></property>
+		<property name="isSystem" value="true"></property>
+		<property name="name" value="Out Box"></property>
 		<property name="messages">
 			<list>
 			</list>
@@ -1857,8 +1857,8 @@
 	</bean>
 	
 	<bean id="folder9" class="domain.Folder">
-		<property name="isSystem" value="false"></property>
-		<property name="name" value="Mexico"></property>
+		<property name="isSystem" value="true"></property>
+		<property name="name" value="In Box"></property>
 		<property name="messages">
 			<list>
 				<ref bean="message4c"/>

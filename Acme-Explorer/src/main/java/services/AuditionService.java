@@ -95,10 +95,6 @@ public class AuditionService {
 
 	public Collection<Audition> findByTrip(final Trip t) {
 		Assert.notNull(t);
-
-		final UserAccount userAccount = LoginService.getPrincipal();
-		Assert.isNull(userAccount);
-
 		return this.auditionRepository.findByTripId(t.getId());
 	}
 

@@ -157,7 +157,7 @@ public class FolderService {
 
 		folder = this.folderRepository.findByActorIdAndName(actor.getId(), name);
 
-		Assert.notNull(folder);
+		//Assert.notNull(folder);
 
 		return folder;
 	}

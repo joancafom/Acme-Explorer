@@ -2,6 +2,7 @@
 package services;
 
 import java.util.Arrays;
+import java.util.Collection;
 
 import javax.transaction.Transactional;
 
@@ -16,6 +17,7 @@ import org.springframework.util.Assert;
 import utilities.AbstractTest;
 import domain.Curriculum;
 import domain.EndorserRecord;
+import domain.MiscellaneousRecord;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
@@ -111,6 +113,21 @@ public class EndorserRecordServiceTest extends AbstractTest {
 		this.endorserRecordService.delete(savedRecord);
 
 		Assert.isTrue(!this.curriculumService.findByActualRanger().getEndorserRecords().contains(savedRecord));
+
+		this.unauthenticate();
+
+	}
+	
+	@Test
+	public void testFindByCurriculum() {
+
+		this.authenticate("ranger1");
+
+		final Curriculum rangerCurriculum = this.curriculumService.findByActualRanger();
+		final Collection<EndorserRecord> retrievedRecords = this.endorserRecordService.findByCurriculum(this.curriculum);
+
+		Assert.isTrue(rangerCurriculum.getEndorserRecords().containsAll(retrievedRecords));
+		Assert.isTrue(rangerCurriculum.getEndorserRecords().size() == retrievedRecords.size());
 
 		this.unauthenticate();
 

@@ -101,7 +101,7 @@ public class FinderServiceTest extends AbstractTest {
 		Finder finder1 = null;
 		Finder finder2 = null;
 
-		this.authenticate("explorer2");
+		this.authenticate("explorer1");
 
 		final Collection<Finder> finders = this.finderService.findAll();
 

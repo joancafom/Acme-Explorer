@@ -37,7 +37,6 @@ public class FinderService {
 	}
 
 	// Simple CRUD methods -----------------
-
 	public Finder create() {
 		Finder finder;
 		final UserAccount userAccount = LoginService.getPrincipal();
@@ -81,12 +80,6 @@ public class FinderService {
 
 		Assert.notNull(finder);
 		Assert.isTrue(finder.getId() == explorer.getFinder().getId());
-
-		// REVISAR !!!
-		// En el finder es todo notNull o todo Null?
-
-		Assert.isTrue((finder.getMinRange() == null && finder.getMaxRange() == null && finder.getMinDate() == null && finder.getMaxDate() == null)
-			|| (finder.getMinRange() != null && finder.getMaxRange() != null && finder.getMinDate() != null && finder.getMaxDate() != null));
 
 		return this.finderRepository.save(finder);
 	}

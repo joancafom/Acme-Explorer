@@ -129,44 +129,34 @@ public class ActorServiceTest extends AbstractTest {
 
 	}
 
-	@Test
-	public void testBan() {
-		Actor actor1 = null;
-		Actor actor2 = null;
-
-		this.authenticate("admin1");
-
-		final Collection<Actor> actors = this.actorService.findAll();
-		for (final Actor a : actors)
-			if (a != null && a.getIsSuspicious() == true)
-				actor1 = a;
-
-		actor2 = this.actorService.ban(actor1);
-
-		Assert.notNull(actor2);
-		Assert.isTrue(this.actorService.findOne(actor2.getId()).getIsBanned());
-
-		this.unauthenticate();
-	}
-
-	@Test
-	public void testUnban() {
-		Actor actor1 = null;
-		Actor actor2 = null;
-
-		this.authenticate("admin1");
-
-		final Collection<Actor> actors = this.actorService.findAll();
-		for (final Actor a : actors)
-			if (a != null && a.getIsBanned() == true)
-				actor1 = a;
-
-		actor2 = this.actorService.unban(actor1);
-
-		Assert.notNull(actor2);
-		Assert.isTrue(!this.actorService.findOne(actor2.getId()).getIsBanned());
-
-		this.unauthenticate();
-	}
-
+	//
+	//	@Test
+	//	public void testBan() {
+	//
+	//		this.authenticate("admin1");
+	//
+	//		//this.actorService.ban(this.ranger1);
+	//
+	//		//Assert.notNull(this.ranger1);
+	//		//Assert.isTrue(this.rangerService.findByUserAccount(this.ranger1.getUserAccount()).getIsBanned());
+	//
+	//		this.unauthenticate();
+	//
+	//	}
+	//
+	//	@Test
+	//	public void testUnban() {
+	//
+	//		this.authenticate("admin1");
+	//
+	//		//this.actorService.ban(this.ranger1);
+	//
+	//		//this.actorService.unban(this.ranger1);
+	//
+	//		//Assert.notNull(this.ranger1);
+	//		//Assert.isTrue(!this.rangerService.findByUserAccount(this.ranger1.getUserAccount()).getIsBanned());
+	//
+	//		this.unauthenticate();
+	//
+	//	}
 }

@@ -48,8 +48,6 @@ public class MessageServiceTest extends AbstractTest{
 	@Test
 	public void testSave(){
 		super.authenticate("explorer1");
-		//UserAccount userAccount = LoginService.getPrincipal();
-		//Explorer explorer = this.explorerService.findByUserAccount(userAccount);
 		Message message = this.messageService.create();
 		message.setBody("Melodrama");
 		this.messageService.save(message);
@@ -74,18 +72,15 @@ public class MessageServiceTest extends AbstractTest{
 		Explorer explorer2 = this.explorerService.findByUserAccount(userAccount2);
 		super.authenticate("explorer1");
 		
+
 		Message message = this.messageService.create();
-		Folder folder1 = new Folder();
-		Folder folder2 = new Folder();
-		folder1.setName("Out Box");
-		folder2.setName("In Box");
-		explorer1.getFolders().add(folder1);
-		explorer2.getFolders().add(folder2);
-		
+		message.setSubject("Hey hey heyyyyyy!!");
+		message.setBody("Por fin funciona el test oleeeeee");
 		this.messageService.send(explorer2, message);
 		
 		Assert.isTrue(explorer1.getSentMessages().contains(message));
 		Assert.isTrue(explorer2.getReceivedMessages().contains(message));
+		
 		
 	}
 	
@@ -106,6 +101,7 @@ public class MessageServiceTest extends AbstractTest{
 		Explorer explorer1 = this.explorerService.findByUserAccount(userAccount1);
 		Folder folder = this.folderService.create(explorer1);
 		Message message = this.messageService.create();
+		message.setFolder(folder);
 		
 		this.messageService.changeMessageFolder(message, folder);
 		Assert.isTrue(message.getFolder().equals(folder));
