@@ -10,6 +10,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.SponsorshipRepository;
+import security.LoginService;
+import security.UserAccount;
+import domain.Sponsor;
 import domain.Sponsorship;
 import domain.Trip;
 
@@ -21,8 +24,46 @@ public class SponsorshipService {
 	@Autowired
 	private SponsorshipRepository	sponsorshipRepository;
 
+	//Supporting Services
+	@Autowired
+	private SponsorService			sponsorService;
+
 
 	//Simple CRUD Operations
+
+	public Sponsorship create() {
+
+		final UserAccount userAccount = LoginService.getPrincipal();
+		final Sponsor sponsor = this.sponsorService.findByUserAccount(userAccount);
+
+		final Sponsorship res = new Sponsorship();
+
+		res.setSponsor(sponsor);
+		sponsor.getSponsorships().add(res);
+
+		return res;
+	}
+
+	public Sponsorship findOne(final int sponsorshipId) {
+
+		return this.sponsorshipRepository.findOne(sponsorshipId);
+	}
+
+	public Collection<Sponsorship> findAll() {
+
+		return this.sponsorshipRepository.findAll();
+	}
+
+	public Sponsorship save(final Sponsorship ss) {
+
+		final UserAccount userAccount = LoginService.getPrincipal();
+		final Sponsor sponsor = this.sponsorService.findByUserAccount(userAccount);
+
+		Assert.notNull(ss);
+		Assert.isTrue(sponsor.equals(ss.getSponsor()));
+
+		return this.sponsorshipRepository.save(ss);
+	}
 
 	//Other Business methods
 
