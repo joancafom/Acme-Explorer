@@ -1,9 +1,7 @@
 
 package services;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.Collection;
 
 import javax.transaction.Transactional;
 
@@ -16,12 +14,11 @@ import org.springframework.util.Assert;
 
 import security.LoginService;
 import security.UserAccount;
-import security.UserAccountRepository;
 import utilities.AbstractTest;
+import domain.Actor;
 import domain.Admin;
-import domain.Folder;
-import domain.Manager;
-import domain.Ranger;
+import domain.Message;
+import domain.PriorityLevel;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
@@ -33,145 +30,72 @@ public class AdminServiceTest extends AbstractTest {
 	// Service under test ------------------
 
 	@Autowired
-	private AdminService			adminService;
+	private AdminService	adminService;
 
-	// Supporting repositories -------------
+	// Supporting Services -------------
+	@Autowired
+	private MessageService	messageService;
 
 	@Autowired
-	private UserAccountRepository	userAccountRepository;
+	private ActorService	actorService;
 
-
-	// Supporting services -----------------
 
 	// Tests -------------------------------
-
-	@Test
-	public void testCreateManager() {
-		Manager manager;
-		final List<String> systemFolderNames = Arrays.asList("In Box", "Out Box", "Notification Box", "Trash Box", "Spam Box");
-		final List<String> folderNames = new ArrayList<String>();
-
-		this.authenticate("admin1");
-
-		manager = this.adminService.createManager();
-		Assert.isNull(manager.getName());
-		Assert.isNull(manager.getSurname());
-		Assert.isNull(manager.getEmail());
-		Assert.isNull(manager.getPhoneNumber());
-		Assert.isNull(manager.getAddress());
-		Assert.isTrue(!manager.getIsSuspicious());
-		Assert.isTrue(!manager.getIsBanned());
-
-		Assert.notNull(manager.getSocialIDs());
-		Assert.isTrue(manager.getSocialIDs().isEmpty());
-
-		Assert.notNull(manager.getFolders());
-		Assert.isTrue(!manager.getFolders().isEmpty());
-		Assert.isTrue(manager.getFolders().size() == 5);
-
-		for (final Folder f : manager.getFolders()) {
-			folderNames.add(f.getName());
-
-			Assert.isTrue(f.getIsSystem());
-
-			Assert.notNull(f.getMessages());
-			Assert.isTrue(f.getMessages().isEmpty());
-
-			Assert.notNull(f.getChildFolders());
-			Assert.isTrue(f.getChildFolders().isEmpty());
-		}
-
-		Assert.isTrue(systemFolderNames.equals(folderNames));
-
-		Assert.notNull(manager.getSentMessages());
-		Assert.isTrue(manager.getSentMessages().isEmpty());
-
-		Assert.notNull(manager.getReceivedMessages());
-		Assert.isTrue(manager.getReceivedMessages().isEmpty());
-
-		Assert.notNull(manager.getUserAccount());
-		Assert.isNull(manager.getUserAccount().getUsername());
-		Assert.isNull(manager.getUserAccount().getPassword());
-		Assert.notNull(manager.getUserAccount().getAuthorities());
-		Assert.isTrue(manager.getUserAccount().getAuthorities().toString().contains("MANAGER"));
-
-		Assert.notNull(manager.getSurvivalClasses());
-		Assert.isTrue(manager.getSurvivalClasses().isEmpty());
-
-		Assert.notNull(manager.getTrips());
-		Assert.isTrue(manager.getTrips().isEmpty());
-
-		this.unauthenticate();
-	}
-
-	@Test
-	public void testCreateRanger() {
-		Ranger ranger;
-		final List<String> systemFolderNames = Arrays.asList("In Box", "Out Box", "Notification Box", "Trash Box", "Spam Box");
-		final List<String> folderNames = new ArrayList<String>();
-
-		this.authenticate("admin1");
-
-		ranger = this.adminService.createRanger();
-		Assert.isNull(ranger.getName());
-		Assert.isNull(ranger.getSurname());
-		Assert.isNull(ranger.getEmail());
-		Assert.isNull(ranger.getPhoneNumber());
-		Assert.isNull(ranger.getAddress());
-		Assert.isTrue(!ranger.getIsSuspicious());
-		Assert.isTrue(!ranger.getIsBanned());
-
-		Assert.notNull(ranger.getSocialIDs());
-		Assert.isTrue(ranger.getSocialIDs().isEmpty());
-
-		Assert.notNull(ranger.getFolders());
-		Assert.isTrue(!ranger.getFolders().isEmpty());
-		Assert.isTrue(ranger.getFolders().size() == 5);
-
-		for (final Folder f : ranger.getFolders()) {
-			folderNames.add(f.getName());
-
-			Assert.isTrue(f.getIsSystem());
-
-			Assert.notNull(f.getMessages());
-			Assert.isTrue(f.getMessages().isEmpty());
-
-			Assert.notNull(f.getChildFolders());
-			Assert.isTrue(f.getChildFolders().isEmpty());
-		}
-
-		Assert.isTrue(systemFolderNames.equals(folderNames));
-
-		Assert.notNull(ranger.getSentMessages());
-		Assert.isTrue(ranger.getSentMessages().isEmpty());
-
-		Assert.notNull(ranger.getReceivedMessages());
-		Assert.isTrue(ranger.getReceivedMessages().isEmpty());
-
-		Assert.notNull(ranger.getUserAccount());
-		Assert.isNull(ranger.getUserAccount().getUsername());
-		Assert.isNull(ranger.getUserAccount().getPassword());
-		Assert.notNull(ranger.getUserAccount().getAuthorities());
-		Assert.isTrue(ranger.getUserAccount().getAuthorities().toString().contains("RANGER"));
-
-		Assert.isNull(ranger.getCurriculum());
-
-		Assert.notNull(ranger.getTrips());
-		Assert.isTrue(ranger.getTrips().isEmpty());
-
-		this.unauthenticate();
-	}
 
 	@Test
 	public void testFindByUserAccount() {
 		this.authenticate("admin1");
 
 		final UserAccount userAccount = LoginService.getPrincipal();
-		final Admin admin = this.adminService.findByUserAccount(this.userAccountRepository.findByUsername("admin1"));
 
-		Assert.notNull(admin);
-		Assert.isTrue(userAccount.equals(admin.getUserAccount()));
+		final Admin foundMe = this.adminService.findByUserAccount(userAccount);
+
+		Assert.notNull(foundMe);
+		Assert.isTrue(userAccount.equals(foundMe.getUserAccount()));
 
 		this.unauthenticate();
+	}
+
+	@Test
+	public void testBroadcastNotification() {
+
+		this.authenticate("admin1");
+
+		final UserAccount userAccount = LoginService.getPrincipal();
+
+		final Admin me = this.adminService.findByUserAccount(userAccount);
+
+		final Message notifactionMessage = this.messageService.create();
+
+		notifactionMessage.setSubject("Your US password will expire next year");
+		notifactionMessage.setBody("According to the US privacy policy, you will need to change your password ");
+		notifactionMessage.setPriority(PriorityLevel.HIGH);
+
+		this.adminService.broadcastNotification(notifactionMessage);
+
+		//We check that all the actors have the message
+
+		final Collection<Actor> allActors = this.actorService.findAll();
+		allActors.remove(me);
+
+		for (final Actor a : allActors)
+			Assert.isTrue(a.getReceivedMessages().contains(notifactionMessage));
+
+		this.unauthenticate();
+
+	}
+
+	@Test
+	public void testDashboardInformation() {
+
+		this.authenticate("admin1");
+
+		final Collection<Object> dashInfo = this.adminService.dashboardInformation();
+
+		Assert.notNull(dashInfo);
+		Assert.notNull(dashInfo.size() == 8);
+
+		this.unauthenticate();
+
 	}
 }
