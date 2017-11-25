@@ -42,13 +42,12 @@ public class ExplorerService {
 		Explorer explorer;
 		UserAccount userAccount;
 		final List<SocialID> socialIDs = new ArrayList<SocialID>();
-		final List<Story> stories = new ArrayList<Story>();
-		final List<SurvivalClass> survivalClasses = new ArrayList<SurvivalClass>();
-		final List<TripApplication> tripApplications = new ArrayList<TripApplication>();
-		final Finder finder = new Finder();
 		final List<Message> sentMessages = new ArrayList<Message>();
 		final List<Message> receivedMessages = new ArrayList<Message>();
 		final List<Authority> authorities = new ArrayList<Authority>();
+		final List<SurvivalClass> survivalClasses = new ArrayList<SurvivalClass>();
+		final List<Story> stories = new ArrayList<Story>();
+		final List<TripApplication> tripApplications = new ArrayList<TripApplication>();
 		final List<Contact> emergencyContacts = new ArrayList<Contact>();
 		Authority authority;
 
@@ -60,13 +59,11 @@ public class ExplorerService {
 
 		final Collection<Folder> systemFolders = this.folderService.createSystemFolders(explorer);
 		explorer.setFolders(systemFolders);
-
 		explorer.setSentMessages(sentMessages);
 		explorer.setReceivedMessages(receivedMessages);
 		explorer.setStories(stories);
 		explorer.setSurvivalClasses(survivalClasses);
 		explorer.setTripApplications(tripApplications);
-		explorer.setFinder(finder);
 		explorer.setEmergencyContacts(emergencyContacts);
 
 		userAccount = new UserAccount();
@@ -76,6 +73,8 @@ public class ExplorerService {
 		authorities.add(authority);
 
 		userAccount.setAuthorities(authorities);
+		
+		explorer.setUserAccount(userAccount);
 
 		return explorer;
 	}

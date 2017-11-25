@@ -80,6 +80,9 @@ public class TripApplicationService {
 
 		return tripApplication;
 	}
+	
+	
+	
 
 	public TripApplication save(final TripApplication application) {
 		Assert.notNull(application);
@@ -88,6 +91,7 @@ public class TripApplicationService {
 	}
 
 	/* Business Methods */
+	
 	public Collection<TripApplication> findByCurrentExplorer() {
 		final UserAccount userAccount = LoginService.getPrincipal();
 
@@ -105,24 +109,25 @@ public class TripApplicationService {
 	}
 
 	public void changeApplicationStatus(final TripApplication application, final ApplicationStatus status) {
-
+		/* OK */
 		final UserAccount userAccount = LoginService.getPrincipal();
+		Assert.notNull(userAccount);
 		Assert.notNull(application);
 		Assert.notNull(status);
 
 		Assert.isTrue(application.getTrip().getManager().equals(this.managerService.findByUserAccount(userAccount)));
-
 		Assert.isTrue(status.equals(ApplicationStatus.REJECTED) || status.equals(ApplicationStatus.DUE));
-
 		Assert.isTrue(application.getStatus().equals(ApplicationStatus.PENDING));
+		
 		application.setStatus(status);
 		this.save(application);
 	}
 
 	public Collection<TripApplication> findByCurrentManager() {
-
+		/* OK */
 		final UserAccount userAccount = LoginService.getPrincipal();
-
+		Assert.notNull(userAccount);
+		
 		final Manager manager = this.managerService.findByUserAccount(userAccount);
 		final Collection<TripApplication> tripApplications = this.applicationRepository.findTripApplicationsManagedByManager(manager.getId());
 
@@ -145,12 +150,16 @@ public class TripApplicationService {
 		tripApplication.setCreditCard(creditCard);
 
 	}
+	
+	
+	
 
 	public void cancel(final TripApplication tripApplication) {
 		UserAccount userAccount;
 		Date currentDate;
 
 		userAccount = LoginService.getPrincipal();
+		Assert.notNull(userAccount);
 
 		Assert.notNull(tripApplication);
 
