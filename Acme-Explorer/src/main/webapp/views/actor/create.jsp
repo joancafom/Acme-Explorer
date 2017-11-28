@@ -21,18 +21,49 @@
 	<form:hidden path="receivedMessages"/>
 	<form:hidden path="userAccount"/>
 	
+	<jstl:if test="${actor.notes != null}">
+		<form:hidden path="notes"/>
+	</jstl:if>
+	
+	<jstl:if test="${actor.auditions != null}">
+		<form:hidden path="notes"/>
+	</jstl:if>
+	
+	<jstl:if test="${actor.finder != null}">
+		<form:hidden path="finder"/>
+	</jstl:if>
+	
+	<jstl:if test="${actor.stories != null}">
+		<form:hidden path="stories"/>
+	</jstl:if>
+	
+	<jstl:if test="${actor.tripApplications != null}">
+		<form:hidden path="tripApplications"/>
+	</jstl:if>
+	
+	<jstl:if test="${actor.survivalClasses != null}">
+		<form:hidden path="survivalClasses"/>
+	</jstl:if>
+	
+	<jstl:if test="${actor.sponsorships != null}">
+		<form:hidden path="sponsorships"/>
+	</jstl:if>
+	
+	<jstl:if test="${actor.trips != null}">
+		<form:hidden path="trips"/>
+	</jstl:if>
+	
+	
 	<form:label path="name">
 		<spring:message code="actor.name" />
 	</form:label>
 	<form:input path="name"/>
-	<form:errors cssClass="error" path="name"></form:errors>
 	<br />
 	
 	<form:label path="surname">
 		<spring:message code="actor.surname" />
 	</form:label>
 	<form:input path="surname"/>
-	<form:errors cssClass="error" path="surname"></form:errors>
 	<br />
 	
 	<form:label path="email">
@@ -42,18 +73,17 @@
 	<form:errors cssClass="error" path="email"></form:errors>
 	<br />
 	
+	<form:label path="address">
+		<spring:message code="actor.address" />
+	</form:label>
+	<form:input path="address"/>
+	<br />
+	
 	<form:label path="phoneNumber">
 		<spring:message code="actor.phoneNumber" />
 	</form:label>
 	<form:input path="phoneNumber"/>
 	<form:errors cssClass="error" path="phoneNumber"></form:errors>
-	<br />
-	
-	<form:label path="address">
-		<spring:message code="actor.address" />
-	</form:label>
-	<form:input path="address"/>
-	<form:errors cssClass="error" path="address"></form:errors>
 	<br />
 	
 	<input type="button" name="cancel"
