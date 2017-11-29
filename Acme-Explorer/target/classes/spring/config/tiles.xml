@@ -33,6 +33,7 @@
 		<value>/views/category/tiles.xml</value>
 		<value>/views/explorer/tiles.xml</value>
 		<value>/views/manager/tiles.xml</value>
+		<value>/views/note/tiles.xml</value>
 		<value>/views/ranger/tiles.xml</value>
 		<value>/views/sponsor/tiles.xml</value>
 		<value>/views/trip/tiles.xml</value>
