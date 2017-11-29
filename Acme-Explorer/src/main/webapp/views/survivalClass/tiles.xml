@@ -16,19 +16,14 @@
        
 <tiles-definitions>
 
-	<definition name="trip/list" extends="master.page">	
-		<put-attribute name="title" value="Trips list" />
-		<put-attribute name="body" value="/views/trip/list.jsp" />
+	<definition name="survivalClass/list" extends="master.page">	
+		<put-attribute name="title" value="Survival classes list" />
+		<put-attribute name="body" value="/views/survivalClass/list.jsp" />
 	</definition>
 	
-	<definition name="trip/search" extends="master.page">	
-		<put-attribute name="title" value="Trips search" />
-		<put-attribute name="body" value="/views/trip/search.jsp" />
-	</definition>
-	
-	<definition name="trip/display" extends="master.page">	
-		<put-attribute name="title" value="Display trip" />
-		<put-attribute name="body" value="/views/trip/display.jsp" />
+	<definition name="survivalClass/display" extends="master.page">	
+		<put-attribute name="title" value="Display survival class" />
+		<put-attribute name="body" value="/views/survivalClass/display.jsp" />
 	</definition>
 	
 </tiles-definitions>

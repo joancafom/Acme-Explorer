@@ -27,12 +27,7 @@
 		<value>/views/customer/messages</value>
 		<value>/views/profile/messages</value>
 		
-		<value>/views/actor/messages</value>
-		<value>/views/audit/messages</value>
-		<value>/views/category/messages</value>
-		<value>/views/note/messages</value>
 		<value>/views/trip/messages</value>
-		<value>/views/tripApplication/messages</value>
 	</util:list>
 
 </beans>
