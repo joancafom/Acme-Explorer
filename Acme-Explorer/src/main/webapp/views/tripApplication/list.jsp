@@ -18,42 +18,43 @@
 
 <display:table name="tripApplications" id="tripApplication" requestURI="tripApplication/${actor}/list.do" pagesize="5" class="displaytag">
 	
-	<spring:message code="date.format" var="dateFormat"></spring:message>	
-	
-	<display:column titleKey="tripApplication.trip.ticket" sortable="true">
-		<a href="trip/${actor}/display.do?tripId=${tripApplication.trip.id}"><jstl:out value="${tripApplication.trip.ticker}" /></a>
+	<display:column property="moment" title="<spring:message code="tripApplication.title" />" format="{0,date,dd/MM/yyyy HH:mm}" sortable="true" />
+	<display:column property="status" title="<spring:message code="tripApplication.status" />" sortable="true" />
+	<display:column>
+		<jstl:forEach var="comment" items="tripApplication.comments" >
+			<jstl:choose>
+				<jstl:when test="${comment == null }">
+					-
+				</jstl:when>
+				<jstl:otherwise>
+					<jstl:out value="${comment}"></jstl:out>
+				</jstl:otherwise>
+			</jstl:choose>
+		</jstl:forEach>
 	</display:column>
-	
-	<display:column property="moment" titleKey="tripApplication.moment" format="${dateFormat}" sortable="true" />
-	
-	<display:column titleKey="tripApplication.status" sortable="true">
-		<spring:message code="tripApplication.status.${tripApplication.status}"></spring:message>
-	</display:column>
-	
-	<display:column titleKey="tripApplication.creditCard" sortable="true">
+	<display:column>
 		<jstl:choose>
-			<jstl:when test="${tripApplication.creditCard == null }">-</jstl:when>
+			<jstl:when test="${tripApplication.creditCard == null }">
+				<security:authorize access="hasRole('MANAGER')">
+					<spring:message code="creditCard.no" />
+				</security:authorize>
+				<security:authorize access="hasRole('EXPLORER')">
+					-
+				</security:authorize>
+			</jstl:when>
 			<jstl:otherwise>
-				<jstl:out value="${tripApplication.creditCard.number}"></jstl:out>
+				<security:authorize access="hasRole('MANAGER')">
+					<spring:message code="creditCard.yes" />
+				</security:authorize>
+				<security:authorize access="hasRole('EXPLORER')">
+					<jstl:out value="${tripApplication.creditCard.number}"></jstl:out>
+				</security:authorize>
 			</jstl:otherwise>
 		</jstl:choose>
 	</display:column>
 	
-	<display:column titleKey="tripApplication.details">
-		<a href="tripApplication/${actor}/display.do?tripApplicationId=${tripApplication.id}">More Info</a>
-	</display:column>
-	
-	<display:column>
-		<security:authorize access="hasRole('EXPLORER)">
-			<jstl:if test="${tripApplication.status == 'DUE' }">
-				<a href="tripApplication/explorer/edit.do?tripApplicationId=${tripApplication.id}">Edit</a>
-			</jstl:if>
-		</security:authorize>
-		<security:authorize access="hasRole('MANAGER)">
-			<jstl:if test="${tripApplication.status == 'PENDING' }">
-				<a href="tripApplication/manager/edit.do?tripApplicationId=${tripApplication.id}">Edit</a>
-			</jstl:if>
-		</security:authorize>
-	</display:column>
-
 </display:table>
+
+<security:authorize access="hasRole('EXPLORER')">
+	<a href="tripApplication/explorer/create.do"><spring:message code="tripApplication.new" /></a>
+</security:authorize>
