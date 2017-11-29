@@ -11,11 +11,11 @@
 
 <h1><tiles:insertAttribute name="title" />: <jstl:out value="${rootCategory.name}" /></h1>
 
-<ul>
-
-	<jstl:forEach var="childNode" items="${rootCategory.childCategory}">
-		<li><a href="category/list.do?rootCategoryId=${childNode.id}"><jstl:out value="${childNode.name}" /></a>  
-		<a href="trip/list.do?categoryId=${childNode.id}"><spring:message code="trip.search" /></a></li>
-	</jstl:forEach>
-	
-</ul>
+<display:table name="rootCategory" id="childNode" requestURI="category/list.do" class="displaytag">
+	<display:column titleKey="category.children" sortable="true">
+		<a href="category/list.do?rootCategoryId=${childNode.id}"><jstl:out value="${childNode.name}" /></a>
+	</display:column>
+	<display:column>
+		<a href="trip/list.do?categoryId=${childNode.id}"><spring:message code="trip.search" /></a>
+	</display:column>
+</display:table>

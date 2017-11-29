@@ -17,18 +17,7 @@
 </security:authorize>
 <spring:message code="date.format" var="dateFormat"></spring:message>	
 
-<h1><tiles:insertAttribute name="title" /> - <jstl:out value="${tripApplication.id}" /></h1>
-
-<p><spring:message code="tripApplication.moment"/>: <fmt:formatDate value="${tripApplication.moment}" pattern="${dateFormat}" /></p>
-<p><spring:message code="tripApplication.creditCard"/>:
-	<jstl:choose>
-		<jstl:when test="${tripApplication.creditCard == null }">-</jstl:when>
-		<jstl:otherwise>
-			<jstl:out value="${tripApplication.creditCard.number}"></jstl:out>
-		</jstl:otherwise>
-	</jstl:choose>
-</p>
-<p><spring:message code="tripApplication.status"/>: <spring:message code="tripApplication.status.${tripApplication.status}"/></p>
+<h1><tiles:insertAttribute name="title" /> - <spring:message code="tripApplication.status.${tripApplication.status}"/></h1>
 
 <jstl:if test="${tripApplication.status == 'REJECTED'}">
 	<p><spring:message code="tripApplication.rejectionReason"/>: 
@@ -41,6 +30,17 @@
 	</p>
 </jstl:if>
 
+<p><spring:message code="tripApplication.trip"/>: <a href="trip/${actor}/display.do?tripId=${tripApplication.trip.id}"><jstl:out value="${tripApplication.trip.ticker}" /></a></p>
+
+<p><spring:message code="tripApplication.moment"/>: <fmt:formatDate value="${tripApplication.moment}" pattern="${dateFormat}" /></p>
+
 <p><spring:message code="tripApplication.comments"/>: <jstl:out value="${tripApplication.comments}"></jstl:out></p>
 
-<p><spring:message code="tripApplication.trip"/>: <a href="trip/${actor}/display.do?tripId=${tripApplication.trip.id}"><jstl:out value="${tripApplication.trip.ticker}" /></a></p>
+<p><spring:message code="tripApplication.creditCard"/>:
+	<jstl:choose>
+		<jstl:when test="${tripApplication.creditCard == null }">-</jstl:when>
+		<jstl:otherwise>
+			<jstl:out value="${tripApplication.creditCard.number}"></jstl:out>
+		</jstl:otherwise>
+	</jstl:choose>
+</p>
