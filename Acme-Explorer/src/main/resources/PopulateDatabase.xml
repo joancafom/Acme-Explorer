@@ -261,7 +261,7 @@
 	<!-- Audition -->
 
 	<bean id="audition1" class="domain.Audition">
-		<property name="moment" value="2017/10/27 06:00"></property>
+		<property name="moment" value="27/10/2017 06:00"></property>
 		<property name="title" value="... Ready For It? - The Audition"></property>
 		<property name="description" value="Are you ready for PSM?"></property>
 		<property name="attachments">
@@ -274,7 +274,7 @@
 	</bean>
 
 	<bean id="audition2" class="domain.Audition">
-		<property name="moment" value="2015/09/02 14:00"></property>
+		<property name="moment" value="02/09/2015 14:00"></property>
 		<property name="title" value="Gorgeous - The Audition"></property>
 		<property name="description" value="Alone, unless you wanna come along"></property>
 		<property name="attachments">
@@ -617,7 +617,7 @@
 
 	<bean id="educationRecord1" class="domain.EducationRecord">
 		<property name="titleOfDiploma" value="Slay Engineering"></property>
-		<property name="startingDate" value="2007/09/28 17:00"></property>
+		<property name="startingDate" value="28/09/2007 17:00"></property>
 		<property name="institution" value="Taylor School"></property>
 		<property name="comments">
 			<list>
@@ -628,8 +628,8 @@
 
 	<bean id="educationRecord2" class="domain.EducationRecord">
 		<property name="titleOfDiploma" value="Slay Physics"></property>
-		<property name="startingDate" value="2010/11/05 21:00"></property>
-		<property name="endingDate" value="2013/08/11 19:00"></property>
+		<property name="startingDate" value="05/11/2010 21:00"></property>
+		<property name="endingDate" value="11/08/2013 19:00"></property>
 		<property name="institution" value="Ultraviolence School"></property>
 		<property name="attachment" value="http://attachment.com/attachment2"></property>
 		<property name="comments">
@@ -779,8 +779,8 @@
 		<property name="keyword" value="ARTPOP Vol.2"></property>
 		<property name="minRange" value="2.0"></property>
 		<property name="maxRange" value="10.0"></property>
-		<property name="minDate" value="2012/02/02 10:00"></property>
-		<property name="maxDate" value="2016/02/02 10:00"></property>
+		<property name="minDate" value="02/02/2012 10:00"></property>
+		<property name="maxDate" value="02/02/2016 10:00"></property>
 		<property name="cacheTime" value="22"></property>
 	</bean>
 
@@ -795,7 +795,7 @@
 		<property name="body"
 			value="La entrada de Katy Perry está prohibida y se declara completamente ilegal por razones de salud."></property>
 		<property name="numberOfApplicableLaws" value="155"></property>
-		<property name="registrationMoment" value="2010/01/01 16:00"></property>
+		<property name="registrationMoment" value="01/01/2010 16:00"></property>
 		<property name="isFinal" value="false"></property>
 		<property name="trips">
 			<list>
@@ -807,7 +807,7 @@
 		<property name="title" value="Buy Melodrama on iTunes"></property>
 		<property name="body" value="Hacedlo por ella que esta pobre"></property>
 		<property name="numberOfApplicableLaws" value="200"></property>
-		<property name="registrationMoment" value="2011/02/02 22:22"></property>
+		<property name="registrationMoment" value="02/02/2011 22:22"></property>
 		<property name="isFinal" value="true"></property>
 		<property name="trips">
 			<list>
@@ -983,19 +983,19 @@
 	<!-- Note -->
 
 	<bean id="note1" class="domain.Note">
-		<property name="writtenMoment" value="2016/09/18 13:56"></property>
+		<property name="writtenMoment" value="18/09/2016 13:56"></property>
 		<property name="remark" value="Wow, qué bonito!!"></property>
 		<property name="auditor" ref="auditor1"></property>
 		<property name="trip" ref="trip1"></property>
 	</bean>
 
 	<bean id="note2" class="domain.Note">
-		<property name="writtenMoment" value="2014/05/11 14:06"></property>
+		<property name="writtenMoment" value="11/05/2014 14:06"></property>
 		<property name="remark" value="Wow me encanta!! sii"></property>
 		<property name="auditor" ref="auditor2"></property>
 		<property name="trip" ref="trip2"></property>
 		<property name="reply" value="Siiii tienes razon!!"></property>
-		<property name="replyMoment" value="2014/08/22 11:48"></property>
+		<property name="replyMoment" value="22/08/2014 11:48"></property>
 	</bean>
 
 	<!-- Personal Record -->
@@ -1021,7 +1021,7 @@
 
 	<bean id="professionalRecord1" class="domain.ProfessionalRecord">
 		<property name="companyName" value="Lipa's Company"></property>
-		<property name="startingDate" value="2012/05/30 10:00"></property>
+		<property name="startingDate" value="30/05/2012 10:00"></property>
 		<property name="role" value="Queen"></property>
 		<property name="comments">
 			<list>
@@ -1032,7 +1032,7 @@
 
 	<bean id="professionalRecord2" class="domain.ProfessionalRecord">
 		<property name="companyName" value="Lorde's Company"></property>
-		<property name="startingDate" value="2013/11/07 15:00"></property>
+		<property name="startingDate" value="07/11/2013 15:00"></property>
 		<property name="role" value="Legend"></property>
 		<property name="attachment" value="http://attachment.com/lorda"></property>
 		<property name="comments">
@@ -1379,7 +1379,7 @@
 		<property name="title" value="Ayuda para no perder la peluca"></property>
 		<property name="description"
 			value="Aquí le daremos una clase magistral sobre cómo mantener la peluca durante el concierto de Taylor Swift."></property>
-		<property name="moment" value="2017/11/10 19:00"></property>
+		<property name="moment" value="10/11/2017 19:00"></property>
 		<property name="location" ref="location1"></property>
 		<property name="manager" ref="manager1"></property>
 		<property name="trip" ref="trip1"></property>
@@ -1393,7 +1393,7 @@
 	<bean id="survivalClass2" class="domain.SurvivalClass">
 		<property name="title" value="Cómo no sufrir un infarto el 10 de Noviembre"></property>
 		<property name="description" value="Te vas a morir igualmente pa que mentir"></property>
-		<property name="moment" value="2017/11/10 00:00"></property>
+		<property name="moment" value="10/11/2017 00:00"></property>
 		<property name="location" ref="location2"></property>
 		<property name="manager" ref="manager2"></property>
 		<property name="trip" ref="trip2"></property>
@@ -1406,7 +1406,7 @@
 	<bean id="survivalClass3" class="domain.SurvivalClass">
 		<property name="title" value="Cómo no sufrir un infarto en TacoBell"></property>
 		<property name="description" value="Rule nº4, ask for a picture before"></property>
-		<property name="moment" value="2017/11/10 00:00"></property>
+		<property name="moment" value="10/11/2017 00:00"></property>
 		<property name="location" ref="location2"></property>
 		<property name="manager" ref="manager2"></property>
 		<property name="trip" ref="trip4"></property>
@@ -1487,9 +1487,9 @@
 		<property name="description"
 			value="Que viene la Taylor!! Prepárate para quedarte calva, linda!!"></property>
 		<property name="price" value="800"></property>
-		<property name="publicationDate" value="2018/10/28 19:00"></property>
-		<property name="startingDate" value="2018/11/10 00:01"></property>
-		<property name="endingDate" value="2018/11/10 23:59"></property>
+		<property name="publicationDate" value="28/10/2018 19:00"></property>
+		<property name="startingDate" value="10/11/2018 00:01"></property>
+		<property name="endingDate" value="10/11/2018 23:59"></property>
 		<property name="requirements"
 			value="No ser Katy Perry ni Kanye West. Muerte a la Kim."></property>
 		<property name="sponsorships">
@@ -1544,9 +1544,9 @@
 		<property name="description"
 			value="La Lorde desafinando en Barcelona no os lo perdáis!!"></property>
 		<property name="price" value="10000"></property>
-		<property name="publicationDate" value="2017/05/20 10:00"></property>
-		<property name="startingDate" value="2017/10/09 21:30"></property>
-		<property name="endingDate" value="2017/10/09 23:59"></property>
+		<property name="publicationDate" value="20/05/2017 10:00"></property>
+		<property name="startingDate" value="09/10/2017 21:30"></property>
+		<property name="endingDate" value="09/10/2017 23:59"></property>
 		<property name="requirements" value="Llevar peluca porque la vas a perder"></property>
 		<property name="sponsorships">
 			<list>
@@ -1599,9 +1599,9 @@
 		<property name="title" value="Tomate Frito World Tour - Madrid"></property>
 		<property name="description" value="Rrrrico tomate"></property>
 		<property name="price" value="2000"></property>
-		<property name="publicationDate" value="2018/10/01 16:00"></property>
-		<property name="startingDate" value="2018/11/29 00:01"></property>
-		<property name="endingDate" value="2018/11/29 23:59"></property>
+		<property name="publicationDate" value="01/10/2018 16:00"></property>
+		<property name="startingDate" value="29/11/2018 00:01"></property>
+		<property name="endingDate" value="29/11/2018 23:59"></property>
 		<property name="requirements" value="Ir vestido de rojo"></property>
 		<property name="cancelationReason" value="Es necesario decirlo? FLOP"></property>
 		<property name="sponsorships">
@@ -1648,9 +1648,9 @@
 		<property name="title" value="Brownie World Tour - Sevilla"></property>
 		<property name="description" value="Me casoo!!"></property>
 		<property name="price" value="1000"></property>
-		<property name="publicationDate" value="2017/09/14 10:00"></property>
-		<property name="startingDate" value="2017/12/13 12:30"></property>
-		<property name="endingDate" value="2017/12/14 23:59"></property>
+		<property name="publicationDate" value="14/09/2017 10:00"></property>
+		<property name="startingDate" value="13/12/2017 12:30"></property>
+		<property name="endingDate" value="14/12/2017 23:59"></property>
 		<property name="requirements" value="Llevar un hueso"></property>
 		<property name="sponsorships">
 			<list>
@@ -1698,7 +1698,7 @@
 	<!-- Trip Application -->
 
 	<bean id="tripApplication1" class="domain.TripApplication">
-		<property name="moment" value="2017/10/24 20:24"></property>
+		<property name="moment" value="24/10/2017 20:24"></property>
 		<property name="status" value="ACCEPTED"></property>
 		<property name="comments">
 			<list>
@@ -1709,7 +1709,7 @@
 	</bean>
 
 	<bean id="tripApplication2" class="domain.TripApplication">
-		<property name="moment" value="2017/09/11 18:30"></property>
+		<property name="moment" value="11/09/2017 18:30"></property>
 		<property name="status" value="REJECTED"></property>
 		<property name="rejectionReason" value="Porque si"></property>
 		<property name="creditCard" ref="creditCard2"></property>
@@ -1723,7 +1723,7 @@
 	</bean>
 
 	<bean id="tripApplication3" class="domain.TripApplication">
-		<property name="moment" value="2017/09/24 13:24"></property>
+		<property name="moment" value="24/09/2017 13:24"></property>
 		<property name="status" value="DUE"></property>
 		<property name="comments">
 			<list>
@@ -1734,7 +1734,7 @@
 	</bean>
 
 	<bean id="tripApplication4" class="domain.TripApplication">
-		<property name="moment" value="2017/09/11 18:30"></property>
+		<property name="moment" value="11/09/2017 18:30"></property>
 		<property name="status" value="ACCEPTED"></property>
 		<property name="comments">
 			<list>
@@ -1745,7 +1745,7 @@
 	</bean>
 
 	<bean id="tripApplication5" class="domain.TripApplication">
-		<property name="moment" value="2017/09/12 18:30"></property>
+		<property name="moment" value="12/09/2017 18:30"></property>
 		<property name="status" value="CANCELLED"></property>
 		<property name="comments">
 			<list>
@@ -2195,7 +2195,7 @@
 	<!-- Message -->
 
 	<bean id="message1" class="domain.Message">
-		<property name="sentMoment" value="2017/10/27 18:00"></property>
+		<property name="sentMoment" value="27/10/2017 18:00"></property>
 		<property name="subject" value="Tenemos que hablar."></property>
 		<property name="body"
 			value="Estoy harta de mentiras y por eso mando este correo."></property>
@@ -2206,7 +2206,7 @@
 	</bean>
 
 	<bean id="message1c" class="domain.Message">
-		<property name="sentMoment" value="2017/10/27 18:00"></property>
+		<property name="sentMoment" value="27/10/2017 18:00"></property>
 		<property name="subject" value="Tenemos que hablar."></property>
 		<property name="body"
 			value="Estoy harta de mentiras y por eso mando este correo."></property>
@@ -2217,7 +2217,7 @@
 	</bean>
 
 	<bean id="message2" class="domain.Message">
-		<property name="sentMoment" value="2013/10/29 12:00"></property>
+		<property name="sentMoment" value="29/10/2013 12:00"></property>
 		<property name="subject" value="Surprise beach!"></property>
 		<property name="body" value="Holaa"></property>
 		<property name="priority" value="HIGH"></property>
@@ -2227,7 +2227,7 @@
 	</bean>
 
 	<bean id="message2c" class="domain.Message">
-		<property name="sentMoment" value="2013/10/29 12:00"></property>
+		<property name="sentMoment" value="29/10/2013 12:00"></property>
 		<property name="subject" value="Surprise beach!"></property>
 		<property name="body" value="Holaa"></property>
 		<property name="priority" value="HIGH"></property>
@@ -2237,7 +2237,7 @@
 	</bean>
 
 	<bean id="message3" class="domain.Message">
-		<property name="sentMoment" value="2012/11/09 17:00"></property>
+		<property name="sentMoment" value="09/11/2012 17:00"></property>
 		<property name="subject" value="Holaa"></property>
 		<property name="body" value="adios"></property>
 		<property name="priority" value="HIGH"></property>
@@ -2247,7 +2247,7 @@
 	</bean>
 
 	<bean id="message3c" class="domain.Message">
-		<property name="sentMoment" value="2012/11/09 17:00"></property>
+		<property name="sentMoment" value="09/11/2012 17:00"></property>
 		<property name="subject" value="Holaa"></property>
 		<property name="body" value="adios"></property>
 		<property name="priority" value="HIGH"></property>
@@ -2257,7 +2257,7 @@
 	</bean>
 
 	<bean id="message4" class="domain.Message">
-		<property name="sentMoment" value="2015/01/20 12:00"></property>
+		<property name="sentMoment" value="20/01/2015 12:00"></property>
 		<property name="subject" value="Compra Lust for Life"></property>
 		<property name="body" value="en itunes"></property>
 		<property name="priority" value="HIGH"></property>
@@ -2267,7 +2267,7 @@
 	</bean>
 
 	<bean id="message4c" class="domain.Message">
-		<property name="sentMoment" value="2015/01/20 12:00"></property>
+		<property name="sentMoment" value="20/01/2015 12:00"></property>
 		<property name="subject" value="Compra Lust for Life"></property>
 		<property name="body" value="en itunes"></property>
 		<property name="priority" value="HIGH"></property>
@@ -2277,7 +2277,7 @@
 	</bean>
 
 	<bean id="message5" class="domain.Message">
-		<property name="sentMoment" value="2009/04/20 13:00"></property>
+		<property name="sentMoment" value="20/04/2009 13:00"></property>
 		<property name="subject" value="Compra Melodrama!!"></property>
 		<property name="body" value="en itunes"></property>
 		<property name="priority" value="HIGH"></property>
@@ -2287,7 +2287,7 @@
 	</bean>
 
 	<bean id="message5c" class="domain.Message">
-		<property name="sentMoment" value="2009/04/20 13:00"></property>
+		<property name="sentMoment" value="20/04/2009 13:00"></property>
 		<property name="subject" value="Compra Melodrama!!"></property>
 		<property name="body" value="en itunes"></property>
 		<property name="priority" value="HIGH"></property>
@@ -2297,7 +2297,7 @@
 	</bean>
 
 	<bean id="message6" class="domain.Message">
-		<property name="sentMoment" value="2010/05/22 14:00"></property>
+		<property name="sentMoment" value="22/05/2010 14:00"></property>
 		<property name="subject" value="Compra Born This Way!!"></property>
 		<property name="body" value="en itunes"></property>
 		<property name="priority" value="LOW"></property>
@@ -2307,7 +2307,7 @@
 	</bean>
 
 	<bean id="message6c" class="domain.Message">
-		<property name="sentMoment" value="2010/05/22 14:00"></property>
+		<property name="sentMoment" value="22/05/2010 14:00"></property>
 		<property name="subject" value="Compra Born This Way!!"></property>
 		<property name="body" value="en itunes"></property>
 		<property name="priority" value="LOW"></property>
@@ -2317,7 +2317,7 @@
 	</bean>
 
 	<bean id="message7" class="domain.Message">
-		<property name="sentMoment" value="2008/05/27 10:00"></property>
+		<property name="sentMoment" value="27/05/2008 10:00"></property>
 		<property name="subject" value="Compra The fame!!"></property>
 		<property name="body" value="en itunes"></property>
 		<property name="priority" value="LOW"></property>
@@ -2327,7 +2327,7 @@
 	</bean>
 
 	<bean id="message7c" class="domain.Message">
-		<property name="sentMoment" value="2008/05/27 10:00"></property>
+		<property name="sentMoment" value="27/05/2008 10:00"></property>
 		<property name="subject" value="Compra The fame!!"></property>
 		<property name="body" value="en itunes"></property>
 		<property name="priority" value="LOW"></property>
