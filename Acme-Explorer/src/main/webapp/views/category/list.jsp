@@ -9,13 +9,35 @@
 <%@taglib prefix="security"	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
+<security:authorize access="hasRole('ADMIN')">
+	<jstl:set var="actorWithSlash" value="admin/"></jstl:set>
+</security:authorize>
+<security:authorize access="hasRole('AUDITOR')">
+	<jstl:set var="actorWithSlash" value="auditor/"></jstl:set>
+</security:authorize>
+<security:authorize access="hasRole('EXPLORER')">
+	<jstl:set var="actorWithSlash" value="explorer/"></jstl:set>
+</security:authorize>
+<security:authorize access="hasRole('MANAGER')">
+	<jstl:set var="actorWithSlash" value="manager/"></jstl:set>
+</security:authorize>
+<security:authorize access="hasRole('RANGER')">
+	<jstl:set var="actorWithSlash" value="ranger/"></jstl:set>
+</security:authorize>
+<security:authorize access="hasRole('SPONSOR')">
+	<jstl:set var="actorWithSlash" value="sponsor/"></jstl:set>
+</security:authorize>
+<security:authorize access="isAnonymous()">
+	<jstl:set var="actorWithSlash" value=""></jstl:set>
+</security:authorize>
+
 <h1><tiles:insertAttribute name="title" />: <jstl:out value="${rootCategory.name}" /></h1>
 
-<display:table name="rootCategory" id="childNode" requestURI="category/list.do" class="displaytag">
+<display:table name="rootCategory" id="childNode" requestURI="category/${actorWithSlash}list.do" class="displaytag">
 	<display:column titleKey="category.children" sortable="true">
-		<a href="category/list.do?rootCategoryId=${childNode.id}"><jstl:out value="${childNode.name}" /></a>
+		<a href="category/${actorWithSlash}list.do?rootCategoryId=${childNode.id}"><jstl:out value="${childNode.name}" /></a>
 	</display:column>
 	<display:column>
-		<a href="trip/list.do?categoryId=${childNode.id}"><spring:message code="trip.search" /></a>
+		<a href="trip/${actorWithSlash}list.do?categoryId=${childNode.id}"><spring:message code="trip.search" /></a>
 	</display:column>
 </display:table>
