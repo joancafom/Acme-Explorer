@@ -17,8 +17,13 @@
 <tiles-definitions>
 
 	<definition name="manager/create" extends="master.page">	
-		<put-attribute name="title" value="Registro de Gerentes" />
-		<put-attribute name="body" value="/views/actor/create.jsp" />
+		<put-attribute name="title" value="Datos Personales" />
+		<put-attribute name="body" value="/views/actor/edit.jsp" />
+	</definition>
+	
+	<definition name="manager/edit" extends="master.page">	
+		<put-attribute name="title" value="Personal Data" />
+		<put-attribute name="body" value="/views/actor/edit.jsp" />
 	</definition>
 	
 </tiles-definitions>

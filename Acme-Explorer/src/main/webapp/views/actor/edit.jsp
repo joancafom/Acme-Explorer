@@ -9,7 +9,55 @@
 <%@taglib prefix="security"	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<form:form action="ranger/create.do" modelAttribute="actor">
+<security:authorize access="hasRole('ADMIN')">
+	<jstl:set var="loggedActorWS" value="admin/"></jstl:set>
+	
+	<jstl:choose>
+		<jstl:when test="${actor.tripApplications != null }">
+			<jstl:set var="desiredActorWS" value="explorer/" />
+		</jstl:when>
+		<jstl:otherwise>
+			<jstl:set var="desiredActorWS" value="manager/" />
+		</jstl:otherwise>
+	</jstl:choose>
+	
+</security:authorize>
+<security:authorize access="hasRole('AUDITOR')">
+	<jstl:set var="loggedActorWS" value="auditor/"></jstl:set>
+	<jstl:set var="desiredActorWS" value="auditor/"></jstl:set>
+</security:authorize>
+<security:authorize access="hasRole('EXPLORER')">
+	<jstl:set var="loggedActorWS" value="explorer/"></jstl:set>
+	<jstl:set var="desiredActorWS" value="explorer/"></jstl:set>
+</security:authorize>
+<security:authorize access="hasRole('MANAGER')">
+	<jstl:set var="loggedActorWS" value="manager/"></jstl:set>
+	<jstl:set var="desiredActorWS" value="manager/"></jstl:set>
+</security:authorize>
+<security:authorize access="hasRole('RANGER')">
+	<jstl:set var="loggedActorWS" value="ranger/"></jstl:set>
+	<jstl:set var="desiredActorWS" value="ranger/"></jstl:set>
+</security:authorize>
+<security:authorize access="hasRole('SPONSOR')">
+	<jstl:set var="loggedActorWS" value="sponsor/"></jstl:set>
+	<jstl:set var="desiredActorWS" value="sponsor/"></jstl:set>
+</security:authorize>
+<security:authorize access="isAnonymous()">
+
+	<jstl:set var="loggedActorWS" value=""></jstl:set>
+
+	<jstl:choose>
+		<jstl:when test="${actor.tripApplications != null }">
+			<jstl:set var="desiredActorWS" value="explorer/" />
+		</jstl:when>
+		<jstl:otherwise>
+			<jstl:set var="desiredActorWS" value="ranger/" />
+		</jstl:otherwise>
+	</jstl:choose>
+	
+</security:authorize>
+
+<form:form action="${desiredActorWS}${loggedActorWS}create.do" modelAttribute="actor">
 	
 	<form:hidden path="id"/>
 	<form:hidden path="version"/>
@@ -25,7 +73,7 @@
 		<form:hidden path="notes"/>
 	</jstl:if>
 	
-	<jstl:if test="${actor.auditions != null}">
+	<jstl:if test="${actor.audits != null}">
 		<form:hidden path="notes"/>
 	</jstl:if>
 	
@@ -51,6 +99,10 @@
 	
 	<jstl:if test="${actor.trips != null}">
 		<form:hidden path="trips"/>
+	</jstl:if>
+	
+	<jstl:if test="${actor.curriculum != null}">
+		<form:hidden path="curriculum"/>
 	</jstl:if>
 	
 	
