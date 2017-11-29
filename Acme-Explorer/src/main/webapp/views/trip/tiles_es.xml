@@ -30,5 +30,10 @@
 		<put-attribute name="title" value="Perfil del viaje" />
 		<put-attribute name="body" value="/views/trip/display.jsp" />
 	</definition>
+
+	<definition name="trip/edit" extends="master.page">
+		<put-attribute name="title" value="Crear un viaje"/>
+		<put-attribute name="body" value="/views/trip/edit.jsp"/>
+	</definition>
 	
 </tiles-definitions>
