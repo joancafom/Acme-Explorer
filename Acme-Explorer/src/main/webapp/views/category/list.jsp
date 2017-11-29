@@ -9,9 +9,13 @@
 <%@taglib prefix="security"	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
+<h1><tiles:insertAttribute name="title" />: <jstl:out value="${rootCategory.name}" /></h1>
+
 <ul>
-	<jstl:set var="depth" value="${1}"></jstl:set>
-	<li><a href="trip/list.do?category=<jstl:out value="${rootCategory.name}" />"> <jstl:out value="${rootCategory.name}" /></a></li>
-	<jstl:set var="element" value="${rootCategory}" scope="request"/>
-	<jsp:include page="category.jsp" />
+
+	<jstl:forEach var="childNode" items="${rootCategory.childCategory}">
+		<li><a href="category/list.do?rootCategoryId=${childNode.id}"><jstl:out value="${childNode.name}" /></a>  
+		<a href="trip/list.do?categoryId=${childNode.id}"><spring:message code="trip.search" /></a></li>
+	</jstl:forEach>
+	
 </ul>
