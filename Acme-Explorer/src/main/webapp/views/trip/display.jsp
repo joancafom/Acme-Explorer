@@ -18,10 +18,12 @@
 
 <h1><jstl:out value="${trip.title}${tripCancelled}"/></h1>
 
-<spring:message code="sponsorship.bannerUrl" var="sponsorshipBannerUrl"/>
-<a href="${sponsorship.infoPageLink}">
-	<img alt="${sponsorshipBannerUrl}" src="${sponsorship.bannerUrl}"/>
-</a>
+<jstl:if test="${sponsorship not null}">
+	<spring:message code="sponsorship.bannerUrl" var="sponsorshipBannerUrl"/>
+	<a href="${sponsorship.infoPageLink}">
+		<img alt="${sponsorshipBannerUrl}" src="${sponsorship.bannerUrl}"/>
+	</a>
+</jstl:if>
 
 <jstl:if test="${trip.cancelationReason != null}">
 	<p><spring:message code="trip.cancelationReason"/>: <jstl:out value="${trip.cancelationReason}"/></p>

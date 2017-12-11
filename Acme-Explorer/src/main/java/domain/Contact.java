@@ -4,7 +4,6 @@ package domain;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Embeddable;
-import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
@@ -28,7 +27,6 @@ public class Contact {
 		return this.email;
 	}
 
-	@Pattern(regexp = "^(\\+[0-9]{1,3} \\([0-9]{1,3}\\) [0-9]{4,}|\\+[0-9]{1,3} [0-9]{4,}|[0-9]{4,}|.*)$")
 	public String getPhoneNumber() {
 		return this.phoneNumber;
 	}

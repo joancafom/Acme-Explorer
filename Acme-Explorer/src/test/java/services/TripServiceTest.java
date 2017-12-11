@@ -52,6 +52,9 @@ public class TripServiceTest extends AbstractTest {
 	@Autowired
 	private ExplorerService	explorerService;
 
+	@Autowired
+	private FinderService	finderService;
+
 
 	// Tests -------------------------------
 
@@ -326,12 +329,21 @@ public class TripServiceTest extends AbstractTest {
 		final Explorer explorer = this.explorerService.findByUserAccount(LoginService.getPrincipal());
 		final Finder finder = explorer.getFinder();
 
+		// Saturday, 11 de December de 2010 17:40:32
+		finder.setMinDate(new Date(1292089232000L));
+		// Friday, 11 de December de 2020 17:40:32
+		finder.setMaxDate(new Date(1607708432000L));
+		finder.setMaxRange(20000.99);
+		finder.setMinRange(0.00);
+		finder.setKeyword("r");
+		final Finder savedFinder = this.finderService.save(finder);
+
 		final Collection<Trip> trips = this.tripService.findAll();
 		final Collection<Trip> tripsFinder1 = new ArrayList<Trip>();
-		final Collection<Trip> tripsFinder2 = this.tripService.findByFinder(finder);
+		final Collection<Trip> tripsFinder2 = this.tripService.findByFinder(savedFinder);
 
 		for (final Trip t : trips)
-			if (t.getPrice() > finder.getMinRange() && t.getPrice() < finder.getMaxRange() && t.getStartingDate().after(finder.getMinDate()) && t.getEndingDate().before(finder.getMaxDate()))
+			if (t.getPrice() > savedFinder.getMinRange() && t.getPrice() < savedFinder.getMaxRange() && t.getStartingDate().after(savedFinder.getMinDate()) && t.getEndingDate().before(savedFinder.getMaxDate()))
 				tripsFinder1.add(t);
 
 		Assert.isTrue(tripsFinder2.containsAll(tripsFinder1));

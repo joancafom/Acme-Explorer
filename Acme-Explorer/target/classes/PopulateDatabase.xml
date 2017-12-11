@@ -191,9 +191,9 @@
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean class="java.text.SimpleDateFormat" id="dateFormat">
-       <constructor-arg value="dd/MM/yyyy HH:mm"/>
+		<constructor-arg value="dd/MM/yyyy HH:mm" />
 	</bean>
 
 	<!-- Admin -->
@@ -212,7 +212,7 @@
 		<property name="folders">
 			<list>
 				<ref bean="folder1" />
-				<ref bean="folder20"/>
+				<ref bean="folder20" />
 			</list>
 		</property>
 		<property name="sentMessages">
@@ -244,7 +244,7 @@
 		<property name="folders">
 			<list>
 				<ref bean="folder7" />
-				<ref bean="folder21"/>
+				<ref bean="folder21" />
 			</list>
 		</property>
 		<property name="sentMessages">
@@ -266,9 +266,9 @@
 
 	<bean id="audition1" class="domain.Audition">
 		<property name="moment">
-   			<bean factory-method="parse" factory-bean="dateFormat">
-      		<constructor-arg value="27/10/2017 06:00"/>
-   			</bean>
+			<bean factory-method="parse" factory-bean="dateFormat">
+				<constructor-arg value="27/10/2017 06:00" />
+			</bean>
 		</property>
 		<property name="title" value="... Ready For It? - The Audition"></property>
 		<property name="description" value="Are you ready for PSM?"></property>
@@ -283,9 +283,9 @@
 
 	<bean id="audition2" class="domain.Audition">
 		<property name="moment">
-   			<bean factory-method="parse" factory-bean="dateFormat">
-      		<constructor-arg value="02/09/2015 14:00"/>
-   			</bean>
+			<bean factory-method="parse" factory-bean="dateFormat">
+				<constructor-arg value="02/09/2015 14:00" />
+			</bean>
 		</property>
 		<property name="title" value="Gorgeous - The Audition"></property>
 		<property name="description" value="Alone, unless you wanna come along"></property>
@@ -314,7 +314,7 @@
 		<property name="folders">
 			<list>
 				<ref bean="folder3" />
-				<ref bean="folder26"/>
+				<ref bean="folder26" />
 			</list>
 		</property>
 		<property name="sentMessages">
@@ -353,7 +353,7 @@
 		<property name="folders">
 			<list>
 				<ref bean="folder8" />
-				<ref bean="folder27"/>
+				<ref bean="folder27" />
 			</list>
 		</property>
 		<property name="sentMessages">
@@ -630,9 +630,9 @@
 	<bean id="educationRecord1" class="domain.EducationRecord">
 		<property name="titleOfDiploma" value="Slay Engineering"></property>
 		<property name="startingDate">
-   			<bean factory-method="parse" factory-bean="dateFormat">
-      		<constructor-arg value="28/09/2007 17:00"/>
-   			</bean>
+			<bean factory-method="parse" factory-bean="dateFormat">
+				<constructor-arg value="28/09/2007 17:00" />
+			</bean>
 		</property>
 		<property name="institution" value="Taylor School"></property>
 		<property name="comments">
@@ -645,14 +645,14 @@
 	<bean id="educationRecord2" class="domain.EducationRecord">
 		<property name="titleOfDiploma" value="Slay Physics"></property>
 		<property name="startingDate">
-   			<bean factory-method="parse" factory-bean="dateFormat">
-      		<constructor-arg value="05/11/2010 21:00"/>
-   			</bean>
+			<bean factory-method="parse" factory-bean="dateFormat">
+				<constructor-arg value="05/11/2010 21:00" />
+			</bean>
 		</property>
 		<property name="endingDate">
-   			<bean factory-method="parse" factory-bean="dateFormat">
-      		<constructor-arg value="11/08/2013 19:00"/>
-   			</bean>
+			<bean factory-method="parse" factory-bean="dateFormat">
+				<constructor-arg value="11/08/2013 19:00" />
+			</bean>
 		</property>
 		<property name="institution" value="Ultraviolence School"></property>
 		<property name="attachment" value="http://attachment.com/attachment2"></property>
@@ -708,7 +708,7 @@
 		<property name="folders">
 			<list>
 				<ref bean="folder9" />
-				<ref bean="folder25"/>
+				<ref bean="folder25" />
 			</list>
 		</property>
 		<property name="sentMessages">
@@ -759,7 +759,7 @@
 		<property name="folders">
 			<list>
 				<ref bean="folder4" />
-				<ref bean="folder24"/>
+				<ref bean="folder24" />
 			</list>
 		</property>
 		<property name="sentMessages">
@@ -796,7 +796,7 @@
 	<!-- Finder -->
 
 	<bean id="finder1" class="domain.Finder">
-		<property name="cacheTime" value="20"></property>
+		
 	</bean>
 
 	<bean id="finder2" class="domain.Finder">
@@ -804,16 +804,15 @@
 		<property name="minRange" value="2.0"></property>
 		<property name="maxRange" value="10.0"></property>
 		<property name="minDate">
-   			<bean factory-method="parse" factory-bean="dateFormat">
-      		<constructor-arg value="02/02/2012 10:00"/>
-   			</bean>
+			<bean factory-method="parse" factory-bean="dateFormat">
+				<constructor-arg value="02/02/2012 10:00" />
+			</bean>
 		</property>
 		<property name="maxDate">
-   			<bean factory-method="parse" factory-bean="dateFormat">
-      		<constructor-arg value="02/02/2016 10:00"/>
-   			</bean>
+			<bean factory-method="parse" factory-bean="dateFormat">
+				<constructor-arg value="02/02/2016 10:00" />
+			</bean>
 		</property>
-		<property name="cacheTime" value="22"></property>
 	</bean>
 
 
@@ -828,9 +827,9 @@
 			value="La entrada de Katy Perry está prohibida y se declara completamente ilegal por razones de salud."></property>
 		<property name="numberOfApplicableLaws" value="155"></property>
 		<property name="registrationMoment">
-   			<bean factory-method="parse" factory-bean="dateFormat">
-      		<constructor-arg value="01/01/2010 16:00"/>
-   			</bean>
+			<bean factory-method="parse" factory-bean="dateFormat">
+				<constructor-arg value="01/01/2010 16:00" />
+			</bean>
 		</property>
 		<property name="isFinal" value="false"></property>
 		<property name="trips">
@@ -844,9 +843,9 @@
 		<property name="body" value="Hacedlo por ella que esta pobre"></property>
 		<property name="numberOfApplicableLaws" value="200"></property>
 		<property name="registrationMoment">
-   			<bean factory-method="parse" factory-bean="dateFormat">
-      		<constructor-arg value="02/02/2011 22:22"/>
-   			</bean>
+			<bean factory-method="parse" factory-bean="dateFormat">
+				<constructor-arg value="02/02/2011 22:22" />
+			</bean>
 		</property>
 		<property name="isFinal" value="true"></property>
 		<property name="trips">
@@ -885,7 +884,7 @@
 		<property name="folders">
 			<list>
 				<ref bean="folder5" />
-				<ref bean="folder18"/>
+				<ref bean="folder18" />
 			</list>
 		</property>
 		<property name="sentMessages">
@@ -927,7 +926,7 @@
 		<property name="folders">
 			<list>
 				<ref bean="folder10" />
-				<ref bean="folder19"/>
+				<ref bean="folder19" />
 			</list>
 		</property>
 		<property name="sentMessages">
@@ -973,7 +972,7 @@
 		<property name="folders">
 			<list>
 				<ref bean="folder15" />
-				<ref bean="folder30"/>
+				<ref bean="folder30" />
 			</list>
 		</property>
 		<property name="sentMessages">
@@ -1024,9 +1023,9 @@
 
 	<bean id="note1" class="domain.Note">
 		<property name="writtenMoment">
-   			<bean factory-method="parse" factory-bean="dateFormat">
-      		<constructor-arg value="18/09/2016 13:56"/>
-   			</bean>
+			<bean factory-method="parse" factory-bean="dateFormat">
+				<constructor-arg value="18/09/2016 13:56" />
+			</bean>
 		</property>
 		<property name="remark" value="Wow, qué bonito!!"></property>
 		<property name="auditor" ref="auditor1"></property>
@@ -1035,18 +1034,18 @@
 
 	<bean id="note2" class="domain.Note">
 		<property name="writtenMoment">
-   			<bean factory-method="parse" factory-bean="dateFormat">
-      		<constructor-arg value="11/05/2014 14:06"/>
-   			</bean>
+			<bean factory-method="parse" factory-bean="dateFormat">
+				<constructor-arg value="11/05/2014 14:06" />
+			</bean>
 		</property>
 		<property name="remark" value="Wow me encanta!! sii"></property>
 		<property name="auditor" ref="auditor2"></property>
 		<property name="trip" ref="trip2"></property>
 		<property name="reply" value="Siiii tienes razon!!"></property>
 		<property name="replyMoment">
-   			<bean factory-method="parse" factory-bean="dateFormat">
-      		<constructor-arg value="22/08/2014 11:48"/>
-   			</bean>
+			<bean factory-method="parse" factory-bean="dateFormat">
+				<constructor-arg value="22/08/2014 11:48" />
+			</bean>
 		</property>
 	</bean>
 
@@ -1074,9 +1073,9 @@
 	<bean id="professionalRecord1" class="domain.ProfessionalRecord">
 		<property name="companyName" value="Lipa's Company"></property>
 		<property name="startingDate">
-   			<bean factory-method="parse" factory-bean="dateFormat">
-      		<constructor-arg value="30/05/2012 10:00"/>
-   			</bean>
+			<bean factory-method="parse" factory-bean="dateFormat">
+				<constructor-arg value="30/05/2012 10:00" />
+			</bean>
 		</property>
 		<property name="role" value="Queen"></property>
 		<property name="comments">
@@ -1089,9 +1088,9 @@
 	<bean id="professionalRecord2" class="domain.ProfessionalRecord">
 		<property name="companyName" value="Lorde's Company"></property>
 		<property name="startingDate">
-   			<bean factory-method="parse" factory-bean="dateFormat">
-      		<constructor-arg value="07/11/2013 15:00"/>
-   			</bean>
+			<bean factory-method="parse" factory-bean="dateFormat">
+				<constructor-arg value="07/11/2013 15:00" />
+			</bean>
 		</property>
 		<property name="role" value="Legend"></property>
 		<property name="attachment" value="http://attachment.com/lorda"></property>
@@ -1153,7 +1152,7 @@
 		<property name="folders">
 			<list>
 				<ref bean="folder11" />
-				<ref bean="folder17"/>
+				<ref bean="folder17" />
 			</list>
 		</property>
 		<property name="sentMessages">
@@ -1190,7 +1189,7 @@
 		<property name="folders">
 			<list>
 				<ref bean="folder13" />
-				<ref bean="folder28"/>
+				<ref bean="folder28" />
 			</list>
 		</property>
 		<property name="sentMessages">
@@ -1222,7 +1221,7 @@
 		<property name="folders">
 			<list>
 				<ref bean="folder14" />
-				<ref bean="folder29"/>
+				<ref bean="folder29" />
 			</list>
 		</property>
 		<property name="sentMessages">
@@ -1299,7 +1298,7 @@
 		<property name="folders">
 			<list>
 				<ref bean="folder6" />
-				<ref bean="folder22"/>
+				<ref bean="folder22" />
 			</list>
 		</property>
 		<property name="sentMessages">
@@ -1332,7 +1331,7 @@
 		<property name="folders">
 			<list>
 				<ref bean="folder12" />
-				<ref bean="folder23"/>
+				<ref bean="folder23" />
 			</list>
 		</property>
 		<property name="sentMessages">
@@ -1440,9 +1439,9 @@
 		<property name="description"
 			value="Aquí le daremos una clase magistral sobre cómo mantener la peluca durante el concierto de Taylor Swift."></property>
 		<property name="moment">
-   			<bean factory-method="parse" factory-bean="dateFormat">
-      		<constructor-arg value="10/11/2017 19:00"/>
-   			</bean>
+			<bean factory-method="parse" factory-bean="dateFormat">
+				<constructor-arg value="10/11/2017 19:00" />
+			</bean>
 		</property>
 		<property name="location" ref="location1"></property>
 		<property name="manager" ref="manager1"></property>
@@ -1458,9 +1457,9 @@
 		<property name="title" value="Cómo no sufrir un infarto el 10 de Noviembre"></property>
 		<property name="description" value="Te vas a morir igualmente pa que mentir"></property>
 		<property name="moment">
-   			<bean factory-method="parse" factory-bean="dateFormat">
-      		<constructor-arg value="10/11/2017 00:00"/>
-   			</bean>
+			<bean factory-method="parse" factory-bean="dateFormat">
+				<constructor-arg value="10/11/2017 00:00" />
+			</bean>
 		</property>
 		<property name="location" ref="location2"></property>
 		<property name="manager" ref="manager2"></property>
@@ -1475,9 +1474,9 @@
 		<property name="title" value="Cómo no sufrir un infarto en TacoBell"></property>
 		<property name="description" value="Rule nº4, ask for a picture before"></property>
 		<property name="moment">
-   			<bean factory-method="parse" factory-bean="dateFormat">
-      		<constructor-arg value="10/11/2017 00:00"/>
-   			</bean>
+			<bean factory-method="parse" factory-bean="dateFormat">
+				<constructor-arg value="10/11/2017 00:00" />
+			</bean>
 		</property>
 		<property name="location" ref="location2"></property>
 		<property name="manager" ref="manager2"></property>
@@ -1494,6 +1493,7 @@
 		<property name="VAT" value="0.21"></property>
 		<property name="banner"
 			value="http://creek-tours.com/wp-content/uploads/Kenya-Tanzania-Family-Safari-banner.jpg"></property>
+		<!-- TODO: Change to message.properties -->
 		<property name="welcomeMessageEN"
 			value="Tanzanika is an adventure company that makes your explorer's dreams true"></property>
 		<property name="welcomeMessageES"
@@ -1507,6 +1507,8 @@
 			</list>
 		</property>
 		<property name="countryCode" value="+34"></property>
+		<property name="cacheTime" value="1"></property>
+		<property name="maxNumResults" value="10"></property>
 	</bean>
 
 	<!-- Tag -->
@@ -1560,19 +1562,19 @@
 			value="Que viene la Taylor!! Prepárate para quedarte calva, linda!!"></property>
 		<property name="price" value="800"></property>
 		<property name="publicationDate">
-   			<bean factory-method="parse" factory-bean="dateFormat">
-      		<constructor-arg value="28/10/2018 19:00"/>
-   			</bean>
+			<bean factory-method="parse" factory-bean="dateFormat">
+				<constructor-arg value="28/10/2018 19:00" />
+			</bean>
 		</property>
 		<property name="startingDate">
-   			<bean factory-method="parse" factory-bean="dateFormat">
-      		<constructor-arg value="10/11/2018 00:01"/>
-   			</bean>
+			<bean factory-method="parse" factory-bean="dateFormat">
+				<constructor-arg value="10/11/2018 00:01" />
+			</bean>
 		</property>
 		<property name="endingDate">
-   			<bean factory-method="parse" factory-bean="dateFormat">
-      		<constructor-arg value="10/11/2018 23:59"/>
-   			</bean>
+			<bean factory-method="parse" factory-bean="dateFormat">
+				<constructor-arg value="10/11/2018 23:59" />
+			</bean>
 		</property>
 		<property name="requirements"
 			value="No ser Katy Perry ni Kanye West. Muerte a la Kim."></property>
@@ -1629,19 +1631,19 @@
 			value="La Lorde desafinando en Barcelona no os lo perdáis!!"></property>
 		<property name="price" value="10000"></property>
 		<property name="publicationDate">
-   			<bean factory-method="parse" factory-bean="dateFormat">
-      		<constructor-arg value="20/05/2017 10:00"/>
-   			</bean>
+			<bean factory-method="parse" factory-bean="dateFormat">
+				<constructor-arg value="20/05/2017 10:00" />
+			</bean>
 		</property>
 		<property name="startingDate">
-   			<bean factory-method="parse" factory-bean="dateFormat">
-      		<constructor-arg value="09/10/2017 21:30"/>
-   			</bean>
+			<bean factory-method="parse" factory-bean="dateFormat">
+				<constructor-arg value="09/10/2017 21:30" />
+			</bean>
 		</property>
 		<property name="endingDate">
-   			<bean factory-method="parse" factory-bean="dateFormat">
-      		<constructor-arg value="09/10/2017 23:59"/>
-   			</bean>
+			<bean factory-method="parse" factory-bean="dateFormat">
+				<constructor-arg value="09/10/2017 23:59" />
+			</bean>
 		</property>
 		<property name="requirements" value="Llevar peluca porque la vas a perder"></property>
 		<property name="sponsorships">
@@ -1696,19 +1698,19 @@
 		<property name="description" value="Rrrrico tomate"></property>
 		<property name="price" value="2000"></property>
 		<property name="publicationDate">
-   			<bean factory-method="parse" factory-bean="dateFormat">
-      		<constructor-arg value="01/10/2018 16:00"/>
-   			</bean>
+			<bean factory-method="parse" factory-bean="dateFormat">
+				<constructor-arg value="01/10/2018 16:00" />
+			</bean>
 		</property>
 		<property name="startingDate">
-   			<bean factory-method="parse" factory-bean="dateFormat">
-      		<constructor-arg value="29/11/2018 00:01"/>
-   			</bean>
+			<bean factory-method="parse" factory-bean="dateFormat">
+				<constructor-arg value="29/11/2018 00:01" />
+			</bean>
 		</property>
 		<property name="endingDate">
-   			<bean factory-method="parse" factory-bean="dateFormat">
-      		<constructor-arg value="29/11/2018 23:59"/>
-   			</bean>
+			<bean factory-method="parse" factory-bean="dateFormat">
+				<constructor-arg value="29/11/2018 23:59" />
+			</bean>
 		</property>
 		<property name="requirements" value="Ir vestido de rojo"></property>
 		<property name="cancelationReason" value="Es necesario decirlo? FLOP"></property>
@@ -1757,19 +1759,19 @@
 		<property name="description" value="Me casoo!!"></property>
 		<property name="price" value="1000"></property>
 		<property name="publicationDate">
-   			<bean factory-method="parse" factory-bean="dateFormat">
-      		<constructor-arg value="14/09/2017 10:00"/>
-   			</bean>
+			<bean factory-method="parse" factory-bean="dateFormat">
+				<constructor-arg value="14/09/2017 10:00" />
+			</bean>
 		</property>
 		<property name="startingDate">
-   			<bean factory-method="parse" factory-bean="dateFormat">
-      		<constructor-arg value="13/12/2017 12:30"/>
-   			</bean>
+			<bean factory-method="parse" factory-bean="dateFormat">
+				<constructor-arg value="13/12/2017 12:30" />
+			</bean>
 		</property>
 		<property name="endingDate">
-   			<bean factory-method="parse" factory-bean="dateFormat">
-      		<constructor-arg value="14/12/2017 23:59"/>
-   			</bean>
+			<bean factory-method="parse" factory-bean="dateFormat">
+				<constructor-arg value="14/12/2017 23:59" />
+			</bean>
 		</property>
 		<property name="requirements" value="Llevar un hueso"></property>
 		<property name="sponsorships">
@@ -1819,9 +1821,9 @@
 
 	<bean id="tripApplication1" class="domain.TripApplication">
 		<property name="moment">
-   			<bean factory-method="parse" factory-bean="dateFormat">
-      		<constructor-arg value="24/10/2017 20:24"/>
-   			</bean>
+			<bean factory-method="parse" factory-bean="dateFormat">
+				<constructor-arg value="24/10/2017 20:24" />
+			</bean>
 		</property>
 		<property name="status" value="ACCEPTED"></property>
 		<property name="comments">
@@ -1834,9 +1836,9 @@
 
 	<bean id="tripApplication2" class="domain.TripApplication">
 		<property name="moment">
-   			<bean factory-method="parse" factory-bean="dateFormat">
-      		<constructor-arg value="11/09/2017 18:30"/>
-   			</bean>
+			<bean factory-method="parse" factory-bean="dateFormat">
+				<constructor-arg value="11/09/2017 18:30" />
+			</bean>
 		</property>
 		<property name="status" value="REJECTED"></property>
 		<property name="rejectionReason" value="Porque si"></property>
@@ -1852,9 +1854,9 @@
 
 	<bean id="tripApplication3" class="domain.TripApplication">
 		<property name="moment">
-   			<bean factory-method="parse" factory-bean="dateFormat">
-      		<constructor-arg value="24/09/2017 13:24"/>
-   			</bean>
+			<bean factory-method="parse" factory-bean="dateFormat">
+				<constructor-arg value="24/09/2017 13:24" />
+			</bean>
 		</property>
 		<property name="status" value="DUE"></property>
 		<property name="comments">
@@ -1867,9 +1869,9 @@
 
 	<bean id="tripApplication4" class="domain.TripApplication">
 		<property name="moment">
-   			<bean factory-method="parse" factory-bean="dateFormat">
-      		<constructor-arg value="11/09/2017 18:30"/>
-   			</bean>
+			<bean factory-method="parse" factory-bean="dateFormat">
+				<constructor-arg value="11/09/2017 18:30" />
+			</bean>
 		</property>
 		<property name="status" value="ACCEPTED"></property>
 		<property name="comments">
@@ -1882,9 +1884,9 @@
 
 	<bean id="tripApplication5" class="domain.TripApplication">
 		<property name="moment">
-   			<bean factory-method="parse" factory-bean="dateFormat">
-      		<constructor-arg value="12/09/2017 18:30"/>
-   			</bean>
+			<bean factory-method="parse" factory-bean="dateFormat">
+				<constructor-arg value="12/09/2017 18:30" />
+			</bean>
 		</property>
 		<property name="status" value="CANCELLED"></property>
 		<property name="comments">
@@ -2336,9 +2338,9 @@
 
 	<bean id="message1" class="domain.Message">
 		<property name="sentMoment">
-   			<bean factory-method="parse" factory-bean="dateFormat">
-      		<constructor-arg value="27/10/2017 18:00"/>
-   			</bean>
+			<bean factory-method="parse" factory-bean="dateFormat">
+				<constructor-arg value="27/10/2017 18:00" />
+			</bean>
 		</property>
 		<property name="subject" value="Tenemos que hablar."></property>
 		<property name="body"
@@ -2351,9 +2353,9 @@
 
 	<bean id="message1c" class="domain.Message">
 		<property name="sentMoment">
-   			<bean factory-method="parse" factory-bean="dateFormat">
-      		<constructor-arg value="27/10/2017 18:00"/>
-   			</bean>
+			<bean factory-method="parse" factory-bean="dateFormat">
+				<constructor-arg value="27/10/2017 18:00" />
+			</bean>
 		</property>
 		<property name="subject" value="Tenemos que hablar."></property>
 		<property name="body"
@@ -2366,9 +2368,9 @@
 
 	<bean id="message2" class="domain.Message">
 		<property name="sentMoment">
-   			<bean factory-method="parse" factory-bean="dateFormat">
-      		<constructor-arg value="29/10/2013 12:00"/>
-   			</bean>
+			<bean factory-method="parse" factory-bean="dateFormat">
+				<constructor-arg value="29/10/2013 12:00" />
+			</bean>
 		</property>
 		<property name="subject" value="Surprise beach!"></property>
 		<property name="body" value="Holaa"></property>
@@ -2380,9 +2382,9 @@
 
 	<bean id="message2c" class="domain.Message">
 		<property name="sentMoment">
-   			<bean factory-method="parse" factory-bean="dateFormat">
-      		<constructor-arg value="29/10/2013 12:00"/>
-   			</bean>
+			<bean factory-method="parse" factory-bean="dateFormat">
+				<constructor-arg value="29/10/2013 12:00" />
+			</bean>
 		</property>
 		<property name="subject" value="Surprise beach!"></property>
 		<property name="body" value="Holaa"></property>
@@ -2394,9 +2396,9 @@
 
 	<bean id="message3" class="domain.Message">
 		<property name="sentMoment">
-   			<bean factory-method="parse" factory-bean="dateFormat">
-      		<constructor-arg value="09/11/2012 17:00"/>
-   			</bean>
+			<bean factory-method="parse" factory-bean="dateFormat">
+				<constructor-arg value="09/11/2012 17:00" />
+			</bean>
 		</property>
 		<property name="subject" value="Holaa"></property>
 		<property name="body" value="adios"></property>
@@ -2408,9 +2410,9 @@
 
 	<bean id="message3c" class="domain.Message">
 		<property name="sentMoment">
-   			<bean factory-method="parse" factory-bean="dateFormat">
-      		<constructor-arg value="09/11/2012 17:00"/>
-   			</bean>
+			<bean factory-method="parse" factory-bean="dateFormat">
+				<constructor-arg value="09/11/2012 17:00" />
+			</bean>
 		</property>
 		<property name="subject" value="Holaa"></property>
 		<property name="body" value="adios"></property>
@@ -2422,9 +2424,9 @@
 
 	<bean id="message4" class="domain.Message">
 		<property name="sentMoment">
-   			<bean factory-method="parse" factory-bean="dateFormat">
-      		<constructor-arg value="20/01/2015 12:00"/>
-   			</bean>
+			<bean factory-method="parse" factory-bean="dateFormat">
+				<constructor-arg value="20/01/2015 12:00" />
+			</bean>
 		</property>
 		<property name="subject" value="Compra Lust for Life"></property>
 		<property name="body" value="en itunes"></property>
@@ -2436,9 +2438,9 @@
 
 	<bean id="message4c" class="domain.Message">
 		<property name="sentMoment">
-   			<bean factory-method="parse" factory-bean="dateFormat">
-      		<constructor-arg value="20/01/2015 12:00"/>
-   			</bean>
+			<bean factory-method="parse" factory-bean="dateFormat">
+				<constructor-arg value="20/01/2015 12:00" />
+			</bean>
 		</property>
 		<property name="subject" value="Compra Lust for Life"></property>
 		<property name="body" value="en itunes"></property>
@@ -2450,9 +2452,9 @@
 
 	<bean id="message5" class="domain.Message">
 		<property name="sentMoment">
-   			<bean factory-method="parse" factory-bean="dateFormat">
-      		<constructor-arg value="20/04/2009 13:00"/>
-   			</bean>
+			<bean factory-method="parse" factory-bean="dateFormat">
+				<constructor-arg value="20/04/2009 13:00" />
+			</bean>
 		</property>
 		<property name="subject" value="Compra Melodrama!!"></property>
 		<property name="body" value="en itunes"></property>
@@ -2464,9 +2466,9 @@
 
 	<bean id="message5c" class="domain.Message">
 		<property name="sentMoment">
-   			<bean factory-method="parse" factory-bean="dateFormat">
-      		<constructor-arg value="20/04/2009 13:00"/>
-   			</bean>
+			<bean factory-method="parse" factory-bean="dateFormat">
+				<constructor-arg value="20/04/2009 13:00" />
+			</bean>
 		</property>
 		<property name="subject" value="Compra Melodrama!!"></property>
 		<property name="body" value="en itunes"></property>
@@ -2478,9 +2480,9 @@
 
 	<bean id="message6" class="domain.Message">
 		<property name="sentMoment">
-   			<bean factory-method="parse" factory-bean="dateFormat">
-      		<constructor-arg value="22/05/2010 14:00"/>
-   			</bean>
+			<bean factory-method="parse" factory-bean="dateFormat">
+				<constructor-arg value="22/05/2010 14:00" />
+			</bean>
 		</property>
 		<property name="subject" value="Compra Born This Way!!"></property>
 		<property name="body" value="en itunes"></property>
@@ -2492,9 +2494,9 @@
 
 	<bean id="message6c" class="domain.Message">
 		<property name="sentMoment">
-   			<bean factory-method="parse" factory-bean="dateFormat">
-      		<constructor-arg value="22/05/2010 14:00"/>
-   			</bean>
+			<bean factory-method="parse" factory-bean="dateFormat">
+				<constructor-arg value="22/05/2010 14:00" />
+			</bean>
 		</property>
 		<property name="subject" value="Compra Born This Way!!"></property>
 		<property name="body" value="en itunes"></property>
@@ -2506,9 +2508,9 @@
 
 	<bean id="message7" class="domain.Message">
 		<property name="sentMoment">
-   			<bean factory-method="parse" factory-bean="dateFormat">
-      		<constructor-arg value="27/05/2008 10:00"/>
-   			</bean>
+			<bean factory-method="parse" factory-bean="dateFormat">
+				<constructor-arg value="27/05/2008 10:00" />
+			</bean>
 		</property>
 		<property name="subject" value="Compra The fame!!"></property>
 		<property name="body" value="en itunes"></property>
@@ -2520,9 +2522,9 @@
 
 	<bean id="message7c" class="domain.Message">
 		<property name="sentMoment">
-   			<bean factory-method="parse" factory-bean="dateFormat">
-      		<constructor-arg value="27/05/2008 10:00"/>
-   			</bean>
+			<bean factory-method="parse" factory-bean="dateFormat">
+				<constructor-arg value="27/05/2008 10:00" />
+			</bean>
 		</property>
 		<property name="subject" value="Compra The fame!!"></property>
 		<property name="body" value="en itunes"></property>

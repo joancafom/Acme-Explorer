@@ -16,6 +16,7 @@ import security.LoginService;
 import security.UserAccount;
 import domain.Explorer;
 import domain.Story;
+import domain.SystemConfiguration;
 import domain.Trip;
 import domain.TripApplication;
 
@@ -25,14 +26,17 @@ public class StoryService {
 
 	//Managed Repository
 	@Autowired
-	private StoryRepository			storyRepository;
+	private StoryRepository				storyRepository;
 
 	//Supporting Services
 	@Autowired
-	private ExplorerService			explorerService;
+	private ExplorerService				explorerService;
 
 	@Autowired
-	private TripApplicationService	tripApplicationService;
+	private TripApplicationService		tripApplicationService;
+
+	@Autowired
+	private SystemConfigurationService	systemConfigurationService;
 
 
 	//Simple CRUD operations
@@ -73,7 +77,9 @@ public class StoryService {
 
 		final UserAccount userAccount = LoginService.getPrincipal();
 		Assert.notNull(userAccount);
-		Assert.isTrue(userAccount.equals(story.getExplorer().getUserAccount()));
+
+		final Explorer explorer = this.explorerService.findByUserAccount(userAccount);
+		Assert.isTrue(story.getExplorer().equals(explorer));
 
 		//We check that the Explorer has an accepted TripApplication for that Trip
 
@@ -90,7 +96,30 @@ public class StoryService {
 		Assert.isTrue(tripMatched);
 		Assert.isTrue(trip.getEndingDate().after(new Date()));
 
+		final Boolean isSuspicious;
+		isSuspicious = this.decideSuspiciousness(story.getTitle() + " " + story.getText());
+
+		if (isSuspicious)
+			explorer.setIsSuspicious(isSuspicious);
+
 		return this.storyRepository.save(story);
 
+	}
+
+	//Other Business Methods
+
+	public Boolean decideSuspiciousness(final String testString) {
+		final SystemConfiguration sysConfig = this.systemConfigurationService.getCurrentSystemConfiguration();
+		Assert.notNull(sysConfig);
+
+		Boolean res = false;
+
+		for (final String spamWord : sysConfig.getSpamWords())
+			if (testString.toLowerCase().contains(spamWord)) {
+				res = true;
+				break;
+			}
+
+		return res;
 	}
 }

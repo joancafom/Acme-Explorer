@@ -15,6 +15,7 @@ import security.LoginService;
 import security.UserAccount;
 import domain.Audition;
 import domain.Auditor;
+import domain.SystemConfiguration;
 import domain.Trip;
 
 @Service
@@ -23,11 +24,14 @@ public class AuditionService {
 
 	/* Repositories */
 	@Autowired
-	private AuditionRepository	auditionRepository;
+	private AuditionRepository			auditionRepository;
 
 	/* Services */
 	@Autowired
-	private AuditorService		auditorService;
+	private AuditorService				auditorService;
+
+	@Autowired
+	private SystemConfigurationService	systemConfigurationService;
 
 
 	/* CRUD */
@@ -76,9 +80,17 @@ public class AuditionService {
 
 	public Audition save(final Audition audition) {
 		final UserAccount userAccount = LoginService.getPrincipal();
+
 		Assert.isTrue(!this.auditionRepository.findOne(audition.getId()).getIsFinal());
 
-		Assert.isTrue(audition.getAuditor().getUserAccount().equals(userAccount));
+		final Auditor auditor = this.auditorService.findByUserAccount(userAccount);
+		Assert.isTrue(audition.getAuditor().equals(auditor));
+
+		final Boolean isSuspicious;
+		isSuspicious = this.decideSuspiciousness(audition.getTitle() + " " + audition.getDescription());
+
+		if (isSuspicious)
+			auditor.setIsSuspicious(isSuspicious);
 
 		return this.auditionRepository.save(audition);
 
@@ -104,6 +116,21 @@ public class AuditionService {
 	public Collection<Audition> findByTrip(final Trip t) {
 		Assert.notNull(t);
 		return this.auditionRepository.findByTripId(t.getId());
+	}
+
+	public Boolean decideSuspiciousness(final String testString) {
+		final SystemConfiguration sysConfig = this.systemConfigurationService.getCurrentSystemConfiguration();
+		Assert.notNull(sysConfig);
+
+		Boolean res = false;
+
+		for (final String spamWord : sysConfig.getSpamWords())
+			if (testString.toLowerCase().contains(spamWord)) {
+				res = true;
+				break;
+			}
+
+		return res;
 	}
 
 }

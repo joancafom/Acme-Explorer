@@ -16,6 +16,7 @@ import security.UserAccount;
 import domain.Auditor;
 import domain.Manager;
 import domain.Note;
+import domain.SystemConfiguration;
 
 @Service
 @Transactional
@@ -23,14 +24,17 @@ public class NoteService {
 
 	//Managed Repository
 	@Autowired
-	private NoteRepository	noteRepository;
+	private NoteRepository				noteRepository;
 
 	//Supporting Services
 	@Autowired
-	private AuditorService	auditorService;
+	private AuditorService				auditorService;
 
 	@Autowired
-	private ManagerService	managerService;
+	private ManagerService				managerService;
+
+	@Autowired
+	private SystemConfigurationService	systemConfigurationService;
 
 
 	//Supporting Services
@@ -82,10 +86,17 @@ public class NoteService {
 		final UserAccount userAccount = LoginService.getPrincipal();
 		final Auditor auditor = this.auditorService.findByUserAccount(userAccount);
 
+		Boolean isSuspicious;
+
 		//If it is an Auditor, we check that the Note id = 0 (freshly new)
-		if (auditor != null)
+		if (auditor != null) {
 			Assert.isTrue(note.getId() == 0);
-		else {
+			isSuspicious = this.decideSuspiciousness(note.getRemark());
+
+			if (isSuspicious)
+				auditor.setIsSuspicious(isSuspicious);
+
+		} else {
 
 			//If it's not an Auditor, it must be a Manager the one who's trying to write a reply
 			final Manager manager = this.managerService.findByUserAccount(userAccount);
@@ -97,11 +108,15 @@ public class NoteService {
 			Assert.notNull(note.getReply());
 			Assert.notNull(note.getReplyMoment());
 
+			isSuspicious = this.decideSuspiciousness(note.getReply());
+
+			if (isSuspicious)
+				manager.setIsSuspicious(isSuspicious);
+
 		}
 
 		return this.noteRepository.save(note);
 	}
-
 	//Delete is not implemented because a note can not be deleted
 
 	//Other Business
@@ -157,4 +172,18 @@ public class NoteService {
 		return this.save(note);
 	}
 
+	public Boolean decideSuspiciousness(final String testString) {
+		final SystemConfiguration sysConfig = this.systemConfigurationService.getCurrentSystemConfiguration();
+		Assert.notNull(sysConfig);
+
+		Boolean res = false;
+
+		for (final String spamWord : sysConfig.getSpamWords())
+			if (testString.toLowerCase().contains(spamWord)) {
+				res = true;
+				break;
+			}
+
+		return res;
+	}
 }

@@ -147,6 +147,53 @@ public class NoteServiceTest extends AbstractTest {
 		this.unauthenticate();
 	}
 
+	@Test
+	public void testSaveSuspiciousRemark() {
+
+		this.authenticate("auditor1");
+
+		final Auditor me = this.auditorService.findByUserAccount(LoginService.getPrincipal());
+		me.setIsSuspicious(false);
+
+		final Note testNote = this.noteService.create();
+
+		testNote.setRemark("Better ways to comute are needed! SeX hereeeeeee");
+		testNote.setTrip(this.trip1);
+
+		this.noteService.save(testNote);
+
+		Assert.isTrue(me.getIsSuspicious());
+
+		this.unauthenticate();
+	}
+
+	@Test
+	public void testSaveSuspiciousReply() {
+
+		this.authenticate("auditor1");
+
+		final Note testNote = this.noteService.create();
+
+		testNote.setRemark("Better ways to comute are needed!");
+		testNote.setTrip(this.trip1);
+
+		final Note savedNote = this.noteService.save(testNote);
+
+		this.unauthenticate();
+
+		this.authenticate("manager1");
+		final Manager me = this.managerService.findByUserAccount(LoginService.getPrincipal());
+		me.setIsSuspicious(false);
+
+		savedNote.setReply("Sehr gut meine Freunde! viagrA");
+
+		this.noteService.writeReply(savedNote);
+
+		Assert.isTrue(me.getIsSuspicious());
+
+		this.unauthenticate();
+	}
+
 	@Test(expected = IllegalArgumentException.class)
 	public void testModifyAuditor() {
 

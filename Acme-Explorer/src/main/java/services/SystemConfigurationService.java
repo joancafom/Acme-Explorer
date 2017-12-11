@@ -1,6 +1,9 @@
 
 package services;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,13 +31,26 @@ public class SystemConfigurationService {
 	private AdminService					adminService;
 
 
-	//Constructor -----------------
+	//CRUD Methods ----------------
 
-	public SystemConfigurationService() {
-		super();
+	public SystemConfiguration create() {
+
+		final SystemConfiguration sysConfig = new SystemConfiguration();
+
+		sysConfig.setSpamWords(new ArrayList<String>());
+
+		return sysConfig;
 	}
 
-	//CRUD Methods ----------------
+	public SystemConfiguration findOne(final int systemConfigurationId) {
+
+		return this.systemConfigurationRepository.findOne(systemConfigurationId);
+	}
+
+	public Collection<SystemConfiguration> findAll() {
+
+		return this.systemConfigurationRepository.findAll();
+	}
 
 	public SystemConfiguration save(final SystemConfiguration sC) {
 		final UserAccount userAccount = LoginService.getPrincipal();
@@ -43,6 +59,30 @@ public class SystemConfigurationService {
 		Assert.notNull(admin);
 		Assert.notNull(sC);
 
+		if (this.findAll() != null)
+			for (final SystemConfiguration sysConfig : this.findAll())
+				this.delete(sysConfig);
+
 		return this.systemConfigurationRepository.save(sC);
+	}
+
+	public void delete(final SystemConfiguration systemConfiguration) {
+		this.systemConfigurationRepository.delete(systemConfiguration);
+	}
+
+	//Other Business Methods
+
+	public SystemConfiguration getCurrentSystemConfiguration() {
+
+		final Collection<SystemConfiguration> allSysConfig = this.findAll();
+		SystemConfiguration res;
+
+		if (allSysConfig == null)
+			res = null;
+		else
+			res = allSysConfig.iterator().next();
+
+		return res;
+
 	}
 }

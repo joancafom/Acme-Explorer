@@ -4,6 +4,8 @@ package repositories;
 import java.util.Collection;
 import java.util.Date;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -33,8 +35,9 @@ public interface TripRepository extends JpaRepository<Trip, Integer> {
 
 	// REVISAR
 
-	@Query("select t from Trip t where t.price > ?1 and t.price < ?2 and t.startingDate > ?3 and t.endingDate < ?4 and (t.ticker like %?5% or t.title like %?5% or t.description like %?5%)")
-	Collection<Trip> findByFinderAttributes(double minPrice, double maxPrice, Date minDate, Date maxDate, String keyWord);
+	//DONE: Limit the Query
+	@Query(value = "select t from Trip t where t.price > ?1 and t.price < ?2 and t.startingDate > ?3 and t.endingDate < ?4 and (t.ticker like %?5% or t.title like %?5% or t.description like %?5%)")
+	Page<Trip> findByFinderAttributes(Pageable pageable, double minPrice, double maxPrice, Date minDate, Date maxDate, String keyWord);
 
 	@Query("select t.trip from TripApplication t where t.explorer.id = ?1 and t.status = 'ACCEPTED'")
 	Collection<Trip> findExplorerAcceptedTrips(int explorerId);

@@ -11,6 +11,8 @@ import javax.transaction.Transactional;
 
 import org.joda.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -28,6 +30,7 @@ import domain.Sponsorship;
 import domain.Stage;
 import domain.Story;
 import domain.SurvivalClass;
+import domain.SystemConfiguration;
 import domain.TagValue;
 import domain.Trip;
 import domain.TripApplication;
@@ -39,12 +42,15 @@ public class TripService {
 	// Managed repository ------------------
 
 	@Autowired
-	private TripRepository	tripRepository;
+	private TripRepository				tripRepository;
 
 	// Supporting services -----------------
 
 	@Autowired
-	private ExplorerService	explorerService;
+	private ExplorerService				explorerService;
+
+	@Autowired
+	private SystemConfigurationService	systemConfigurationService;
 
 
 	// Constructors ------------------------
@@ -237,8 +243,12 @@ public class TripService {
 
 		if (finder.getMinRange() == null && finder.getMaxRange() == null && finder.getMinDate() == null && finder.getMaxDate() == null)
 			trips = this.tripRepository.findPublishedButNotStarted();
-		else
-			trips = this.tripRepository.findByFinderAttributes(finder.getMinRange(), finder.getMaxRange(), finder.getMinDate(), finder.getMaxDate(), finder.getKeyword());
+		else {
+			final SystemConfiguration sysConfig = this.systemConfigurationService.getCurrentSystemConfiguration();
+			Assert.notNull(sysConfig);
+			final Page<Trip> tripPage = this.tripRepository.findByFinderAttributes(new PageRequest(0, sysConfig.getMaxNumResults()), finder.getMinRange(), finder.getMaxRange(), finder.getMinDate(), finder.getMaxDate(), finder.getKeyword());
+			trips = tripPage.getContent();
+		}
 
 		Assert.notNull(trips);
 

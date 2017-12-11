@@ -1493,6 +1493,7 @@
 		<property name="VAT" value="0.21"></property>
 		<property name="banner"
 			value="http://creek-tours.com/wp-content/uploads/Kenya-Tanzania-Family-Safari-banner.jpg"></property>
+		<!-- TODO: Change to message.properties -->
 		<property name="welcomeMessageEN"
 			value="Tanzanika is an adventure company that makes your explorer's dreams true"></property>
 		<property name="welcomeMessageES"
