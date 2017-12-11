@@ -26,6 +26,8 @@ public class SystemConfiguration extends DomainEntity {
 	private String				welcomeMessageES;
 	private Collection<String>	spamWords;
 	private String				countryCode;
+	private Integer				cacheTime;
+	private Integer				maxNumResults;
 
 
 	@Digits(fraction = 2, integer = 1)
@@ -64,6 +66,18 @@ public class SystemConfiguration extends DomainEntity {
 		return this.countryCode;
 	}
 
+	@Max(24)
+	@Min(1)
+	public Integer getCacheTime() {
+		return this.cacheTime;
+	}
+
+	@Min(1)
+	@Max(100)
+	public Integer getMaxNumResults() {
+		return this.maxNumResults;
+	}
+
 	public void setVAT(final double vAT) {
 		this.VAT = vAT;
 	}
@@ -86,5 +100,13 @@ public class SystemConfiguration extends DomainEntity {
 
 	public void setCountryCode(final String countryCode) {
 		this.countryCode = countryCode;
+	}
+
+	public void setCacheTime(final Integer cacheTime) {
+		this.cacheTime = cacheTime;
+	}
+
+	public void setMaxNumResults(final Integer maxNumResults) {
+		this.maxNumResults = maxNumResults;
 	}
 }

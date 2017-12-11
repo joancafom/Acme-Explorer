@@ -8,8 +8,6 @@ import javax.persistence.AccessType;
 import javax.persistence.Entity;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -22,7 +20,6 @@ public class Finder extends DomainEntity {
 	private Double	maxRange;
 	private Date	minDate;
 	private Date	maxDate;
-	private Integer	cacheTime;
 
 
 	public String getKeyword() {
@@ -49,12 +46,6 @@ public class Finder extends DomainEntity {
 		return this.maxDate;
 	}
 
-	@Min(1)
-	@Max(24)
-	public Integer getCacheTime() {
-		return this.cacheTime;
-	}
-
 	public void setKeyword(final String keyword) {
 		this.keyword = keyword;
 	}
@@ -73,10 +64,6 @@ public class Finder extends DomainEntity {
 
 	public void setMaxDate(final Date maxDate) {
 		this.maxDate = maxDate;
-	}
-
-	public void setCacheTime(final Integer cacheTime) {
-		this.cacheTime = cacheTime;
 	}
 
 }

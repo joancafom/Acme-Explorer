@@ -44,8 +44,6 @@ public class FinderService {
 
 		finder = new Finder();
 
-		finder.setCacheTime(1);
-
 		final Explorer explorer = this.explorerService.findByUserAccount(userAccount);
 		explorer.setFinder(finder);
 

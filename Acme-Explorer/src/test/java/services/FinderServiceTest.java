@@ -51,8 +51,6 @@ public class FinderServiceTest extends AbstractTest {
 		Assert.isNull(finder.getMaxRange());
 		Assert.isNull(finder.getMinDate());
 		Assert.isNull(finder.getMaxDate());
-		Assert.notNull(finder.getCacheTime());
-		Assert.isTrue(finder.getCacheTime() == 1);
 
 		this.unauthenticate();
 	}
@@ -116,7 +114,6 @@ public class FinderServiceTest extends AbstractTest {
 		finder1.setMaxRange(10000.4);
 		// REVISAR !!!
 		// Cómo hacer para las fechas con métodos deprecados?
-		finder1.setCacheTime(4);
 
 		finder2 = this.finderService.save(finder1);
 
@@ -124,7 +121,6 @@ public class FinderServiceTest extends AbstractTest {
 		Assert.isTrue(finder1.getKeyword().equals(finder2.getKeyword()));
 		Assert.isTrue(finder1.getMinRange().equals(finder2.getMinRange()));
 		Assert.isTrue(finder1.getMaxRange().equals(finder2.getMaxRange()));
-		Assert.isTrue(finder1.getCacheTime().equals(finder2.getCacheTime()));
 
 		this.unauthenticate();
 	}
