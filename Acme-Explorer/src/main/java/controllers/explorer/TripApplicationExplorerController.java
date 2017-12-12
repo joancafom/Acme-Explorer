@@ -1,8 +1,13 @@
 
 package controllers.explorer;
 
+import java.util.Collection;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -35,6 +40,19 @@ public class TripApplicationExplorerController extends AbstractController {
 
 	// Listing --------------------------------
 
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	public ModelAndView list() {
+		ModelAndView res;
+		Collection<TripApplication> tripApplications;
+
+		tripApplications = this.tripApplicationService.findByCurrentExplorer();
+
+		res = new ModelAndView("tripApplication/list");
+		res.addObject("tripApplications", tripApplications);
+
+		return res;
+	}
+
 	// Creation -------------------------------
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
@@ -43,7 +61,7 @@ public class TripApplicationExplorerController extends AbstractController {
 		Trip trip;
 		TripApplication tripApplication;
 
-		trip = this.tripService.findOne(1464);
+		trip = this.tripService.findOne(tripId);
 		tripApplication = this.tripApplicationService.create(trip);
 		res = this.createEditModelAndView(tripApplication);
 
@@ -51,6 +69,23 @@ public class TripApplicationExplorerController extends AbstractController {
 	}
 
 	// Edition --------------------------------
+
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
+	public ModelAndView save(@Valid final TripApplication tripApplication, final BindingResult binding) {
+		ModelAndView res;
+
+		if (binding.hasErrors())
+			res = this.createEditModelAndView(tripApplication);
+		else
+			try {
+				this.tripApplicationService.save(tripApplication);
+				res = new ModelAndView("redirect:list.do");
+			} catch (final Throwable oops) {
+				res = this.createEditModelAndView(tripApplication, "tripApplication.commit.error");
+			}
+
+		return res;
+	}
 
 	// Ancillary methods ----------------------
 
