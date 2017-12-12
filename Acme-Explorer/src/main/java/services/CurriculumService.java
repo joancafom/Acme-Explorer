@@ -3,11 +3,9 @@ package services;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Random;
 
 import javax.transaction.Transactional;
 
-import org.joda.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -28,11 +26,14 @@ public class CurriculumService {
 
 	//Managed Repository
 	@Autowired
-	private CurriculumRepository	curriculumRepository;
+	private CurriculumRepository		curriculumRepository;
 
 	//Supporting Services
 	@Autowired
-	private RangerService			rangerService;
+	private RangerService				rangerService;
+
+	@Autowired
+	private SystemConfigurationService	systemConfigurationService;
 
 
 	//CRUD operations
@@ -46,30 +47,7 @@ public class CurriculumService {
 
 		final Curriculum res = new Curriculum();
 
-		//Generation of a ticker
-		String ticker = "";
-
-		final LocalDate date = new LocalDate();
-		final Integer year = new Integer(date.getYear());
-		final String yy = new String(year.toString());
-
-		final Integer month = new Integer(date.getMonthOfYear());
-		final String mm = new String(month.toString());
-
-		final Integer day = new Integer(date.getDayOfMonth());
-		final String dd = new String(day.toString());
-
-		final String abc = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-		String wwww = "";
-
-		for (int i = 0; i < 4; i++) {
-			final Random r = new Random();
-			wwww += abc.charAt(r.nextInt(abc.length()));
-		}
-
-		ticker = yy.substring(2).toUpperCase() + mm.toUpperCase() + dd.toUpperCase() + "-" + wwww.toUpperCase();
-
-		//End of ticker generation
+		final String ticker = this.systemConfigurationService.getTickerAndUpdateNext();
 
 		res.setTicker(ticker);
 		res.setRanger(ranger);
@@ -81,7 +59,6 @@ public class CurriculumService {
 
 		return res;
 	}
-
 	public Curriculum findOne(final int curriculumId) {
 
 		final Curriculum res = this.curriculumRepository.findOne(curriculumId);

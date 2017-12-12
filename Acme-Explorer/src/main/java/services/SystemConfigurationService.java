@@ -6,6 +6,7 @@ import java.util.Collection;
 
 import javax.transaction.Transactional;
 
+import org.joda.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -38,6 +39,7 @@ public class SystemConfigurationService {
 		final SystemConfiguration sysConfig = new SystemConfiguration();
 
 		sysConfig.setSpamWords(new ArrayList<String>());
+		sysConfig.setNextTicker(0);
 
 		return sysConfig;
 	}
@@ -61,7 +63,8 @@ public class SystemConfigurationService {
 
 		if (this.findAll() != null)
 			for (final SystemConfiguration sysConfig : this.findAll())
-				this.delete(sysConfig);
+				if (!sysConfig.equals(sC))
+					this.delete(sysConfig);
 
 		return this.systemConfigurationRepository.save(sC);
 	}
@@ -84,5 +87,43 @@ public class SystemConfigurationService {
 
 		return res;
 
+	}
+
+	public String getTickerAndUpdateNext() {
+
+		final SystemConfiguration sysConfig = this.getCurrentSystemConfiguration();
+		Assert.notNull(sysConfig);
+
+		final int index = sysConfig.getNextTicker();
+		sysConfig.setNextTicker(index + 1);
+
+		//We compute the WWWW part of the ticker
+
+		final String abc = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+		final int pos0 = index % 26;
+		final int pos1 = index >= 26 ? (index / 26) % 26 : 0;
+		final int pos2 = index >= 26 * 26 ? (index / (26 * 26)) % 26 : 0;
+		final int pos3 = index >= 26 * 26 * 26 ? (index / (26 * 26 * 26)) % 26 : 0;
+
+		final char[] wwww = {
+			abc.charAt(pos3), abc.charAt(pos2), abc.charAt(pos1), abc.charAt(pos0)
+		};
+
+		//Now we compute the YYMMDD
+
+		final LocalDate date = new LocalDate();
+		final Integer year = new Integer(date.getYear());
+		final String yy = new String(year.toString());
+
+		final Integer month = new Integer(date.getMonthOfYear());
+		final String mm = new String(month.toString());
+
+		final Integer day = new Integer(date.getDayOfMonth());
+		final String dd = new String(day.toString());
+
+		final String ticker = yy.substring(2).toUpperCase() + mm.toUpperCase() + dd.toUpperCase() + "-" + new String(wwww);
+
+		return ticker;
 	}
 }

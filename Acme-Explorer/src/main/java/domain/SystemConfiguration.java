@@ -28,6 +28,7 @@ public class SystemConfiguration extends DomainEntity {
 	private String				countryCode;
 	private Integer				cacheTime;
 	private Integer				maxNumResults;
+	private int					nextTicker;
 
 
 	@Digits(fraction = 2, integer = 1)
@@ -78,6 +79,11 @@ public class SystemConfiguration extends DomainEntity {
 		return this.maxNumResults;
 	}
 
+	@Min(0)
+	public int getNextTicker() {
+		return this.nextTicker;
+	}
+
 	public void setVAT(final double vAT) {
 		this.VAT = vAT;
 	}
@@ -108,5 +114,9 @@ public class SystemConfiguration extends DomainEntity {
 
 	public void setMaxNumResults(final Integer maxNumResults) {
 		this.maxNumResults = maxNumResults;
+	}
+
+	public void setNextTicker(final int nextTicker) {
+		this.nextTicker = nextTicker;
 	}
 }

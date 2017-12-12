@@ -5,11 +5,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
-import java.util.Random;
 
 import javax.transaction.Transactional;
 
-import org.joda.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -79,25 +77,7 @@ public class TripService {
 
 		trip = new Trip();
 
-		final LocalDate date = new LocalDate();
-		final Integer year = new Integer(date.getYear());
-		final String yy = new String(year.toString());
-
-		final Integer month = new Integer(date.getMonthOfYear());
-		final String mm = new String(month.toString());
-
-		final Integer day = new Integer(date.getDayOfMonth());
-		final String dd = new String(day.toString());
-
-		final String abc = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-		String wwww = "";
-
-		for (int i = 0; i < 4; i++) {
-			final Random r = new Random();
-			wwww += abc.charAt(r.nextInt(abc.length()));
-		}
-
-		ticker = yy.substring(2).toUpperCase() + mm.toUpperCase() + dd.toUpperCase() + "-" + wwww.toUpperCase();
+		ticker = this.systemConfigurationService.getTickerAndUpdateNext();
 
 		trip.setTicker(ticker);
 
