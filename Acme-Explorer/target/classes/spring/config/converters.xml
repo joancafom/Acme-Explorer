@@ -22,6 +22,15 @@
 			Add your own converters using entries of the following form: 
 			<bean class="converters.Class1ToClass2" /> 
 		-->
+		
+		<bean class="converters.ExplorerToStringConverter"/>
+		<bean class="converters.StringToExplorerConverter"/>
+		
+		<bean class="converters.TripToStringConverter"/>
+		<bean class="converters.StringToTripConverter"/>
+		
+		<bean class="converters.TripApplicationToStringConverter"/>
+		<bean class="converters.StringToTripApplicationConverter"/>
 	</util:list>
 	
 </beans>
