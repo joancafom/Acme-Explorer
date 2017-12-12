@@ -38,7 +38,8 @@
 		<form:label path="comments">
 			<spring:message code="tripApplication.comments"/>:
 		</form:label>
-		<form:textarea path="comments" placeholder="<spring:message code="tripApplication.commentsPlaceHolder"/>"/>
+		<spring:message code="tripApplication.commentsPlaceHolder" var="commentsPlaceHolder"/>
+		<form:textarea path="comments" placeholder="${commentsPlaceHolder}"/>
 		<form:errors cssClass="error" path="comments"/>
 		
 		<br><br>
@@ -66,7 +67,8 @@
 			<form:select path="status" id="selectStatus">
 				<form:option value="PENDING" label="---"/>
 				<jstl:forEach var="status" items="${allStatus}">
-      				<form:option label="<spring:message code="tripApplication.status.${status}"/>"
+					<spring:message code="tripApplication.status.${status}" var="tripApplicationStatus"/>
+      				<form:option label="${tripApplicationStatus}"
       					value="${status}">
       				</form:option>
       			</jstl:forEach>	
