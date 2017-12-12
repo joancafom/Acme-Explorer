@@ -22,8 +22,6 @@ public class SystemConfiguration extends DomainEntity {
 
 	private double				VAT;
 	private String				banner;
-	private String				welcomeMessageEN;
-	private String				welcomeMessageES;
 	private Collection<String>	spamWords;
 	private String				countryCode;
 	private Integer				cacheTime;
@@ -42,16 +40,6 @@ public class SystemConfiguration extends DomainEntity {
 	@URL
 	public String getBanner() {
 		return this.banner;
-	}
-
-	@NotBlank
-	public String getWelcomeMessageEN() {
-		return this.welcomeMessageEN;
-	}
-
-	@NotBlank
-	public String getWelcomeMessageES() {
-		return this.welcomeMessageES;
 	}
 
 	@NotEmpty
@@ -90,14 +78,6 @@ public class SystemConfiguration extends DomainEntity {
 
 	public void setBanner(final String banner) {
 		this.banner = banner;
-	}
-
-	public void setWelcomeMessageEN(final String welcomeMessageEN) {
-		this.welcomeMessageEN = welcomeMessageEN;
-	}
-
-	public void setWelcomeMessageES(final String welcomeMessageES) {
-		this.welcomeMessageES = welcomeMessageES;
 	}
 
 	public void setSpamWords(final Collection<String> spamWords) {

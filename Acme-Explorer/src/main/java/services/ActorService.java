@@ -62,7 +62,6 @@ public class ActorService {
 		}
 
 		actor.setIsSuspicious(false);
-		actor.setIsBanned(false);
 
 		actor.setSocialIDs(socialIDs);
 		actor.setFolders(folders);
@@ -118,7 +117,7 @@ public class ActorService {
 
 		Assert.isTrue(actor.getIsSuspicious());
 
-		actor.setIsBanned(true);
+		actor.getUserAccount().setIsLocked(true);
 		return this.actorRepository.save(actor);
 	}
 
@@ -131,7 +130,7 @@ public class ActorService {
 
 		Assert.isTrue(actor.getIsSuspicious());
 
-		actor.setIsBanned(false);
+		actor.getUserAccount().setIsLocked(false);
 		return this.actorRepository.save(actor);
 	}
 

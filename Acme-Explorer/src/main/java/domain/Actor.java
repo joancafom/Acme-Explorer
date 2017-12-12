@@ -28,15 +28,10 @@ public abstract class Actor extends DomainEntity {
 	private String	phoneNumber;
 	private String	address;
 	private boolean	isSuspicious;
-	private boolean	isBanned;
 
 
 	public boolean getIsSuspicious() {
 		return this.isSuspicious;
-	}
-
-	public boolean getIsBanned() {
-		return this.isBanned;
 	}
 
 	@NotBlank
@@ -85,10 +80,6 @@ public abstract class Actor extends DomainEntity {
 
 	public void setIsSuspicious(final boolean isSuspicious) {
 		this.isSuspicious = isSuspicious;
-	}
-
-	public void setIsBanned(final boolean isBanned) {
-		this.isBanned = isBanned;
 	}
 
 

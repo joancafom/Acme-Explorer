@@ -51,7 +51,6 @@ public class ActorServiceTest extends AbstractTest {
 		Assert.isNull(actor.getPhoneNumber());
 		Assert.isNull(actor.getAddress());
 		Assert.isTrue(!actor.getIsSuspicious());
-		Assert.isTrue(!actor.getIsBanned());
 
 		Assert.notNull(actor.getSocialIDs());
 		Assert.isTrue(actor.getSocialIDs().isEmpty());
@@ -144,7 +143,6 @@ public class ActorServiceTest extends AbstractTest {
 		actor2 = this.actorService.ban(actor1);
 
 		Assert.notNull(actor2);
-		Assert.isTrue(this.actorService.findOne(actor2.getId()).getIsBanned());
 
 		this.unauthenticate();
 	}
@@ -158,15 +156,14 @@ public class ActorServiceTest extends AbstractTest {
 
 		final Collection<Actor> actors = this.actorService.findAll();
 		for (final Actor a : actors)
-			if (a != null && a.getIsBanned() == true)
+			if (a != null && a.getUserAccount().getIsLocked() == true)
 				actor1 = a;
 
 		actor2 = this.actorService.unban(actor1);
 
 		Assert.notNull(actor2);
-		Assert.isTrue(!this.actorService.findOne(actor2.getId()).getIsBanned());
+		Assert.isTrue(!this.actorService.findOne(actor2.getId()).getUserAccount().getIsLocked());
 
 		this.unauthenticate();
 	}
-
 }

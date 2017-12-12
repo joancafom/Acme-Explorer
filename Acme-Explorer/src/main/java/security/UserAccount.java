@@ -51,7 +51,16 @@ public class UserAccount extends DomainEntity implements UserDetails {
 	private String					username;
 	private String					password;
 	private Collection<Authority>	authorities;
+	private boolean					isLocked;
 
+
+	public boolean getIsLocked() {
+		return this.isLocked;
+	}
+
+	public void setIsLocked(final boolean isLocked) {
+		this.isLocked = isLocked;
+	}
 
 	@Size(min = 5, max = 32)
 	@Column(unique = true)
@@ -110,7 +119,7 @@ public class UserAccount extends DomainEntity implements UserDetails {
 	@Transient
 	@Override
 	public boolean isAccountNonLocked() {
-		return true;
+		return !this.isLocked;
 	}
 
 	@Transient
