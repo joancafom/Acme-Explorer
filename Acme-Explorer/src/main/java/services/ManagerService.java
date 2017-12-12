@@ -78,8 +78,6 @@ public class ManagerService {
 
 		final Manager res = this.managerRepository.findByUserAccountId(userAccount.getId());
 
-		Assert.notNull(res);
-
 		return res;
 	}
 

@@ -17,6 +17,8 @@ import domain.ApplicationStatus;
 import domain.CreditCard;
 import domain.Explorer;
 import domain.Manager;
+import domain.Message;
+import domain.PriorityLevel;
 import domain.Trip;
 import domain.TripApplication;
 
@@ -34,6 +36,9 @@ public class TripApplicationService {
 
 	@Autowired
 	private ExplorerService				explorerService;
+
+	@Autowired
+	private MessageService				messageService;
 
 
 	public TripApplicationService() {
@@ -113,20 +118,75 @@ public class TripApplicationService {
 	}
 
 	public void changeApplicationStatus(final TripApplication application, final ApplicationStatus status) {
-		/* OK */
+		//Version 0.2 by JA
+		//TODO: Send the message also to the other actor
+		//TODO: sendNotification in MessageService is not correct at all... (2 args ??)
+
 		final UserAccount userAccount = LoginService.getPrincipal();
+
 		Assert.notNull(userAccount);
 		Assert.notNull(application);
 		Assert.notNull(status);
 
-		Assert.isTrue(application.getTrip().getManager().equals(this.managerService.findByUserAccount(userAccount)));
-		Assert.isTrue(status.equals(ApplicationStatus.REJECTED) || status.equals(ApplicationStatus.DUE));
-		Assert.isTrue(application.getStatus().equals(ApplicationStatus.PENDING));
+		final Message notification = this.messageService.create();
+		notification.setBody("The Application with ID: " + application.getId() + "was changed from " + application.getStatus() + " to " + status);
+		notification.setPriority(PriorityLevel.LOW);
+		notification.setSubject("Change in an associated Application of a Trip");
+
+		//An application can only change its status if a Manager or its Explorer decide to.
+
+		final Manager manager = this.managerService.findByUserAccount(userAccount);
+		final Explorer explorer;
+
+		//We test if it is a Manager the one trying to change it
+		if (manager != null) {
+
+			//We test that he manages the associated Trip 
+			Assert.isTrue(application.getTrip().getManager().equals(this.managerService.findByUserAccount(userAccount)));
+			//He can do it if the application status was Pending
+			Assert.isTrue(application.getStatus().equals(ApplicationStatus.PENDING));
+			//To either Rejected or Due
+			Assert.isTrue(status.equals(ApplicationStatus.REJECTED) || status.equals(ApplicationStatus.DUE));
+			//If it were Rejected, the application must have a rejection reason
+			if (status.equals(ApplicationStatus.REJECTED))
+				Assert.notNull(application.getRejectionReason());
+
+			notification.setSender(manager);
+			notification.setRecipient(application.getExplorer());
+
+		} else {
+
+			//If it is not a manager, it MUST be an Explorer
+			explorer = this.explorerService.findByUserAccount(userAccount);
+
+			Assert.notNull(explorer);
+
+			//And it has to be his/her application
+			Assert.isTrue(application.getExplorer().equals(explorer));
+
+			//The status must be either DUE or ACCEPTED
+			Assert.isTrue(application.getStatus().equals(ApplicationStatus.DUE) || application.getStatus().equals(ApplicationStatus.ACCEPTED));
+
+			//If it were DUE, it can change to ACCEPTED if it has a CreditCard
+			if (application.getStatus().equals(ApplicationStatus.DUE)) {
+				Assert.isTrue(application.getCreditCard() != null);
+				Assert.isTrue(status.equals(ApplicationStatus.ACCEPTED));
+			} else {
+				//If not, it should be like ACCEPTED->CANCELLED
+				application.getStatus().equals(ApplicationStatus.ACCEPTED);
+				Assert.isTrue(status.equals(ApplicationStatus.CANCELLED));
+			}
+
+			notification.setSender(explorer);
+			notification.setRecipient(application.getTrip().getManager());
+
+		}
+
+		this.messageService.sendNotification(notification.getRecipient(), notification);
 
 		application.setStatus(status);
-		this.save(application);
-	}
 
+	}
 	public Collection<TripApplication> findByCurrentManager() {
 		/* OK */
 		final UserAccount userAccount = LoginService.getPrincipal();

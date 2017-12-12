@@ -62,8 +62,10 @@ public class ExplorerService {
 	}
 
 	public Explorer findByUserAccount(final UserAccount userAccount) {
+
 		Assert.notNull(userAccount);
 		final Explorer explorer = this.explorerRepository.findByUserAccountId(userAccount.getId());
+
 		return explorer;
 	}
 

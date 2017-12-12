@@ -33,7 +33,7 @@ public class MessageService {
 
 
 	/* Crud */
-	
+
 	public Message create() {
 
 		final UserAccount userAccount = LoginService.getPrincipal();
@@ -46,35 +46,34 @@ public class MessageService {
 		return message;
 
 	}
-	
-	public Message findOne(int messageId){
+
+	public Message findOne(final int messageId) {
 		/* 1. We check that the user is logged */
 		final UserAccount userAccount = LoginService.getPrincipal();
 		Assert.notNull(userAccount);
-		
+
 		/* 2. We get the actor who is logged */
-		Actor actor = this.actorService.findByUserAccount(userAccount);
-		
+		final Actor actor = this.actorService.findByUserAccount(userAccount);
+
 		/* 3. We get the message with the repository */
-		Message message = this.messageRepository.findOne(messageId);
-		
+		final Message message = this.messageRepository.findOne(messageId);
+
 		/* 4. We check that the message is from the logged user */
-		Assert.isTrue(actor.getSentMessages().contains(message) ||
-				actor.getReceivedMessages().contains(message));
+		Assert.isTrue(actor.getSentMessages().contains(message) || actor.getReceivedMessages().contains(message));
 		return message;
 	}
-	
-	public Collection<Message> findAll(){
+
+	public Collection<Message> findAll() {
 		/* 1. We check that the user is logged */
 		final UserAccount userAccount = LoginService.getPrincipal();
 		Assert.notNull(userAccount);
-		
-		/* 2. We get the actor who is logged*/
-		Actor actor = this.actorService.findByUserAccount(userAccount);
-		
+
+		/* 2. We get the actor who is logged */
+		final Actor actor = this.actorService.findByUserAccount(userAccount);
+
 		/* 3. We get the messages with the repository */
-		Collection<Message> messages = this.messageRepository.findAllByActor(actor.getId());
-		
+		final Collection<Message> messages = this.messageRepository.findAllByActor(actor.getId());
+
 		return messages;
 	}
 
@@ -82,10 +81,10 @@ public class MessageService {
 		/* 1. We check that the user is logged */
 		final UserAccount userAccount = LoginService.getPrincipal();
 		Assert.notNull(userAccount);
-		
-		/*2. We check that the message given is not null */
+
+		/* 2. We check that the message given is not null */
 		Assert.notNull(message);
-		
+
 		return this.messageRepository.save(message);
 	}
 
@@ -96,12 +95,14 @@ public class MessageService {
 
 		/* 2. We get the user that is logged */
 		final Actor actor = this.actorService.findByUserAccount(userAccount);
-		
-		/* 3. We check that the sender of the message is the actor logged, and that
-		the message given is not null */
+
+		/*
+		 * 3. We check that the sender of the message is the actor logged, and that
+		 * the message given is not null
+		 */
 		Assert.notNull(message);
 		Assert.isTrue(message.getSender().equals(actor));
-		
+
 		this.messageRepository.delete(message);
 	}
 
@@ -115,18 +116,17 @@ public class MessageService {
 		/* 2. We check that there's a user logged */
 		final UserAccount userAccount = LoginService.getPrincipal();
 		Assert.notNull(userAccount);
-		
+
 		/* 3. We get the actor who's logged */
 		final Actor sender = this.actorService.findByUserAccount(userAccount);
 
 		/* 4. We duplicate the message for the receiver */
 		final Message messageReceiver = messageSender;
-		
+
 		/* 5. We set the sent moment */
 		messageSender.setSentMoment(new Date());
 		messageReceiver.setSentMoment(new Date());
 
-		
 		/* 6. We add the messages to their folders and collections */
 		sender.getSentMessages().add(messageSender);
 		final Folder folderSenderInbox = this.folderService.findByActorAndName(sender, "Out Box");
