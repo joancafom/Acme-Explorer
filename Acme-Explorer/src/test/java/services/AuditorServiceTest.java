@@ -107,7 +107,6 @@ public class AuditorServiceTest extends AbstractTest {
 
 		auditor1.setAddress("Indentation Street");
 		auditor1.setEmail("No Nice Things Street");
-		auditor1.setIsBanned(false);
 		auditor1.setIsSuspicious(true);
 		auditor1.setName("Taylor");
 		auditor1.setSurname("Swift");
@@ -115,7 +114,6 @@ public class AuditorServiceTest extends AbstractTest {
 		final Auditor savedAuditor = this.auditorService.save(auditor1);
 
 		Assert.notNull(savedAuditor);
-		Assert.isTrue(auditor1.getIsBanned() == savedAuditor.getIsBanned());
 		Assert.isTrue(auditor1.getIsSuspicious() == savedAuditor.getIsSuspicious());
 		Assert.isTrue(auditor1.getAddress().equals(savedAuditor.getAddress()));
 		Assert.isTrue(auditor1.getEmail().equals(savedAuditor.getEmail()));

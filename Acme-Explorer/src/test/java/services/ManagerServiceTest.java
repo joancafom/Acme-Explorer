@@ -104,7 +104,6 @@ public class ManagerServiceTest extends AbstractTest {
 
 		manager1.setAddress("Indentation Street");
 		manager1.setEmail("No Nice Things Street");
-		manager1.setIsBanned(false);
 		manager1.setIsSuspicious(true);
 		manager1.setName("Taylor");
 		manager1.setSurname("Swift");
@@ -112,7 +111,6 @@ public class ManagerServiceTest extends AbstractTest {
 		final Manager savedManager = this.managerService.save(manager1);
 
 		Assert.notNull(savedManager);
-		Assert.isTrue(manager1.getIsBanned() == savedManager.getIsBanned());
 		Assert.isTrue(manager1.getIsSuspicious() == savedManager.getIsSuspicious());
 		Assert.isTrue(manager1.getAddress().equals(savedManager.getAddress()));
 		Assert.isTrue(manager1.getEmail().equals(savedManager.getEmail()));

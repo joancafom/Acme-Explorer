@@ -112,7 +112,6 @@ public class RangerServiceTest extends AbstractTest {
 		ranger1.setEmail("email@gmail.com");
 		ranger1.setPhoneNumber("954673648");
 		ranger1.setIsSuspicious(true);
-		ranger1.setIsBanned(true);
 		// REVISAR !!!
 		// Se puede cambiar el currículum de un ranger a otro?
 		ranger1.setCurriculum(new Curriculum());
@@ -126,7 +125,6 @@ public class RangerServiceTest extends AbstractTest {
 		Assert.isTrue(ranger1.getEmail().equals(ranger2.getEmail()));
 		Assert.isTrue(ranger1.getPhoneNumber().equals(ranger2.getPhoneNumber()));
 		Assert.isTrue(ranger1.getIsSuspicious() == ranger2.getIsSuspicious());
-		Assert.isTrue(ranger1.getIsBanned() == ranger2.getIsBanned());
 		Assert.isTrue(ranger1.getCurriculum().equals(ranger2.getCurriculum()));
 		Assert.isTrue(ranger1.getTrips().equals(ranger2.getTrips()));
 

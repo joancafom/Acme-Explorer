@@ -113,7 +113,6 @@ public class SponsorServiceTest extends AbstractTest {
 		sponsor1.setEmail("email@gmail.com");
 		sponsor1.setPhoneNumber("954673648");
 		sponsor1.setIsSuspicious(true);
-		sponsor1.setIsBanned(true);
 		// REVISAR !!!
 		// Se puede cambiar las sponsorships de un sponsor a otro?
 
@@ -128,7 +127,6 @@ public class SponsorServiceTest extends AbstractTest {
 		Assert.isTrue(sponsor1.getEmail().equals(sponsor2.getEmail()));
 		Assert.isTrue(sponsor1.getPhoneNumber().equals(sponsor2.getPhoneNumber()));
 		Assert.isTrue(sponsor1.getIsSuspicious() == sponsor2.getIsSuspicious());
-		Assert.isTrue(sponsor1.getIsBanned() == sponsor2.getIsBanned());
 		Assert.isTrue(sponsor1.getSponsorships().equals(sponsor2.getSponsorships()));
 	}
 
