@@ -1,6 +1,8 @@
 
 package services;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -80,6 +82,15 @@ public class StoryService {
 
 		final Explorer explorer = this.explorerService.findByUserAccount(userAccount);
 		Assert.isTrue(story.getExplorer().equals(explorer));
+
+		if (!story.getAttachments().isEmpty())
+			for (final String s : story.getAttachments())
+				try {
+					@SuppressWarnings("unused")
+					final URL url = new java.net.URL(s);
+				} catch (final MalformedURLException e) {
+					throw new IllegalArgumentException();
+				}
 
 		//We check that the Explorer has an accepted TripApplication for that Trip
 

@@ -1,6 +1,8 @@
 
 package services;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -87,6 +89,15 @@ public class AuditService {
 		final Auditor auditor = this.auditorService.findByUserAccount(userAccount);
 		Assert.isTrue(audit.getAuditor().equals(auditor));
 
+		if (!audit.getAttachments().isEmpty())
+			for (final String s : audit.getAttachments())
+				try {
+					@SuppressWarnings("unused")
+					final URL url = new java.net.URL(s);
+				} catch (final MalformedURLException e) {
+					throw new IllegalArgumentException();
+				}
+
 		final Boolean isSuspicious;
 		isSuspicious = this.decideSuspiciousness(audit.getTitle() + " " + audit.getDescription());
 
@@ -96,7 +107,6 @@ public class AuditService {
 		return this.auditRepository.save(audit);
 
 	}
-
 	public void delete(final Audit audit) {
 		final UserAccount userAccount = LoginService.getPrincipal();
 		Assert.isTrue(!audit.getIsFinal());
