@@ -1,5 +1,5 @@
 #./src/main/resources/Entities.map
-#Mon Dec 11 19:32:02 CET 2017
+#Tue Dec 12 17:42:00 CET 2017
 tag3=1459
 tag2=1458
 tag1=1457
@@ -27,7 +27,9 @@ userAccount14=1419
 explorer2=1436
 userAccount13=1418
 explorer1=1437
+audit2=1518
 userAccount12=1417
+audit1=1517
 userAccount11=1415
 userAccount10=1413
 socialID6=1533
@@ -111,8 +113,6 @@ survivalClass3=1540
 ranger1=1445
 survivalClass2=1539
 survivalClass1=1538
-audition2=1518
-audition1=1517
 note2=1532
 note1=1531
 sponsorship2=1535

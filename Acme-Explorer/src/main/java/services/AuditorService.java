@@ -12,7 +12,7 @@ import org.springframework.util.Assert;
 
 import repositories.AuditorRepository;
 import security.UserAccount;
-import domain.Audition;
+import domain.Audit;
 import domain.Auditor;
 import domain.Note;
 
@@ -36,7 +36,7 @@ public class AuditorService {
 		final Auditor res = (Auditor) this.actorService.create(userAccount, Auditor.class);
 
 		res.setNotes(new ArrayList<Note>());
-		res.setAuditions(new ArrayList<Audition>());
+		res.setAudits(new ArrayList<Audit>());
 
 		return res;
 	}

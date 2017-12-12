@@ -16,7 +16,7 @@ import org.springframework.util.Assert;
 
 import security.LoginService;
 import utilities.AbstractTest;
-import domain.Audition;
+import domain.Audit;
 import domain.Category;
 import domain.Explorer;
 import domain.Finder;
@@ -206,7 +206,7 @@ public class TripServiceTest extends AbstractTest {
 		trip1.getSponsorships().add(new Sponsorship());
 		trip1.getStories().add(new Story());
 		trip1.getNotes().add(new Note());
-		trip1.getAuditions().add(new Audition());
+		trip1.getAudits().add(new Audit());
 		trip1.getTripApplications().add(new TripApplication());
 		trip1.getTagValues().add(new TagValue());
 		trip1.setLegalText(new LegalText());
@@ -226,7 +226,7 @@ public class TripServiceTest extends AbstractTest {
 		Assert.isTrue(trip1.getSponsorships().equals(trip2.getSponsorships()));
 		Assert.isTrue(trip1.getStories().equals(trip2.getStories()));
 		Assert.isTrue(trip1.getNotes().equals(trip2.getNotes()));
-		Assert.isTrue(trip1.getAuditions().equals(trip2.getAuditions()));
+		Assert.isTrue(trip1.getAudits().equals(trip2.getAudits()));
 		Assert.isTrue(trip1.getTripApplications().equals(trip2.getTripApplications()));
 		Assert.isTrue(trip1.getTagValues().equals(trip2.getTagValues()));
 		Assert.isTrue(trip1.getLegalText().equals(trip2.getLegalText()));

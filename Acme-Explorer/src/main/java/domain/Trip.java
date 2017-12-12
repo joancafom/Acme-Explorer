@@ -132,7 +132,7 @@ public class Trip extends DomainEntity {
 	private Collection<Sponsorship>		sponsorships;
 	private Collection<Story>			stories;
 	private Collection<Note>			notes;
-	private Collection<Audition>		auditions;
+	private Collection<Audit>			audits;
 	private Collection<TripApplication>	tripApplications;
 	private Collection<TagValue>		tagValues;
 	private LegalText					legalText;
@@ -167,8 +167,8 @@ public class Trip extends DomainEntity {
 	@NotNull
 	@Valid
 	@OneToMany(mappedBy = "trip")
-	public Collection<Audition> getAuditions() {
-		return this.auditions;
+	public Collection<Audit> getAudits() {
+		return this.audits;
 	}
 
 	@NotNull
@@ -243,8 +243,8 @@ public class Trip extends DomainEntity {
 		this.notes = notes;
 	}
 
-	public void setAuditions(final Collection<Audition> auditions) {
-		this.auditions = auditions;
+	public void setAudits(final Collection<Audit> audits) {
+		this.audits = audits;
 	}
 
 	public void setTripApplications(final Collection<TripApplication> tripApplications) {

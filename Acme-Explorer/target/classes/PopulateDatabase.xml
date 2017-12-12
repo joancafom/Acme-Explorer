@@ -262,15 +262,15 @@
 		<property name="userAccount" ref="userAccount9"></property>
 	</bean>
 
-	<!-- Audition -->
+	<!-- Audit -->
 
-	<bean id="audition1" class="domain.Audition">
+	<bean id="audit1" class="domain.Audit">
 		<property name="moment">
 			<bean factory-method="parse" factory-bean="dateFormat">
 				<constructor-arg value="27/10/2017 06:00" />
 			</bean>
 		</property>
-		<property name="title" value="... Ready For It? - The Audition"></property>
+		<property name="title" value="... Ready For It? - The Audit"></property>
 		<property name="description" value="Are you ready for PSM?"></property>
 		<property name="attachments">
 			<list>
@@ -281,13 +281,13 @@
 		<property name="trip" ref="trip1"></property>
 	</bean>
 
-	<bean id="audition2" class="domain.Audition">
+	<bean id="audit2" class="domain.Audit">
 		<property name="moment">
 			<bean factory-method="parse" factory-bean="dateFormat">
 				<constructor-arg value="02/09/2015 14:00" />
 			</bean>
 		</property>
-		<property name="title" value="Gorgeous - The Audition"></property>
+		<property name="title" value="Gorgeous - The Audit"></property>
 		<property name="description" value="Alone, unless you wanna come along"></property>
 		<property name="attachments">
 			<list>
@@ -331,9 +331,9 @@
 				<ref bean="note1" />
 			</list>
 		</property>
-		<property name="auditions">
+		<property name="audits">
 			<list>
-				<ref bean="audition1" />
+				<ref bean="audit1" />
 			</list>
 		</property>
 	</bean>
@@ -374,9 +374,9 @@
 				<ref bean="note2" />
 			</list>
 		</property>
-		<property name="auditions">
+		<property name="audits">
 			<list>
-				<ref bean="audition2" />
+				<ref bean="audit2" />
 			</list>
 		</property>
 	</bean>
@@ -1593,9 +1593,9 @@
 				<ref bean="note1" />
 			</list>
 		</property>
-		<property name="auditions">
+		<property name="audits">
 			<list>
-				<ref bean="audition1" />
+				<ref bean="audit1" />
 			</list>
 		</property>
 		<property name="tripApplications">
@@ -1661,9 +1661,9 @@
 				<ref bean="note2" />
 			</list>
 		</property>
-		<property name="auditions">
+		<property name="audits">
 			<list>
-				<ref bean="audition2" />
+				<ref bean="audit2" />
 			</list>
 		</property>
 		<property name="tripApplications">
@@ -1726,7 +1726,7 @@
 			<list>
 			</list>
 		</property>
-		<property name="auditions">
+		<property name="audits">
 			<list>
 			</list>
 		</property>
@@ -1786,7 +1786,7 @@
 			<list>
 			</list>
 		</property>
-		<property name="auditions">
+		<property name="audits">
 			<list>
 			</list>
 		</property>

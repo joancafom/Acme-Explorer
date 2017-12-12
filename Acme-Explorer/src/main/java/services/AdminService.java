@@ -72,8 +72,8 @@ public class AdminService {
 		res.add(this.adminRepository.tripsMoreApplicationsOrdered());
 		res.add(this.adminRepository.legalTextsByTrip());
 		res.add(this.adminRepository.notesPerTripStatistics());
-		res.add(this.adminRepository.auditionsPerTripStatistics());
-		res.add(this.adminRepository.tripsWithAuditionsRatio());
+		res.add(this.adminRepository.auditsPerTripStatistics());
+		res.add(this.adminRepository.tripsWithAuditsRatio());
 		res.add(this.adminRepository.rangersWithCurriculumRatio());
 		res.add(this.adminRepository.rangersWithEndorserRecordRatio());
 		res.add(this.adminRepository.suspiciousManagersRatio());

@@ -18,7 +18,7 @@ import org.springframework.util.Assert;
 
 import repositories.TripRepository;
 import security.LoginService;
-import domain.Audition;
+import domain.Audit;
 import domain.Category;
 import domain.Explorer;
 import domain.Finder;
@@ -71,7 +71,7 @@ public class TripService {
 		final List<Sponsorship> sponsorships = new ArrayList<Sponsorship>();
 		final List<Story> stories = new ArrayList<Story>();
 		final List<Note> notes = new ArrayList<Note>();
-		final List<Audition> auditions = new ArrayList<Audition>();
+		final List<Audit> audits = new ArrayList<Audit>();
 		final List<TripApplication> tripApplications = new ArrayList<TripApplication>();
 		final List<TagValue> tagValues = new ArrayList<TagValue>();
 		final List<SurvivalClass> survivalClasses = new ArrayList<SurvivalClass>();
@@ -114,7 +114,7 @@ public class TripService {
 		trip.setSponsorships(sponsorships);
 		trip.setStories(stories);
 		trip.setNotes(notes);
-		trip.setAuditions(auditions);
+		trip.setAudits(audits);
 		trip.setTripApplications(tripApplications);
 		trip.setTagValues(tagValues);
 

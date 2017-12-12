@@ -51,9 +51,9 @@ public class AuditorServiceTest extends AbstractTest {
 		final Auditor auditor = this.auditorService.create(userAccount);
 
 		Assert.notNull(auditor.getNotes());
-		Assert.notNull(auditor.getAuditions());
+		Assert.notNull(auditor.getAudits());
 		Assert.isTrue(auditor.getNotes().isEmpty());
-		Assert.isTrue(auditor.getAuditions().isEmpty());
+		Assert.isTrue(auditor.getAudits().isEmpty());
 
 		this.unauthenticate();
 	}
@@ -122,7 +122,7 @@ public class AuditorServiceTest extends AbstractTest {
 		Assert.isTrue(auditor1.getSurname().equals(savedAuditor.getSurname()));
 		Assert.isTrue(auditor1.getName().equals(savedAuditor.getName()));
 		Assert.isTrue(auditor1.getNotes() == null ? (savedAuditor.getNotes() == null) : (auditor1.getNotes().equals(savedAuditor.getNotes())));
-		Assert.isTrue(auditor1.getAuditions() == null ? (savedAuditor.getAuditions() == null) : (auditor1.getAuditions().equals(savedAuditor.getAuditions())));
+		Assert.isTrue(auditor1.getAudits() == null ? (savedAuditor.getAudits() == null) : (auditor1.getAudits().equals(savedAuditor.getAudits())));
 
 		this.unauthenticate();
 

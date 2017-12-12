@@ -17,8 +17,8 @@ public class Auditor extends Actor {
 
 	//Relationships
 
-	private Collection<Note>		notes;
-	private Collection<Audition>	auditions;
+	private Collection<Note>	notes;
+	private Collection<Audit>	audits;
 
 
 	@NotNull
@@ -31,17 +31,17 @@ public class Auditor extends Actor {
 	@NotNull
 	@Valid
 	@ManyToMany
-	//mappedBy is in the Audition class!
-	public Collection<Audition> getAuditions() {
-		return this.auditions;
+	//mappedBy is in the Audit class!
+	public Collection<Audit> getAudits() {
+		return this.audits;
 	}
 
 	public void setNotes(final Collection<Note> notes) {
 		this.notes = notes;
 	}
 
-	public void setAuditions(final Collection<Audition> auditions) {
-		this.auditions = auditions;
+	public void setAudits(final Collection<Audit> audits) {
+		this.audits = audits;
 	}
 
 }

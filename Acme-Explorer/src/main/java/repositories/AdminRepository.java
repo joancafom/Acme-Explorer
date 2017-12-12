@@ -52,11 +52,11 @@ public interface AdminRepository extends JpaRepository<Admin, Integer> {
 	@Query("select min(t.notes.size), max(t.notes.size), avg(t.notes.size), sqrt(sum(t.notes.size*t.notes.size)/count(t.notes.size)-avg(t.notes.size)*avg(t.notes.size)) from Trip t")
 	Collection<Double> notesPerTripStatistics();
 
-	@Query("select min(t.auditions.size), max(t.auditions.size), avg(t.auditions.size), sqrt(sum(t.auditions.size*t.auditions.size)/count(t.auditions.size) -avg(t.auditions.size)*avg(t.auditions.size)) from Trip t")
-	Collection<Double> auditionsPerTripStatistics();
+	@Query("select min(t.audits.size), max(t.audits.size), avg(t.audits.size), sqrt(sum(t.audits.size*t.audits.size)/count(t.audits.size) -avg(t.audits.size)*avg(t.audits.size)) from Trip t")
+	Collection<Double> auditsPerTripStatistics();
 
-	@Query("select (select count(t)*1.0 from Trip t where t.auditions.size <> 0) / count(t2)*1.0 from Trip t2")
-	Double tripsWithAuditionsRatio();
+	@Query("select (select count(t)*1.0 from Trip t where t.audits.size <> 0) / count(t2)*1.0 from Trip t2")
+	Double tripsWithAuditsRatio();
 
 	@Query("select (select count(c)*1.0 from Curriculum c) / count(r)*1.0 from Ranger r")
 	Double rangersWithCurriculumRatio();
