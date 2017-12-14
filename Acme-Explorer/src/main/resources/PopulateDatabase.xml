@@ -1372,7 +1372,7 @@
 	<!-- Sponsorship -->
 
 	<bean id="sponsorship1" class="domain.Sponsorship">
-		<property name="bannerUrl" value="http://www.baner.com/banner1.jpg"></property>
+		<property name="bannerUrl" value="https://about.canva.com/wp-content/uploads/sites/3/2017/02/congratulations_-banner.png"></property>
 		<property name="infoPageLink" value="http://www.infopage1.com"></property>
 		<property name="trip" ref="trip1"></property>
 		<property name="sponsor" ref="sponsor1"></property>

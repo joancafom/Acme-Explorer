@@ -8,32 +8,6 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<security:authorize access="hasRole('ADMIN')">
-	<jstl:set var="url" value="admin/"></jstl:set>
-</security:authorize>
-
-<security:authorize access="hasRole('AUDITOR')">
-	<jstl:set var="url" value="auditor/"></jstl:set>
-</security:authorize>
-
-<security:authorize access="hasRole('EXPLORER')">
-	<jstl:set var="url" value="explorer/"></jstl:set>
-</security:authorize>
-
-<security:authorize access="hasRole('MANAGER')">
-	<jstl:set var="url" value="manager/"></jstl:set>
-</security:authorize>
-
-<security:authorize access="hasRole('RANGER')">
-	<jstl:set var="url" value="ranger/"></jstl:set>
-</security:authorize>
-
-<security:authorize access="hasRole('SPONSOR')">
-	<jstl:set var="url" value="sponsor/"></jstl:set>
-</security:authorize>
-
-<h1><spring:message code="trip.list"/></h1>
-
 <display:table name="trips" id="trip" requestURI="${requestURI}" pagesize="5" class="displaytag">
 
 	<jstl:if test="${trip.cancelationReason != null}">
@@ -45,7 +19,7 @@
 	</jstl:if>
 
 	<display:column titleKey="trip.ticker" sortable="true">
-		<a href="trip/${url}display.do?tripId=${trip.id}"><jstl:out value="${trip.ticker}"></jstl:out></a>
+		<a href="trip/${actorWS}display.do?tripId=${trip.id}"><jstl:out value="${trip.ticker}"></jstl:out></a>
 		<jstl:out value="${tripCancelled}"></jstl:out>
 	</display:column>
 
@@ -53,7 +27,7 @@
 	
 	<spring:message code="price.format" var="priceFormat"></spring:message>
 	<display:column titleKey="trip.price" sortable="true">
-		<fmt:formatNumber value="${trip.price}" pattern="${priceFormat}"/>
+		<fmt:formatNumber type="currency" currencySymbol="&#8364;" pattern="${priceFormat}" value="${trip.price}" />
 	</display:column>
 	
 	<spring:message code="date.format" var="dateFormat"></spring:message>	
@@ -66,6 +40,8 @@
 			<a href="tripApplication/explorer/create.do?tripId=${trip.id}"><spring:message code="tripApplication.create"/></a>
 		</display:column>
 	</security:authorize>
+	
+	<display:column property="category.name" titleKey="trip.category" sortable="true"></display:column>
 		
 </display:table>
 

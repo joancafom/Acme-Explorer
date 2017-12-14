@@ -57,6 +57,8 @@
 		<security:intercept-url pattern="/ranger/create.do" access="isAnonymous()"/>
 		<security:intercept-url pattern="/ranger/edit.do" access="isAnonymous()"/>
 		
+		<security:intercept-url pattern="/trip/display.do" access="isAnonymous()"/>
+		<security:intercept-url pattern="/trip/list.do" access="isAnonymous()"/>
 		<security:intercept-url pattern="/tripApplication/explorer/**" access="hasRole('EXPLORER')"/>
 		
 		 

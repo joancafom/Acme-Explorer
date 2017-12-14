@@ -18,7 +18,7 @@
 
 <h1><jstl:out value="${trip.title}${tripCancelled}"/></h1>
 
-<jstl:if test="${sponsorship not null}">
+<jstl:if test="${sponsorship != null}">
 	<spring:message code="sponsorship.bannerUrl" var="sponsorshipBannerUrl"/>
 	<a href="${sponsorship.infoPageLink}">
 		<img alt="${sponsorshipBannerUrl}" src="${sponsorship.bannerUrl}"/>
@@ -34,9 +34,10 @@
 <p><spring:message code="trip.description"/>: <jstl:out value="${trip.description}"/></p>
 
 <spring:message code="price.format" var="priceFormat"></spring:message>
-<p><spring:message code="trip.price"/>: <fmt:formatNumber value="${trip.price}" pattern="${priceFormat}"/></p>
+<p><spring:message code="trip.price"/>: <fmt:formatNumber type="currency" currencySymbol="&#8364;" pattern="${priceFormat}" value="${trip.price}" /></p>
 
-<spring:message code="date.format" var="dateFormat"></spring:message>
+
+<spring:message code="date.format2" var="dateFormat"></spring:message>
 <p><spring:message code="trip.startingDate"/>: <fmt:formatDate value="${trip.startingDate}" pattern="${dateFormat}"/></p>
 
 <p><spring:message code="trip.endingDate"/>: <fmt:formatDate value="${trip.endingDate}" pattern="${dateFormat}"/></p>
@@ -44,7 +45,7 @@
 <p><spring:message code="trip.publicationDate"/>: <fmt:formatDate value="${trip.publicationDate}" pattern="${dateFormat}"/>
 
 <p><spring:message code="trip.stages"/>:</p>
-<display:table name="trip.stages" id="stage" requestURI="${requestURI}" pagesize="5" class="displaytag">
+<display:table name="trip.stages" id="stage" requestURI="${stageRequestURI}" pagesize="5" class="displaytag">
 	<display:column property="number" titleKey="stage.number" sortable="true"/>
 	
 	<display:column property="title" titleKey="stage.title"/>
@@ -52,19 +53,19 @@
 	<display:column property="description" titleKey="stage.description"/>
 	
 	<display:column titleKey="stage.price">
-		<fmt:formatNumber value="${stage.price}" pattern="${priceFormat}"/>
+		<fmt:formatNumber type="currency" currencySymbol="&#8364;" pattern="${priceFormat}" value="${stage.price}" />
 	</display:column>
 </display:table>
 
 <p><spring:message code="trip.requirements"/>: <jstl:out value="${trip.requirements}"/></p>
 
-<p><spring:message code="category"/>: <jstl:out value="${category.name}"></jstl:out></p>
+<p><spring:message code="category"/>: <jstl:out value="${trip.category.name}"></jstl:out></p>
 
-<p>
+ <p>
 	<spring:message code="tagValues"/>:
 	<jstl:set var="x" value="0"/>
 	
-	<jstl:forEach var="tagValue" items="${tagValues}">
+	<jstl:forEach var="tagValue" items="${trip.tagValues}">
 		<jstl:out value="#${tagValue.value}"/>
 		<jstl:set var="x" value="${x+1}"/>
 		<jstl:if test="${x} < ${tagValues.size()}">

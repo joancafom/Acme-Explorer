@@ -23,7 +23,7 @@
 			<bean class="converters.Class1ToClass2" /> 
 		-->
 		
-		
+
 		<bean class="converters.AuthorityToStringConverter"/>
 		<bean class="converters.StringToAuthorityConverter"/>
 		
@@ -53,6 +53,9 @@
 		
 		<bean class="converters.SurvivalClassToStringConverter"/>
 		<bean class="converters.StringToSurvivalClassConverter"/>
+
+		<bean class="converters.TagValueToStringConverter"/>
+		<bean class="converters.StringToTagValueConverter"/>
 		
 		<bean class="converters.TripToStringConverter"/>
 		<bean class="converters.StringToTripConverter"/>
