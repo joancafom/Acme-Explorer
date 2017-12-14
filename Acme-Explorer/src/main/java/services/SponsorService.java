@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.SponsorRepository;
+import security.Authority;
 import security.LoginService;
 import security.UserAccount;
 import domain.Sponsor;
@@ -44,6 +45,13 @@ public class SponsorService {
 
 		// REVISAR !!!
 		// Pasar la UserAccount por parámetros?
+
+		Assert.isTrue(userAccount.getAuthorities().isEmpty() || userAccount.getAuthorities().contains(Authority.SPONSOR));
+		if (userAccount.getAuthorities().isEmpty()) {
+			final Authority auth = new Authority();
+			auth.setAuthority(Authority.SPONSOR);
+			userAccount.getAuthorities().add(auth);
+		}
 
 		final Sponsor sponsor = (Sponsor) this.actorService.create(userAccount, Sponsor.class);
 

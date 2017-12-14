@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.RangerRepository;
+import security.Authority;
 import security.LoginService;
 import security.UserAccount;
 import domain.Ranger;
@@ -45,6 +46,13 @@ public class RangerService {
 		// REVISAR !!!
 		// Pasar la UserAccount por parámetros?
 
+		Assert.isTrue(userAccount.getAuthorities().isEmpty() || userAccount.getAuthorities().contains(Authority.RANGER));
+		if (userAccount.getAuthorities().isEmpty()) {
+			final Authority auth = new Authority();
+			auth.setAuthority(Authority.RANGER);
+			userAccount.getAuthorities().add(auth);
+		}
+
 		final Ranger ranger = (Ranger) this.actorService.create(userAccount, Ranger.class);
 
 		final Collection<Trip> trips = new ArrayList<Trip>();
@@ -76,7 +84,9 @@ public class RangerService {
 
 	public Ranger save(final Ranger ranger) {
 		Assert.notNull(ranger);
-		Assert.isTrue(ranger.getUserAccount().equals(LoginService.getPrincipal()));
+		//An anonymous user can create!
+		//LoginService when anonymous throws an exception!
+		Assert.isTrue(ranger.getId() == 0 || ranger.getUserAccount().equals(LoginService.getPrincipal()));
 
 		// REVISAR !!!
 		// Si el ranger tiene currículum, debo setear el ranger de ese curriculum como el ranger actual?

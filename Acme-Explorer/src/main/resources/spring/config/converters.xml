@@ -23,8 +23,32 @@
 			<bean class="converters.Class1ToClass2" /> 
 		-->
 		
+		<bean class="converters.AuthorityToStringConverter"/>
+		<bean class="converters.StringToAuthorityConverter"/>
+		
+		<bean class="converters.ContactToStringConverter"/>
+		<bean class="converters.StringToContactConverter"/>
+		
+		<bean class="converters.CurriculumToStringConverter"/>
+		<bean class="converters.StringToCurriculumConverter"/>
+		
 		<bean class="converters.ExplorerToStringConverter"/>
 		<bean class="converters.StringToExplorerConverter"/>
+		
+		<bean class="converters.FolderToStringConverter" />
+		<bean class="converters.StringToFolderConverter" />
+		
+		<bean class="converters.MessageToStringConverter" />
+		<bean class="converters.StringToMessageConverter" />
+		
+		<bean class="converters.SocialIDToStringConverter"/>
+		<bean class="converters.StringToSocialIDConverter"/>
+		
+		<bean class="converters.StoryToStringConverter"/>
+		<bean class="converters.StringToStoryConverter"/>
+		
+		<bean class="converters.SurvivalClassToStringConverter"/>
+		<bean class="converters.StringToSurvivalClassConverter"/>
 		
 		<bean class="converters.TripToStringConverter"/>
 		<bean class="converters.StringToTripConverter"/>

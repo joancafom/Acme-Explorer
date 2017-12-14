@@ -47,11 +47,15 @@
 		<security:intercept-url pattern="/customer/action-1.do" access="hasRole('CUSTOMER')" /> 
 		<security:intercept-url pattern="/customer/action-2.do" access="hasRole('CUSTOMER')" /> 
 
+		<security:intercept-url pattern="/explorer/create.do" access="isAnonymous()"/>
+		<security:intercept-url pattern="/explorer/edit.do" access="isAnonymous()"/>
+
 		<security:intercept-url pattern="/profile/action-1.do" access="isAuthenticated()" /> 
 		<security:intercept-url pattern="/profile/action-2.do" access="isAuthenticated()" /> 
 		<security:intercept-url pattern="/profile/action-3.do" access="isAuthenticated()" />
 		
-		
+		<security:intercept-url pattern="/ranger/create.do" access="isAnonymous()"/>
+		<security:intercept-url pattern="/ranger/edit.do" access="isAnonymous()"/>
 		
 		<security:intercept-url pattern="/tripApplication/explorer/**" access="hasRole('EXPLORER')"/>
 		

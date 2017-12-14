@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.AuditorRepository;
+import security.Authority;
 import security.UserAccount;
 import domain.Audit;
 import domain.Auditor;
@@ -32,6 +33,15 @@ public class AuditorService {
 	//Simple CRUD Operation
 
 	public Auditor create(final UserAccount userAccount) {
+
+		Assert.notNull(userAccount);
+
+		Assert.isTrue(userAccount.getAuthorities().isEmpty() || userAccount.getAuthorities().contains(Authority.AUDITOR));
+		if (userAccount.getAuthorities().isEmpty()) {
+			final Authority auth = new Authority();
+			auth.setAuthority(Authority.AUDITOR);
+			userAccount.getAuthorities().add(auth);
+		}
 
 		final Auditor res = (Auditor) this.actorService.create(userAccount, Auditor.class);
 

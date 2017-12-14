@@ -9,102 +9,53 @@
 <%@taglib prefix="security"	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<security:authorize access="hasRole('ADMIN')">
-	<jstl:set var="loggedActorWS" value="admin/"></jstl:set>
-	
-	<jstl:choose>
-		<jstl:when test="${actor.tripApplications != null }">
-			<jstl:set var="desiredActorWS" value="explorer/" />
-		</jstl:when>
-		<jstl:otherwise>
-			<jstl:set var="desiredActorWS" value="manager/" />
-		</jstl:otherwise>
-	</jstl:choose>
-	
-</security:authorize>
-<security:authorize access="hasRole('AUDITOR')">
-	<jstl:set var="loggedActorWS" value="auditor/"></jstl:set>
-	<jstl:set var="desiredActorWS" value="auditor/"></jstl:set>
-</security:authorize>
-<security:authorize access="hasRole('EXPLORER')">
-	<jstl:set var="loggedActorWS" value="explorer/"></jstl:set>
-	<jstl:set var="desiredActorWS" value="explorer/"></jstl:set>
-</security:authorize>
-<security:authorize access="hasRole('MANAGER')">
-	<jstl:set var="loggedActorWS" value="manager/"></jstl:set>
-	<jstl:set var="desiredActorWS" value="manager/"></jstl:set>
-</security:authorize>
-<security:authorize access="hasRole('RANGER')">
-	<jstl:set var="loggedActorWS" value="ranger/"></jstl:set>
-	<jstl:set var="desiredActorWS" value="ranger/"></jstl:set>
-</security:authorize>
-<security:authorize access="hasRole('SPONSOR')">
-	<jstl:set var="loggedActorWS" value="sponsor/"></jstl:set>
-	<jstl:set var="desiredActorWS" value="sponsor/"></jstl:set>
-</security:authorize>
-<security:authorize access="isAnonymous()">
+<spring:message code="actor.userAccount.passwordMatch" var="matchError"></spring:message>
 
-	<jstl:set var="loggedActorWS" value=""></jstl:set>
+<script>
+	function checkPasswords(){
+		var pass1 = document.getElementById('pass1');
+		var pass2 = document.getElementById('pass2');
 
-	<jstl:choose>
-		<jstl:when test="${actor.tripApplications != null }">
-			<jstl:set var="desiredActorWS" value="explorer/" />
-		</jstl:when>
-		<jstl:otherwise>
-			<jstl:set var="desiredActorWS" value="ranger/" />
-		</jstl:otherwise>
-	</jstl:choose>
-	
-</security:authorize>
+		if(pass1.value == pass2.value){
+			
+			document.getElementById('passwordMatchMessage').innerHTML = "";
+			document.getElementById('submitButton').disabled = false;
+		}else{
+			document.getElementById('passwordMatchMessage').innerHTML = '${matchError}';
+			document.getElementById('submitButton').disabled = true;
+		}
+		
+		
+	}
+</script>
 
-<form:form action="${desiredActorWS}${loggedActorWS}create.do" modelAttribute="actor">
+<form:form action="${actionURI}" modelAttribute="actor">
 	
+	<%-- Common Actor Attributes --%>
 	<form:hidden path="id"/>
 	<form:hidden path="version"/>
-	<form:hidden path="isBanned"/>
 	<form:hidden path="isSuspicious"/>
 	<form:hidden path="socialIDs"/>
 	<form:hidden path="folders"/>
 	<form:hidden path="sentMessages"/>
 	<form:hidden path="receivedMessages"/>
-	<form:hidden path="userAccount"/>
+	<form:hidden path="userAccount.authorities"/>
 	
-	<jstl:if test="${actor.notes != null}">
-		<form:hidden path="notes"/>
-	</jstl:if>
+	<%-- Explorer Attributes --%>
 	
-	<jstl:if test="${actor.audits != null}">
-		<form:hidden path="notes"/>
-	</jstl:if>
-	
-	<jstl:if test="${actor.finder != null}">
-		<form:hidden path="finder"/>
-	</jstl:if>
-	
-	<jstl:if test="${actor.stories != null}">
-		<form:hidden path="stories"/>
-	</jstl:if>
-	
-	<jstl:if test="${actor.tripApplications != null}">
+	<jstl:if test="${actorClassName == 'explorer'}">
 		<form:hidden path="tripApplications"/>
-	</jstl:if>
-	
-	<jstl:if test="${actor.survivalClasses != null}">
+		<form:hidden path="stories"/>
 		<form:hidden path="survivalClasses"/>
+		<form:hidden path="emergencyContacts"/>
 	</jstl:if>
 	
-	<jstl:if test="${actor.sponsorships != null}">
-		<form:hidden path="sponsorships"/>
-	</jstl:if>
+		<%-- Ranger Attributes --%>
 	
-	<jstl:if test="${actor.trips != null}">
+	<jstl:if test="${actorClassName == 'ranger'}">
 		<form:hidden path="trips"/>
-	</jstl:if>
-	
-	<jstl:if test="${actor.curriculum != null}">
 		<form:hidden path="curriculum"/>
 	</jstl:if>
-	
 	
 	<form:label path="name">
 		<spring:message code="actor.name" />
@@ -125,6 +76,27 @@
 	<form:errors cssClass="error" path="email"></form:errors>
 	<br />
 	
+	<form:label path="userAccount.username">
+		<spring:message code="actor.userAccount.username" />
+	</form:label>
+	<form:input path="userAccount.username"/>
+	<form:errors cssClass="error" path="userAccount.username"></form:errors>
+	<br />
+	
+	<form:label path="userAccount.password">
+		<spring:message code="actor.userAccount.password" />
+	</form:label>
+	<form:password id="pass1" path="userAccount.password"/>
+	<form:errors cssClass="error" path="userAccount.password"></form:errors>
+	<br />
+	
+	<%-- I don't want this to be sent --%>
+	<label for="pass2">
+		<spring:message code="actor.userAccount.repeatPassword" />
+	</label>
+	<input id="pass2" type="password" onchange="checkPasswords()" />
+	<p id="passwordMatchMessage"></p>
+	
 	<form:label path="address">
 		<spring:message code="actor.address" />
 	</form:label>
@@ -140,9 +112,9 @@
 	
 	<input type="button" name="cancel"
 		value="<spring:message code="actor.cancel" />"
-		onclick="javascript: window.location.replace('<jstl:out value="${requestURI}" />')" />
+		onclick="javascript: relativeRedir('/welcome/index.do')" />
 	<br />
 	
-	<input type="submit" name="save" value="<spring:message code="actor.save" />" />
+	<input id="submitButton" disabled type="submit" name="save" value="<spring:message code="actor.save" />" />
 
 </form:form>
