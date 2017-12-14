@@ -1,7 +1,6 @@
 
 package services;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 
@@ -69,10 +68,6 @@ public class TripApplicationService {
 		tripApplication.setTrip(t);
 		tripApplication.setExplorer(e);
 
-		final Collection<String> comments = new ArrayList<String>();
-
-		tripApplication.setComments(comments);
-
 		final long nowMillis = System.currentTimeMillis() - 1000;
 		final Date createMoment = new Date(nowMillis);
 
@@ -87,7 +82,6 @@ public class TripApplicationService {
 
 	public TripApplication save(final TripApplication application) {
 		Assert.notNull(application);
-		application.setMoment(new Date());
 		return this.applicationRepository.save(application);
 	}
 

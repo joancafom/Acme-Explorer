@@ -7,7 +7,7 @@
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="security"	uri="http://www.springframework.org/security/tags"%>
-<%@taglib prefix="display" uri="http://displaytag.sf.net"%>
+<%@taglib prefix="display" uri="http://displaytag.sf.net"%> 
 
 <security:authorize access="hasRole('MANAGER')">
 	<jstl:set var="actor" value="manager"></jstl:set>
@@ -17,7 +17,7 @@
 </security:authorize>
 
 <display:table name="tripApplications" id="tripApplication" requestURI="tripApplication/${actor}/list.do" pagesize="5" class="displaytag">
-	
+
 	<spring:message code="date.format" var="dateFormat"></spring:message>	
 	
 	<display:column titleKey="tripApplication.trip.ticket" sortable="true">
@@ -40,18 +40,23 @@
 	</display:column>
 	
 	<display:column titleKey="tripApplication.details">
-		<a href="tripApplication/${actor}/display.do?tripApplicationId=${tripApplication.id}">More Info</a>
+		<a href="tripApplication/${actor}/display.do?tripApplicationId=${tripApplication.id}"><spring:message code="tripApplication.details"/></a>
 	</display:column>
 	
 	<display:column>
-		<security:authorize access="hasRole('EXPLORER)">
+		<security:authorize access="hasRole('EXPLORER')">
 			<jstl:if test="${tripApplication.status == 'DUE' }">
-				<a href="tripApplication/explorer/edit.do?tripApplicationId=${tripApplication.id}">Edit</a>
+				<a href="tripApplication/explorer/edit.do?tripApplicationId=${tripApplication.id}"><spring:message code="tripApplication.enterCreditCard"/></a>
 			</jstl:if>
 		</security:authorize>
-		<security:authorize access="hasRole('MANAGER)">
+		<security:authorize access="hasRole('MANAGER')">
 			<jstl:if test="${tripApplication.status == 'PENDING' }">
 				<a href="tripApplication/manager/edit.do?tripApplicationId=${tripApplication.id}">Edit</a>
+			</jstl:if>
+		</security:authorize>
+		<security:authorize access="hasRole('EXPLORER')">
+			<jstl:if test="${tripApplication.status == 'ACCEPTED' }">
+				<a href="tripApplication/explorer/edit.do?tripApplicationId=${tripApplication.id}"><spring:message code="tripApplication.cancelApplication"/></a>
 			</jstl:if>
 		</security:authorize>
 	</display:column>

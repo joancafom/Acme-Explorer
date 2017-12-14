@@ -1,12 +1,10 @@
 
 package domain;
 
-import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -25,7 +23,7 @@ public class TripApplication extends DomainEntity {
 
 	private Date				moment;
 	private ApplicationStatus	status;
-	private Collection<String>	comments;
+	private String				comments;
 	private String				rejectionReason;
 	private CreditCard			creditCard;
 
@@ -44,9 +42,7 @@ public class TripApplication extends DomainEntity {
 		return this.status;
 	}
 
-	@NotNull
-	@ElementCollection
-	public Collection<String> getComments() {
+	public String getComments() {
 		return this.comments;
 	}
 
@@ -67,7 +63,7 @@ public class TripApplication extends DomainEntity {
 		this.status = status;
 	}
 
-	public void setComments(final Collection<String> comments) {
+	public void setComments(final String comments) {
 		this.comments = comments;
 	}
 

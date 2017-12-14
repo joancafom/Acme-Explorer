@@ -1775,12 +1775,12 @@
 		</property>
 		<property name="startingDate">
 			<bean factory-method="parse" factory-bean="dateFormat">
-				<constructor-arg value="13/12/2017 12:30" />
+				<constructor-arg value="13/12/2018 12:30" />
 			</bean>
 		</property>
 		<property name="endingDate">
 			<bean factory-method="parse" factory-bean="dateFormat">
-				<constructor-arg value="14/12/2017 23:59" />
+				<constructor-arg value="14/12/2018 23:59" />
 			</bean>
 		</property>
 		<property name="requirements" value="Llevar un hueso"></property>
@@ -1836,10 +1836,7 @@
 			</bean>
 		</property>
 		<property name="status" value="ACCEPTED"></property>
-		<property name="comments">
-			<list>
-			</list>
-		</property>
+		<property name="creditCard" ref="creditCard2"></property>
 		<property name="explorer" ref="explorer1"></property>
 		<property name="trip" ref="trip1"></property>
 	</bean>
@@ -1853,11 +1850,7 @@
 		<property name="status" value="REJECTED"></property>
 		<property name="rejectionReason" value="Porque si"></property>
 		<property name="creditCard" ref="creditCard2"></property>
-		<property name="comments">
-			<list>
-				<value>Oleoleole</value>
-			</list>
-		</property>
+		<property name="comments" value="Oleoleole"></property>
 		<property name="explorer" ref="explorer2"></property>
 		<property name="trip" ref="trip2"></property>
 	</bean>
@@ -1869,10 +1862,6 @@
 			</bean>
 		</property>
 		<property name="status" value="DUE"></property>
-		<property name="comments">
-			<list>
-			</list>
-		</property>
 		<property name="explorer" ref="explorer1"></property>
 		<property name="trip" ref="trip4"></property>
 	</bean>
@@ -1884,10 +1873,6 @@
 			</bean>
 		</property>
 		<property name="status" value="ACCEPTED"></property>
-		<property name="comments">
-			<list>
-			</list>
-		</property>
 		<property name="explorer" ref="explorer2"></property>
 		<property name="trip" ref="trip4"></property>
 	</bean>
@@ -1899,10 +1884,6 @@
 			</bean>
 		</property>
 		<property name="status" value="CANCELLED"></property>
-		<property name="comments">
-			<list>
-			</list>
-		</property>
 		<property name="explorer" ref="explorer2"></property>
 		<property name="trip" ref="trip4"></property>
 	</bean>
