@@ -30,6 +30,7 @@
 		<value>/views/actor/messages</value>
 		<value>/views/audit/messages</value>
 		<value>/views/category/messages</value>
+		<value>/views/curriculum/messages</value>
 		<value>/views/legalText/messages</value>
 		<value>/views/note/messages</value>
 		<value>/views/ranger/messages</value>

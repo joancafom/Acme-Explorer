@@ -650,10 +650,6 @@
 			</bean>
 		</property>
 		<property name="institution" value="Taylor School"></property>
-		<property name="comments">
-			<list>
-			</list>
-		</property>
 		<property name="curriculum" ref="curriculum1"></property>
 	</bean>
 
@@ -671,11 +667,7 @@
 		</property>
 		<property name="institution" value="Ultraviolence School"></property>
 		<property name="attachment" value="http://attachment.com/attachment2"></property>
-		<property name="comments">
-			<list>
-				<value>Summertime Sadness</value>
-			</list>
-		</property>
+		<property name="comments" value="Summertime Sadness"></property>
 		<property name="curriculum" ref="curriculum2"></property>
 	</bean>
 
@@ -685,10 +677,6 @@
 		<property name="fullName" value="Lana Del Rey"></property>
 		<property name="email" value="lanadelrey@gmail.com"></property>
 		<property name="linkedInProfile" value="http://www.linkedin.com/lanadelrey"></property>
-		<property name="comments">
-			<list>
-			</list>
-		</property>
 		<property name="curriculum" ref="curriculum1"></property>
 	</bean>
 
@@ -697,11 +685,7 @@
 		<property name="email" value="melanie_bb@gmail.com"></property>
 		<property name="phoneNumber" value="678908111"></property>
 		<property name="linkedInProfile" value="http://www.linkedin.com/melanie_martinez"></property>
-		<property name="comments">
-			<list>
-				<value>CryBaby</value>
-			</list>
-		</property>
+		<property name="comments" value="CryBaby"></property>
 		<property name="curriculum" ref="curriculum2"></property>
 	</bean>
 
@@ -1016,21 +1000,13 @@
 
 	<bean id="miscellaneousRecord1" class="domain.MiscellaneousRecord">
 		<property name="title" value="Singing Record"></property>
-		<property name="comments">
-			<list>
-			</list>
-		</property>
 		<property name="curriculum" ref="curriculum1"></property>
 	</bean>
 
 	<bean id="miscellaneousRecord2" class="domain.MiscellaneousRecord">
 		<property name="title" value="Painting Record"></property>
 		<property name="attachment" value="http://attachment.com/attachment_olee"></property>
-		<property name="comments">
-			<list>
-				<value>Oleee</value>
-			</list>
-		</property>
+		<property name="comments" value="Oleee"></property>
 		<property name="curriculum" ref="curriculum2"></property>
 	</bean>
 
@@ -1093,10 +1069,6 @@
 			</bean>
 		</property>
 		<property name="role" value="Queen"></property>
-		<property name="comments">
-			<list>
-			</list>
-		</property>
 		<property name="curriculum" ref="curriculum1"></property>
 	</bean>
 
@@ -1109,11 +1081,7 @@
 		</property>
 		<property name="role" value="Legend"></property>
 		<property name="attachment" value="http://attachment.com/lorda"></property>
-		<property name="comments">
-			<list>
-				<value>Green Light deserved #1</value>
-			</list>
-		</property>
+		<property name="comments" value="Green Light deserved #1"></property>
 		<property name="curriculum" ref="curriculum2"></property>
 	</bean>
 

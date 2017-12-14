@@ -1,7 +1,6 @@
 
 package services;
 
-import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.transaction.Transactional;
@@ -40,8 +39,6 @@ public class ProfessionalRecordService {
 		final ProfessionalRecord professionalRecord = new ProfessionalRecord();
 
 		professionalRecord.setCurriculum(curriculum);
-		final Collection<String> comments = new ArrayList<String>();
-		professionalRecord.setComments(comments);
 
 		curriculum.getProfessionalRecords().add(professionalRecord);
 

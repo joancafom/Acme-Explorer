@@ -69,8 +69,7 @@ public class ProfessionalRecordServiceTest extends AbstractTest {
 		Assert.isNull(testRecord.getEndingDate());
 		Assert.isNull(testRecord.getRole());
 		Assert.isNull(testRecord.getAttachment());
-		Assert.notNull(testRecord.getComments());
-		Assert.isTrue(testRecord.getComments().isEmpty());
+		Assert.isNull(testRecord.getComments());
 		Assert.notNull(testRecord.getCurriculum());
 		Assert.isTrue(testRecord.getCurriculum().equals(this.curriculum));
 
@@ -107,7 +106,7 @@ public class ProfessionalRecordServiceTest extends AbstractTest {
 		testRecord.setEndingDate(new Date());
 		testRecord.setRole("CEO");
 		testRecord.setAttachment("http://www.apple.com/ceo.pdf");
-		testRecord.getComments().add("Best Job Ever");
+		testRecord.setComments("Best Job Ever");
 
 		final ProfessionalRecord savedRecord = this.professionalRecordService.save(testRecord);
 
@@ -139,7 +138,7 @@ public class ProfessionalRecordServiceTest extends AbstractTest {
 		testRecord.setEndingDate(new Date());
 		testRecord.setRole("CEO");
 		testRecord.setAttachment("http://www.apple.com/ceo.pdf");
-		testRecord.getComments().add("Best Job Ever");
+		testRecord.setComments("Best Job Ever");
 
 		final ProfessionalRecord savedRecord = this.professionalRecordService.save(testRecord);
 

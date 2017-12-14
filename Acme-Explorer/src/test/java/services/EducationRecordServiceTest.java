@@ -63,8 +63,7 @@ public class EducationRecordServiceTest extends AbstractTest {
 		Assert.isNull(educationRecord.getInstitution());
 		Assert.isNull(educationRecord.getAttachment());
 
-		Assert.notNull(educationRecord.getComments());
-		Assert.isTrue(educationRecord.getComments().isEmpty());
+		Assert.isNull(educationRecord.getComments());
 
 		Assert.notNull(educationRecord.getCurriculum());
 		Assert.isTrue(educationRecord.getCurriculum().equals(curriculum));
@@ -92,8 +91,7 @@ public class EducationRecordServiceTest extends AbstractTest {
 		final Date endingDate = new Date();
 		final String institution = "Institution";
 		final String attachment = "http://www.attachment.com";
-		final List<String> comments = new ArrayList<String>();
-		comments.add("comment1");
+		final String comments = "comment";
 
 		educationRecord.setAttachment(attachment);
 		educationRecord.setComments(comments);
@@ -105,7 +103,7 @@ public class EducationRecordServiceTest extends AbstractTest {
 		final EducationRecord educationRecordS = this.educationRecordService.save(educationRecord);
 
 		Assert.isTrue(educationRecordS.getAttachment().equals(attachment));
-		Assert.isTrue(educationRecordS.getComments().containsAll(comments));
+		Assert.isTrue(educationRecordS.getComments().equals(comments));
 		Assert.isTrue(educationRecordS.getEndingDate().equals(endingDate));
 		Assert.isTrue(educationRecordS.getStartingDate().equals(startingDate));
 		Assert.isTrue(educationRecordS.getTitleOfDiploma().equals(titleOfDiploma));
