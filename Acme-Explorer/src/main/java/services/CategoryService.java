@@ -97,4 +97,8 @@ public class CategoryService {
 
 	// Other business methods --------------
 
+	public Category getParentRootCategory() {
+
+		return this.categoryRepository.findByName("CATEGORY");
+	}
 }
