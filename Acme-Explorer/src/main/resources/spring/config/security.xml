@@ -57,6 +57,7 @@
 		<security:intercept-url pattern="/profile/action-3.do" access="isAuthenticated()" />
 		
 		<security:intercept-url pattern="/ranger/create.do" access="isAnonymous()"/>
+		<security:intercept-url pattern="/ranger/display.do" access="isAnonymous()"/>
 		<security:intercept-url pattern="/ranger/edit.do" access="isAnonymous()"/>
 		
 		<security:intercept-url pattern="/trip/display.do" access="isAnonymous()"/>

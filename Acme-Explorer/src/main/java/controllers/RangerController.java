@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import security.UserAccount;
@@ -20,7 +21,8 @@ import domain.Ranger;
 @RequestMapping("/ranger")
 public class RangerController extends AbstractController {
 
-	//Services
+	// Services -------------------------------
+
 	@Autowired
 	private UserAccountService	userAccountService;
 
@@ -28,7 +30,30 @@ public class RangerController extends AbstractController {
 	private RangerService		rangerService;
 
 
-	//Creation
+	// Constructors ---------------------------
+
+	public RangerController() {
+		super();
+	}
+
+	// Display --------------------------------
+
+	@RequestMapping(value = "/display", method = RequestMethod.GET)
+	public ModelAndView display(@RequestParam final int rangerId) {
+		final ModelAndView res;
+		Ranger ranger;
+
+		ranger = this.rangerService.findOne(rangerId);
+
+		res = new ModelAndView("ranger/display");
+		res.addObject("ranger", ranger);
+		res.addObject("socialIDRequestURI", "ranger/display.do?rangerId=" + ranger.getId());
+
+		return res;
+	}
+
+	// Creation -------------------------------
+
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView create() {
 
@@ -45,7 +70,8 @@ public class RangerController extends AbstractController {
 
 	}
 
-	//Save
+	// Edition --------------------------------
+
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid final Ranger ranger, final BindingResult bindingResult) {
 
@@ -77,7 +103,9 @@ public class RangerController extends AbstractController {
 		return res;
 
 	}
-	//Ancillary methods
+
+	// Ancillary methods ----------------------
+
 	protected ModelAndView createEditModelAndView(final Ranger ranger) {
 		return this.createEditModelAndView(ranger, null);
 	}

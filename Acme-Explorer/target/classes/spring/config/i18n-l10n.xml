@@ -32,6 +32,7 @@
 		<value>/views/category/messages</value>
 		<value>/views/legalText/messages</value>
 		<value>/views/note/messages</value>
+		<value>/views/ranger/messages</value>
 		<value>/views/story/messages</value>
 		<value>/views/survivalClass/messages</value>
 		<value>/views/trip/messages</value>
