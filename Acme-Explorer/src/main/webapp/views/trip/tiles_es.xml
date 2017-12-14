@@ -32,7 +32,7 @@
 	</definition>
 
 	<definition name="trip/edit" extends="master.page">
-		<put-attribute name="title" value="Crear un viaje"/>
+		<put-attribute name="title" value="Editar un viaje"/>
 		<put-attribute name="body" value="/views/trip/edit.jsp"/>
 	</definition>
 	

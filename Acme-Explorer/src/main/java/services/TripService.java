@@ -16,14 +16,13 @@ import org.springframework.util.Assert;
 
 import repositories.TripRepository;
 import security.LoginService;
+import security.UserAccount;
 import domain.Audit;
 import domain.Category;
 import domain.Explorer;
 import domain.Finder;
-import domain.LegalText;
 import domain.Manager;
 import domain.Note;
-import domain.Ranger;
 import domain.Sponsorship;
 import domain.Stage;
 import domain.Story;
@@ -45,6 +44,9 @@ public class TripService {
 	// Supporting services -----------------
 
 	@Autowired
+	private ManagerService				managerService;
+
+	@Autowired
 	private ExplorerService				explorerService;
 
 	@Autowired
@@ -59,13 +61,15 @@ public class TripService {
 
 	// Simple CRUD methods -----------------
 
-	public Trip create(final Collection<Stage> stages, final LegalText legalText, final Category category, final Ranger ranger, final Manager manager) {
+	public Trip create() {
 
-		// REVISAR !!!
-		// Un manager puede crear trips que no son suyos?
+		final UserAccount userAccount = LoginService.getPrincipal();
+		final Manager manager = this.managerService.findByUserAccount(userAccount);
+		Assert.notNull(manager);
 
 		String ticker = "";
-		double price = 0.0;
+		final double price = 0.0;
+		final List<Stage> stages = new ArrayList<Stage>();
 		final List<Sponsorship> sponsorships = new ArrayList<Sponsorship>();
 		final List<Story> stories = new ArrayList<Story>();
 		final List<Note> notes = new ArrayList<Note>();
@@ -80,16 +84,7 @@ public class TripService {
 		ticker = this.systemConfigurationService.getTickerAndUpdateNext();
 
 		trip.setTicker(ticker);
-
-		Assert.notNull(stages);
-
-		for (final Stage s : stages) {
-			Assert.notNull(s);
-			price += s.getPrice();
-			s.setTrip(trip);
-
-		}
-
+		trip.setManager(manager);
 		trip.setPrice(price);
 		trip.setSponsorships(sponsorships);
 		trip.setStories(stories);
@@ -97,22 +92,9 @@ public class TripService {
 		trip.setAudits(audits);
 		trip.setTripApplications(tripApplications);
 		trip.setTagValues(tagValues);
-
-		Assert.notNull(legalText);
-		trip.setLegalText(legalText);
-		legalText.getTrips().add(trip);
-
 		trip.setStages(stages);
-
-		Assert.notNull(category);
-		trip.setCategory(category);
-		category.getTrips().add(trip);
-
-		Assert.notNull(ranger);
-		trip.setRanger(ranger);
-		ranger.getTrips().add(trip);
 		trip.setSurvivalClasses(survivalClasses);
-		trip.setManager(manager);
+
 		manager.getTrips().add(trip);
 
 		return trip;

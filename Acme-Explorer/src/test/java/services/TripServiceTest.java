@@ -15,6 +15,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.Assert;
 
 import security.LoginService;
+import security.UserAccount;
 import utilities.AbstractTest;
 import domain.Audit;
 import domain.Category;
@@ -50,6 +51,9 @@ public class TripServiceTest extends AbstractTest {
 	private CategoryService	categoryService;
 
 	@Autowired
+	private ManagerService	managerService;
+
+	@Autowired
 	private ExplorerService	explorerService;
 
 	@Autowired
@@ -63,34 +67,17 @@ public class TripServiceTest extends AbstractTest {
 		Trip trip;
 
 		this.authenticate("manager1");
+		final UserAccount userAccount = LoginService.getPrincipal();
+		final Manager manager = this.managerService.findByUserAccount(userAccount);
 
-		final Collection<Stage> stages = new ArrayList<Stage>();
-		stages.add(new Stage());
-		final Collection<Trip> trips = new ArrayList<Trip>();
-		final LegalText legalText = new LegalText();
-		legalText.setTrips(trips);
-		final Category category = new Category();
-		category.setTrips(trips);
-		final Ranger ranger = new Ranger();
-		ranger.setTrips(trips);
-		final Manager manager = new Manager();
-		final Collection<Trip> trips2 = new ArrayList<Trip>();
-		manager.setTrips(trips2);
-
-		trip = this.tripService.create(stages, legalText, category, ranger, manager);
+		trip = this.tripService.create();
 
 		Assert.notNull(trip.getTicker());
 		Assert.isNull(trip.getTitle());
 		Assert.isNull(trip.getDescription());
-
 		Assert.notNull(trip.getStages());
 
-		double sum = 0d;
-
-		for (final Stage s : trip.getStages())
-			sum += s.getPrice();
-
-		Assert.isTrue(trip.getPrice() == sum);
+		Assert.isTrue(trip.getPrice() == 0.0);
 		Assert.isNull(trip.getPublicationDate());
 		Assert.isNull(trip.getStartingDate());
 		Assert.isNull(trip.getEndingDate());
@@ -112,22 +99,14 @@ public class TripServiceTest extends AbstractTest {
 		Assert.notNull(trip.getTagValues());
 		Assert.isTrue(trip.getTagValues().isEmpty());
 
-		Assert.notNull(trip.getLegalText());
-		Assert.isTrue(trip.getLegalText().equals(legalText));
-		Assert.isTrue(legalText.getTrips().contains(trip));
+		Assert.isNull(trip.getLegalText());
 
-		Assert.isTrue(trip.getStages().equals(stages));
+		Assert.notNull(trip.getStages());
+		Assert.isTrue(trip.getStages().isEmpty());
 
-		for (final Stage s : trip.getStages())
-			Assert.isTrue(s.getTrip().equals(trip));
+		Assert.isNull(trip.getCategory());
 
-		Assert.notNull(trip.getCategory());
-		Assert.isTrue(trip.getCategory().equals(category));
-		Assert.isTrue(category.getTrips().contains(trip));
-
-		Assert.notNull(trip.getRanger());
-		Assert.isTrue(trip.getRanger().equals(ranger));
-		Assert.isTrue(ranger.getTrips().contains(trip));
+		Assert.isNull(trip.getRanger());
 
 		Assert.notNull(trip.getSurvivalClasses());
 		Assert.isTrue(trip.getSurvivalClasses().isEmpty());

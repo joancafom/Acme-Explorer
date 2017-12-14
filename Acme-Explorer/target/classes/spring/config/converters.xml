@@ -27,6 +27,9 @@
 		<bean class="converters.AuthorityToStringConverter"/>
 		<bean class="converters.StringToAuthorityConverter"/>
 		
+		<bean class="converters.CategoryToStringConverter"/>
+		<bean class="converters.StringToCategoryConverter"/>
+		
 		<bean class="converters.ContactToStringConverter"/>
 		<bean class="converters.StringToContactConverter"/>
 
@@ -42,11 +45,20 @@
 		<bean class="converters.FolderToStringConverter" />
 		<bean class="converters.StringToFolderConverter" />
 		
+		<bean class="converters.LegalTextToStringConverter" />
+		<bean class="converters.StringToLegalTextConverter" />
+		
 		<bean class="converters.MessageToStringConverter" />
 		<bean class="converters.StringToMessageConverter" />
 		
+		<bean class="converters.RangerToStringConverter" />
+		<bean class="converters.StringToRangerConverter" />
+		
 		<bean class="converters.SocialIDToStringConverter"/>
 		<bean class="converters.StringToSocialIDConverter"/>
+		
+		<bean class="converters.StageToStringConverter" />
+		<bean class="converters.StringToStageConverter" />
 		
 		<bean class="converters.StoryToStringConverter"/>
 		<bean class="converters.StringToStoryConverter"/>
@@ -54,14 +66,18 @@
 		<bean class="converters.SurvivalClassToStringConverter"/>
 		<bean class="converters.StringToSurvivalClassConverter"/>
 
+		<bean class="converters.TagToStringConverter"/>
+		<bean class="converters.StringToTagConverter"/>
+
 		<bean class="converters.TagValueToStringConverter"/>
 		<bean class="converters.StringToTagValueConverter"/>
 		
-		<bean class="converters.TripToStringConverter"/>
-		<bean class="converters.StringToTripConverter"/>
-		
 		<bean class="converters.TripApplicationToStringConverter"/>
 		<bean class="converters.StringToTripApplicationConverter"/>
+		
+		<bean class="converters.TripToStringConverter"/>
+		<bean class="converters.StringToTripConverter"/>
+
 	</util:list>
 	
 </beans>

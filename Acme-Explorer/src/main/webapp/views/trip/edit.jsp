@@ -19,16 +19,15 @@
 	<form:hidden path="ticker"/>
 	<form:hidden path="price"/>
 	<form:hidden path="publicationDate"/>
-	<jstl:if test="trip.id==0">
+	<jstl:if test="trip.id == 0">
 		<form:hidden path="cancelationReason"/>
 	</jstl:if>
 	<form:hidden path="manager"/>
-	<form:hidden path="sponsorship"/>
 	<form:hidden path="stories"/>
 	<form:hidden path="tripApplications"/>
 	<form:hidden path="sponsorships"/>
 	<form:hidden path="survivalClasses"/>
-	<form:hidden path="auditions"/>
+	<form:hidden path="audits"/>
 	<form:hidden path="notes"/>
 	<form:hidden path="sponsorships"/>
 	
@@ -37,32 +36,35 @@
 	</form:label>
 	<form:input path="title"/>
 	<form:errors cssClass="errors" path="title"/>
+	<br />
 	
 	<form:label path="description">
 		<spring:message code="trip.description"/>	
 	</form:label>
 	<form:textarea path="description"/>
 	<form:errors cssClass="errors" path="title"/>
-	
-	<form:label path="publicationDate">
-		<spring:message code="trip.publicationDate"/>
-	</form:label>
-	<form:input path="publicationDate"/>
-	<form:errors cssClass="errors" path="publicationDate"/>
-	
+	<br />
 	
 	<form:label path="startingDate">
 		<spring:message code="trip.startingDate"/>
 	</form:label>
 	<form:input path="startingDate"/>
 	<form:errors cssClass="errors" path="startingDate"/>
-	
+	<br />
 	
 	<form:label path="endingDate">
 		<spring:message code="trip.endingDate"/>
 	</form:label>
 	<form:input path="endingDate"/>
 	<form:errors cssClass="errors" path="endingDate"/>
+	<br />
+	
+	<form:label path="requirements">
+		<spring:message code="trip.requirements"/>
+	</form:label>
+	<form:textarea path="requirements"/>
+	<form:errors cssClass="errors" path="requirements"/>
+	<br />
 	
 	<form:label path="ranger">
 		<spring:message code="trip.ranger"/>
@@ -74,6 +76,7 @@
 			itemLabel="name"/>
 	</form:select>
 	<form:errors cssClass="errors" path="ranger"/>
+	<br />
 	
 	<form:label path="legalText">
 		<spring:message code="trip.legalText"/>
@@ -82,21 +85,26 @@
 		<form:option value="0" label="---"/>
 		<form:options items="${legalTexts}"
 			itemValue="id"
-			itemLabel="name"/>
+			itemLabel="title"/>
 	</form:select>
 	<form:errors cssClass="errors" path="legalText"/>
+	<br />
 	
-	<form:label path="tags">
+<%-- 	<form:label path="tags">
 		<spring:message code="trip.tags"/>
 	</form:label>
-	<form:checkboxes items="${tags}" path="tags"/>
+	<form:checkboxes items="${tags}" path="trip.tags"/>
 	<form:errors cssClass="errors" path="tags"/>
+	<br />
+	 --%>
 	
-	<form:label path="stages">
+<%-- 	<form:label path="stages">
 		<spring:message code="trip.stages"/>
 	</form:label>
 	<form:checkboxes items="${stages}" path="stages"/>
-	<form:errors cssClass="errors" path="stages"/>
+	<form:errors cssClass="errors" path="stages"/> 
+	<br />
+	--%>
 	
 	<form:label path="category">
 		<spring:message code="trip.category"/>
@@ -108,6 +116,7 @@
 			itemLabel="name"/>
 	</form:select>
 	<form:errors cssClass="errors" path="category"/>
+	<br />
 	
 	<jstl:if test="${trip.id!=0}">
 		<!-- If the trip is not new a manager can cancel it -->
@@ -118,7 +127,7 @@
 		<form:errors cssClass="errors" path="cancelationReason"/>
 	</jstl:if>
 	
-	<input type="submit" name="save" value="<spring:message code="trip.create"/>">
+	<input type="submit" name="save" value="<spring:message code="trip.edit"/>">
 	<input type="button" name="cancel" value="<spring:message	code="trip.cancel" />" onclick="javascript: relativeRedir('trip/manager/list.do');" />
 	
 	
