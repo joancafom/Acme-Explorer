@@ -8,33 +8,34 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
-import repositories.FolderRepository;
-import domain.Folder;
+import repositories.ActorRepository;
+import domain.Actor;
 
 @Component
 @Transactional
-public class StringToFolderConverter implements Converter<String, Folder> {
+public class StringToActorConverter implements Converter<String, Actor> {
 
 	@Autowired
-	private FolderRepository	folderRepository;
+	ActorRepository	actorRepository;
 
 
 	@Override
-	public Folder convert(final String text) {
-		Folder res;
+	public Actor convert(final String text) {
+		Actor actor;
 		int id;
 
 		try {
 			if (StringUtils.isEmpty(text))
-				res = null;
+				actor = null;
 			else {
 				id = Integer.valueOf(text);
-				res = this.folderRepository.findOne(id);
+				actor = this.actorRepository.findOne(id);
 			}
+
 		} catch (final Throwable oops) {
 			throw new IllegalArgumentException(oops);
 		}
-
-		return res;
+		return actor;
 	}
+
 }
