@@ -72,8 +72,7 @@ public class TripApplicationServiceTest extends AbstractTest {
 		Assert.isTrue(tripApplicationC.getTrip().equals(trip));
 		Assert.isTrue(tripApplicationC.getMoment().equals(createMoment));
 		Assert.isTrue(tripApplicationC.getExplorer().equals(explorer));
-		Assert.notNull(tripApplicationC.getComments());
-		Assert.isTrue(tripApplicationC.getComments().isEmpty());
+		Assert.isNull(tripApplicationC.getComments());
 		Assert.isNull(tripApplicationC.getCreditCard());
 		Assert.isTrue(tripApplicationC.getStatus().equals(ApplicationStatus.PENDING));
 		super.authenticate(null);

@@ -315,6 +315,8 @@ public class TripServiceTest extends AbstractTest {
 				break;
 			}
 
+		Assert.notNull(trip);
+
 		trip.setCancelationReason("Cancelation Reason");
 
 		this.tripService.cancel(trip);

@@ -15,9 +15,8 @@
 <security:authorize access="hasRole('EXPLORER')">
 	<jstl:set var="actor" value="explorer"></jstl:set>
 </security:authorize>
-<spring:message code="date.format" var="dateFormat"></spring:message>	
 
-<h1><tiles:insertAttribute name="title" /> - <spring:message code="tripApplication.status.${tripApplication.status}"/></h1>
+<h1><jstl:out value="${tripApplication.trip.title}" /> - <spring:message code="tripApplication.status.${tripApplication.status}"/></h1>
 
 <jstl:if test="${tripApplication.status == 'REJECTED'}">
 	<p><spring:message code="tripApplication.rejectionReason"/>: 
@@ -32,13 +31,14 @@
 
 <p><spring:message code="tripApplication.trip"/>: <a href="trip/${actor}/display.do?tripId=${tripApplication.trip.id}"><jstl:out value="${tripApplication.trip.ticker}" /></a></p>
 
-<p><spring:message code="tripApplication.moment"/>: <fmt:formatDate value="${tripApplication.moment}" pattern="${dateFormat}" /></p>
+<spring:message code="date.format2" var="dateFormat"></spring:message>
+<p><spring:message code="tripApplication.moment"/>: <fmt:formatDate value="${tripApplication.moment}" pattern="${dateFormat}" type="both"/></p>
 
 <p><spring:message code="tripApplication.comments"/>: <jstl:out value="${tripApplication.comments}"></jstl:out></p>
 
 <p><spring:message code="tripApplication.creditCard"/>:
 	<jstl:choose>
-		<jstl:when test="${tripApplication.creditCard == null }">-</jstl:when>
+		<jstl:when test="${tripApplication.creditCard == null}">-</jstl:when>
 		<jstl:otherwise>
 			<jstl:out value="${tripApplication.creditCard.number}"></jstl:out>
 		</jstl:otherwise>

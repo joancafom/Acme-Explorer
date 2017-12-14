@@ -23,12 +23,16 @@
 			<bean class="converters.Class1ToClass2" /> 
 		-->
 		
+
 		<bean class="converters.AuthorityToStringConverter"/>
 		<bean class="converters.StringToAuthorityConverter"/>
 		
 		<bean class="converters.ContactToStringConverter"/>
 		<bean class="converters.StringToContactConverter"/>
-		
+
+		<bean class="converters.CreditCardToStringConverter"/>
+		<bean class="converters.StringToCreditCardConverter"/>
+
 		<bean class="converters.CurriculumToStringConverter"/>
 		<bean class="converters.StringToCurriculumConverter"/>
 		
