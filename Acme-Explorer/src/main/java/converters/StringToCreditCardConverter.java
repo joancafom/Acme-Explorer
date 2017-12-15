@@ -7,6 +7,7 @@ import javax.transaction.Transactional;
 
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import domain.CreditCard;
 
@@ -19,7 +20,7 @@ public class StringToCreditCardConverter implements Converter<String, CreditCard
 		CreditCard res;
 		String parts[];
 
-		if (text == null)
+		if (text == null || StringUtils.isEmpty(text))
 			res = null;
 		else
 			try {
