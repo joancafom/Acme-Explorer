@@ -38,6 +38,7 @@
 		<value>/views/manager/tiles.xml</value>
 		<value>/views/message/tiles.xml</value>
 		<value>/views/note/tiles.xml</value>
+		<value>/views/personalRecord/tiles.xml</value>
 		<value>/views/ranger/tiles.xml</value>
 		<value>/views/sponsor/tiles.xml</value>
 		<value>/views/story/tiles.xml</value>
