@@ -35,6 +35,10 @@
 	
 	<display:column property="endingDate" titleKey="trip.endingDate" format="${dateFormat}"></display:column>
 	
+	<security:authorize access="hasRole('MANAGER')">
+		<display:column property="publicationDate" titleKey="trip.publicationDate" format="${dateFormat}"></display:column>
+	</security:authorize>
+	
 	<security:authorize access="hasRole('EXPLORER')">
 		<display:column>
 			<a href="tripApplication/explorer/create.do?tripId=${trip.id}"><spring:message code="tripApplication.create"/></a>
@@ -42,6 +46,17 @@
 	</security:authorize>
 	
 	<display:column property="category.name" titleKey="trip.category" sortable="true"></display:column>
+		
+	<security:authorize access="hasRole('MANAGER')">
+		<spring:message code="date.format2" var="dateFormat2"></spring:message>
+		<jsp:useBean id="now" class="java.util.Date" />
+		<fmt:formatDate value="${now}" pattern="${dateFormat2}"/>
+		<display:column>
+			<jstl:if test="${now.time < trip.publicationDate.time}">
+				<a href="trip/manager/edit.do?tripId=${trip.id}" ><spring:message code="trip.list.edit"/></a>
+			</jstl:if>
+		</display:column>
+	</security:authorize>	
 		
 </display:table>
 

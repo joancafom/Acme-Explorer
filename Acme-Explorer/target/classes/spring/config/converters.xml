@@ -65,11 +65,11 @@
 		<bean class="converters.MessageToStringConverter" />
 		<bean class="converters.StringToMessageConverter" />
 		
-		<bean class="converters.NoteToStringConverter" />
-		<bean class="converters.StringToNoteConverter" />
-		
 		<bean class="converters.MiscellaneousRecordToStringConverter" />
 		<bean class="converters.StringToMiscellaneousRecordConverter" />
+		
+		<bean class="converters.NoteToStringConverter" />
+		<bean class="converters.StringToNoteConverter" />
 		
 		<bean class="converters.PersonalRecordToStringConverter"/>
 		<bean class="converters.StringToPersonalRecordConverter"/>

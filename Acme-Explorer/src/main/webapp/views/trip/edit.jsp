@@ -109,17 +109,21 @@
 	<form:errors cssClass="error" path="category"/>
 	<br />
 	
-	<jstl:if test="${trip.id != 0}">
+	<%-- <jstl:if test="${trip.id != 0}">
 		<!-- If the trip is not new a manager can cancel it -->
 		<form:label path="cancelationReason">
 			<spring:message code="trip.cancelationReason"/>
 		</form:label>
 		<form:textarea path="cancelationReason"/>
 		<form:errors cssClass="error" path="cancelationReason"/>
-	</jstl:if>
+	</jstl:if> --%>
 	
 	<input type="submit" name="save" value="<spring:message code="trip.save"/>">
-	<input type="button" name="cancel" value="<spring:message	code="trip.cancel" />" onclick="javascript: relativeRedir('list.do');" />
+	<input type="button" name="cancel" value="<spring:message code="trip.cancel"/>" onclick="javascript: relativeRedir('trip/manager/list.do');" />
+	<spring:message code="date.format2" var="dateFormat2"></spring:message>
+	<jstl:if test="${trip.id != 0}">
+		<input type="submit" name="delete" value="<spring:message code="trip.delete"/>" />
+	</jstl:if>
 	
 	
 </form:form>
