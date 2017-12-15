@@ -65,8 +65,6 @@
 		<form:hidden path="explorer"/>
 		<form:hidden path="moment"/>
 		<form:hidden path="trip"/>
-		<form:hidden path="creditCard"/>
-		
 		
 		<security:authorize access="hasRole('MANAGER')">
 			<form:hidden path="creditCard"/>

@@ -102,7 +102,7 @@ public class TripApplicationExplorerController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(final TripApplication tripApplication, final BindingResult binding) {
+	public ModelAndView save(@Valid final TripApplication tripApplication, final BindingResult binding) {
 		ModelAndView res;
 
 		if (binding.hasErrors())

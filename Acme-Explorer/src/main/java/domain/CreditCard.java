@@ -9,6 +9,7 @@ import javax.validation.constraints.Min;
 
 import org.hibernate.validator.constraints.CreditCardNumber;
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
 
 @Embeddable
 @Access(AccessType.PROPERTY)
@@ -17,9 +18,9 @@ public class CreditCard {
 	private String	holderName;
 	private String	brandName;
 	private String	number;
-	private Integer	CVV;
-	private Integer	month;
-	private Integer	year;
+	private int		CVV;
+	private int		month;
+	private int		year;
 
 
 	@NotBlank
@@ -32,6 +33,7 @@ public class CreditCard {
 		return this.brandName;
 	}
 
+	@NotEmpty
 	@CreditCardNumber
 	public String getNumber() {
 		return this.number;

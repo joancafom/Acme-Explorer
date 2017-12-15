@@ -19,7 +19,7 @@ public class StringToCreditCardConverter implements Converter<String, CreditCard
 		CreditCard res;
 		String parts[];
 
-		if (text == null || text == "")
+		if (text == null)
 			res = null;
 		else
 			try {
