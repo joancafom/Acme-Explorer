@@ -17,6 +17,10 @@
 <p><spring:message code="personalRecord.phoneNumber"/>: <jstl:out value="${curriculum.personalRecord.phoneNumber}"/></p>
 <p><spring:message code="personalRecord.linkedInProfile"/>: <a href="${curriculum.personalRecord.linkedInProfile}"><jstl:out value="${curriculum.personalRecord.linkedInProfile}"/></a></p>
 
+<security:authorize access="hasRole('RANGER')">
+	<a href="personalRecord/ranger/edit.do?personalRecordId=${curriculum.personalRecord.id}"><spring:message code="personalRecord.edit"/></a>
+</security:authorize>
+
 <h1><spring:message code="curriculum.educationRecords"/></h1> 
 
 <display:table name="curriculum.educationRecords" id="educationRecord" requestURI="${RequestURI}" class="displaytag">
@@ -28,9 +32,17 @@
 	
 	<display:column property="institution" titleKey="educationRecord.institution" sortable="true"/>
 	
-	<display:column property="attachment" titleKey="educationRecord.attachment"/>
+	<display:column titleKey="educationRecord.attachment">
+		<a href="${educationRecord.attachment}"><jstl:out value="${educationRecord.attachment}"/></a>
+	</display:column>
 	
 	<display:column property="comments" titleKey="educationRecord.comments"/>
+	
+	<display:column>
+		<security:authorize access="hasRole('RANGER')">
+			<a href="educationRecord/ranger/edit.do?educationRecordId=${educationRecord.id}"><spring:message code="educationRecord.edit"/></a>
+		</security:authorize>
+	</display:column>
 </display:table>
 
 <h1><spring:message code="curriculum.professionalRecords"/></h1> 
@@ -44,9 +56,17 @@
 	
 	<display:column property="role" titleKey="professionalRecord.role" sortable="true"/>
 	
-	<display:column property="attachment" titleKey="professionalRecord.attachment"/>
+	<display:column titleKey="professionalRecord.attachment">
+		<a href="${professionalRecord.attachment}"><jstl:out value="${professionalRecord.attachment}"/></a>
+	</display:column>
 	
 	<display:column property="comments" titleKey="professionalRecord.comments"/>
+	
+	<display:column>
+		<security:authorize access="hasRole('RANGER')">
+			<a href="professionalRecord/ranger/edit.do?professionalRecordId=${professionalRecord.id}"><spring:message code="professionalRecord.edit"/></a>
+		</security:authorize>
+	</display:column>
 </display:table>
 
 <h1><spring:message code="curriculum.endorserRecords"/></h1> 
@@ -63,6 +83,12 @@
 	</display:column>
 	
 	<display:column property="comments" titleKey="endorserRecord.comments"/>
+	
+	<display:column>
+		<security:authorize access="hasRole('RANGER')">
+			<a href="endorserRecord/ranger/edit.do?endorserRecordId=${endorserRecord.id}"><spring:message code="endorserRecord.edit"/></a>
+		</security:authorize>
+	</display:column>
 </display:table>
 
 <h1><spring:message code="curriculum.miscellaneousRecords"/></h1> 
@@ -70,7 +96,15 @@
 <display:table name="curriculum.miscellaneousRecords" id="miscellaneousRecord" requestURI="${RequestURI}" class="displaytag">
 	<display:column property="title" titleKey="miscellaneousRecord.title" sortable="true"/>
 	
-	<display:column property="attachment" titleKey="miscellaneousRecord.attachment"/>
+		<display:column titleKey="miscellaneousRecord.attachment">
+		<a href="${miscellaneousRecord.attachment}"><jstl:out value="${miscellaneousRecord.attachment}"/></a>
+	</display:column>
 	
 	<display:column property="comments" titleKey="miscellaneousRecord.comments"/>
+	
+	<display:column>
+		<security:authorize access="hasRole('RANGER')">
+			<a href="miscellaneousRecord/ranger/edit.do?miscellaneousRecordId=${miscellaneousRecord.id}"><spring:message code="miscellaneousRecord.edit"/></a>
+		</security:authorize>
+	</display:column>
 </display:table>

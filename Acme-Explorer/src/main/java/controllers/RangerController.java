@@ -115,7 +115,7 @@ public class RangerController extends AbstractController {
 
 		res = new ModelAndView("ranger/edit");
 		res.addObject("actorClassName", "ranger");
-		res.addObject("actor", ranger);
+		res.addObject("ranger", ranger);
 		res.addObject("requestURI", "ranger/create.do");
 		res.addObject("actionURI", "ranger/edit.do");
 

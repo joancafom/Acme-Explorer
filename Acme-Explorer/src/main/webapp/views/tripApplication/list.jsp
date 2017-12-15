@@ -18,6 +18,50 @@
 
 <display:table name="tripApplications" id="tripApplication" requestURI="tripApplication/${actor}/list.do" pagesize="5" class="displaytag">
 
+	<jsp:useBean id="now" class="java.util.Date" />
+	<fmt:formatDate var="day" value="${now}" pattern="dd"/>
+	<fmt:formatDate var="month" value="${now}" pattern="MM"/>
+	<fmt:formatDate var="year" value="${now}" pattern="yyyy"/>
+	<fmt:formatDate var="time" value="${now}" pattern="HH:mm"/>
+
+	<jstl:if test="${month == 12}">
+		<jstl:set var="nextMonth" value="01"></jstl:set>
+		<jstl:set var="nextYear" value="${year+1}"></jstl:set>	
+	</jstl:if>
+
+	<jstl:if test="${month < 12}">
+		<jstl:set var="nextMonth" value="${month+1}"></jstl:set>
+		<jstl:set var="nextYear" value="${year}"></jstl:set>	
+	</jstl:if>
+
+	<jstl:set var="nextDate" value="${day}/${nextMonth}/${nextYear} ${time}"></jstl:set>
+	<fmt:parseDate value = "${nextDate}" type="both" var = "parsedNextDate" pattern = "dd/MM/yyyy HH:mm" />
+
+	<fmt:formatDate var="startDate" value="${tripApplication.trip.startingDate}" pattern="dd/MM/yyyy HH:mm"/>
+
+	<jstl:if test="${tripApplication.status == 'PENDING'}">
+		<jstl:set var="backColor" value="white"></jstl:set>
+			<jstl:if test="${startDate < parsedNextDate}">
+				<jstl:set var="backColor" value="red"></jstl:set>
+			</jstl:if>
+	</jstl:if>
+
+	<jstl:if test="${tripApplication.status == 'REJECTED'}">
+		<jstl:set var="backColor" value="grey"></jstl:set>
+	</jstl:if>
+
+	<jstl:if test="${tripApplication.status == 'DUE'}">
+		<jstl:set var="backColor" value="yellow"></jstl:set>
+	</jstl:if>
+	
+	<jstl:if test="${tripApplication.status == 'ACCEPTED'}">
+		<jstl:set var="backColor" value="green"></jstl:set>
+	</jstl:if>
+
+	<jstl:if test="${tripApplication.status == 'CANCELLED'}">
+		<jstl:set var="backColor" value="cyan"></jstl:set>
+	</jstl:if>
+
 	<spring:message code="date.format" var="dateFormat"></spring:message>	
 	
 	<display:column titleKey="tripApplication.trip.ticket" sortable="true">
@@ -26,13 +70,13 @@
 	
 	<display:column property="moment" titleKey="tripApplication.moment" format="${dateFormat}" sortable="true" />
 	
-	<display:column titleKey="tripApplication.status" sortable="true">
+	<display:column style="background-color:${backColor};" titleKey="tripApplication.status" sortable="true">
 		<spring:message code="tripApplication.status.${tripApplication.status}"></spring:message>
 	</display:column>
 	
 	<display:column titleKey="tripApplication.creditCard" sortable="true">
 		<jstl:choose>
-			<jstl:when test="${tripApplication.creditCard == null }">-</jstl:when>
+			<jstl:when test="${tripApplication.creditCard == null}">-</jstl:when>
 			<jstl:otherwise>
 				<jstl:out value="${tripApplication.creditCard.number}"></jstl:out>
 			</jstl:otherwise>

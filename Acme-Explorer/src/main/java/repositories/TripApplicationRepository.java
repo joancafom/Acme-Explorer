@@ -15,7 +15,7 @@ public interface TripApplicationRepository extends JpaRepository<TripApplication
 	@Query("select sc.trip.tripApplications from SurvivalClass sc where sc.manager.id=?1")
 	Collection<TripApplication> findTripApplicationsManagedByManager(int managerId);
 
-	@Query("select t from TripApplication t where t.explorer.id = ?1 group by t.status")
+	@Query("select t from TripApplication t where t.explorer.id = ?1 order by t.status")
 	Collection<TripApplication> findTripApplicationsByExplorer(int exploredId);
 
 	@Query("select t from TripApplication t where t.status='ACCEPTED' and t.explorer.id=?1")

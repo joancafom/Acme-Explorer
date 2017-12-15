@@ -42,7 +42,7 @@ public class LegalTextServiceTest extends AbstractTest {
 
 		Assert.isNull(legalText.getTitle());
 		Assert.isNull(legalText.getBody());
-		Assert.isNull(legalText.getNumberOfApplicableLaws());
+		Assert.isNull(legalText.getLaws());
 		Assert.notNull(legalText.getRegistrationMoment());
 		Assert.isTrue(!legalText.getIsFinal());
 		Assert.notNull(legalText.getTrips());
@@ -107,7 +107,7 @@ public class LegalTextServiceTest extends AbstractTest {
 
 		legalText1.setTitle("Title");
 		legalText1.setBody("Body");
-		legalText1.setNumberOfApplicableLaws("3");
+		legalText1.setLaws("3");
 		// El registrationMoment no se puede editar
 
 		legalText2 = this.legalTextService.save(legalText1);
@@ -115,7 +115,7 @@ public class LegalTextServiceTest extends AbstractTest {
 		Assert.notNull(legalText2);
 		Assert.isTrue(legalText1.getTitle().equals(legalText2.getTitle()));
 		Assert.isTrue(legalText1.getBody().equals(legalText2.getBody()));
-		Assert.isTrue(legalText1.getNumberOfApplicableLaws().equals(legalText2.getNumberOfApplicableLaws()));
+		Assert.isTrue(legalText1.getLaws().equals(legalText2.getLaws()));
 
 		this.unauthenticate();
 	}

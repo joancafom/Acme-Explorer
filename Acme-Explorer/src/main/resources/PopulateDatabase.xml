@@ -788,7 +788,7 @@
 		<property name="title" value="Katys fuera"></property>
 		<property name="body"
 			value="La entrada de Katy Perry está prohibida y se declara completamente ilegal por razones de salud."></property>
-		<property name="numberOfApplicableLaws" value="155"></property>
+		<property name="laws" value="155"></property>
 		<property name="registrationMoment">
 			<bean factory-method="parse" factory-bean="dateFormat">
 				<constructor-arg value="01/01/2010 16:00" />
@@ -804,7 +804,7 @@
 	<bean id="legalText2" class="domain.LegalText">
 		<property name="title" value="Buy Melodrama on iTunes"></property>
 		<property name="body" value="Hacedlo por ella que esta pobre"></property>
-		<property name="numberOfApplicableLaws" value="200"></property>
+		<property name="laws" value="200"></property>
 		<property name="registrationMoment">
 			<bean factory-method="parse" factory-bean="dateFormat">
 				<constructor-arg value="02/02/2011 22:22" />

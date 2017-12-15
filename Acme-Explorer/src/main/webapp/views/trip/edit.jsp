@@ -11,59 +11,66 @@
 
 <!-- Create a Trip -->
 
-<form:form action="/trip/manager/edit.do" modelAttribute="trip">
+<form:form action="trip/manager/edit.do" modelAttribute="trip">
 	
 	<!-- Hidden inputs -->
 	<form:hidden path="id"/>
 	<form:hidden path="version"/>
 	<form:hidden path="ticker"/>
 	<form:hidden path="price"/>
-	<form:hidden path="publicationDate"/>
 	<jstl:if test="trip.id == 0">
 		<form:hidden path="cancelationReason"/>
 	</jstl:if>
-	<form:hidden path="manager"/>
+	<form:hidden path="sponsorships"/>
 	<form:hidden path="stories"/>
-	<form:hidden path="tripApplications"/>
-	<form:hidden path="sponsorships"/>
-	<form:hidden path="survivalClasses"/>
-	<form:hidden path="audits"/>
 	<form:hidden path="notes"/>
-	<form:hidden path="sponsorships"/>
+	<form:hidden path="audits"/>
+	<form:hidden path="tripApplications"/>
+	<form:hidden path="tagValues"/>
+	<form:hidden path="stages"/>
+	<form:hidden path="survivalClasses"/>
+	<form:hidden path="manager"/>
 	
 	<form:label path="title">
 		<spring:message code="trip.title"/>
 	</form:label>
 	<form:input path="title"/>
-	<form:errors cssClass="errors" path="title"/>
+	<form:errors cssClass="error" path="title"/>
 	<br />
 	
 	<form:label path="description">
 		<spring:message code="trip.description"/>	
 	</form:label>
 	<form:textarea path="description"/>
-	<form:errors cssClass="errors" path="title"/>
+	<form:errors cssClass="error" path="description"/>
+	<br />
+	
+	<form:label path="publicationDate">
+		<spring:message code="trip.publicationDate"/>
+	</form:label>
+	<form:input path="publicationDate" placeholder="dd/MM/YYYY HH:mm" />
+	<form:errors cssClass="error" path="publicationDate"/>
 	<br />
 	
 	<form:label path="startingDate">
 		<spring:message code="trip.startingDate"/>
 	</form:label>
-	<form:input path="startingDate"/>
-	<form:errors cssClass="errors" path="startingDate"/>
+	<form:input path="startingDate" placeholder="dd/MM/YYYY HH:mm" />
+	<form:errors cssClass="error" path="startingDate"/>
 	<br />
 	
 	<form:label path="endingDate">
 		<spring:message code="trip.endingDate"/>
 	</form:label>
-	<form:input path="endingDate"/>
-	<form:errors cssClass="errors" path="endingDate"/>
+	<form:input path="endingDate" placeholder="dd/MM/YYYY HH:mm" />
+	<form:errors cssClass="error" path="endingDate"/>
 	<br />
 	
 	<form:label path="requirements">
 		<spring:message code="trip.requirements"/>
 	</form:label>
 	<form:textarea path="requirements"/>
-	<form:errors cssClass="errors" path="requirements"/>
+	<form:errors cssClass="error" path="requirements"/>
 	<br />
 	
 	<form:label path="ranger">
@@ -75,7 +82,7 @@
 			itemValue="id"
 			itemLabel="name"/>
 	</form:select>
-	<form:errors cssClass="errors" path="ranger"/>
+	<form:errors cssClass="error" path="ranger"/>
 	<br />
 	
 	<form:label path="legalText">
@@ -87,24 +94,8 @@
 			itemValue="id"
 			itemLabel="title"/>
 	</form:select>
-	<form:errors cssClass="errors" path="legalText"/>
+	<form:errors cssClass="error" path="legalText"/>
 	<br />
-	
-<%-- 	<form:label path="tags">
-		<spring:message code="trip.tags"/>
-	</form:label>
-	<form:checkboxes items="${tags}" path="trip.tags"/>
-	<form:errors cssClass="errors" path="tags"/>
-	<br />
-	 --%>
-	
-<%-- 	<form:label path="stages">
-		<spring:message code="trip.stages"/>
-	</form:label>
-	<form:checkboxes items="${stages}" path="stages"/>
-	<form:errors cssClass="errors" path="stages"/> 
-	<br />
-	--%>
 	
 	<form:label path="category">
 		<spring:message code="trip.category"/>
@@ -115,20 +106,20 @@
 			itemValue="id"
 			itemLabel="name"/>
 	</form:select>
-	<form:errors cssClass="errors" path="category"/>
+	<form:errors cssClass="error" path="category"/>
 	<br />
 	
-	<jstl:if test="${trip.id!=0}">
+	<jstl:if test="${trip.id != 0}">
 		<!-- If the trip is not new a manager can cancel it -->
 		<form:label path="cancelationReason">
 			<spring:message code="trip.cancelationReason"/>
 		</form:label>
 		<form:textarea path="cancelationReason"/>
-		<form:errors cssClass="errors" path="cancelationReason"/>
+		<form:errors cssClass="error" path="cancelationReason"/>
 	</jstl:if>
 	
-	<input type="submit" name="save" value="<spring:message code="trip.edit"/>">
-	<input type="button" name="cancel" value="<spring:message	code="trip.cancel" />" onclick="javascript: relativeRedir('trip/manager/list.do');" />
+	<input type="submit" name="save" value="<spring:message code="trip.save"/>">
+	<input type="button" name="cancel" value="<spring:message	code="trip.cancel" />" onclick="javascript: relativeRedir('list.do');" />
 	
 	
 </form:form>

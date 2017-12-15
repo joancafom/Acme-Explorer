@@ -25,6 +25,9 @@
 		
 		<bean class="converters.ActorToStringConverter"/>
 		<bean class="converters.StringToActorConverter"/>
+		
+		<bean class="converters.AuditToStringConverter"/>
+		<bean class="converters.StringToAuditConverter"/>
 
 		<bean class="converters.AuthorityToStringConverter"/>
 		<bean class="converters.StringToAuthorityConverter"/>
@@ -41,6 +44,12 @@
 		<bean class="converters.CurriculumToStringConverter"/>
 		<bean class="converters.StringToCurriculumConverter"/>
 		
+		<bean class="converters.EducationRecordToStringConverter"/>
+		<bean class="converters.StringToEducationRecordConverter"/>
+		
+		<bean class="converters.EndorserRecordToStringConverter"/>
+		<bean class="converters.StringToEndorserRecordConverter"/>
+		
 		<bean class="converters.ExplorerToStringConverter"/>
 		<bean class="converters.StringToExplorerConverter"/>
 		
@@ -50,14 +59,32 @@
 		<bean class="converters.LegalTextToStringConverter" />
 		<bean class="converters.StringToLegalTextConverter" />
 		
+		<bean class="converters.ManagerToStringConverter" />
+		<bean class="converters.StringToManagerConverter" />
+		
 		<bean class="converters.MessageToStringConverter" />
 		<bean class="converters.StringToMessageConverter" />
+		
+		<bean class="converters.NoteToStringConverter" />
+		<bean class="converters.StringToNoteConverter" />
+		
+		<bean class="converters.MiscellaneousRecordToStringConverter" />
+		<bean class="converters.StringToMiscellaneousRecordConverter" />
+		
+		<bean class="converters.PersonalRecordToStringConverter"/>
+		<bean class="converters.StringToPersonalRecordConverter"/>
+		
+		<bean class="converters.ProfessionalRecordToStringConverter"/>
+		<bean class="converters.StringToProfessionalRecordConverter"/>
 		
 		<bean class="converters.RangerToStringConverter" />
 		<bean class="converters.StringToRangerConverter" />
 		
 		<bean class="converters.SocialIDToStringConverter"/>
 		<bean class="converters.StringToSocialIDConverter"/>
+		
+		<bean class="converters.SponsorshipToStringConverter"/>
+		<bean class="converters.StringToSponsorshipConverter"/>
 		
 		<bean class="converters.StageToStringConverter" />
 		<bean class="converters.StringToStageConverter" />
