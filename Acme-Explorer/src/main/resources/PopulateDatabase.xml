@@ -1820,6 +1820,7 @@
 		</property>
 		<property name="childFolders">
 			<list>
+				<ref bean="folder31"/>
 			</list>
 		</property>
 		<property name="actor" ref="explorer1"></property>
@@ -2201,6 +2202,21 @@
 			</list>
 		</property>
 		<property name="actor" ref="manager3"></property>
+	</bean>
+	
+	<bean id="folder31" class="domain.Folder">
+		<property name="isSystem" value="false"></property>
+		<property name="name" value="Child Folder"></property>
+		<property name="messages">
+			<list>
+			</list>
+		</property>
+		<property name="childFolders">
+			<list>
+			</list>
+		</property>
+		<property name="parentFolder" ref="folder4"></property>
+		<property name="actor" ref="explorer1"></property>
 	</bean>
 
 	<!-- Message -->

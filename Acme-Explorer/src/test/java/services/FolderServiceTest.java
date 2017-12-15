@@ -53,7 +53,7 @@ public class FolderServiceTest extends AbstractTest {
 
 		final Admin admin = this.adminService.findByUserAccount(LoginService.getPrincipal());
 
-		folder = this.folderService.create(admin);
+		folder = this.folderService.create(admin, null);
 
 		Assert.notNull(folder);
 		Assert.isTrue(!folder.getIsSystem());
@@ -74,7 +74,7 @@ public class FolderServiceTest extends AbstractTest {
 		// REVISAR !!!
 		// Cómo se comprueba que el findAll() funciona correctamente?
 
-		final Integer currentNumberOfFoldersInTheXML = 30;
+		final Integer currentNumberOfFoldersInTheXML = 31;
 
 		this.authenticate("admin1");
 
@@ -253,7 +253,7 @@ public class FolderServiceTest extends AbstractTest {
 		this.authenticate("auditor1");
 
 		final Auditor auditor = this.auditorService.findByUserAccount(LoginService.getPrincipal());
-		final Folder folder = this.folderService.create(auditor);
+		final Folder folder = this.folderService.create(auditor, null);
 		folder.setName("Mis Cosas");
 
 		final Folder savedFolder = this.folderService.save(folder);

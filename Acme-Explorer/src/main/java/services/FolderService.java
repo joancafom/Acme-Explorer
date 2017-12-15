@@ -3,6 +3,7 @@ package services;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -32,6 +33,9 @@ public class FolderService {
 	@Autowired
 	private ActorService		actorService;
 
+	@Autowired
+	private MessageService		messageService;
+
 
 	// Constructors ------------------------
 
@@ -41,7 +45,7 @@ public class FolderService {
 
 	// Simple CRUD methods -----------------
 
-	public Folder create(final Actor actor) {
+	public Folder create(final Actor actor, final Folder parentFolder) {
 		Assert.notNull(actor);
 
 		Folder folder;
@@ -61,6 +65,10 @@ public class FolderService {
 		folder.setMessages(messages);
 		folder.setChildFolders(childFolders);
 		folder.setActor(actor);
+		if (parentFolder != null) {
+			folder.setParentFolder(parentFolder);
+			parentFolder.getChildFolders().add(folder);
+		}
 
 		return folder;
 	}
@@ -106,7 +114,7 @@ public class FolderService {
 		final List<Folder> res = new ArrayList<Folder>();
 
 		for (final String s : sysFolderNames) {
-			final Folder f = this.create(actor);
+			final Folder f = this.create(actor, null);
 			f.setIsSystem(true);
 			f.setName(s);
 			f.setActor(actor);
@@ -143,11 +151,15 @@ public class FolderService {
 	public void deleteByPrincipal(final Folder folder) {
 		Assert.notNull(folder);
 		Assert.isTrue(!folder.getIsSystem());
-		Assert.isTrue(folder.getActor().getUserAccount().equals(LoginService.getPrincipal()));
+		final UserAccount us = LoginService.getPrincipal();
+		final Actor actor = this.actorService.findByUserAccount(us);
+		Assert.notNull(actor);
+		Assert.isTrue(folder.getActor().equals(actor));
+		for (final Message m : folder.getMessages())
+			this.messageService.delete(m);
 
 		this.folderRepository.delete(folder);
 	}
-
 	public Folder findByActorAndName(final Actor actor, final String name) {
 		Folder folder;
 
@@ -157,5 +169,19 @@ public class FolderService {
 		folder = this.folderRepository.findByActorIdAndName(actor.getId(), name);
 
 		return folder;
+	}
+
+	public Collection<Folder> findAllParentFoldersByPrincipal() {
+		final UserAccount userAccount = LoginService.getPrincipal();
+		Assert.notNull(userAccount);
+
+		final Collection<Folder> folders = this.findAllByPrincipal();
+		final Collection<Folder> res = new HashSet<Folder>();
+		for (final Folder f : folders)
+			if (f.getParentFolder() == null)
+				res.add(f);
+
+		return res;
+
 	}
 }

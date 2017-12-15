@@ -22,11 +22,11 @@
 	
 			<form:label path="subject">Subject</form:label>
 			<form:input path="subject"/>
-			<form:errors cssClass="errors" path="subject"/>	
+			<form:errors cssClass="error" path="subject"/>	
 			<br><br>
 			<form:label path="body">Body</form:label>
 			<form:textarea path="body"/>
-			<form:errors cssClass="errors" path="body"/>
+			<form:errors cssClass="error" path="body"/>
 			<br><br>
 			<form:label path="recipient">Actor</form:label>
 			<form:select path="recipient">
@@ -35,7 +35,7 @@
 					itemValue="id"
 					itemLabel="name"/>
 			</form:select>
-			<form:errors cssClass="errors" path="recipient"/>
+			<form:errors cssClass="error" path="recipient"/>
 			<br><br>
 			<form:label path="priority">Priority</form:label>
 			<form:select path="priority">
@@ -44,7 +44,7 @@
 					<form:option value="${priority}" label="${priority}"/>
 				</jstl:forEach>
 			</form:select>
-			<form:errors cssClass="errors" path="priority"/>
+			<form:errors cssClass="error" path="priority"/>
 			<br><br>
 			<input type="submit" name="save" value="Save"/>	
 			<input type="button" name="cancel" value="Cancel" onclick="javascript: relativeRedir('folder/list.do');" />
@@ -69,7 +69,7 @@
 					itemLabel="name"
 				/>
 			</form:select>
-			<form:errors cssClass="errors" path="folder"/>
+			<form:errors cssClass="error" path="folder"/>
 			<br><br>
 			<input type="submit" name="save" value="Save"/>	
 			<input type="submit" name="delete" value="Delete"/>

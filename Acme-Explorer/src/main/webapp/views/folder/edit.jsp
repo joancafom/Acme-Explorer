@@ -10,12 +10,22 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 <form:form action="folder/edit.do" modelAttribute="folder">
+	<!-- Hidden inputs -->
+	<form:hidden path="version"/>
+	<form:hidden path="id"/>
+	<form:hidden path="isSystem"/>
+	<form:hidden path="messages"/>
+	<form:hidden path="parentFolder"/>
+	<form:hidden path="childFolders"/>
+	<form:hidden path="actor"/>
+
 	<form:label path="name">Folder name:</form:label>
 	<form:input path="name"/>
-	<form:errors cssClass="errors" path="name"/>
+	<form:errors cssClass="error" path="name"/>
 	
+	<br><br>
 	<input type="submit" name="save" value="Save"/>
-	<jstl:if test="${folder.id==0}">
+	<jstl:if test="${folder.id!=0}">
 		<input type="submit" name="delete" value="Delete"/>
 	</jstl:if>
 	<input type="button" name="cancel" value="Cancel" onclick="javascript: relativeRedir('folder/list.do');" />
