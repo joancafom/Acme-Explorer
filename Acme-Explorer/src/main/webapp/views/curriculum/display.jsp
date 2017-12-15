@@ -37,6 +37,12 @@
 	</display:column>
 	
 	<display:column property="comments" titleKey="educationRecord.comments"/>
+	
+	<display:column>
+		<security:authorize access="hasRole('RANGER')">
+			<a href="educationRecord/ranger/edit.do?educationRecordId=${educationRecord.id}"><spring:message code="educationRecord.edit"/></a>
+		</security:authorize>
+	</display:column>
 </display:table>
 
 <h1><spring:message code="curriculum.professionalRecords"/></h1> 
@@ -55,6 +61,12 @@
 	</display:column>
 	
 	<display:column property="comments" titleKey="professionalRecord.comments"/>
+	
+	<display:column>
+		<security:authorize access="hasRole('RANGER')">
+			<a href="professionalRecord/ranger/edit.do?professionalRecordId=${professionalRecord.id}"><spring:message code="professionalRecord.edit"/></a>
+		</security:authorize>
+	</display:column>
 </display:table>
 
 <h1><spring:message code="curriculum.endorserRecords"/></h1> 
@@ -71,6 +83,12 @@
 	</display:column>
 	
 	<display:column property="comments" titleKey="endorserRecord.comments"/>
+	
+	<display:column>
+		<security:authorize access="hasRole('RANGER')">
+			<a href="endorserRecord/ranger/edit.do?endorserRecordId=${endorserRecord.id}"><spring:message code="endorserRecord.edit"/></a>
+		</security:authorize>
+	</display:column>
 </display:table>
 
 <h1><spring:message code="curriculum.miscellaneousRecords"/></h1> 
@@ -83,4 +101,10 @@
 	</display:column>
 	
 	<display:column property="comments" titleKey="miscellaneousRecord.comments"/>
+	
+	<display:column>
+		<security:authorize access="hasRole('RANGER')">
+			<a href="miscellaneousRecord/ranger/edit.do?miscellaneousRecordId=${miscellaneousRecord.id}"><spring:message code="miscellaneousRecord.edit"/></a>
+		</security:authorize>
+	</display:column>
 </display:table>
