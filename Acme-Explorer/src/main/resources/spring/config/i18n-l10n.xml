@@ -31,7 +31,9 @@
 		<value>/views/audit/messages</value>
 		<value>/views/category/messages</value>
 		<value>/views/curriculum/messages</value>
+		<value>/views/folder/messages</value>
 		<value>/views/legalText/messages</value>
+		<value>/views/message/messages</value>
 		<value>/views/note/messages</value>
 		<value>/views/ranger/messages</value>
 		<value>/views/story/messages</value>

@@ -3,6 +3,7 @@ package services;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
 
 import javax.transaction.Transactional;
 
@@ -42,11 +43,14 @@ public class MessageService {
 
 		final Message message = new Message();
 		message.setSender(actorSender);
+		//El mensaje se setea luego al hacer send()
+		message.setSentMoment(new Date());
+		final Folder outBox = this.folderService.findByActorAndName(actorSender, "Out Box");
+		message.setFolder(outBox);
 
 		return message;
 
 	}
-
 	public Message findOne(final int messageId) {
 		/* 1. We check that the user is logged */
 		final UserAccount userAccount = LoginService.getPrincipal();
@@ -121,7 +125,12 @@ public class MessageService {
 		final Actor sender = this.actorService.findByUserAccount(userAccount);
 
 		/* 4. We duplicate the message for the receiver */
-		final Message messageReceiver = messageSender;
+		final Message messageReceiver = this.create();
+		messageReceiver.setBody(messageSender.getBody());
+		messageReceiver.setPriority(messageSender.getPriority());
+		messageReceiver.setRecipient(messageSender.getRecipient());
+		messageReceiver.setSender(messageSender.getSender());
+		messageReceiver.setSubject(messageSender.getSubject());
 
 		/* 5. We set the sent moment */
 		messageSender.setSentMoment(new Date());
@@ -136,6 +145,7 @@ public class MessageService {
 		final Folder folderReceiverOutbox = this.folderService.findByActorAndName(receiver, "In Box");
 		messageReceiver.setFolder(folderReceiverOutbox);
 
+		this.save(messageReceiver);
 	}
 
 	public void sendNotification(final Actor receiver, final Message messageSender) {
@@ -163,19 +173,12 @@ public class MessageService {
 
 	}
 
-	public void changeMessageFolder(final Message message, final Folder folder) {
-		Assert.notNull(message);
+	public Collection<Message> findByFolder(final Folder folder) {
 		Assert.notNull(folder);
+		Collection<Message> messages = new HashSet<Message>();
+		messages = this.messageRepository.findByFolder(folder.getId());
 
-		final UserAccount userAccount = LoginService.getPrincipal();
-		Assert.notNull(userAccount);
-
-		final Actor actor = this.actorService.findByUserAccount(userAccount);
-		Assert.isTrue(folder.getActor().equals(actor));
-		Assert.isTrue(actor.equals(message.getSender()));
-
-		message.setFolder(folder);
-
+		return messages;
 	}
 
 }
