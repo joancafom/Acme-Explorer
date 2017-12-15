@@ -2,7 +2,6 @@
 package services;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
@@ -68,8 +67,7 @@ public class EndorserRecordServiceTest extends AbstractTest {
 		Assert.isNull(testRecord.getEmail());
 		Assert.isNull(testRecord.getPhoneNumber());
 		Assert.isNull(testRecord.getLinkedInProfile());
-		Assert.notNull(testRecord.getComments());
-		Assert.isTrue(testRecord.getComments().isEmpty());
+		Assert.isNull(testRecord.getComments());
 		Assert.notNull(testRecord.getCurriculum());
 		Assert.isTrue(testRecord.getCurriculum().equals(this.curriculum));
 		Assert.isTrue(testRecord.getCurriculum().getEndorserRecords().contains(testRecord));
@@ -89,7 +87,7 @@ public class EndorserRecordServiceTest extends AbstractTest {
 		testRecord.setEmail("prueba@hotmail.com");
 		testRecord.setPhoneNumber("695849584");
 		testRecord.setLinkedInProfile("http://www.linkedin.com/endorser1");
-		testRecord.getComments().addAll(Arrays.asList("Got this on third grade", "Ich kann spreche Deutsch"));
+		testRecord.setComments("Got this on third grade. Ich kann spreche Deutsch");
 
 		final EndorserRecord savedRecord = this.endorserRecordService.save(testRecord);
 
@@ -155,7 +153,7 @@ public class EndorserRecordServiceTest extends AbstractTest {
 		testRecord.setEmail("prueba@hotmail.com");
 		testRecord.setPhoneNumber("695849584");
 		testRecord.setLinkedInProfile("http://www.linkedin.com/endorser1");
-		testRecord.setComments(Arrays.asList("Got this on third grade", "Ich kann spreche Deutsch"));
+		testRecord.setComments("Got this on third grade. Ich kann spreche Deutsch.");
 
 		final EndorserRecord savedRecord = this.endorserRecordService.save(testRecord);
 

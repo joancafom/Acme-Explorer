@@ -1,11 +1,8 @@
 
 package domain;
 
-import java.util.Collection;
-
 import javax.persistence.Access;
 import javax.persistence.AccessType;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.validation.Valid;
@@ -18,9 +15,9 @@ import org.hibernate.validator.constraints.URL;
 @Access(AccessType.PROPERTY)
 public class MiscellaneousRecord extends DomainEntity {
 
-	private String				title;
-	private String				attachment;
-	private Collection<String>	comments;
+	private String	title;
+	private String	attachment;
+	private String	comments;
 
 
 	@NotBlank
@@ -33,9 +30,7 @@ public class MiscellaneousRecord extends DomainEntity {
 		return this.attachment;
 	}
 
-	@ElementCollection
-	@NotNull
-	public Collection<String> getComments() {
+	public String getComments() {
 		return this.comments;
 	}
 
@@ -47,7 +42,7 @@ public class MiscellaneousRecord extends DomainEntity {
 		this.attachment = attachment;
 	}
 
-	public void setComments(final Collection<String> comments) {
+	public void setComments(final String comments) {
 		this.comments = comments;
 	}
 

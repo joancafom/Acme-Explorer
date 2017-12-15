@@ -2,7 +2,6 @@
 package services;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
@@ -66,10 +65,9 @@ public class MiscellaneousRecordServiceTest extends AbstractTest {
 		Assert.notNull(testRecord);
 		Assert.isNull(testRecord.getTitle());
 		Assert.isNull(testRecord.getAttachment());
-		Assert.notNull(testRecord.getComments());
+		Assert.isNull(testRecord.getComments());
 		Assert.notNull(testRecord.getCurriculum());
 		Assert.isTrue(testRecord.getCurriculum().equals(this.curriculum));
-		Assert.isTrue(testRecord.getComments().isEmpty());
 
 		this.unauthenticate();
 
@@ -139,7 +137,7 @@ public class MiscellaneousRecordServiceTest extends AbstractTest {
 
 		testRecord.setTitle("Title on Electromagnetism Applied to Microcomputers");
 		testRecord.setAttachment("http://www.google.es/mititulo.jpg");
-		testRecord.setComments(Arrays.asList("So hard to get this", "Very interesting"));
+		testRecord.setComments("So hard to get this. Very interesting");
 
 		final MiscellaneousRecord savedRecord = this.miscellaneousRecordService.save(testRecord);
 
@@ -163,7 +161,7 @@ public class MiscellaneousRecordServiceTest extends AbstractTest {
 
 		testRecord.setTitle("Title on Electromagnetism Applied to Microcomputers");
 		testRecord.setAttachment("http://www.google.es/mititulo.jpg");
-		testRecord.setComments(Arrays.asList("So hard to get this", "Very interesting"));
+		testRecord.setComments("So hard to get this. Very interesting");
 
 		final MiscellaneousRecord savedRecord = this.miscellaneousRecordService.save(testRecord);
 
