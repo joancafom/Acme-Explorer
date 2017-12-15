@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.transaction.Transactional;
@@ -29,8 +30,10 @@ public class EndorserRecordService {
 	public EndorserRecord create(final Curriculum curriculum) {
 		Assert.notNull(curriculum);
 		final EndorserRecord endorserRecord = new EndorserRecord();
+		final Collection<String> comments = new ArrayList<String>();
 
 		endorserRecord.setCurriculum(curriculum);
+		endorserRecord.setComments(comments);
 
 		curriculum.getEndorserRecords().add(endorserRecord);
 

@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.transaction.Transactional;
@@ -43,6 +44,7 @@ public class EducationRecordService {
 		final EducationRecord educationRecord = new EducationRecord();
 
 		educationRecord.setCurriculum(curriculum);
+		educationRecord.setComments(new ArrayList<String>());
 
 		curriculum.getEducationRecords().add(educationRecord);
 

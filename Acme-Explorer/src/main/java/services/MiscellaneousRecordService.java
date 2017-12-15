@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.transaction.Transactional;
@@ -40,6 +41,7 @@ public class MiscellaneousRecordService {
 		final MiscellaneousRecord miscellaneousRecord = new MiscellaneousRecord();
 
 		miscellaneousRecord.setCurriculum(curriculum);
+		miscellaneousRecord.setComments(new ArrayList<String>());
 
 		curriculum.getMiscellaneousRecords().add(miscellaneousRecord);
 

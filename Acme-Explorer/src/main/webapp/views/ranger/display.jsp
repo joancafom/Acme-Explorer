@@ -28,4 +28,4 @@
 	</display:column>
 </display:table>
 
-<p><spring:message code="ranger.curriculum"/>: <a href="curriculum/display.do?curriculumId=${ranger.curriculum.id}"><spring:message code="ranger.curriculum.display"/></a></p>
+<p><spring:message code="ranger.curriculum"/>: <a href="curriculum/display.do?curriculumId=${curriculum.id}"><spring:message code="ranger.curriculum.display"/></a></p>
