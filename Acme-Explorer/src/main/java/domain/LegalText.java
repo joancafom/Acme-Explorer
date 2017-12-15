@@ -23,7 +23,7 @@ public class LegalText extends DomainEntity {
 
 	private String	title;
 	private String	body;
-	private String	numberOfApplicableLaws;
+	private String	laws;
 	private Date	registrationMoment;
 	private boolean	isFinal;
 
@@ -39,8 +39,8 @@ public class LegalText extends DomainEntity {
 	}
 
 	@NotBlank
-	public String getNumberOfApplicableLaws() {
-		return this.numberOfApplicableLaws;
+	public String getLaws() {
+		return this.laws;
 	}
 
 	@NotNull
@@ -63,8 +63,8 @@ public class LegalText extends DomainEntity {
 		this.body = body;
 	}
 
-	public void setNumberOfApplicableLaws(final String numberOfApplicableLaws) {
-		this.numberOfApplicableLaws = numberOfApplicableLaws;
+	public void setLaws(final String laws) {
+		this.laws = laws;
 	}
 
 	public void setRegistrationMoment(final Date registrationMoment) {

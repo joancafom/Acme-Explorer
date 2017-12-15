@@ -20,7 +20,6 @@ import services.CategoryService;
 import services.LegalTextService;
 import services.ManagerService;
 import services.RangerService;
-import services.TagService;
 import services.TripService;
 import controllers.AbstractController;
 import domain.Category;
@@ -28,7 +27,6 @@ import domain.LegalText;
 import domain.Manager;
 import domain.Ranger;
 import domain.Sponsorship;
-import domain.Tag;
 import domain.Trip;
 
 @Controller
@@ -47,9 +45,6 @@ public class TripManagerController extends AbstractController {
 
 	@Autowired
 	private LegalTextService	legalTextService;
-
-	@Autowired
-	private TagService			tagService;
 
 	@Autowired
 	private CategoryService		categoryService;
@@ -92,6 +87,7 @@ public class TripManagerController extends AbstractController {
 		final Trip trip;
 
 		trip = this.tripService.create();
+
 		res = this.createEditModelAndView(trip);
 
 		return res;
@@ -105,6 +101,7 @@ public class TripManagerController extends AbstractController {
 
 		trip = this.tripService.findOne(tripId);
 		Assert.notNull(trip);
+
 		res = this.createEditModelAndView(trip);
 
 		return res;
@@ -112,7 +109,7 @@ public class TripManagerController extends AbstractController {
 	}
 
 	//Save
-	@RequestMapping(value = "/save", method = RequestMethod.POST, params = "save")
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid final Trip trip, final BindingResult binding) {
 		ModelAndView res;
 
@@ -130,7 +127,7 @@ public class TripManagerController extends AbstractController {
 
 	}
 	//Delete
-	@RequestMapping(value = "/delete", method = RequestMethod.POST, params = "delete")
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
 	public ModelAndView delete(final Trip trip, final BindingResult binding) {
 		ModelAndView res;
 
@@ -186,19 +183,17 @@ public class TripManagerController extends AbstractController {
 		final ModelAndView res;
 		Collection<Ranger> rangers;
 		Collection<LegalText> legalTexts;
-		Collection<Tag> tags;
 		Collection<Category> categories;
 
 		rangers = this.rangerService.findAll();
 		legalTexts = this.legalTextService.findAll();
-		tags = this.tagService.findAll();
 		categories = this.categoryService.findAll();
 
 		res = new ModelAndView("trip/edit");
+
 		res.addObject("trip", trip);
 		res.addObject("rangers", rangers);
 		res.addObject("legalTexts", legalTexts);
-		res.addObject("tags", tags);
 		res.addObject("categories", categories);
 
 		res.addObject("message", messageCode);

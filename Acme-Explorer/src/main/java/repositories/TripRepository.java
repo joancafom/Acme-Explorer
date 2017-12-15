@@ -24,7 +24,7 @@ public interface TripRepository extends JpaRepository<Trip, Integer> {
 	@Query("select t from Trip t where t.publicationDate > CURRENT_DATE")
 	Collection<Trip> findAllNotPublished();
 
-	@Query("select s.trip from SurvivalClass s where s.manager.id = ?1")
+	@Query("select m.trips from Manager m where m.id = ?1")
 	Collection<Trip> findAllManagedBy(int managerId);
 
 	@Query("select t from Trip t where t.publicationDate < CURRENT_DATE and t.startingDate > CURRENT_DATE")

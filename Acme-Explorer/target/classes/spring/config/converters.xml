@@ -26,6 +26,9 @@
 		<bean class="converters.ActorToStringConverter"/>
 		<bean class="converters.StringToActorConverter"/>
 
+		<bean class="converters.AuditToStringConverter"/>
+		<bean class="converters.StringToAuditConverter"/>
+
 		<bean class="converters.AuthorityToStringConverter"/>
 		<bean class="converters.StringToAuthorityConverter"/>
 		
@@ -50,14 +53,23 @@
 		<bean class="converters.LegalTextToStringConverter" />
 		<bean class="converters.StringToLegalTextConverter" />
 		
+		<bean class="converters.ManagerToStringConverter" />
+		<bean class="converters.StringToManagerConverter" />
+		
 		<bean class="converters.MessageToStringConverter" />
 		<bean class="converters.StringToMessageConverter" />
+		
+		<bean class="converters.NoteToStringConverter" />
+		<bean class="converters.StringToNoteConverter" />
 		
 		<bean class="converters.RangerToStringConverter" />
 		<bean class="converters.StringToRangerConverter" />
 		
 		<bean class="converters.SocialIDToStringConverter"/>
 		<bean class="converters.StringToSocialIDConverter"/>
+		
+		<bean class="converters.SponsorshipToStringConverter"/>
+		<bean class="converters.StringToSponsorshipConverter"/>
 		
 		<bean class="converters.StageToStringConverter" />
 		<bean class="converters.StringToStageConverter" />

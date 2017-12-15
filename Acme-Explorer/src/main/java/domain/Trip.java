@@ -20,7 +20,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -194,7 +193,6 @@ public class Trip extends DomainEntity {
 		return this.legalText;
 	}
 
-	@NotEmpty
 	@Valid
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "trip")
 	public Collection<Stage> getStages() {
