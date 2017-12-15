@@ -61,7 +61,6 @@ public class FolderService {
 		folder.setMessages(messages);
 		folder.setChildFolders(childFolders);
 		folder.setActor(actor);
-		actor.getFolders().add(folder);
 
 		return folder;
 	}

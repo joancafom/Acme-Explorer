@@ -14,7 +14,6 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.NotEmpty;
 
 import security.UserAccount;
 
@@ -86,7 +85,6 @@ public abstract class Actor extends DomainEntity {
 	//Relationships
 
 	private Collection<SocialID>	socialIDs;
-	private Collection<Folder>		folders;
 	private Collection<Message>		sentMessages;
 	private Collection<Message>		receivedMessages;
 	private UserAccount				userAccount;
@@ -97,13 +95,6 @@ public abstract class Actor extends DomainEntity {
 	@OneToMany(mappedBy = "actor")
 	public Collection<SocialID> getSocialIDs() {
 		return this.socialIDs;
-	}
-
-	@NotEmpty
-	@Valid
-	@OneToMany(mappedBy = "actor")
-	public Collection<Folder> getFolders() {
-		return this.folders;
 	}
 
 	@NotNull
@@ -129,10 +120,6 @@ public abstract class Actor extends DomainEntity {
 
 	public void setSocialIDs(final Collection<SocialID> socialIDs) {
 		this.socialIDs = socialIDs;
-	}
-
-	public void setFolders(final Collection<Folder> folders) {
-		this.folders = folders;
 	}
 
 	public void setSentMessages(final Collection<Message> sentMessages) {

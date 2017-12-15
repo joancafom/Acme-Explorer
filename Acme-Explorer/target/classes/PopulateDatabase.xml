@@ -224,12 +224,6 @@
 				<ref bean="socialID1" />
 			</list>
 		</property>
-		<property name="folders">
-			<list>
-				<ref bean="folder1" />
-				<ref bean="folder20" />
-			</list>
-		</property>
 		<property name="sentMessages">
 			<list>
 				<ref bean="message1" />
@@ -254,12 +248,6 @@
 		<property name="socialIDs">
 			<list>
 				<ref bean="socialID2" />
-			</list>
-		</property>
-		<property name="folders">
-			<list>
-				<ref bean="folder7" />
-				<ref bean="folder21" />
 			</list>
 		</property>
 		<property name="sentMessages">
@@ -326,12 +314,6 @@
 			<list>
 			</list>
 		</property>
-		<property name="folders">
-			<list>
-				<ref bean="folder3" />
-				<ref bean="folder26" />
-			</list>
-		</property>
 		<property name="sentMessages">
 			<list>
 			</list>
@@ -363,12 +345,6 @@
 		
 		<property name="socialIDs">
 			<list>
-			</list>
-		</property>
-		<property name="folders">
-			<list>
-				<ref bean="folder8" />
-				<ref bean="folder27" />
 			</list>
 		</property>
 		<property name="sentMessages">
@@ -704,12 +680,6 @@
 				<ref bean="socialID3" />
 			</list>
 		</property>
-		<property name="folders">
-			<list>
-				<ref bean="folder9" />
-				<ref bean="folder25" />
-			</list>
-		</property>
 		<property name="sentMessages">
 			<list>
 				<ref bean="message4" />
@@ -753,12 +723,6 @@
 		
 		<property name="socialIDs">
 			<list>
-			</list>
-		</property>
-		<property name="folders">
-			<list>
-				<ref bean="folder4" />
-				<ref bean="folder24" />
 			</list>
 		</property>
 		<property name="sentMessages">
@@ -880,12 +844,6 @@
 			<list>
 			</list>
 		</property>
-		<property name="folders">
-			<list>
-				<ref bean="folder5" />
-				<ref bean="folder18" />
-			</list>
-		</property>
 		<property name="sentMessages">
 			<list>
 			</list>
@@ -920,12 +878,6 @@
 		<property name="socialIDs">
 			<list>
 				<ref bean="socialID4" />
-			</list>
-		</property>
-		<property name="folders">
-			<list>
-				<ref bean="folder10" />
-				<ref bean="folder19" />
 			</list>
 		</property>
 		<property name="sentMessages">
@@ -966,12 +918,6 @@
 		
 		<property name="socialIDs">
 			<list>
-			</list>
-		</property>
-		<property name="folders">
-			<list>
-				<ref bean="folder15" />
-				<ref bean="folder30" />
 			</list>
 		</property>
 		<property name="sentMessages">
@@ -1097,12 +1043,6 @@
 			<list>
 			</list>
 		</property>
-		<property name="folders">
-			<list>
-				<ref bean="folder2" />
-				<ref bean="folder16" />
-			</list>
-		</property>
 		<property name="sentMessages">
 			<list>
 			</list>
@@ -1130,12 +1070,6 @@
 		<property name="socialIDs">
 			<list>
 				<ref bean="socialID5" />
-			</list>
-		</property>
-		<property name="folders">
-			<list>
-				<ref bean="folder11" />
-				<ref bean="folder17" />
 			</list>
 		</property>
 		<property name="sentMessages">
@@ -1169,12 +1103,6 @@
 			<list>
 			</list>
 		</property>
-		<property name="folders">
-			<list>
-				<ref bean="folder13" />
-				<ref bean="folder28" />
-			</list>
-		</property>
 		<property name="sentMessages">
 			<list>
 			</list>
@@ -1199,12 +1127,6 @@
 		
 		<property name="socialIDs">
 			<list>
-			</list>
-		</property>
-		<property name="folders">
-			<list>
-				<ref bean="folder14" />
-				<ref bean="folder29" />
 			</list>
 		</property>
 		<property name="sentMessages">
@@ -1278,12 +1200,6 @@
 			<list>
 			</list>
 		</property>
-		<property name="folders">
-			<list>
-				<ref bean="folder6" />
-				<ref bean="folder22" />
-			</list>
-		</property>
 		<property name="sentMessages">
 			<list>
 			</list>
@@ -1309,12 +1225,6 @@
 		<property name="socialIDs">
 			<list>
 				<ref bean="socialID6" />
-			</list>
-		</property>
-		<property name="folders">
-			<list>
-				<ref bean="folder12" />
-				<ref bean="folder23" />
 			</list>
 		</property>
 		<property name="sentMessages">

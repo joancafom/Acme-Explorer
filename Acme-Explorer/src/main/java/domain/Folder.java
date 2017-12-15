@@ -70,7 +70,6 @@ public class Folder extends DomainEntity {
 	@NotNull
 	@Valid
 	@ManyToOne(optional = false)
-	//mappedBy should be in the Actor class!!
 	public Actor getActor() {
 		return this.actor;
 	}

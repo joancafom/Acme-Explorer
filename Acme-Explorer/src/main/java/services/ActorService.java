@@ -14,7 +14,6 @@ import repositories.ActorRepository;
 import security.LoginService;
 import security.UserAccount;
 import domain.Actor;
-import domain.Folder;
 import domain.Message;
 import domain.SocialID;
 
@@ -26,11 +25,6 @@ public class ActorService {
 
 	@Autowired
 	private ActorRepository	actorRepository;
-
-	// Supporting services -----------------
-
-	@Autowired
-	private FolderService	folderService;
 
 
 	// Constructors ------------------------
@@ -51,7 +45,6 @@ public class ActorService {
 
 		Actor actor = null;
 		final Collection<SocialID> socialIDs = new ArrayList<SocialID>();
-		final Collection<Folder> folders = new ArrayList<Folder>();
 		final Collection<Message> sentMessages = new ArrayList<Message>();
 		final Collection<Message> receivedMessages = new ArrayList<Message>();
 
@@ -64,9 +57,6 @@ public class ActorService {
 		actor.setIsSuspicious(false);
 
 		actor.setSocialIDs(socialIDs);
-		actor.setFolders(folders);
-		final Collection<Folder> systemfolders = this.folderService.createSystemFolders(actor);
-		actor.setFolders(systemfolders);
 		actor.setSentMessages(sentMessages);
 		actor.setReceivedMessages(receivedMessages);
 		actor.setUserAccount(userAccount);

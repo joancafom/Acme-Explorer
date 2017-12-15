@@ -54,9 +54,6 @@ public class ActorServiceTest extends AbstractTest {
 
 		Assert.notNull(actor.getSocialIDs());
 		Assert.isTrue(actor.getSocialIDs().isEmpty());
-		Assert.notNull(actor.getFolders());
-		Assert.isTrue(!actor.getFolders().isEmpty());
-		// Comprobar que el método para crear las systemFolders funciona correctamente?
 		Assert.notNull(actor.getSentMessages());
 		Assert.isTrue(actor.getSentMessages().isEmpty());
 		Assert.notNull(actor.getReceivedMessages());

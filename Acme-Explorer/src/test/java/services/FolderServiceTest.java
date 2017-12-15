@@ -65,7 +65,6 @@ public class FolderServiceTest extends AbstractTest {
 		Assert.isTrue(folder.getChildFolders().isEmpty());
 		Assert.notNull(folder.getActor());
 		Assert.isTrue(folder.getActor().equals(admin));
-		Assert.isTrue(admin.getFolders().contains(folder));
 
 		this.unauthenticate();
 	}

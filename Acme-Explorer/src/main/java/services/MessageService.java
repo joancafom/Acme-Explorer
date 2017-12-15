@@ -169,10 +169,10 @@ public class MessageService {
 
 		final UserAccount userAccount = LoginService.getPrincipal();
 		Assert.notNull(userAccount);
-		final Actor actor = this.actorService.findByUserAccount(userAccount);
 
+		final Actor actor = this.actorService.findByUserAccount(userAccount);
+		Assert.isTrue(folder.getActor().equals(actor));
 		Assert.isTrue(actor.equals(message.getSender()));
-		Assert.isTrue(actor.getFolders().contains(folder));
 
 		message.setFolder(folder);
 
