@@ -53,6 +53,9 @@
 		<bean class="converters.MessageToStringConverter" />
 		<bean class="converters.StringToMessageConverter" />
 		
+		<bean class="converters.PersonalRecordToStringConverter"/>
+		<bean class="converters.StringToPersonalRecordConverter"/>
+		
 		<bean class="converters.RangerToStringConverter" />
 		<bean class="converters.StringToRangerConverter" />
 		

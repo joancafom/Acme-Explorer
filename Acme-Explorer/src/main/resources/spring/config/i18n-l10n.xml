@@ -35,6 +35,7 @@
 		<value>/views/legalText/messages</value>
 		<value>/views/message/messages</value>
 		<value>/views/note/messages</value>
+		<value>/views/personalRecord/messages</value>
 		<value>/views/ranger/messages</value>
 		<value>/views/story/messages</value>
 		<value>/views/survivalClass/messages</value>

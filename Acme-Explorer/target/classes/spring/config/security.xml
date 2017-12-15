@@ -47,7 +47,8 @@
 		<security:intercept-url pattern="/category/list.do" access="isAnonymous()"/>
 		
 		<security:intercept-url pattern="/curriculum/display.do" access="isAnonymous()"/>
-
+		<security:intercept-url pattern="/curriculum/ranger/display.do" access="hasRole('RANGER')"/>
+		
 		<security:intercept-url pattern="/customer/action-1.do" access="hasRole('CUSTOMER')" /> 
 		<security:intercept-url pattern="/customer/action-2.do" access="hasRole('CUSTOMER')" /> 
 
@@ -57,6 +58,8 @@
 		<security:intercept-url pattern="/folder/**" access="isAuthenticated()"/>
 		
 		<security:intercept-url pattern="/message/**" access="isAuthenticated()"/>
+
+		<security:intercept-url pattern="/personalRecord/ranger/edit.do" access="hasRole('RANGER')"/>
 
 		<security:intercept-url pattern="/profile/action-1.do" access="isAuthenticated()" /> 
 		<security:intercept-url pattern="/profile/action-2.do" access="isAuthenticated()" /> 
