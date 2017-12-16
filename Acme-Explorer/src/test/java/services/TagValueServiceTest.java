@@ -14,7 +14,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.Assert;
 
 import utilities.AbstractTest;
-import domain.Tag;
 import domain.TagValue;
 import domain.Trip;
 
@@ -44,16 +43,13 @@ public class TagValueServiceTest extends AbstractTest {
 		final Trip trip = new Trip();
 		final Collection<TagValue> tagValues = new ArrayList<TagValue>();
 		trip.setTagValues(tagValues);
-		final Tag tag = new Tag();
-		tag.setTagValues(tagValues);
 
-		tagValue = this.tagValueService.create(trip, tag);
+		tagValue = this.tagValueService.create(trip);
 
 		Assert.isNull(tagValue.getValue());
 		Assert.notNull(tagValue.getTrip());
 		Assert.isTrue(tagValue.getTrip().equals(trip));
-		Assert.notNull(tagValue.getTag());
-		Assert.isTrue(tagValue.getTag().equals(tag));
+		Assert.isNull(tagValue.getTag());
 
 		this.unauthenticate();
 	}

@@ -80,7 +80,7 @@ public class TripManagerController extends AbstractController {
 		res = new ModelAndView("trip/list");
 		res.addObject("trips", trips);
 		res.addObject("requestURI", "/trip/manager/list.do");
-		res.addObject("actorWS", "");
+		res.addObject("actorWS", "manager/");
 
 		return res;
 	}
@@ -120,6 +120,8 @@ public class TripManagerController extends AbstractController {
 			res = this.createEditModelAndView(trip);
 		else
 			try {
+				if ("".equals(trip.getCancelationReason()))
+					trip.setCancelationReason(null);
 				this.tripService.save(trip);
 				res = new ModelAndView("redirect:list.do");
 			} catch (final Throwable oops) {

@@ -45,8 +45,10 @@
 		<value>/views/professionalRecord/tiles.xml</value>
 		<value>/views/ranger/tiles.xml</value>
 		<value>/views/sponsor/tiles.xml</value>
+		<value>/views/stage/tiles.xml</value>
 		<value>/views/story/tiles.xml</value>
 		<value>/views/survivalClass/tiles.xml</value>
+		<value>/views/tagValue/tiles.xml</value>
 		<value>/views/trip/tiles.xml</value>
 		<value>/views/tripApplication/tiles.xml</value>
 	</util:list>

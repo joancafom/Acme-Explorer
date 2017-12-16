@@ -23,8 +23,11 @@ public class TagValueService {
 	@Autowired
 	private TagValueRepository	tagValueRepository;
 
-
 	// Supporting services -----------------
+
+	@Autowired
+	TagService					tagService;
+
 
 	// Constructors ------------------------
 
@@ -34,21 +37,14 @@ public class TagValueService {
 
 	// Simple CRUD methods -----------------
 
-	public TagValue create(final Trip trip, final Tag tag) {
+	public TagValue create(final Trip trip) {
 		TagValue tagValue;
 
 		Assert.notNull(trip);
-		Assert.notNull(tag);
-
-		for (final TagValue tv : trip.getTagValues())
-			Assert.isTrue(tv.getTag().getId() != tag.getId());
 
 		tagValue = new TagValue();
 
-		tagValue.setTag(tag);
-		tag.getTagValues().add(tagValue);
 		tagValue.setTrip(trip);
-		trip.getTagValues().add(tagValue);
 
 		return tagValue;
 	}
@@ -73,6 +69,18 @@ public class TagValueService {
 		return tagValue;
 	}
 
+	public TagValue save(final TagValue tagValue) {
+
+		final Trip trip = tagValue.getTrip();
+		Assert.notNull(trip);
+		final Tag tag = tagValue.getTag();
+		Assert.notNull(tag);
+
+		if (tagValue.getId() == 0)
+			Assert.isTrue(!this.tagService.getTagsByTrip(trip).contains(tag));
+
+		return this.tagValueRepository.save(tagValue);
+	}
 	public void delete(final TagValue tagValue) {
 		Assert.notNull(tagValue);
 

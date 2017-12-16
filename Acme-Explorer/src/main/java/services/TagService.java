@@ -13,6 +13,7 @@ import org.springframework.util.Assert;
 import repositories.TagRepository;
 import domain.Tag;
 import domain.TagValue;
+import domain.Trip;
 
 @Service
 @Transactional
@@ -64,5 +65,17 @@ public class TagService {
 		//				this.tagValueService.delete(tv);
 
 		this.tagRepository.delete(tag);
+	}
+
+	//Other Business Methods
+
+	public Collection<Tag> getTagsByTrip(final Trip trip) {
+
+		Assert.notNull(trip);
+		final Collection<Tag> res;
+
+		res = this.tagRepository.getTripTags(trip.getId());
+
+		return res;
 	}
 }

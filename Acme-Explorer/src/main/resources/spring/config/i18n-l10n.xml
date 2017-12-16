@@ -41,8 +41,10 @@
 		<value>/views/personalRecord/messages</value>
 		<value>/views/professionalRecord/messages</value>
 		<value>/views/ranger/messages</value>
+		<value>/views/stage/messages</value>
 		<value>/views/story/messages</value>
 		<value>/views/survivalClass/messages</value>
+		<value>/views/tagValue/messages</value>
 		<value>/views/trip/messages</value>
 		<value>/views/tripApplication/messages</value>
 	</util:list>
