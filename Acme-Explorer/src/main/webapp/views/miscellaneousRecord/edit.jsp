@@ -18,7 +18,7 @@
 		<spring:message code="miscellaneousRecord.title"/>
 	</form:label>
 	<form:input path="title"/>
-	<form:errors cssClass="errors" path="title"/>
+	<form:errors cssClass="error" path="title"/>
 	
 	<br/>
 	
@@ -26,7 +26,7 @@
 		<spring:message code="miscellaneousRecord.attachment"/>
 	</form:label>
 	<form:input path="attachment"/>
-	<form:errors cssClass="errors" path="attachment"/>
+	<form:errors cssClass="error" path="attachment"/>
 	
 	<br/>
 	
@@ -34,11 +34,13 @@
 		<spring:message code="miscellaneousRecord.comments"/>
 	</form:label>
 	<form:input path="comments"/>
-	<form:errors cssClass="errors" path="comments"/>
+	<form:errors cssClass="error" path="comments"/>
 	
 	<br/>
 	
 	<input type="submit" name="save" value="<spring:message code="miscellaneousRecord.save"/>">
-	<input type="submit" name="delete" value="<spring:message code="miscellaneousRecord.delete"/>">
+	<jstl:if test="${miscellaneousRecord.id != 0}">
+		<input type="submit" name="delete" value="<spring:message code="miscellaneousRecord.delete"/>">
+	</jstl:if>
 	<input type="button" name="cancel" value="<spring:message	code="miscellaneousRecord.cancel" />" onclick="javascript: relativeRedir('curriculum/ranger/display.do?curriculumId=${miscellaneousRecord.curriculum.id}');" />
 </form:form>

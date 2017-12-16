@@ -74,14 +74,14 @@ public class Curriculum extends DomainEntity {
 
 	@NotNull
 	@Valid
-	@OneToMany(mappedBy = "curriculum")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "curriculum")
 	public Collection<EndorserRecord> getEndorserRecords() {
 		return this.endorserRecords;
 	}
 
 	@NotNull
 	@Valid
-	@OneToMany(mappedBy = "curriculum")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "curriculum")
 	public Collection<MiscellaneousRecord> getMiscellaneousRecords() {
 		return this.miscellaneousRecords;
 	}

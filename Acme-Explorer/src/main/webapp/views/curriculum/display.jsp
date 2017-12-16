@@ -9,6 +9,7 @@
 <%@taglib prefix="security"	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
+<jstl:out value="${curriculum.ticker}" />
 <h1><spring:message code="curriculum.personalRecord"/></h1>
 
 <p><spring:message code="personalRecord.fullName"/>: <jstl:out value="${curriculum.personalRecord.fullName}"/></p>
@@ -45,6 +46,10 @@
 	</display:column>
 </display:table>
 
+<security:authorize access="hasRole('RANGER')">
+	<a href="educationRecord/ranger/create.do?curriculumId=${educationRecord.curriculum.id}"><spring:message code="educationRecord.create"/></a>
+</security:authorize>
+
 <h1><spring:message code="curriculum.professionalRecords"/></h1> 
 
 <display:table name="curriculum.professionalRecords" id="professionalRecord" requestURI="${RequestURI}" class="displaytag">
@@ -69,6 +74,10 @@
 	</display:column>
 </display:table>
 
+<security:authorize access="hasRole('RANGER')">
+	<a href="professionalRecord/ranger/create.do?curriculumId=${professionalRecord.curriculum.id}"><spring:message code="professionalRecord.create"/></a>
+</security:authorize>
+
 <h1><spring:message code="curriculum.endorserRecords"/></h1> 
 
 <display:table name="curriculum.endorserRecords" id="endorserRecord" requestURI="${RequestURI}" class="displaytag">
@@ -91,6 +100,10 @@
 	</display:column>
 </display:table>
 
+<security:authorize access="hasRole('RANGER')">
+	<a href="endorserRecord/ranger/create.do?curriculumId=${endorserRecord.curriculum.id}"><spring:message code="endorserRecord.create"/></a>
+</security:authorize>
+
 <h1><spring:message code="curriculum.miscellaneousRecords"/></h1> 
 
 <display:table name="curriculum.miscellaneousRecords" id="miscellaneousRecord" requestURI="${RequestURI}" class="displaytag">
@@ -108,3 +121,12 @@
 		</security:authorize>
 	</display:column>
 </display:table>
+
+<security:authorize access="hasRole('RANGER')">
+	<a href="miscellaneousRecord/ranger/create.do?curriculumId=${miscellaneousRecord.curriculum.id}"><spring:message code="miscellaneousRecord.create"/></a>
+</security:authorize>
+
+<security:authorize access="hasRole('RANGER')">
+	<br/>
+	<a href="curriculum/ranger/edit.do?curriculumId=${curriculum.id}"><spring:message code="curriculum.delete"/></a>
+</security:authorize>

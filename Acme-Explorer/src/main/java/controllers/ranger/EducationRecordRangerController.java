@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.CurriculumService;
 import services.EducationRecordService;
 import controllers.AbstractController;
+import domain.Curriculum;
 import domain.EducationRecord;
 
 @Controller
@@ -24,6 +26,9 @@ public class EducationRecordRangerController extends AbstractController {
 
 	@Autowired
 	private EducationRecordService	educationRecordService;
+
+	@Autowired
+	private CurriculumService		curriculumService;
 
 
 	// Constructors ---------------------------
@@ -37,6 +42,19 @@ public class EducationRecordRangerController extends AbstractController {
 	// Listing --------------------------------
 
 	// Creation -------------------------------
+
+	@RequestMapping(value = "/create", method = RequestMethod.GET)
+	public ModelAndView create(@RequestParam final int curriculumId) {
+		ModelAndView res;
+		final Curriculum curriculum;
+		final EducationRecord educationRecord;
+
+		curriculum = this.curriculumService.findOne(curriculumId);
+		educationRecord = this.educationRecordService.create(curriculum);
+		res = this.createEditModelAndView(educationRecord);
+
+		return res;
+	}
 
 	// Edition --------------------------------
 

@@ -40,8 +40,6 @@ public class ProfessionalRecordService {
 
 		professionalRecord.setCurriculum(curriculum);
 
-		curriculum.getProfessionalRecords().add(professionalRecord);
-
 		return professionalRecord;
 	}
 
