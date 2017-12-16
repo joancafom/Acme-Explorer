@@ -148,11 +148,20 @@ public class MessageService {
 		this.save(messageReceiver);
 	}
 
-	public void sendNotification(final Actor receiver, final Message messageSender) {
-		final UserAccount userAccount = LoginService.getPrincipal();
+	public void sendNotification(final Message messageSender) {
 
+		/* 1. We check that the receiver and the message to send are not null */
+		Assert.notNull(messageSender);
+		Assert.notNull(messageSender.getRecipient());
+
+		/* 2. We check that there's a user logged */
+		final UserAccount userAccount = LoginService.getPrincipal();
+		Assert.notNull(userAccount);
+
+		/* 3. We get the actor who's logged */
 		final Actor sender = this.actorService.findByUserAccount(userAccount);
 
+		/* 4. We duplicate the message for the receiver */
 		final Message messageReceiver = this.create();
 		messageReceiver.setBody(messageSender.getBody());
 		messageReceiver.setPriority(messageSender.getPriority());
@@ -160,16 +169,21 @@ public class MessageService {
 		messageReceiver.setSender(messageSender.getSender());
 		messageReceiver.setSubject(messageSender.getSubject());
 
+		/* 5. We set the sent moment */
 		messageSender.setSentMoment(new Date());
 		messageReceiver.setSentMoment(new Date());
 
-		final Folder folderSenderInbox = this.folderService.findByActorAndName(sender, "In Box");
-		messageSender.setFolder(folderSenderInbox);
+		/* 6. We add the messages to their folders and collections */
 		sender.getSentMessages().add(messageSender);
+		final Folder folderSenderOutBox = this.folderService.findByActorAndName(sender, "Out Box");
+		messageSender.setFolder(folderSenderOutBox);
 
-		final Folder folderReceiverOutbox = this.folderService.findByActorAndName(receiver, "Notification Box");
-		messageReceiver.setFolder(folderReceiverOutbox);
-		receiver.getReceivedMessages().add(messageReceiver);
+		messageSender.getRecipient().getReceivedMessages().add(messageReceiver);
+		final Folder folderReceiverNotificationBox = this.folderService.findByActorAndName(messageSender.getRecipient(), "Notification Box");
+		messageReceiver.setFolder(folderReceiverNotificationBox);
+
+		this.save(messageSender);
+		this.save(messageReceiver);
 
 	}
 
