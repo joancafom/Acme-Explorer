@@ -18,7 +18,9 @@ import security.UserAccount;
 import utilities.AbstractTest;
 import domain.Actor;
 import domain.Explorer;
+import domain.Folder;
 import domain.Message;
+import domain.PriorityLevel;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
@@ -33,6 +35,8 @@ public class MessageServiceTest extends AbstractTest {
 	private ExplorerService	explorerService;
 	@Autowired
 	private ActorService	actorService;
+	@Autowired
+	private FolderService	folderService;
 
 
 	@Test
@@ -84,11 +88,20 @@ public class MessageServiceTest extends AbstractTest {
 
 	@Test
 	public void testSendNotification() {
-		super.authenticate("admin1");
+		super.authenticate("explorer2");
 		final Message message = this.messageService.create();
 		final List<Actor> actors = new ArrayList<Actor>(this.actorService.findAll());
 		final Actor actor = actors.get(0);
-		this.messageService.sendNotification(actor, message);
+
+		message.setBody("Just a test message");
+		message.setPriority(PriorityLevel.HIGH);
+		message.setRecipient(actor);
+		message.setSubject("Just a Subject");
+		this.messageService.sendNotification(message);
+
+		Assert.isTrue(actor.getReceivedMessages().contains(message));
+		final Folder notification_f = this.folderService.findByActorAndName(actor, "Notification Box");
+		Assert.isTrue(notification_f.getMessages().contains(message));
 
 	}
 

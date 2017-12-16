@@ -44,8 +44,6 @@ public class EducationRecordService {
 
 		educationRecord.setCurriculum(curriculum);
 
-		curriculum.getEducationRecords().add(educationRecord);
-
 		return educationRecord;
 	}
 

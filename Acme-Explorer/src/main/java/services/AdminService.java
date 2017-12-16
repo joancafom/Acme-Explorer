@@ -45,7 +45,8 @@ public class AdminService {
 		final Collection<Actor> allActorsWithoutMe = this.actorService.findAll();
 		allActorsWithoutMe.remove(me);
 		for (final Actor a : allActorsWithoutMe)
-			this.messageService.sendNotification(a, message);
+			message.setRecipient(a);
+		this.messageService.sendNotification(message);
 
 	}
 

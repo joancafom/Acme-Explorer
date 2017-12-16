@@ -18,7 +18,7 @@
 		<spring:message code="educationRecord.titleOfDiploma"/>
 	</form:label>
 	<form:input path="titleOfDiploma"/>
-	<form:errors cssClass="errors" path="titleOfDiploma"/>
+	<form:errors cssClass="error" path="titleOfDiploma"/>
 	
 	<br/>
 	
@@ -26,7 +26,7 @@
 		<spring:message code="educationRecord.startingDate"/>
 	</form:label>
 	<form:input path="startingDate"/>
-	<form:errors cssClass="errors" path="startingDate"/>
+	<form:errors cssClass="error" path="startingDate"/>
 	
 	<br/>
 	
@@ -34,7 +34,7 @@
 		<spring:message code="educationRecord.endingDate"/>
 	</form:label>
 	<form:input path="endingDate"/>
-	<form:errors cssClass="errors" path="endingDate"/>
+	<form:errors cssClass="error" path="endingDate"/>
 	
 	<br/>
 	
@@ -42,7 +42,7 @@
 		<spring:message code="educationRecord.institution"/>
 	</form:label>
 	<form:input path="institution"/>
-	<form:errors cssClass="errors" path="institution"/>
+	<form:errors cssClass="error" path="institution"/>
 	
 	<br/>
 	
@@ -50,7 +50,7 @@
 		<spring:message code="educationRecord.attachment"/>
 	</form:label>
 	<form:input path="attachment"/>
-	<form:errors cssClass="errors" path="attachment"/>
+	<form:errors cssClass="error" path="attachment"/>
 	
 	<br/>
 	
@@ -58,11 +58,13 @@
 		<spring:message code="educationRecord.comments"/>
 	</form:label>
 	<form:input path="comments"/>
-	<form:errors cssClass="errors" path="comments"/>
+	<form:errors cssClass="error" path="comments"/>
 	
 	<br/>
 	
 	<input type="submit" name="save" value="<spring:message code="educationRecord.save"/>">
-	<input type="submit" name="delete" value="<spring:message code="educationRecord.delete"/>">
+	<jstl:if test="${educationRecord.id != 0}">
+		<input type="submit" name="delete" value="<spring:message code="educationRecord.delete"/>">
+	</jstl:if>
 	<input type="button" name="cancel" value="<spring:message	code="educationRecord.cancel" />" onclick="javascript: relativeRedir('curriculum/ranger/display.do?curriculumId=${educationRecord.curriculum.id}');" />
 </form:form>

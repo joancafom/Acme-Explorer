@@ -112,9 +112,7 @@ public class TripApplicationService {
 	}
 
 	public void changeApplicationStatus(final TripApplication application, final ApplicationStatus status) {
-		//Version 0.2 by JA
-		//TODO: Send the message also to the other actor
-		//TODO: sendNotification in MessageService is not correct at all... (2 args ??)
+		//Version 0.3 by JA
 
 		final UserAccount userAccount = LoginService.getPrincipal();
 
@@ -122,10 +120,14 @@ public class TripApplicationService {
 		Assert.notNull(application);
 		Assert.notNull(status);
 
-		final Message notification = this.messageService.create();
-		notification.setBody("The Application with ID: " + application.getId() + "was changed from " + application.getStatus() + " to " + status);
-		notification.setPriority(PriorityLevel.LOW);
-		notification.setSubject("Change in an associated Application of a Trip");
+		final Message notification_me = this.messageService.create();
+		final Message notification_other = this.messageService.create();
+		notification_me.setBody("The Application with ID: " + application.getId() + " was changed from " + application.getStatus() + " to " + status);
+		notification_me.setPriority(PriorityLevel.LOW);
+		notification_me.setSubject("Change in an associated Application of a Trip");
+		notification_other.setBody(notification_me.getBody());
+		notification_other.setPriority(notification_me.getPriority());
+		notification_other.setSubject(notification_me.getSubject());
 
 		//An application can only change its status if a Manager or its Explorer decide to.
 
@@ -145,8 +147,11 @@ public class TripApplicationService {
 			if (status.equals(ApplicationStatus.REJECTED))
 				Assert.notNull(application.getRejectionReason());
 
-			notification.setSender(manager);
-			notification.setRecipient(application.getExplorer());
+			notification_me.setSender(manager);
+			notification_me.setRecipient(manager);
+
+			notification_other.setSender(manager);
+			notification_other.setRecipient(application.getExplorer());
 
 		} else {
 
@@ -171,12 +176,15 @@ public class TripApplicationService {
 				Assert.isTrue(status.equals(ApplicationStatus.CANCELLED));
 			}
 
-			notification.setSender(explorer);
-			notification.setRecipient(application.getTrip().getManager());
+			notification_me.setSender(explorer);
+			notification_me.setRecipient(explorer);
+			notification_other.setSender(explorer);
+			notification_other.setRecipient(application.getTrip().getManager());
 
 		}
 
-		this.messageService.sendNotification(notification.getRecipient(), notification);
+		this.messageService.sendNotification(notification_me);
+		this.messageService.sendNotification(notification_other);
 
 		application.setStatus(status);
 
