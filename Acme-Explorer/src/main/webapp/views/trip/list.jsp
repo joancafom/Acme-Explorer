@@ -55,6 +55,11 @@
 			<jstl:if test="${now.time < trip.publicationDate.time}">
 				<a href="trip/manager/edit.do?tripId=${trip.id}" ><spring:message code="trip.list.edit"/></a>
 			</jstl:if>
+			<jstl:if test="${now.time >= trip.publicationDate.time}">
+				<jstl:if test="${now.time < trip.startingDate.time and trip.cancelationReason == null}">
+					<a href="trip/manager/edit.do?tripId=${trip.id}" ><spring:message code="trip.list.cancel"/></a>
+				</jstl:if>
+			</jstl:if>
 		</display:column>
 	</security:authorize>	
 		

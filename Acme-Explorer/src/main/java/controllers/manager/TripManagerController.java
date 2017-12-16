@@ -112,7 +112,7 @@ public class TripManagerController extends AbstractController {
 	}
 
 	//Save
-	@RequestMapping(value = "/save", method = RequestMethod.POST, params = "save")
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid final Trip trip, final BindingResult binding) {
 		ModelAndView res;
 
@@ -130,7 +130,7 @@ public class TripManagerController extends AbstractController {
 
 	}
 	//Delete
-	@RequestMapping(value = "/delete", method = RequestMethod.POST, params = "delete")
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
 	public ModelAndView delete(final Trip trip, final BindingResult binding) {
 		ModelAndView res;
 
