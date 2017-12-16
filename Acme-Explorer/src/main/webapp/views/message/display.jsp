@@ -9,11 +9,11 @@
 <%@taglib prefix="security"	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<p><strong>From:</strong> <jstl:out value="${messageDisplay.sender.name}"/></p>
-<p><strong>To:</strong> <jstl:out value="${messageDisplay.recipient.name}"/></p>
-<p><strong>On:</strong> <jstl:out value="${messageDisplay.sentMoment}"/></p>
+<p><strong><spring:message code="message.sender"/>:</strong> <jstl:out value="${messageDisplay.sender.name}"/></p>
+<p><strong><spring:message code="message.recipient"/>:</strong> <jstl:out value="${messageDisplay.recipient.name}"/></p>
+<p><strong><spring:message code="message.date"/>:</strong> <jstl:out value="${messageDisplay.sentMoment}"/></p>
 <br>
-<p><strong>Subject:</strong> <jstl:out value="${messageDisplay.subject}"/></p>
+<p><strong><spring:message code="message.subject"/>:</strong> <jstl:out value="${messageDisplay.subject}"/></p>
 <hr>
 <p><jstl:out value="${messageDisplay.body}"/></p>
 <hr>

@@ -19,16 +19,18 @@
 	<form:hidden path="childFolders"/>
 	<form:hidden path="actor"/>
 
-	<form:label path="name">Folder name:</form:label>
+	<form:label path="name">
+		<spring:message code="folder.name"/>:
+	</form:label>
 	<form:input path="name"/>
 	<form:errors cssClass="error" path="name"/>
 	
 	<br><br>
-	<input type="submit" name="save" value="Save"/>
+	<input type="submit" name="save" value="<spring:message code="folder.save"/>"/>
 	<jstl:if test="${folder.id!=0}">
-		<input type="submit" name="delete" value="Delete"/>
+		<input type="submit" name="delete" value="<spring:message code="folder.delete"/>"/>
 	</jstl:if>
-	<input type="button" name="cancel" value="Cancel" onclick="javascript: relativeRedir('folder/list.do');" />
+	<input type="button" name="cancel" value="<spring:message code="folder.cancel"/>" onclick="javascript: relativeRedir('folder/list.do');" />
 	
 </form:form>
 

@@ -11,8 +11,6 @@
 
 
 <form:form action="message/edit.do" modelAttribute="messageEdit">
-
-
 		<jstl:if test="${messageEdit.id==0}">
 			<form:hidden path="version"/>
 			<form:hidden path="id"/>
@@ -20,15 +18,15 @@
 			<form:hidden path="sentMoment"/>
 			<form:hidden path="folder"/>
 	
-			<form:label path="subject">Subject</form:label>
+			<form:label path="subject"><spring:message code="message.subject"/></form:label>
 			<form:input path="subject"/>
 			<form:errors cssClass="error" path="subject"/>	
 			<br><br>
-			<form:label path="body">Body</form:label>
+			<form:label path="body"><spring:message code="message.body"/></form:label>
 			<form:textarea path="body"/>
 			<form:errors cssClass="error" path="body"/>
 			<br><br>
-			<form:label path="recipient">Actor</form:label>
+			<form:label path="recipient"><spring:message code="message.recipient"/></form:label>
 			<form:select path="recipient">
 				<form:option value="0" label="----"/>
 				<form:options items="${actors}"
@@ -37,17 +35,32 @@
 			</form:select>
 			<form:errors cssClass="error" path="recipient"/>
 			<br><br>
-			<form:label path="priority">Priority</form:label>
+			<form:label path="priority"><spring:message code="message.priority"/></form:label>
 			<form:select path="priority">
 				<form:option value="0" label="----"/>
 				<jstl:forEach items="${priorities}" var="priority">
-					<form:option value="${priority}" label="${priority}"/>
+					<jstl:if test="${priority=='HIGH'}">
+						<jstl:set var="priorityLevel">
+							<spring:message code="message.priority.HIGH"/>
+						</jstl:set>
+					</jstl:if>
+					<jstl:if test="${priority=='LOW'}">
+						<jstl:set var="priorityLevel">
+							<spring:message code="message.priority.LOW"/>
+						</jstl:set>
+					</jstl:if>
+					<jstl:if test="${priority=='NEUTRAL'}">
+						<jstl:set var="priorityLevel">
+							<spring:message code="message.priority.NEUTRAL"/>
+						</jstl:set>
+					</jstl:if>
+					<form:option value="${priority}" label="${priorityLevel}"/>
 				</jstl:forEach>
 			</form:select>
 			<form:errors cssClass="error" path="priority"/>
 			<br><br>
-			<input type="submit" name="save" value="Save"/>	
-			<input type="button" name="cancel" value="Cancel" onclick="javascript: relativeRedir('folder/list.do');" />
+			<input type="submit" name="save" value="<spring:message code="message.save"/>"/>	
+			<input type="button" name="cancel" value="<spring:message code="message.cancel"/>" onclick="javascript: relativeRedir('folder/list.do');" />
 	
 		</jstl:if>
 		
@@ -62,7 +75,7 @@
 			<form:hidden path="priority"/>
 			<form:hidden path="subject"/>	
 			
-			<form:label path="folder">Change folder: </form:label>
+			<form:label path="folder"><spring:message code="message.folder"/>: </form:label>
 			<form:select path="folder">
 				<form:options items="${folders}"
 					itemValue="id"
@@ -71,9 +84,9 @@
 			</form:select>
 			<form:errors cssClass="error" path="folder"/>
 			<br><br>
-			<input type="submit" name="save" value="Save"/>	
-			<input type="submit" name="delete" value="Delete"/>
-			<input type="button" name="cancel" value="Cancel" onclick="javascript: relativeRedir('folder/list.do');" />
+			<input type="submit" name="save" value="<spring:message code="message.save"/>"/>	
+			<input type="submit" name="delete" value="<spring:message code="message.delete"/>"/>
+			<input type="button" name="cancel" value="<spring:message code="message.cancel"/>" onclick="javascript: relativeRedir('folder/list.do');" />
 		
 		</jstl:if>
 </form:form>
