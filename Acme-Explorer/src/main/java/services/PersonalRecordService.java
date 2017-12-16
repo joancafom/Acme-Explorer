@@ -69,6 +69,16 @@ public class PersonalRecordService {
 		return this.personalRecordRepository.findOne(id);
 	}
 
+	public void delete(final PersonalRecord personalRecord) {
+
+		Assert.notNull(personalRecord);
+
+		final UserAccount userAccount = LoginService.getPrincipal();
+		Assert.isTrue(userAccount.equals(personalRecord.getCurriculum().getRanger().getUserAccount()));
+
+		this.personalRecordRepository.delete(personalRecord);
+	}
+
 	//Other business methods
 
 	public PersonalRecord findByCurriculum(final Curriculum curriculum) {

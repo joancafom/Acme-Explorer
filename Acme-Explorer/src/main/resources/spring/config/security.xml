@@ -48,12 +48,15 @@
 		
 		<security:intercept-url pattern="/curriculum/display.do" access="isAnonymous()"/>
 		<security:intercept-url pattern="/curriculum/ranger/display.do" access="hasRole('RANGER')"/>
+		<security:intercept-url pattern="/curriculum/ranger/edit.do" access="hasRole('RANGER')"/>
 		
 		<security:intercept-url pattern="/customer/action-1.do" access="hasRole('CUSTOMER')" /> 
 		<security:intercept-url pattern="/customer/action-2.do" access="hasRole('CUSTOMER')" /> 
 		
+		<security:intercept-url pattern="/educationRecord/ranger/create.do" access="hasRole('RANGER')"/>
 		<security:intercept-url pattern="/educationRecord/ranger/edit.do" access="hasRole('RANGER')"/>
 		
+		<security:intercept-url pattern="/endorserRecord/ranger/create.do" access="hasRole('RANGER')"/>
 		<security:intercept-url pattern="/endorserRecord/ranger/edit.do" access="hasRole('RANGER')"/>
 
 		<security:intercept-url pattern="/explorer/create.do" access="isAnonymous()"/>
@@ -63,10 +66,12 @@
 		
 		<security:intercept-url pattern="/message/**" access="isAuthenticated()"/>
 		
+		<security:intercept-url pattern="/miscellaneousRecord/ranger/create.do" access="hasRole('RANGER')"/>
 		<security:intercept-url pattern="/miscellaneousRecord/ranger/edit.do" access="hasRole('RANGER')"/>
 
 		<security:intercept-url pattern="/personalRecord/ranger/edit.do" access="hasRole('RANGER')"/>
 		
+		<security:intercept-url pattern="/professionalRecord/ranger/create.do" access="hasRole('RANGER')"/>
 		<security:intercept-url pattern="/professionalRecord/ranger/edit.do" access="hasRole('RANGER')"/>
 
 		<security:intercept-url pattern="/profile/action-1.do" access="isAuthenticated()" /> 

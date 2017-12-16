@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.CurriculumService;
 import services.EndorserRecordService;
 import controllers.AbstractController;
+import domain.Curriculum;
 import domain.EndorserRecord;
 
 @Controller
@@ -24,6 +26,9 @@ public class EndorserRecordRangerController extends AbstractController {
 
 	@Autowired
 	private EndorserRecordService	endorserRecordService;
+
+	@Autowired
+	private CurriculumService		curriculumService;
 
 
 	// Constructors ---------------------------
@@ -37,6 +42,19 @@ public class EndorserRecordRangerController extends AbstractController {
 	// Listing --------------------------------
 
 	// Creation -------------------------------
+
+	@RequestMapping(value = "/create", method = RequestMethod.GET)
+	public ModelAndView create(@RequestParam final int curriculumId) {
+		ModelAndView res;
+		final Curriculum curriculum;
+		final EndorserRecord endorserRecord;
+
+		curriculum = this.curriculumService.findOne(curriculumId);
+		endorserRecord = this.endorserRecordService.create(curriculum);
+		res = this.createEditModelAndView(endorserRecord);
+
+		return res;
+	}
 
 	// Edition --------------------------------
 

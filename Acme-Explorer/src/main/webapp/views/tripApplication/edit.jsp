@@ -106,7 +106,7 @@
 					<spring:message code="tripApplication.creditCard.holderName"/>
 				</form:label>
 				<form:input path="creditCard.holderName"/>
-				<form:errors cssClass="errors" path="creditCard.holderName"/>
+				<form:errors cssClass="error" path="creditCard.holderName"/>
 			
 				<br/>
 	
@@ -114,7 +114,7 @@
 					<spring:message code="tripApplication.creditCard.brandName"/>
 				</form:label>
 				<form:input path="creditCard.brandName"/>
-				<form:errors cssClass="errors" path="creditCard.brandName"/>
+				<form:errors cssClass="error" path="creditCard.brandName"/>
 			
 				<br/>
 	
@@ -122,7 +122,7 @@
 					<spring:message code="tripApplication.creditCard.number"/>
 				</form:label>
 				<form:input path="creditCard.number"/>
-				<form:errors cssClass="errors" path="creditCard.number"/>
+				<form:errors cssClass="error" path="creditCard.number"/>
 			
 				<br/>
 	
@@ -130,7 +130,7 @@
 					<spring:message code="tripApplication.creditCard.CVV"/>
 				</form:label>
 				<form:input path="creditCard.CVV"/>
-				<form:errors cssClass="errors" path="creditCard.CVV"/>
+				<form:errors cssClass="error" path="creditCard.CVV"/>
 			
 				<br/>
 	
@@ -138,7 +138,7 @@
 					<spring:message code="tripApplication.creditCard.month"/>
 				</form:label>
 				<form:input path="creditCard.month"/>
-				<form:errors cssClass="errors" path="creditCard.month"/>
+				<form:errors cssClass="error" path="creditCard.month"/>
 			
 				<br/>
 	
@@ -146,7 +146,7 @@
 					<spring:message code="tripApplication.creditCard.year"/>
 				</form:label>
 				<form:input path="creditCard.year"/>
-				<form:errors cssClass="errors" path="creditCard.year"/>
+				<form:errors cssClass="error" path="creditCard.year"/>
 			
 				<br/>
 			

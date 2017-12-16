@@ -18,7 +18,7 @@
 		<spring:message code="professionalRecord.companyName"/>
 	</form:label>
 	<form:input path="companyName"/>
-	<form:errors cssClass="errors" path="companyName"/>
+	<form:errors cssClass="error" path="companyName"/>
 	
 	<br/>
 	
@@ -26,7 +26,7 @@
 		<spring:message code="professionalRecord.startingDate"/>
 	</form:label>
 	<form:input path="startingDate"/>
-	<form:errors cssClass="errors" path="startingDate"/>
+	<form:errors cssClass="error" path="startingDate"/>
 	
 	<br/>
 	
@@ -34,7 +34,7 @@
 		<spring:message code="professionalRecord.endingDate"/>
 	</form:label>
 	<form:input path="endingDate"/>
-	<form:errors cssClass="errors" path="endingDate"/>
+	<form:errors cssClass="error" path="endingDate"/>
 	
 	<br/>
 	
@@ -42,7 +42,7 @@
 		<spring:message code="professionalRecord.role"/>
 	</form:label>
 	<form:input path="role"/>
-	<form:errors cssClass="errors" path="role"/>
+	<form:errors cssClass="error" path="role"/>
 	
 	<br/>
 	
@@ -50,7 +50,7 @@
 		<spring:message code="professionalRecord.attachment"/>
 	</form:label>
 	<form:input path="attachment"/>
-	<form:errors cssClass="errors" path="attachment"/>
+	<form:errors cssClass="error" path="attachment"/>
 	
 	<br/>
 	
@@ -58,11 +58,13 @@
 		<spring:message code="professionalRecord.comments"/>
 	</form:label>
 	<form:input path="comments"/>
-	<form:errors cssClass="errors" path="comments"/>
+	<form:errors cssClass="error" path="comments"/>
 	
 	<br/>
 	
 	<input type="submit" name="save" value="<spring:message code="professionalRecord.save"/>">
-	<input type="submit" name="delete" value="<spring:message code="professionalRecord.delete"/>">
+	<jstl:if test="${professionalRecord.id != 0}">
+		<input type="submit" name="delete" value="<spring:message code="professionalRecord.delete"/>">
+	</jstl:if>
 	<input type="button" name="cancel" value="<spring:message	code="professionalRecord.cancel" />" onclick="javascript: relativeRedir('curriculum/ranger/display.do?curriculumId=${professionalRecord.curriculum.id}');" />
 </form:form>

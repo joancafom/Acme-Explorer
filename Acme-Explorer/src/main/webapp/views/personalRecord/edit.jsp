@@ -9,6 +9,26 @@
 <%@taglib prefix="security"	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
+<spring:message code="phoneNumber.notMatched" var="patternMatchError"></spring:message>
+
+<script type="text/javascript">
+
+	window.onload = function(){
+	document.getElementById('personalRecord').onsubmit = function checkPhoneNumber(){
+		var pattern = new RegExp(/^(\+[0-9]{1,3} \([0-9]{1,3}\) [0-9]{4,}|\+[0-9]{1,3} [0-9]{4,}|[0-9]{4,})$/);
+		var phoneNumber = document.getElementById('phoneNumber').value;
+		
+		var testRes = pattern.test(phoneNumber);
+		var res = true;
+		if(!testRes){
+			res = confirm("${patternMatchError}");
+		}
+		return res;
+		
+		};
+	};
+</script>
+
 <form:form action="personalRecord/ranger/edit.do" modelAttribute="personalRecord">
 	<form:hidden path="id"/>
 	<form:hidden path="version"/>
@@ -41,7 +61,7 @@
 	<form:label path="phoneNumber">
 		<spring:message code="personalRecord.phoneNumber"/>
 	</form:label>
-	<form:input path="phoneNumber"/>
+	<form:input path="phoneNumber" id="phoneNumber"/>
 	<form:errors cssClass="errors" path="phoneNumber"/>
 	
 	<br/>
