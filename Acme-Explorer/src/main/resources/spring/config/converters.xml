@@ -112,6 +112,9 @@
 		
 		<bean class="converters.TripToStringConverter"/>
 		<bean class="converters.StringToTripConverter"/>
+		
+		<bean class="converters.UserAccountToStringConverter"/>
+		<bean class="converters.StringToUserAccountConverter"/>
 
 	</util:list>
 	

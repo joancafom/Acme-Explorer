@@ -58,6 +58,9 @@
 		<security:intercept-url pattern="/audit/auditor/create.do" access="hasRole('AUDITOR')"/>
 
 		<security:intercept-url pattern="/category/list.do" access="isAnonymous()"/>
+		<security:intercept-url pattern="/category/admin/create.do" access="hasRole('ADMIN')"/>
+		<security:intercept-url pattern="/category/admin/edit.do" access="hasRole('ADMIN')"/>
+		<security:intercept-url pattern="/category/admin/list.do" access="hasRole('ADMIN')"/>
 		
 		<security:intercept-url pattern="/curriculum/display.do" access="isAnonymous()"/>
 		<security:intercept-url pattern="/curriculum/ranger/display.do" access="hasRole('RANGER')"/>
@@ -80,6 +83,9 @@
 		
 		<security:intercept-url pattern="/folder/**" access="isAuthenticated()"/>
 		
+		<security:intercept-url pattern="/manager/admin/create.do" access="hasRole('ADMIN')"/>
+		<security:intercept-url pattern="/manager/admin/edit.do" access="hasRole('ADMIN')"/>
+		
 		<security:intercept-url pattern="/message/**" access="isAuthenticated()"/>
 		
 		<security:intercept-url pattern="/miscellaneousRecord/ranger/create.do" access="hasRole('RANGER')"/>
@@ -97,6 +103,8 @@
 		<security:intercept-url pattern="/profile/action-2.do" access="isAuthenticated()" /> 
 		<security:intercept-url pattern="/profile/action-3.do" access="isAuthenticated()" />
 		
+		<security:intercept-url pattern="/ranger/admin/create.do" access="hasRole('ADMIN')"/>
+		<security:intercept-url pattern="/ranger/admin/edit.do" access="hasRole('ADMIN')"/>
 		<security:intercept-url pattern="/ranger/create.do" access="isAnonymous()"/>
 		<security:intercept-url pattern="/ranger/display.do" access="isAnonymous()"/>
 		<security:intercept-url pattern="/ranger/edit.do" access="isAnonymous()"/>
@@ -109,6 +117,8 @@
 		
 		<security:intercept-url pattern="/trip/display.do" access="isAnonymous()"/>
 		<security:intercept-url pattern="/trip/list.do" access="isAnonymous()"/>
+
+		<security:intercept-url pattern="/trip/admin/list.do" access="hasRole('ADMIN')"/>
 		<security:intercept-url pattern="/trip/auditor/list.do" access="hasRole('AUDITOR')"/>
 		<security:intercept-url pattern="/trip/auditor/display.do" access="hasRole('AUDITOR')"/>
 		<security:intercept-url pattern="/trip/manager/list.do" access="hasRole('MANAGER')"/>

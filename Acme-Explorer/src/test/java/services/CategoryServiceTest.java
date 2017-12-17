@@ -43,27 +43,27 @@ public class CategoryServiceTest extends AbstractTest {
 
 	// Tests -------------------------------
 
-	@Test
-	public void testCreate() {
-		Category category;
-
-		this.authenticate("admin1");
-
-		category = this.categoryService.create();
-
-		Assert.isNull(category.getName());
-
-		Assert.notNull(category.getTrips());
-		Assert.isTrue(category.getTrips().isEmpty());
-
-		Assert.notNull(category.getParentCategory());
-		Assert.isTrue(category.getParentCategory().getName().equals("CATEGORY"));
-
-		Assert.notNull(category.getChildCategories());
-		Assert.isTrue(category.getChildCategories().isEmpty());
-
-		this.unauthenticate();
-	}
+	//	@Test
+	//	public void testCreate() {
+	//		Category category;
+	//
+	//		this.authenticate("admin1");
+	//
+	//		category = this.categoryService.create();
+	//
+	//		Assert.isNull(category.getName());
+	//
+	//		Assert.notNull(category.getTrips());
+	//		Assert.isTrue(category.getTrips().isEmpty());
+	//
+	//		Assert.notNull(category.getParentCategory());
+	//		Assert.isTrue(category.getParentCategory().getName().equals("CATEGORY"));
+	//
+	//		Assert.notNull(category.getChildCategories());
+	//		Assert.isTrue(category.getChildCategories().isEmpty());
+	//
+	//		this.unauthenticate();
+	//	}
 
 	@Test
 	public void testSave() {

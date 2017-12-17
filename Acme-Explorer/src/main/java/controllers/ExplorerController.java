@@ -87,7 +87,7 @@ public class ExplorerController extends AbstractController {
 
 		res = new ModelAndView("explorer/edit");
 		res.addObject("actorClassName", "explorer");
-		res.addObject("actor", explorer);
+		res.addObject("explorer", explorer);
 		res.addObject("requestURI", "explorer/create.do");
 		res.addObject("actionURI", "explorer/edit.do");
 

@@ -1,8 +1,11 @@
 
 package controllers.auditor;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -40,5 +43,50 @@ public class ActorAuditorController extends AbstractController {
 
 		return result;
 
+	}
+
+	@RequestMapping(value = "/edit", method = RequestMethod.GET)
+	public ModelAndView edit() {
+		final ModelAndView result;
+		final Auditor actor;
+
+		final UserAccount userAccount = LoginService.getPrincipal();
+		actor = this.auditorService.findByUserAccount(userAccount);
+
+		result = this.createEditModelAndView(actor);
+		return result;
+
+	}
+
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
+	public ModelAndView save(@Valid final Auditor auditor, final BindingResult binding) {
+		ModelAndView result;
+
+		if (binding.hasErrors())
+			result = this.createEditModelAndView(auditor);
+		else
+			try {
+				this.auditorService.save(auditor);
+				result = new ModelAndView("redirect:/actor/auditor/display.do");
+			} catch (final Throwable oops) {
+				result = this.createEditModelAndView(auditor, "message.commit.error");
+			}
+
+		return result;
+
+	}
+
+	private ModelAndView createEditModelAndView(final Auditor actor) {
+		ModelAndView result;
+		result = this.createEditModelAndView(actor, null);
+		return result;
+	}
+
+	private ModelAndView createEditModelAndView(final Auditor actor, final Object object) {
+		ModelAndView result;
+		result = new ModelAndView("auditor/edit");
+		result.addObject("auditor", actor);
+		result.addObject("actorClassName", "auditor");
+		return result;
 	}
 }

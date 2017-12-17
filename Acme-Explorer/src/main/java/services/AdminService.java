@@ -34,6 +34,14 @@ public class AdminService {
 	private ActorService	actorService;
 
 
+	//CRUD
+
+	public Admin save(final Admin admin) {
+
+		Assert.notNull(admin);
+		return this.adminRepository.save(admin);
+	}
+
 	//Other Business process
 
 	public void broadcastNotification(final Message message) {
