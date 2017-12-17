@@ -49,10 +49,9 @@ public class MessageController extends AbstractController {
 
 		messages = this.messageService.findByFolder(folder);
 
-		result = new ModelAndView("message/list");
+		result = new ModelAndView();
 		result.addObject("messages", messages);
 		result.addObject("folderId", folderId);
-		result.addObject("requestURI", "message/list.do?folderId=" + folderId);
 
 		return result;
 	}

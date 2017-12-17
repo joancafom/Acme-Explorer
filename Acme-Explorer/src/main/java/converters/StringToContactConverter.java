@@ -26,9 +26,17 @@ public class StringToContactConverter implements Converter<String, Contact> {
 			try {
 				parts = text.split("\\|");
 				res = new Contact();
-				res.setEmail(URLDecoder.decode(parts[0], "UTF-8"));
+				if (URLDecoder.decode(parts[0], "UTF-8").equals(""))
+					res.setEmail(null);
+				else
+					res.setEmail(URLDecoder.decode(parts[0], "UTF-8"));
+
 				res.setName(URLDecoder.decode(parts[1], "UTF-8"));
-				res.setPhoneNumber(URLDecoder.decode(parts[2], "UTF-8"));
+				if (URLDecoder.decode(parts[2], "UTF-8").equals(""))
+					res.setPhoneNumber(null);
+				else
+					res.setPhoneNumber(URLDecoder.decode(parts[2], "UTF-8"));
+
 			} catch (final Throwable oops) {
 				throw new RuntimeException(oops);
 			}

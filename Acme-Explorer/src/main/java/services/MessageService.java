@@ -107,7 +107,13 @@ public class MessageService {
 		Assert.notNull(message);
 		Assert.isTrue(message.getSender().equals(actor));
 
-		this.messageRepository.delete(message);
+		if (message.getFolder().getName().equals("Trash Box"))
+			this.messageRepository.delete(message);
+
+		else {
+			final Folder trashBox = this.folderService.findByActorAndName(actor, "Trash Box");
+			message.setFolder(trashBox);
+		}
 	}
 
 	/* Other business methods */

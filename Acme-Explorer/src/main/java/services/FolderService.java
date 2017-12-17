@@ -97,6 +97,11 @@ public class FolderService {
 		Assert.notNull(folder);
 		Assert.isTrue(!folder.getIsSystem());
 		Assert.isTrue(folder.getActor().getUserAccount().equals(LoginService.getPrincipal()));
+		Assert.isTrue(!folder.getName().equals("In Box"));
+		Assert.isTrue(!folder.getName().equals("Out Box"));
+		Assert.isTrue(!folder.getName().equals("Notification Box"));
+		Assert.isTrue(!folder.getName().equals("Trash Box"));
+		Assert.isTrue(!folder.getName().equals("Spam Box"));
 
 		return this.folderRepository.save(folder);
 	}

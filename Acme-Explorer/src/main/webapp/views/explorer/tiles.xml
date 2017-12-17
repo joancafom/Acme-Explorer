@@ -32,8 +32,8 @@
 	</definition>
 
 	<definition name="explorer/display" extends="master.page">
-		<put-attribute name="title" value="Explorer"/>
-		<put-attribute name="body" value="/views/explorer/display.jsp"/>
+		<put-attribute name="title" value="Explorer Profile"/>
+		<put-attribute name="body" value="/views/actor/display.jsp"/>
 	</definition>
 	
 </tiles-definitions>

@@ -74,7 +74,7 @@ public class FolderServiceTest extends AbstractTest {
 		// REVISAR !!!
 		// Cómo se comprueba que el findAll() funciona correctamente?
 
-		final Integer currentNumberOfFoldersInTheXML = 31;
+		final Integer currentNumberOfFoldersInTheXML = 32;
 
 		this.authenticate("admin1");
 
