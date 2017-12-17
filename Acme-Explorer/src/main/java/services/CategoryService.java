@@ -34,12 +34,12 @@ public class CategoryService {
 
 	// Simple CRUD methods -----------------
 
-	public Category create() {
+	public Category create(final Category parentCategory) {
 		final Category category;
 
 		category = new Category();
 
-		category.setParentCategory(this.categoryRepository.findByName("CATEGORY"));
+		category.setParentCategory(this.categoryRepository.findOne(parentCategory.getId()));
 		category.setTrips(new HashSet<Trip>());
 		category.setChildCategories(new HashSet<Category>());
 
@@ -91,6 +91,14 @@ public class CategoryService {
 
 		Assert.notNull(category);
 		Assert.isTrue(this.categoryRepository.exists(category.getId()));
+
+		if (category.getChildCategories().isEmpty()) {
+			for (final Trip t : category.getTrips())
+				t.setCategory(category.getParentCategory());
+			this.categoryRepository.delete(category);
+		} else
+			for (final Category c : category.getChildCategories())
+				this.delete(c);
 
 		this.categoryRepository.delete(category);
 	}

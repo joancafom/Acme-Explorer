@@ -13,16 +13,18 @@
 
 <display:table name="rootCategory.childCategories" id="childNode" requestURI="category/${actorWS}list.do" class="displaytag">
 	<display:column titleKey="category.children" sortable="true">
-		<jstl:choose>
-			<jstl:when test="${empty childNode.childCategories}">
-				<jstl:out value="${childNode.name}" />
-			</jstl:when>
-			<jstl:otherwise>
-				<a href="category/${actorWS}list.do?rootCategoryId=${childNode.id}"><jstl:out value="${childNode.name}" /></a>
-			</jstl:otherwise>
-		</jstl:choose>
+		<a href="category/${actorWS}list.do?rootCategoryId=${childNode.id}"><jstl:out value="${childNode.name}" /></a>
 	</display:column>
 	<display:column>
 		<a href="trip/${actorWS}list.do?categoryId=${childNode.id}"><spring:message code="trip.search" /></a>
 	</display:column>
+	<security:authorize access="hasRole('ADMIN')">
+		<display:column>
+			<a href="category/admin/edit.do?categoryId=${childNode.id}"><spring:message code="category.edit"/></a>
+		</display:column>
+	</security:authorize>
 </display:table>
+
+<security:authorize access="hasRole('ADMIN')">
+	<a href="category/admin/create.do?parentCategoryId=${rootCategory.id}"><spring:message code="category.create"/></a>
+</security:authorize>
