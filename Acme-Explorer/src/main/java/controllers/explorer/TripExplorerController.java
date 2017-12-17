@@ -12,9 +12,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.CategoryService;
+import services.FinderService;
 import services.TripService;
 import controllers.AbstractController;
 import domain.Category;
+import domain.Finder;
 import domain.Sponsorship;
 import domain.Trip;
 
@@ -29,22 +31,29 @@ public class TripExplorerController extends AbstractController {
 	@Autowired
 	private CategoryService	categoryService;
 
+	@Autowired
+	private FinderService	finderService;
+
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView list(@RequestParam(required = false) final String keyword, @RequestParam(required = false) final Integer categoryId) {
+	public ModelAndView list(@RequestParam(required = false) final String keyword, @RequestParam(required = false) final Integer categoryId, @RequestParam(required = false) final Integer finderId) {
+
 		final ModelAndView res;
-		final Collection<Trip> trips;
+		Collection<Trip> trips = null;
 
-		if (keyword == null && categoryId == null)
-			trips = this.tripService.findAll();
-		else if (keyword != null)
-			trips = this.tripService.findByKeyWord(keyword);
-		else {
-			Assert.notNull(categoryId);
-			final Category c = this.categoryService.findOne(categoryId);
-			Assert.notNull(c);
+		if (keyword == null && categoryId == null && finderId == null)
+			trips = this.tripService.findAllPublished();
 
-			trips = this.tripService.findByCategory(c);
+		else if (keyword == null && categoryId != null && finderId == null) {
+			final Category category = this.categoryService.findOne(categoryId);
+			trips = this.tripService.findByCategoryPublished(category);
+
+		} else if (keyword != null && categoryId == null && finderId == null)
+			trips = this.tripService.findByKeyWordPublished(keyword);
+
+		else if (keyword == null && categoryId == null && finderId != null) {
+			final Finder finder = this.finderService.findOne(finderId);
+			trips = this.tripService.findByFinderPublished(finder);
 		}
 
 		res = new ModelAndView("trip/list");
@@ -54,6 +63,7 @@ public class TripExplorerController extends AbstractController {
 
 		return res;
 	}
+
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
 	public ModelAndView display(@RequestParam final int tripId) {
 		final ModelAndView res;

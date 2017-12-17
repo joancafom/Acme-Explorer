@@ -83,12 +83,14 @@ public class FinderService {
 		// REVISAR !!!
 		// En el finder es todo notNull o todo Null?
 
+		Assert.isTrue(finder.getKeyword() != null);
 		Assert.isTrue((finder.getMinRange() == null && finder.getMaxRange() == null && finder.getMinDate() == null && finder.getMaxDate() == null)
-			|| (finder.getMinRange() != null && finder.getMaxRange() != null && finder.getMinDate() != null && finder.getMaxDate() != null));
+			|| (finder.getMinRange() != null && finder.getMaxRange() != null && finder.getMinDate() != null && finder.getMaxDate() != null)
+			|| (finder.getMinRange() == null && finder.getMaxRange() == null && finder.getMinDate() != null && finder.getMaxDate() != null)
+			|| (finder.getMinRange() != null && finder.getMaxRange() != null && finder.getMinDate() == null && finder.getMaxDate() == null));
 
 		return this.finderRepository.save(finder);
 	}
-
 	// REVISAR !!!
 	// Es necesario hacer el delete?
 

@@ -53,6 +53,9 @@
 		<bean class="converters.ExplorerToStringConverter"/>
 		<bean class="converters.StringToExplorerConverter"/>
 		
+		<bean class="converters.FinderToStringConverter"/>
+		<bean class="converters.StringToFinderConverter"/>
+		
 		<bean class="converters.FolderToStringConverter" />
 		<bean class="converters.StringToFolderConverter" />
 		
