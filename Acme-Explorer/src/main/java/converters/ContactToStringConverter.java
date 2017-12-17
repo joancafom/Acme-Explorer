@@ -30,12 +30,13 @@ public class ContactToStringConverter implements Converter<Contact, String> {
 					builder.append(URLEncoder.encode(contact.getEmail().toString(), "UTF-8"));
 
 				builder.append("|");
-				builder.append(URLEncoder.encode(contact.getName().toString(), "UTF-8"));
-				builder.append("|");
 				if (contact.getPhoneNumber() == null)
 					builder.append(URLEncoder.encode("", "UTF-8"));
 				else
 					builder.append(URLEncoder.encode(contact.getPhoneNumber().toString(), "UTF-8"));
+
+				builder.append("|");
+				builder.append(URLEncoder.encode(contact.getName().toString(), "UTF-8"));
 
 				res = builder.toString();
 			} catch (final Throwable oops) {

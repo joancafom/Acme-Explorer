@@ -1,8 +1,11 @@
 
 package controllers.sponsor;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -40,5 +43,50 @@ public class ActorSponsorController extends AbstractController {
 
 		return result;
 
+	}
+
+	@RequestMapping(value = "/edit", method = RequestMethod.GET)
+	public ModelAndView edit() {
+		final ModelAndView result;
+		final Sponsor actor;
+
+		final UserAccount userAccount = LoginService.getPrincipal();
+		actor = this.sponsorService.findByUserAccount(userAccount);
+
+		result = this.createEditModelAndView(actor);
+		return result;
+
+	}
+
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
+	public ModelAndView save(@Valid final Sponsor sponsor, final BindingResult binding) {
+		ModelAndView result;
+
+		if (binding.hasErrors())
+			result = this.createEditModelAndView(sponsor);
+		else
+			try {
+				this.sponsorService.save(sponsor);
+				result = new ModelAndView("redirect:/actor/sponsor/display.do");
+			} catch (final Throwable oops) {
+				result = this.createEditModelAndView(sponsor, "message.commit.error");
+			}
+
+		return result;
+
+	}
+
+	private ModelAndView createEditModelAndView(final Sponsor actor) {
+		ModelAndView result;
+		result = this.createEditModelAndView(actor, null);
+		return result;
+	}
+
+	private ModelAndView createEditModelAndView(final Sponsor actor, final Object object) {
+		ModelAndView result;
+		result = new ModelAndView("sponsor/edit");
+		result.addObject("sponsor", actor);
+		result.addObject("actorClassName", "sponsor");
+		return result;
 	}
 }

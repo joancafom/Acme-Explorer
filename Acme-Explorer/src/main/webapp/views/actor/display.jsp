@@ -29,14 +29,15 @@
 </security:authorize>
 
 <!-- Display an actor -->
-<p><spring:message code="actor.name"/>: <jstl:out value="${actor.name}"/></p>
-<p><spring:message code="actor.surname"/>: <jstl:out value="${actor.surname}"/></p>
-<p><spring:message code="actor.email"/>: <jstl:out value="${actor.email}"/></p>
-<p><spring:message code="actor.phoneNumber"/>: <jstl:out value="${actor.phoneNumber}"/></p>
-<br>
+<p><strong><spring:message code="actor.name"/>:</strong> <jstl:out value="${actor.name}"/></p>
+<p><strong><spring:message code="actor.surname"/>:</strong> <jstl:out value="${actor.surname}"/></p>
+<p><strong><spring:message code="actor.email"/>:</strong> <jstl:out value="${actor.email}"/></p>
+<p><strong><spring:message code="actor.phoneNumber"/>:</strong> <jstl:out value="${actor.phoneNumber}"/></p>
+<p><strong><spring:message code="actor.address"/>:</strong> <jstl:out value="${actor.address}"/></p>
+
 <a href="actor/${url}/edit.do"><spring:message code="actor.edit"/></a>
 
-<p><spring:message code="actor.socialIDs"/>:</p>
+<h1><spring:message code="actor.socialIDs"/>:</h1>
 
 <display:table name="socialIDs" id="socialID" pagesize="3" class="displaytag">
 	<display:column titleKey="actor.socialID.nick" sortable="true">
@@ -62,7 +63,7 @@
 <a href="socialID/create.do"><spring:message code="actor.socialID.create"/></a>
 
 <security:authorize access="hasRole('EXPLORER')">
-	<p><spring:message code="actor.explorer.emergencyContacts"/>:</p>
+	<h1><spring:message code="actor.explorer.emergencyContacts"/>:</h1>
 	<display:table name="emergencyContacts" id="emergencyContact" pagesize="3" class="displaytag">
 		<display:column titleKey="actor.explorer.emergencyContact.name" sortable="true">
 			<jstl:out value="${emergencyContact.name}"/>
@@ -81,27 +82,27 @@
 		</display:column>
 	</display:table>
 	<a href="contact/explorer/create.do"><spring:message code="actor.explorer.emergencyContact.create"/></a>
-	<p><spring:message code="actor.explorer.stories"/>: <a href="story/manager/list.do?explorerId=${explorer.id}"><spring:message code="actor.listAll"/></a></p>
-	<p><spring:message code="actor.explorer.tripApplications"/>: <a href="tripApplication/explorer/list.do"><spring:message code="actor.listAll"/></a></p>
-	<p><spring:message code="actor.explorer.survivalClasses"/>: <a href="survivalClass/explorer/list.do"><spring:message code="actor.listAll"/></a></p>
+	<p><strong><spring:message code="actor.explorer.stories"/>:</strong> <a href="story/manager/list.do?explorerId=${explorer.id}"><spring:message code="actor.listAll"/></a></p>
+	<p><strong><spring:message code="actor.explorer.tripApplications"/>:</strong> <a href="tripApplication/explorer/list.do"><spring:message code="actor.listAll"/></a></p>
+	<p><strong><spring:message code="actor.explorer.survivalClasses"/>:</strong> <a href="survivalClass/explorer/list.do"><spring:message code="actor.listAll"/></a></p>
 </security:authorize>
 
 <security:authorize access="hasRole('MANAGER')">
-	<p><spring:message code="actor.manager.survivalClasses"/>: <a href="survivalClass/manager/list.do"><spring:message code="actor.listAll"/></a></p>
-	<p><spring:message code="actor.manager.trips"/>: <a href="trip/manager/list.do"><spring:message code="actor.listAll"/></a></p>
+	<p><strong><spring:message code="actor.manager.survivalClasses"/>:</strong> <a href="survivalClass/manager/list.do"><spring:message code="actor.listAll"/></a></p>
+	<p><strong><spring:message code="actor.manager.trips"/>:</strong> <a href="trip/manager/list.do"><spring:message code="actor.listAll"/></a></p>
 </security:authorize>
 
 <security:authorize access="hasRole('RANGER')">
-	<p><spring:message code="actor.ranger.curriculum"/>: <a href="curriculum/display.do?curriculumId=${ranger.curriculum.id}"><spring:message code="actor.ranger.curriculum.display"/></a></p>
+	<p><strong><spring:message code="actor.ranger.curriculum"/>:</strong> <a href="curriculum/ranger/display.do?curriculumId=${actor.curriculum.id}"><spring:message code="actor.ranger.curriculum.display"/></a></p>
 </security:authorize>
 
 <security:authorize access="hasRole('AUDITOR')">
-	<p><spring:message code="actor.auditor.audits"/>: <a href="audit/auditor/list.do"><spring:message code="actor.listAll"/></a></p>
-	<p><spring:message code="actor.auditor.notes"/>: <a href="note/auditor/list.do"><spring:message code="actor.listAll"/></a></p>
+	<p><strong><spring:message code="actor.auditor.audits"/>:</strong> <a href="audit/auditor/list.do"><spring:message code="actor.listAll"/></a></p>
+	<p><strong><spring:message code="actor.auditor.notes"/>:</strong> <a href="note/auditor/list.do"><spring:message code="actor.listAll"/></a></p>
 </security:authorize>
 
 <security:authorize access="hasRole('SPONSOR')">
-	<p><spring:message code="actor.sponsor.sponsorships"/>: <a href="sponsorship/sponsor/list.do"><spring:message code="actor.listAll"/></a></p>
+	<p><strong><spring:message code="actor.sponsor.sponsorships"/>:</strong> <a href="sponsorship/sponsor/list.do"><spring:message code="actor.listAll"/></a></p>
 </security:authorize>
 
 
