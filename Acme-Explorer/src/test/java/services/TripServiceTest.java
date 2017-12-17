@@ -304,7 +304,7 @@ public class TripServiceTest extends AbstractTest {
 	}
 
 	@Test
-	public void testFindByFinder() {
+	public void testFindByFinderPublished() {
 		this.authenticate("explorer2");
 
 		final Explorer explorer = this.explorerService.findByUserAccount(LoginService.getPrincipal());
@@ -321,10 +321,10 @@ public class TripServiceTest extends AbstractTest {
 
 		final Collection<Trip> trips = this.tripService.findAll();
 		final Collection<Trip> tripsFinder1 = new ArrayList<Trip>();
-		final Collection<Trip> tripsFinder2 = this.tripService.findByFinder(savedFinder);
+		final Collection<Trip> tripsFinder2 = this.tripService.findByFinderPublished(savedFinder);
 
 		for (final Trip t : trips)
-			if (t.getPrice() > savedFinder.getMinRange() && t.getPrice() < savedFinder.getMaxRange() && t.getStartingDate().after(savedFinder.getMinDate()) && t.getEndingDate().before(savedFinder.getMaxDate()))
+			if (t.getPrice() > savedFinder.getMinRange() && t.getPrice() < savedFinder.getMaxRange() && t.getStartingDate().after(savedFinder.getMinDate()) && t.getEndingDate().before(savedFinder.getMaxDate()) && t.getPublicationDate().before(new Date()))
 				tripsFinder1.add(t);
 
 		Assert.isTrue(tripsFinder2.containsAll(tripsFinder1));

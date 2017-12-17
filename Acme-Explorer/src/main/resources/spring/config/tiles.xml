@@ -35,6 +35,7 @@
 		<value>/views/educationRecord/tiles.xml</value>
 		<value>/views/endorserRecord/tiles.xml</value>
 		<value>/views/explorer/tiles.xml</value>
+		<value>/views/finder/tiles.xml</value>
 		<value>/views/folder/tiles.xml</value>
 		<value>/views/legalText/tiles.xml</value>
 		<value>/views/manager/tiles.xml</value>
