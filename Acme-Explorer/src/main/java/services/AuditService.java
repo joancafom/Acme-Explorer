@@ -34,6 +34,9 @@ public class AuditService {
 	private AuditorService				auditorService;
 
 	@Autowired
+	private TripService					tripService;
+
+	@Autowired
 	private SystemConfigurationService	systemConfigurationService;
 
 
@@ -48,8 +51,7 @@ public class AuditService {
 
 		Assert.notNull(t);
 
-		for (final Audit a : auditor.getAudits())
-			Assert.isTrue(!a.getTrip().equals(t));
+		Assert.isTrue(!this.tripService.findAuditorAuditedTrips(auditor).contains(t));
 
 		final Audit audit = new Audit();
 		audit.setTrip(t);
@@ -75,6 +77,8 @@ public class AuditService {
 
 		final Auditor auditor = this.auditorService.findByUserAccount(userAccount);
 
+		Assert.notNull(auditor);
+
 		final Collection<Audit> audits = this.auditRepository.findAuditsManagedByAuditor(auditor.getId());
 
 		return audits;
@@ -84,7 +88,8 @@ public class AuditService {
 	public Audit save(final Audit audit) {
 		final UserAccount userAccount = LoginService.getPrincipal();
 
-		Assert.isTrue(!this.auditRepository.findOne(audit.getId()).getIsFinal());
+		if (audit.getId() != 0)
+			Assert.isTrue(!this.auditRepository.findOne(audit.getId()).getIsFinal());
 
 		final Auditor auditor = this.auditorService.findByUserAccount(userAccount);
 		Assert.isTrue(audit.getAuditor().equals(auditor));
@@ -129,7 +134,7 @@ public class AuditService {
 		return this.auditRepository.findByTripId(t.getId());
 	}
 
-	public Boolean decideSuspiciousness(final String testString) {
+	private Boolean decideSuspiciousness(final String testString) {
 		final SystemConfiguration sysConfig = this.systemConfigurationService.getCurrentSystemConfiguration();
 		Assert.notNull(sysConfig);
 

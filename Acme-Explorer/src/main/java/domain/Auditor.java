@@ -6,7 +6,6 @@ import java.util.Collection;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -30,7 +29,7 @@ public class Auditor extends Actor {
 
 	@NotNull
 	@Valid
-	@ManyToMany
+	@OneToMany(mappedBy = "auditor")
 	//mappedBy is in the Audit class!
 	public Collection<Audit> getAudits() {
 		return this.audits;

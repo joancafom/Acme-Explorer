@@ -98,6 +98,8 @@ public class CurriculumRangerController extends AbstractController {
 		res = new ModelAndView("curriculum/edit");
 		res.addObject("curriculum", curriculum);
 
+		res.addObject("message", messageCode);
+
 		return res;
 	}
 
