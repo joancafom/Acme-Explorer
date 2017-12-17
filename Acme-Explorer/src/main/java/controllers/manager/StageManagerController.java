@@ -54,7 +54,7 @@ public class StageManagerController extends AbstractController {
 
 	//Edit
 	@RequestMapping(value = "/edit")
-	public ModelAndView save(@RequestParam final int stageId) {
+	public ModelAndView edit(@RequestParam final int stageId) {
 		final ModelAndView res;
 
 		Stage stage;

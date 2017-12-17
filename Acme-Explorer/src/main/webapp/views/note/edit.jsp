@@ -9,21 +9,6 @@
 <%@taglib prefix="security"	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<spring:message code="date.format" var="dateFormat"></spring:message>
-
-<p>
-	<spring:message code="note.trip"/>: <a href="trip/manager/display.do?tripId=${note.trip.id}"><jstl:out value="${note.trip.ticker}" /></a>
-</p>
-<p>
-	<spring:message code="note.remark" />: <jstl:out value="${note.remark}"></jstl:out>
-</p>
-<p>
-	<spring:message code="note.writtenMoment" />: <fmt:formatDate value="${note.moment}" pattern="${dateFormat}" />
-</p>
-<p>
-	<spring:message code="note.auditor" />: <jstl:out value="${note.auditor.surname}" />, <jstl:out value="${note.auditor.name}" />
-</p>
-
 <form:form action="note/manager/edit.do" modelAttribute="note">
 
 	<form:hidden path="id"/>
@@ -35,6 +20,7 @@
 	
 	<form:input path="reply"/>
 	
-	<input type="submit" name="save" value="<spring:message code="form.save" />" />
+	<input type="submit" name="save" value="<spring:message code="note.save" />" />
+	<input type="button" name="cancel" value="<spring:message code="note.cancel"/>" onclick="javascript: relativeRedir('note/manager/list.do');" />
 	
 </form:form>

@@ -69,6 +69,9 @@
 		<security:intercept-url pattern="/miscellaneousRecord/ranger/create.do" access="hasRole('RANGER')"/>
 		<security:intercept-url pattern="/miscellaneousRecord/ranger/edit.do" access="hasRole('RANGER')"/>
 
+		<security:intercept-url pattern="/note/manager/list.do" access="hasRole('MANAGER')"/>
+		<security:intercept-url pattern="/note/manager/edit.do" access="hasRole('MANAGER')"/>
+
 		<security:intercept-url pattern="/personalRecord/ranger/edit.do" access="hasRole('RANGER')"/>
 		
 		<security:intercept-url pattern="/professionalRecord/ranger/create.do" access="hasRole('RANGER')"/>

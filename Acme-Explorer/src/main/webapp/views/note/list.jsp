@@ -8,8 +8,6 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<h1><spring:message code="note.list"/></h1>
-
 <display:table name="notes" id="note" requestURI="${requestURI}" pagesize="5" class="displaytag">
 
 	<security:authorize access="hasRole('AUDITOR')">
@@ -26,7 +24,8 @@
 
 	<display:column property="remark" titleKey="note.remark"/>
 	
-	<spring:message code="date.format" var="dateFormat"></spring:message>	
+	<spring:message code="date.format" var="dateFormat" />	
+	<spring:message code="date.format2" var="dateFormat2" />	
 	<display:column property="writtenMoment" titleKey="note.writtenMoment" sortable="true" format="${dateFormat}"></display:column>
 	
 	<display:column titleKey="note.reply">
@@ -45,20 +44,20 @@
 		</jstl:if>
 		
 		<jstl:if test="${note.replyMoment != null}">
-			<fmt:formatDate value="${note.replyMoment}" pattern="${dateFormat}"/>
+			<fmt:formatDate value="${note.replyMoment}" pattern="${dateFormat2}"/>
 		</jstl:if>
 	</display:column>
 	
 	<display:column titleKey="note.auditor" sortable="true">
-		<p><jstl:out value="${note.auditor.surname}"></jstl:out>, <jstl:out value="${note.auditor.name}"></jstl:out></p>
+		<jstl:out value="${note.auditor.surname}"></jstl:out>, <jstl:out value="${note.auditor.name}"></jstl:out>
 	</display:column>
 	
 	<security:authorize access="hasRole('MANAGER')">
-		<display:column>
-			<jstl:if test="${note.reply == null}">
+		<jstl:if test="${note.reply == null}">
+			<display:column>
 				<a href="note/manager/edit.do?noteId=${note.id}"><spring:message code="note.edit"/></a>
-			</jstl:if>
-		</display:column>
+			</display:column>
+		</jstl:if>
 	</security:authorize>
 		
 </display:table>
