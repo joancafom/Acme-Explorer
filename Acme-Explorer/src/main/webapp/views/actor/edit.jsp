@@ -427,6 +427,91 @@
 </form:form>
 </jstl:if>
 
+<jstl:if test="${actorClassName == 'manager' && manager.id==0}">
+	
+	<form:form action="${actionURI}" modelAttribute="manager">
+		
+		<%-- Common Actor Attributes --%>
+		<form:hidden path="id"/>
+		<form:hidden path="version"/>
+		<form:hidden path="isSuspicious"/>
+		<form:hidden path="socialIDs"/>
+		<form:hidden path="sentMessages"/>
+		<form:hidden path="receivedMessages"/>
+		<form:hidden path="userAccount.authorities"/>
+	
+		<%-- Manager Attributes --%>
+
+		<form:hidden path="trips"/>
+		<form:hidden path="survivalClasses"/>
+		
+		<%-- Manager Begins --%>
+	
+		<form:label path="name">
+			<spring:message code="actor.name" />
+		</form:label>
+		<form:input path="name"/>
+		<form:errors cssClass="error" path="name"></form:errors>
+		<br />
+	
+		<form:label path="surname">
+			<spring:message code="actor.surname" />
+		</form:label>
+		<form:input path="surname"/>
+		<form:errors cssClass="error" path="surname"></form:errors>
+		<br />
+	
+		<form:label path="email">
+			<spring:message code="actor.email" />
+		</form:label>
+		<form:input path="email"/>
+		<form:errors cssClass="error" path="email"></form:errors>
+		<br />
+	
+		<form:label path="userAccount.username">
+			<spring:message code="actor.userAccount.username" />
+		</form:label>
+		<form:input path="userAccount.username"/>
+		<form:errors cssClass="error" path="userAccount.username"></form:errors>
+		<br />
+	
+		<form:label path="userAccount.password">
+			<spring:message code="actor.userAccount.password" />
+		</form:label>
+		<form:password id="pass1" path="userAccount.password"/>
+		<form:errors cssClass="error" path="userAccount.password"></form:errors>
+		<br />
+	
+		<%-- I don't want this to be sent --%>
+		<label for="pass2">
+			<spring:message code="actor.userAccount.repeatPassword" />
+		</label>
+		<input id="pass2" type="password" onkeyup="checkPasswords()" />
+		<p id="passwordMatchMessage"></p>
+	
+		<form:label path="address">
+			<spring:message code="actor.address" />
+		</form:label>
+		<form:input path="address"/>
+		<br />
+	
+		<form:label path="phoneNumber">
+			<spring:message code="actor.phoneNumber" />
+		</form:label>
+		<form:input id="phoneNumber" path="phoneNumber"/>
+		<form:errors cssClass="error" path="phoneNumber"></form:errors>
+		<br />
+	
+		<input type="button" name="cancel"
+			value="<spring:message code="actor.cancel" />"
+			onclick="javascript: relativeRedir('/welcome/index.do')" />
+		<br />
+	
+		<input id="submitButton" disabled type="submit" name="save" value="<spring:message code="actor.save" />" />
+	</form:form>
+	
+</jstl:if>
+
 <jstl:if test="${actorClassName == 'manager' && manager.id!=0}">
 	<form:form action="actor/manager/edit.do" modelAttribute="manager">
 	<%-- Common Actor Attributes --%>
