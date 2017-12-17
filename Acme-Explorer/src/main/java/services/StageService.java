@@ -50,12 +50,12 @@ public class StageService {
 		int number = 1;
 
 		if (!trip.getStages().isEmpty())
-			for (int i = 0; i < trip.getStages().size() + 1; i++)
+			for (int i = 0; i < trip.getStages().size(); i++)
 				number += 1;
 
 		stage.setNumber(number);
 		stage.setTrip(trip);
-		trip.getStages().add(stage);
+		//trip.getStages().add(stage);
 
 		return stage;
 	}
@@ -86,6 +86,12 @@ public class StageService {
 		final Date currentDate = new Date();
 		Assert.isTrue(stage.getTrip().getPublicationDate().after(currentDate));
 
+		final Trip t = stage.getTrip();
+		if (stage.getId() != 0)
+			t.setPrice(t.getPrice() - this.findOne(stage.getId()).getPrice());
+
+		t.setPrice(t.getPrice() + stage.getPrice());
+
 		return this.stageRepository.save(stage);
 	}
 
@@ -96,6 +102,9 @@ public class StageService {
 		Assert.isTrue(stage.getTrip().getPublicationDate().after(currentDate));
 
 		Assert.isTrue(this.stageRepository.exists(stage.getId()));
+
+		final Trip t = stage.getTrip();
+		t.setPrice(t.getPrice() - stage.getPrice());
 
 		this.stageRepository.delete(stage);
 	}

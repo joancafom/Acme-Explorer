@@ -8,7 +8,6 @@ import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
@@ -179,8 +178,7 @@ public class Trip extends DomainEntity {
 
 	@NotNull
 	@Valid
-	@ManyToMany
-	//mappedBy should be in the TagValue class!!
+	@OneToMany(mappedBy = "trip")
 	public Collection<TagValue> getTagValues() {
 		return this.tagValues;
 	}

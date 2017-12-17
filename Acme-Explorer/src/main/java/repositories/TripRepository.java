@@ -36,13 +36,34 @@ public interface TripRepository extends JpaRepository<Trip, Integer> {
 	// REVISAR
 
 	//DONE: Limit the Query
-	@Query(value = "select t from Trip t where t.price > ?1 and t.price < ?2 and t.startingDate > ?3 and t.endingDate < ?4 and (t.ticker like %?5% or t.title like %?5% or t.description like %?5%)")
-	Page<Trip> findByFinderAttributes(Pageable pageable, double minPrice, double maxPrice, Date minDate, Date maxDate, String keyWord);
+	@Query(value = "select t from Trip t where t.price > ?1 and t.price < ?2 and t.startingDate > ?3 and t.endingDate < ?4 and (t.ticker like %?5% or t.title like %?5% or t.description like %?5%) and t.publicationDate < CURRENT_DATE")
+	Page<Trip> findByFinderAttributesPublished(Pageable pageable, double minPrice, double maxPrice, Date minDate, Date maxDate, String keyWord);
+
+	@Query(value = "select t from Trip t where t.price > ?1 and t.price < ?2 and (t.ticker like %?3% or t.title like %?3% or t.description like %?3%) and t.publicationDate < CURRENT_DATE")
+	Page<Trip> findByKeyWordAndRangePublished(Pageable pageable, double minPrice, double maxPrice, String keyWord);
+
+	@Query(value = "select t from Trip t where t.startingDate > ?1 and t.endingDate < ?2 and (t.ticker like %?3% or t.title like %?3% or t.description like %?3%) and t.publicationDate < CURRENT_DATE")
+	Page<Trip> findByKeyWordAndDatePublished(Pageable pageable, Date minDate, Date maxDate, String keyWord);
 
 	@Query("select t.trip from TripApplication t where t.explorer.id = ?1 and t.status = 'ACCEPTED'")
 	Collection<Trip> findExplorerAcceptedTrips(int explorerId);
 
 	@Query("select t.trip from TripApplication t where t.explorer.id = ?1 and t.status = 'ACCEPTED' and t.trip.endingDate < CURRENT_DATE")
 	Collection<Trip> findExplorerAcceptedAndOverTrips(int explorerId);
+
+	@Query("select t from Trip t where t.publicationDate < CURRENT_DATE")
+	Collection<Trip> findAllPublished2();
+
+	@Query(value = "select t from Trip t where t.publicationDate < CURRENT_DATE")
+	Page<Trip> findAllPublished(Pageable pageable);
+
+	@Query("select t from Trip t where t.category.id = ?1 and t.publicationDate < CURRENT_DATE")
+	Collection<Trip> findByCategoryIdPublished(int categoryId);
+
+	@Query("select t from Trip t where (t.ticker like %?1% or t.title like %?1% or t.description like %?1%) and t.publicationDate < CURRENT_DATE")
+	Collection<Trip> findByKeyWordPublished2(String keyWord);
+
+	@Query(value = "select t from Trip t where (t.ticker like %?1% or t.title like %?1% or t.description like %?1%) and t.publicationDate < CURRENT_DATE")
+	Page<Trip> findByKeyWordPublished(Pageable pageable, String keyWord);
 
 }

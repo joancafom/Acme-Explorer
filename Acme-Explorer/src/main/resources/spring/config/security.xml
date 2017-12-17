@@ -70,12 +70,18 @@
 		<security:intercept-url pattern="/explorer/create.do" access="isAnonymous()"/>
 		<security:intercept-url pattern="/explorer/edit.do" access="isAnonymous()"/>
 		
+		<security:intercept-url pattern="/finder/explorer/display.do" access="hasRole('EXPLORER')"/>
+		<security:intercept-url pattern="/finder/explorer/edit.do" access="hasRole('EXPLORER')"/>
+		
 		<security:intercept-url pattern="/folder/**" access="isAuthenticated()"/>
 		
 		<security:intercept-url pattern="/message/**" access="isAuthenticated()"/>
 		
 		<security:intercept-url pattern="/miscellaneousRecord/ranger/create.do" access="hasRole('RANGER')"/>
 		<security:intercept-url pattern="/miscellaneousRecord/ranger/edit.do" access="hasRole('RANGER')"/>
+
+		<security:intercept-url pattern="/note/manager/list.do" access="hasRole('MANAGER')"/>
+		<security:intercept-url pattern="/note/manager/edit.do" access="hasRole('MANAGER')"/>
 
 		<security:intercept-url pattern="/personalRecord/ranger/edit.do" access="hasRole('RANGER')"/>
 		
@@ -90,6 +96,12 @@
 		<security:intercept-url pattern="/ranger/display.do" access="isAnonymous()"/>
 		<security:intercept-url pattern="/ranger/edit.do" access="isAnonymous()"/>
 		
+		<security:intercept-url pattern="/stage/manager/edit.do" access="hasRole('MANAGER')"/>
+		<security:intercept-url pattern="/stage/manager/create.do" access="hasRole('MANAGER')"/>
+		
+		<security:intercept-url pattern="/tagValue/manager/edit.do" access="hasRole('MANAGER')"/>
+		<security:intercept-url pattern="/tagValue/manager/create.do" access="hasRole('MANAGER')"/>
+		
 		<security:intercept-url pattern="/trip/display.do" access="isAnonymous()"/>
 		<security:intercept-url pattern="/trip/list.do" access="isAnonymous()"/>
 		<security:intercept-url pattern="/trip/manager/list.do" access="hasRole('MANAGER')"/>
@@ -97,6 +109,7 @@
 		<security:intercept-url pattern="/trip/explorer/list.do" access="hasRole('EXPLORER')"/>
 		<security:intercept-url pattern="/trip/manager/edit.do" access="hasRole('MANAGER')"/>
 		<security:intercept-url pattern="/trip/manager/create.do" access="hasRole('MANAGER')"/>
+		<security:intercept-url pattern="/trip/manager/display.do" access="hasRole('MANAGER')"/>
 		<security:intercept-url pattern="/trip/search.do" access="isAnonymous()"/>
 		<security:intercept-url pattern="/tripApplication/explorer/**" access="hasRole('EXPLORER')"/>
 		

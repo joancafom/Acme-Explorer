@@ -1,4 +1,3 @@
-
 package converters;
 
 import javax.transaction.Transactional;
@@ -24,3 +23,4 @@ public class FinderToStringConverter implements Converter<Finder, String> {
 		return res;
 	}
 }
+

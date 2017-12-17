@@ -193,25 +193,73 @@ public class TripService {
 		return trips;
 	}
 
-	public Collection<Trip> findByFinder(final Finder finder) {
+	public Collection<Trip> findByFinderPublished(final Finder finder) {
 		Assert.notNull(finder);
 
 		Explorer explorer;
-		Collection<Trip> trips;
+		Collection<Trip> trips = null;
 
 		explorer = this.explorerService.findByUserAccount(LoginService.getPrincipal());
 
 		Assert.isTrue(finder.getId() == explorer.getFinder().getId());
 
-		if (finder.getMinRange() == null && finder.getMaxRange() == null && finder.getMinDate() == null && finder.getMaxDate() == null)
-			trips = this.tripRepository.findPublishedButNotStarted();
-		else {
-			final SystemConfiguration sysConfig = this.systemConfigurationService.getCurrentSystemConfiguration();
-			Assert.notNull(sysConfig);
-			final Page<Trip> tripPage = this.tripRepository.findByFinderAttributes(new PageRequest(0, sysConfig.getMaxNumResults()), finder.getMinRange(), finder.getMaxRange(), finder.getMinDate(), finder.getMaxDate(), finder.getKeyword());
+		final SystemConfiguration sysConfig = this.systemConfigurationService.getCurrentSystemConfiguration();
+		Assert.notNull(sysConfig);
+
+		if (finder.getKeyword() == null && finder.getMinRange() == null && finder.getMaxRange() == null && finder.getMinDate() == null && finder.getMaxDate() == null) {
+			final Page<Trip> tripPage = this.tripRepository.findAllPublished(new PageRequest(0, sysConfig.getMaxNumResults()));
+			trips = tripPage.getContent();
+
+		} else if (finder.getKeyword() != null && finder.getMinRange() == null && finder.getMaxRange() == null && finder.getMinDate() == null && finder.getMaxDate() == null) {
+			final Page<Trip> tripPage = this.tripRepository.findByKeyWordPublished(new PageRequest(0, sysConfig.getMaxNumResults()), finder.getKeyword());
+			trips = tripPage.getContent();
+
+		} else if (finder.getKeyword() != null && finder.getMinRange() != null && finder.getMaxRange() != null && finder.getMinDate() == null && finder.getMaxDate() == null) {
+			final Page<Trip> tripPage = this.tripRepository.findByKeyWordAndRangePublished(new PageRequest(0, sysConfig.getMaxNumResults()), finder.getMinRange(), finder.getMaxRange(), finder.getKeyword());
+			trips = tripPage.getContent();
+
+		} else if (finder.getKeyword() != null && finder.getMinRange() == null && finder.getMaxRange() == null && finder.getMinDate() != null && finder.getMaxDate() != null) {
+			final Page<Trip> tripPage = this.tripRepository.findByKeyWordAndDatePublished(new PageRequest(0, sysConfig.getMaxNumResults()), finder.getMinDate(), finder.getMaxDate(), finder.getKeyword());
+			trips = tripPage.getContent();
+
+		} else if (finder.getKeyword() != null && finder.getMinRange() != null && finder.getMaxRange() != null && finder.getMinDate() != null && finder.getMaxDate() != null) {
+			final Page<Trip> tripPage = this.tripRepository.findByFinderAttributesPublished(new PageRequest(0, sysConfig.getMaxNumResults()), finder.getMinRange(), finder.getMaxRange(), finder.getMinDate(), finder.getMaxDate(), finder.getKeyword());
 			trips = tripPage.getContent();
 		}
 
+		Assert.notNull(trips);
+
+		return trips;
+	}
+	public Collection<Trip> findAllPublished() {
+		Collection<Trip> trips;
+
+		Assert.notNull(this.tripRepository);
+		trips = this.tripRepository.findAllPublished2();
+		Assert.notNull(trips);
+
+		return trips;
+	}
+
+	public Collection<Trip> findByCategoryPublished(final Category category) {
+		Assert.notNull(category);
+
+		final Collection<Trip> trips;
+
+		Assert.notNull(this.tripRepository);
+		trips = this.tripRepository.findByCategoryIdPublished(category.getId());
+		Assert.notNull(trips);
+
+		return trips;
+	}
+
+	public Collection<Trip> findByKeyWordPublished(final String keyWord) {
+		Assert.notNull(keyWord);
+
+		Collection<Trip> trips;
+
+		Assert.notNull(this.tripRepository);
+		trips = this.tripRepository.findByKeyWordPublished2(keyWord);
 		Assert.notNull(trips);
 
 		return trips;
