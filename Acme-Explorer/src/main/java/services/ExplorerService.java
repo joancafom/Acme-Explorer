@@ -15,6 +15,7 @@ import security.Authority;
 import security.UserAccount;
 import domain.Contact;
 import domain.Explorer;
+import domain.Finder;
 import domain.Story;
 import domain.SurvivalClass;
 import domain.TripApplication;
@@ -32,7 +33,7 @@ public class ExplorerService {
 	private ActorService		actorService;
 
 
-	public Explorer create(final UserAccount userAccount) {
+	public Explorer create(final UserAccount userAccount, final Finder finder) {
 
 		Assert.notNull(userAccount);
 
@@ -52,6 +53,7 @@ public class ExplorerService {
 		explorer.setSurvivalClasses(new ArrayList<SurvivalClass>());
 		explorer.setTripApplications(new ArrayList<TripApplication>());
 		explorer.setEmergencyContacts(new ArrayList<Contact>());
+		explorer.setFinder(finder);
 
 		return explorer;
 	}
@@ -68,7 +70,6 @@ public class ExplorerService {
 
 		return this.explorerRepository.save(explorer);
 	}
-
 	public Explorer findByUserAccount(final UserAccount userAccount) {
 
 		Assert.notNull(userAccount);

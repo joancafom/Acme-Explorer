@@ -50,6 +50,9 @@
 	<display:column property="category.name" titleKey="trip.category" sortable="true"></display:column>
 		
 	<security:authorize access="hasRole('MANAGER')">
+		<display:column titleKey="tripApplications">
+			<a href="tripApplication/manager/list.do?tripId=${trip.id}"><spring:message code="tripApplication.list"/></a>
+		</display:column>
 		<spring:message code="date.format2" var="dateFormat2"></spring:message>
 		<jsp:useBean id="now" class="java.util.Date" />
 		<fmt:formatDate value="${now}" pattern="${dateFormat2}"/>

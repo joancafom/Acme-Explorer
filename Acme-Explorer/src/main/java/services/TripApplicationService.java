@@ -236,10 +236,22 @@ public class TripApplicationService {
 
 	}
 
+
 	public TripApplication findByExplorerAndTrip(final Explorer explorer, final Trip trip) {
 		Assert.notNull(explorer);
 		Assert.notNull(trip);
 
 		return this.applicationRepository.findByExplorerIdAndTripId(explorer.getId(), trip.getId());
+
+	public Collection<TripApplication> findAllByTrip(final Trip trip) {
+		Assert.notNull(trip);
+
+		final UserAccount userAccount = LoginService.getPrincipal();
+		final Manager manager = this.managerService.findByUserAccount(userAccount);
+		Assert.isTrue(manager.getTrips().contains(trip));
+
+		final Collection<TripApplication> tripApplications = this.applicationRepository.findAllByTrip(trip.getId());
+		return tripApplications;
+
 	}
 }
