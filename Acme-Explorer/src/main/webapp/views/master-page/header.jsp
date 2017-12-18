@@ -24,24 +24,83 @@
 			<li><a class="fNiv"><spring:message	code="master.page.administrator" /></a>
 				<ul>
 					<li class="arrow"></li>
-					<li><a href="administrator/action-1.do"><spring:message code="master.page.administrator.action.1" /></a></li>
-					<li><a href="administrator/action-2.do"><spring:message code="master.page.administrator.action.2" /></a></li>					
+					<li><a href="actor/admin/display.do">My Profile</a></li>
+					<li><a href="category/admin/list.do">Taxonomy of Categories</a></li>					
+					<li><a href="manager/admin/create.do">Register a Manager</a></li>					
+					<li><a href="ranger/admin/create.do">Register a Ranger</a></li>					
+					<li><a href="trip/admin/list.do">List of Trips</a></li>					
+					<li><a href="folder/list.do">My Folders</a></li>					
 				</ul>
 			</li>
 		</security:authorize>
 		
-		<security:authorize access="hasRole('CUSTOMER')">
-			<li><a class="fNiv"><spring:message	code="master.page.customer" /></a>
+		<security:authorize access="hasRole('AUDITOR')">
+			<li><a class="fNiv">AUDITOR</a>
 				<ul>
 					<li class="arrow"></li>
-					<li><a href="customer/action-1.do"><spring:message code="master.page.customer.action.1" /></a></li>
-					<li><a href="customer/action-2.do"><spring:message code="master.page.customer.action.2" /></a></li>					
+					<li><a href="actor/auditor/display.do">My Profile</a></li>
+					<li><a href="audit/auditor/list.do">My Audit Records</a></li>										
+					<li><a href="trip/auditor/list.do">List of Trips</a></li>					
+					<li><a href="folder/list.do">My Folders</a></li>				
+				</ul>
+			</li>
+		</security:authorize>
+		
+		<security:authorize access="hasRole('EXPLORER')">
+			<li><a class="fNiv">EXPLORER</a>
+				<ul>
+					<li class="arrow"></li>
+					<li><a href="actor/explorer/display.do">My Profile</a></li>
+					<li><a href="finder/explorer/display.do">My Finder -</a></li>									
+					<li><a href="trip/explorer/list.do">List of Trips</a></li>					
+					<li><a href="tripApplication/explorer/list.do">My Trip application</a></li>					
+					<li><a href="folder/list.do">My Folders</a></li>				
+				</ul>
+			</li>
+		</security:authorize>
+		
+		<security:authorize access="hasRole('MANAGER')">
+			<li><a class="fNiv">MANAGER</a>
+				<ul>
+					<li class="arrow"></li>
+					<li><a href="actor/manager/display.do">My Profile</a></li>									
+					<li><a href="trip/manager/list.do">List of my Trips</a></li>								
+					<li><a href="folder/list.do">My Folders</a></li>				
+				</ul>
+			</li>
+		</security:authorize>
+		
+		<security:authorize access="hasRole('RANGER')">
+			<li><a class="fNiv">RANGER</a>
+				<ul>
+					<li class="arrow"></li>
+					<li><a href="actor/ranger/display.do">My Profile</a></li>								
+					<li><a href="folder/list.do">My Folders</a></li>				
+				</ul>
+			</li>
+		</security:authorize>
+		
+		<security:authorize access="hasRole('SPONSOR')">
+			<li><a class="fNiv">SPONSOR</a>
+				<ul>
+					<li class="arrow"></li>
+					<li><a href="actor/sponsor/display.do">My Profile</a></li>																
+					<li><a href="folder/list.do">My Folders</a></li>				
 				</ul>
 			</li>
 		</security:authorize>
 		
 		<security:authorize access="isAnonymous()">
-			<li><a class="fNiv" href="security/login.do"><spring:message code="master.page.login" /></a></li>
+			<li><a class="fNiv" href="security/login.do"><spring:message code="master.page.login" /></a>
+				<ul>
+					<li class="arrow"></li>
+					<li><a href="category/list.do">List of Categories</a></li>																
+					<li><a href="explorer/create.do">Create an Explorer Account</a></li>				
+					<li><a href="ranger/create.do">Create a Ranger Account</a></li>				
+					<li><a href="trip/list.do">List of Trips</a></li>				
+					<li><a href="trip/search.do">Search of Trips</a></li>				
+				</ul>
+			</li>
 		</security:authorize>
 		
 		<security:authorize access="isAuthenticated()">
