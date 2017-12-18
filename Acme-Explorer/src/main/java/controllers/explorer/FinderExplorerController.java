@@ -12,8 +12,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import security.LoginService;
+import security.UserAccount;
+import services.ExplorerService;
 import services.FinderService;
 import controllers.AbstractController;
+import domain.Explorer;
 import domain.Finder;
 
 @Controller
@@ -25,6 +29,9 @@ public class FinderExplorerController extends AbstractController {
 	@Autowired
 	private FinderService	finderService;
 
+	@Autowired
+	private ExplorerService	explorerService;
+
 
 	// Constructors ---------------------------
 
@@ -35,11 +42,20 @@ public class FinderExplorerController extends AbstractController {
 	// Display --------------------------------
 
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
-	public ModelAndView display(@RequestParam final int finderId) {
+	public ModelAndView display(@RequestParam(required = false) Integer finderId) {
 		final ModelAndView res;
 		final Finder finder;
+		final Explorer explorer;
+
+		final UserAccount userAccount = LoginService.getPrincipal();
+		explorer = this.explorerService.findByUserAccount(userAccount);
+
+		if (finderId == null)
+			finderId = explorer.getFinder().getId();
 
 		finder = this.finderService.findOne(finderId);
+
+		Assert.isTrue(explorer.getFinder().getId() == finderId);
 
 		res = new ModelAndView("finder/display");
 		res.addObject("finder", finder);
@@ -47,7 +63,6 @@ public class FinderExplorerController extends AbstractController {
 
 		return res;
 	}
-
 	// Creation -------------------------------
 
 	// Edition --------------------------------
@@ -56,9 +71,15 @@ public class FinderExplorerController extends AbstractController {
 	public ModelAndView edit(@RequestParam final int finderId) {
 		ModelAndView res;
 		final Finder finder;
+		Explorer explorer;
+
+		final UserAccount userAccount = LoginService.getPrincipal();
+		explorer = this.explorerService.findByUserAccount(userAccount);
 
 		finder = this.finderService.findOne(finderId);
 		Assert.notNull(finder);
+
+		Assert.isTrue(explorer.getFinder().getId() == finderId);
 
 		res = this.createEditModelAndView(finder);
 

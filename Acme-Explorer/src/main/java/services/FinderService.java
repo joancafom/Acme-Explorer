@@ -69,11 +69,26 @@ public class FinderService {
 	public Finder save(final Finder finder) {
 		Assert.notNull(finder);
 
-		// REVISAR !!!
-		// En el finder es todo notNull o todo Null?
+		Explorer explorer = null;
 
-		Assert.isTrue((finder.getMinRange() == null && finder.getMaxRange() == null) || (finder.getMinRange() != null && finder.getMaxRange() != null));
-		Assert.isTrue((finder.getMinDate() == null && finder.getMaxDate() == null) || (finder.getMinDate() != null && finder.getMaxDate() != null));
+		for (final Explorer e : this.explorerService.findAll())
+			if (e.getFinder().equals(finder))
+				explorer = e;
+
+		if (explorer != null)
+			Assert.isTrue(LoginService.getPrincipal().equals(explorer.getUserAccount()));
+
+		Assert.isTrue((finder.getKeyword() == null && finder.getMinRange() == null && finder.getMaxRange() == null && finder.getMinDate() == null && finder.getMaxDate() == null)
+			|| (finder.getKeyword() != null && finder.getMinRange() == null && finder.getMaxRange() == null && finder.getMinDate() == null && finder.getMaxDate() == null)
+			|| (finder.getKeyword() != null && finder.getMinRange() != null && finder.getMaxRange() != null && finder.getMinDate() == null && finder.getMaxDate() == null)
+			|| (finder.getKeyword() != null && finder.getMinRange() == null && finder.getMaxRange() == null && finder.getMinDate() != null && finder.getMaxDate() != null)
+			|| (finder.getKeyword() != null && finder.getMinRange() != null && finder.getMaxRange() != null && finder.getMinDate() != null && finder.getMaxDate() != null));
+
+		if (finder.getMinRange() != null && finder.getMaxRange() != null)
+			Assert.isTrue(finder.getMinRange() < finder.getMaxRange());
+
+		if (finder.getMinDate() != null && finder.getMaxDate() != null)
+			Assert.isTrue(finder.getMinDate().before(finder.getMaxDate()));
 
 		return this.finderRepository.save(finder);
 	}
