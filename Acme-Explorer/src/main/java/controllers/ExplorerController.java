@@ -13,8 +13,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import security.UserAccount;
 import services.ExplorerService;
+import services.FinderService;
 import services.UserAccountService;
 import domain.Explorer;
+import domain.Finder;
 
 @Controller
 @RequestMapping("/explorer")
@@ -27,6 +29,9 @@ public class ExplorerController extends AbstractController {
 	@Autowired
 	private ExplorerService		explorerService;
 
+	@Autowired
+	private FinderService		finderService;
+
 
 	//Creation
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
@@ -35,9 +40,13 @@ public class ExplorerController extends AbstractController {
 		final ModelAndView res;
 		final Explorer explorer;
 		final UserAccount userAccount;
+		final Finder finder;
+		Finder finderS;
 
 		userAccount = this.userAccountService.create();
-		explorer = this.explorerService.create(userAccount);
+		finder = this.finderService.create();
+		finderS = this.finderService.save(finder);
+		explorer = this.explorerService.create(userAccount, finderS);
 
 		res = this.createEditModelAndView(explorer);
 
@@ -76,7 +85,6 @@ public class ExplorerController extends AbstractController {
 		return res;
 
 	}
-
 	//Ancillary methods
 	protected ModelAndView createEditModelAndView(final Explorer explorer) {
 		return this.createEditModelAndView(explorer, null);

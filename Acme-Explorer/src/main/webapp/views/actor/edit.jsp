@@ -62,6 +62,7 @@
 		<form:hidden path="stories"/>
 		<form:hidden path="survivalClasses"/>
 		<form:hidden path="emergencyContacts"/>
+		<form:hidden path="finder"/>
 		
 		<%-- Edition Begins --%>
 	
