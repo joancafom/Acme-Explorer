@@ -103,9 +103,16 @@
 		</form:label>
 		<form:select path="category">
 			<form:option value="0" label="---"/>
-			<form:options items="${categories}"
-				itemValue="id"
-				itemLabel="name"/>
+			<jstl:forEach items="${categories}" var="c">
+				<jstl:choose>
+					<jstl:when test="${c.name != 'CATEGORY'}">
+						<form:option value="${c.id}" label="${c.parentCategory.name} - ${c.name}"/>
+					</jstl:when>
+					<jstl:otherwise>
+						<form:option value="${c.id}" label="${c.name}"/>
+					</jstl:otherwise>
+				</jstl:choose>
+			</jstl:forEach>
 		</form:select>
 		<form:errors cssClass="error" path="category"/>
 		<br />

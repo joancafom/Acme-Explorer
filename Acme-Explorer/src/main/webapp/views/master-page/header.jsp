@@ -24,68 +24,69 @@
 			<li><a class="fNiv"><spring:message	code="master.page.administrator" /></a>
 				<ul>
 					<li class="arrow"></li>
-					<li><a href="actor/admin/display.do">My Profile</a></li>
-					<li><a href="category/admin/list.do">Taxonomy of Categories</a></li>					
-					<li><a href="manager/admin/create.do">Register a Manager</a></li>					
-					<li><a href="ranger/admin/create.do">Register a Ranger</a></li>					
-					<li><a href="trip/admin/list.do">List of Trips</a></li>					
-					<li><a href="folder/list.do">My Folders</a></li>					
+					<li><a href="actor/admin/display.do"><spring:message code="master.page.user.profile" /></a></li>
+					<li><a href="category/admin/list.do"><spring:message code="master.page.admin.register.category" /></a></li>					
+					<li><a href="manager/admin/create.do"><spring:message code="master.page.admin.register.manager" /></a></li>					
+					<li><a href="ranger/admin/create.do"><spring:message code="master.page.admin.register.ranger" /></a></li>					
+					<li><a href="trip/admin/list.do"><spring:message code="master.page.user.trips" /></a></li>					
+					<li><a href="folder/list.do"><spring:message code="master.page.user.folders" /></a></li>					
 				</ul>
 			</li>
 		</security:authorize>
 		
 		<security:authorize access="hasRole('AUDITOR')">
-			<li><a class="fNiv">AUDITOR</a>
+			<li><a class="fNiv"><spring:message	code="master.page.auditor" /></a>
 				<ul>
 					<li class="arrow"></li>
-					<li><a href="actor/auditor/display.do">My Profile</a></li>
-					<li><a href="audit/auditor/list.do">My Audit Records</a></li>										
-					<li><a href="trip/auditor/list.do">List of Trips</a></li>					
-					<li><a href="folder/list.do">My Folders</a></li>				
+					<li><a href="actor/auditor/display.do"><spring:message code="master.page.user.profile" /></a></li>
+					<li><a href="audit/auditor/list.do"><spring:message code="master.page.auditor.audit" /></a></li>										
+					<li><a href="trip/auditor/list.do"><spring:message code="master.page.user.trips" /></a></li>					
+					<li><a href="folder/list.do"><spring:message code="master.page.user.folders" /></a></li>				
 				</ul>
 			</li>
 		</security:authorize>
 		
 		<security:authorize access="hasRole('EXPLORER')">
-			<li><a class="fNiv">EXPLORER</a>
+			<li><a class="fNiv"><spring:message	code="master.page.explorer" /></a>
 				<ul>
 					<li class="arrow"></li>
-					<li><a href="actor/explorer/display.do">My Profile</a></li>
-					<li><a href="finder/explorer/display.do">My Finder -</a></li>									
-					<li><a href="trip/explorer/list.do">List of Trips</a></li>					
-					<li><a href="tripApplication/explorer/list.do">My Trip application</a></li>					
-					<li><a href="folder/list.do">My Folders</a></li>				
+					<li><a href="actor/explorer/display.do"><spring:message code="master.page.user.profile" /></a></li>
+					<li><a href="finder/explorer/display.do"><spring:message code="master.page.explorer.finder" /></a></li>									
+					<li><a href="trip/explorer/list.do"><spring:message code="master.page.user.trips" /></a></li>					
+					<li><a href="tripApplication/explorer/list.do"><spring:message code="master.page.explorer.tripApplication" /></a></li>					
+					<li><a href="folder/list.do"><spring:message code="master.page.user.folders" /></a></li>				
 				</ul>
 			</li>
 		</security:authorize>
 		
 		<security:authorize access="hasRole('MANAGER')">
-			<li><a class="fNiv">MANAGER</a>
+			<li><a class="fNiv"><spring:message	code="master.page.manager" /></a>
 				<ul>
 					<li class="arrow"></li>
-					<li><a href="actor/manager/display.do">My Profile</a></li>									
-					<li><a href="trip/manager/list.do">List of my Trips</a></li>								
-					<li><a href="folder/list.do">My Folders</a></li>				
+					<li><a href="actor/manager/display.do"><spring:message code="master.page.user.profile" /></a></li>									
+					<li><a href="trip/manager/list.do"><spring:message code="master.page.user.trips" /></a></li>	
+					<li><a href="tripApplication/manager/list.do"><spring:message code="master.page.manager.tripApplications" /></a></li>								
+					<li><a href="folder/list.do"><spring:message code="master.page.user.folders" /></a></li>				
 				</ul>
 			</li>
 		</security:authorize>
 		
 		<security:authorize access="hasRole('RANGER')">
-			<li><a class="fNiv">RANGER</a>
+			<li><a class="fNiv"><spring:message	code="master.page.ranger" /></a>
 				<ul>
 					<li class="arrow"></li>
-					<li><a href="actor/ranger/display.do">My Profile</a></li>								
-					<li><a href="folder/list.do">My Folders</a></li>				
+					<li><a href="actor/ranger/display.do"><spring:message code="master.page.user.profile" /></a></li>								
+					<li><a href="folder/list.do"><spring:message code="master.page.user.folders" /></a></li>				
 				</ul>
 			</li>
 		</security:authorize>
 		
 		<security:authorize access="hasRole('SPONSOR')">
-			<li><a class="fNiv">SPONSOR</a>
+			<li><a class="fNiv"><spring:message	code="master.page.sponsor" /></a>
 				<ul>
 					<li class="arrow"></li>
-					<li><a href="actor/sponsor/display.do">My Profile</a></li>																
-					<li><a href="folder/list.do">My Folders</a></li>				
+					<li><a href="actor/sponsor/display.do"><spring:message code="master.page.user.profile" /></a></li>																
+					<li><a href="folder/list.do"><spring:message code="master.page.user.folders" /></a></li>				
 				</ul>
 			</li>
 		</security:authorize>
@@ -94,11 +95,11 @@
 			<li><a class="fNiv" href="security/login.do"><spring:message code="master.page.login" /></a>
 				<ul>
 					<li class="arrow"></li>
-					<li><a href="category/list.do">List of Categories</a></li>																
-					<li><a href="explorer/create.do">Create an Explorer Account</a></li>				
-					<li><a href="ranger/create.do">Create a Ranger Account</a></li>				
-					<li><a href="trip/list.do">List of Trips</a></li>				
-					<li><a href="trip/search.do">Search of Trips</a></li>				
+					<li><a href="category/list.do"><spring:message code="master.page.anonymous.register.category" /></a></li>																
+					<li><a href="explorer/create.do"><spring:message code="master.page.anonymous.register.explorer" /></a></li>				
+					<li><a href="ranger/create.do"><spring:message code="master.page.anonymous.register.ranger" /></a></li>				
+					<li><a href="trip/list.do"><spring:message code="master.page.anonymous.register.category" /></a></li>				
+					<li><a href="trip/search.do"><spring:message code="master.page.anonymous.register.tripSearch" /></a></li>				
 				</ul>
 			</li>
 		</security:authorize>
@@ -110,10 +111,7 @@
 			        (<security:authentication property="principal.username" />)
 				</a>
 				<ul>
-					<li class="arrow"></li>
-					<li><a href="profile/action-1.do"><spring:message code="master.page.profile.action.1" /></a></li>
-					<li><a href="profile/action-2.do"><spring:message code="master.page.profile.action.2" /></a></li>
-					<li><a href="profile/action-3.do"><spring:message code="master.page.profile.action.3" /></a></li>					
+					<li class="arrow"></li>	
 					<li><a href="j_spring_security_logout"><spring:message code="master.page.logout" /> </a></li>
 				</ul>
 			</li>

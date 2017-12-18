@@ -235,4 +235,11 @@ public class TripApplicationService {
 		tripApplication.setStatus(ApplicationStatus.CANCELLED);
 
 	}
+
+	public TripApplication findByExplorerAndTrip(final Explorer explorer, final Trip trip) {
+		Assert.notNull(explorer);
+		Assert.notNull(trip);
+
+		return this.applicationRepository.findByExplorerIdAndTripId(explorer.getId(), trip.getId());
+	}
 }

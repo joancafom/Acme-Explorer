@@ -9,7 +9,7 @@
 <%@taglib prefix="security"	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<%-- <h1><tiles:insertAttribute name="title" />: <jstl:out value="${rootCategory.name}" /></h1> --%>
+<h2><spring:message code="category"/>: <jstl:out value="${actor.name}"/><jstl:out value="${rootCategory.name}" /></h2>
 
 <display:table name="rootCategory.childCategories" id="childNode" requestURI="category/${actorWS}list.do" class="displaytag">
 	<display:column titleKey="category.children" sortable="true">

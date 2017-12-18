@@ -21,4 +21,7 @@ public interface TripApplicationRepository extends JpaRepository<TripApplication
 	@Query("select t from TripApplication t where t.status='ACCEPTED' and t.explorer.id=?1")
 	Collection<TripApplication> findAcceptedTripApplicationsByExplorer(int id);
 
+	@Query("select ta from TripApplication ta where ta.explorer.id = ?1 and ta.trip.id = ?2")
+	TripApplication findByExplorerIdAndTripId(int explorerId, int tripId);
+
 }

@@ -41,7 +41,9 @@
 	
 	<security:authorize access="hasRole('EXPLORER')">
 		<display:column>
-			<a href="tripApplication/explorer/create.do?tripId=${trip.id}"><spring:message code="tripApplication.create"/></a>
+			<jstl:if test="${canCreateTA[trip.ticker]}">
+				<a href="tripApplication/explorer/create.do?tripId=${trip.id}"><spring:message code="tripApplication.create"/></a>
+			</jstl:if>
 		</display:column>
 	</security:authorize>
 	

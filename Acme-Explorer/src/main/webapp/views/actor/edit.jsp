@@ -33,13 +33,31 @@
 		var pass1 = document.getElementById('pass1').value;
 		var pass2 = document.getElementById('pass2').value;
 
-		if((pass1 == pass2) && pass1 != ""){
-			
+		if(pass1 == "" && pass2 == ""){
 			document.getElementById('passwordMatchMessage').innerHTML = "";
-			document.getElementById('submitButton').disabled = false;
+			return true;
+		}else if((pass1 == pass2) && pass1 != ""){
+			document.getElementById('passwordMatchMessage').innerHTML = "";
+			return false;
 		}else{
 			document.getElementById('passwordMatchMessage').innerHTML = '${passwordMatchError}';
+			return true;
+		}
+	}
+	
+	function checkAllFields(){
+		var name = document.getElementById('name').value;
+		var surname = document.getElementById('surname').value; 
+		var email = document.getElementById('email').value; 
+		var username = document.getElementById('username').value; 
+		var pass1 = document.getElementById('pass1').value; 
+		var pass2 = document.getElementById('pass2').value; 
+		
+		if( name != "" && surname != "" && email != "" && username != "" && pass1 != "" && pass2 != ""){
+			document.getElementById('submitButton').disabled = checkPasswords();
+		}else{
 			document.getElementById('submitButton').disabled = true;
+			checkPasswords();
 		}
 	}
 </script>
@@ -68,35 +86,35 @@
 		<form:label path="name">
 			<spring:message code="actor.name" />*
 		</form:label>
-		<form:input path="name"/>
+		<form:input id="name" onkeyup="checkAllFields()" path="name"/>
 		<form:errors cssClass="error" path="name"></form:errors>
 		<br />
 	
 		<form:label path="surname">
 			<spring:message code="actor.surname" />*
 		</form:label>
-		<form:input path="surname"/>
+		<form:input id="surname" onkeyup="checkAllFields()" path="surname"/>
 		<form:errors cssClass="error" path="surname"></form:errors>
 		<br />
 	
 		<form:label path="email">
 			<spring:message code="actor.email" />*
 		</form:label>
-		<form:input path="email"/>
+		<form:input id="email" onkeyup="checkAllFields()" path="email"/>
 		<form:errors cssClass="error" path="email"></form:errors>
 		<br />
 	
 		<form:label path="userAccount.username">
 			<spring:message code="actor.userAccount.username" />*
 		</form:label>
-		<form:input path="userAccount.username"/>
+		<form:input id="username" onkeyup="checkAllFields()" path="userAccount.username"/>
 		<form:errors cssClass="error" path="userAccount.username"></form:errors>
 		<br />
 	
 		<form:label path="userAccount.password">
 			<spring:message code="actor.userAccount.password" />*
 		</form:label>
-		<form:password id="pass1" path="userAccount.password"/>
+		<form:password id="pass1" onkeyup="checkAllFields()" path="userAccount.password"/>
 		<form:errors cssClass="error" path="userAccount.password"></form:errors>
 		<br />
 	
@@ -104,7 +122,7 @@
 		<label for="pass2">
 			<spring:message code="actor.userAccount.repeatPassword" />*
 		</label>
-		<input id="pass2" type="password" onkeyup="checkPasswords()" />
+		<input id="pass2" type="password" onkeyup="checkAllFields()" />
 		<p id="passwordMatchMessage"></p>
 	
 		<form:label path="address">

@@ -46,27 +46,6 @@
 
 <p><spring:message code="trip.publicationDate"/>: <fmt:formatDate value="${trip.publicationDate}" pattern="${dateFormat}"/>
 
-<h1><spring:message code="trip.stages"/>: </h1>
-<display:table name="trip.stages" id="stage" requestURI="${stageRequestURI}" class="displaytag">
-	<display:column property="number" titleKey="stage.number" sortable="true"/>
-	
-	<display:column property="title" titleKey="stage.title"/>
-	
-	<display:column property="description" titleKey="stage.description"/>
-	
-	<display:column titleKey="stage.price">
-		<fmt:formatNumber type="currency" currencySymbol="&#8364;" pattern="${priceFormat}" value="${stage.price}" />
-	</display:column>
-	
-	<security:authorize access="hasRole('MANAGER')">
-		<jstl:if test="${now < trip.publicationDate}">
-			<display:column>
-				<a href="stage/manager/edit.do?stageId=<jstl:out value="${stage.id}"></jstl:out>"><spring:message code="stage.edit"/></a>
-			</display:column>
-		</jstl:if>
-	</security:authorize>
-</display:table>
-
 <security:authorize access="hasRole('MANAGER')">
 	<jstl:if test="${now < trip.publicationDate}">
 		<a href="stage/manager/create.do?tripId=${trip.id}"><spring:message code="stage.create"/></a>
@@ -76,34 +55,6 @@
 <p><spring:message code="trip.requirements"/>: <jstl:out value="${trip.requirements}"/></p>
 
 <p><spring:message code="category"/>: <jstl:out value="${trip.category.name}"></jstl:out></p>
-
-<security:authorize access="!hasRole('MANAGER')">
- <p>
-	<spring:message code="tagValues"/>:
-	
-	<jstl:forEach var="tagValue" items="${trip.tagValues}" varStatus="loop">
-		<jstl:out value="${tagValue.tag.name}"/>:
-		<jstl:out value="#${tagValue.value}"/>
-		<jstl:if test="${!loop.last}">,</jstl:if>
-	</jstl:forEach>
-</p>
-</security:authorize>
-<security:authorize access="hasRole('MANAGER')">
-	 <h1><spring:message code="tagValues"/>:</h1>
-	 <display:table name="trip.tagValues" id="tagValue" class="displaytag">
-	 	<display:column property="tag.name" titleKey="tagValue.tag" sortable="true" />
-	 	<display:column property="value" titleKey="tagValue.value" />
-	 	<jstl:if test="${now < trip.publicationDate}">
-			<display:column>
-				<a href="tagValue/manager/edit.do?tagValueId=<jstl:out value="${tagValue.id}"></jstl:out>"><spring:message code="tagValue.edit"/></a>
-			</display:column>
-		</jstl:if>
-	 </display:table>
-	
-	<jstl:if test="${now < trip.publicationDate}">
-		<a href="tagValue/manager/create.do?tripId=${trip.id}"><spring:message code="tagValue.create"/></a>
-	</jstl:if>
-</security:authorize>
 
 <p><spring:message code="trip.manager"/>: <jstl:out value="${trip.manager.surname}"/>, <jstl:out value="${trip.manager.name}"/></p>
 
@@ -174,9 +125,11 @@
 </security:authorize>
 
 <security:authorize access="hasRole('EXPLORER')">
-	<p><a href="tripApplication/explorer/create.do?tripId=${trip.id}">
-	<spring:message code="tripApplication.create"/>
-	</a></p>
+	<jstl:if test="${canCreateTA}">
+		<p><a href="tripApplication/explorer/create.do?tripId=${trip.id}">
+			<spring:message code="tripApplication.create"/>
+		</a></p>
+	</jstl:if>
 </security:authorize>
 
 <security:authorize access="hasRole('AUDITOR')">
@@ -186,3 +139,52 @@
 		</a></p>
 	</jstl:if>
 </security:authorize>
+
+<security:authorize access="!hasRole('MANAGER')">
+ <p>
+	<spring:message code="tagValues"/>:
+	
+	<jstl:forEach var="tagValue" items="${trip.tagValues}" varStatus="loop">
+		<jstl:out value="${tagValue.tag.name}"/>:
+		<jstl:out value="#${tagValue.value}"/>
+		<jstl:if test="${!loop.last}">,</jstl:if>
+	</jstl:forEach>
+</p>
+</security:authorize>
+<security:authorize access="hasRole('MANAGER')">
+	 <h1><spring:message code="tagValues"/>:</h1>
+	 <display:table name="trip.tagValues" id="tagValue" class="displaytag">
+	 	<display:column property="tag.name" titleKey="tagValue.tag" sortable="true" />
+	 	<display:column property="value" titleKey="tagValue.value" />
+	 	<jstl:if test="${now < trip.publicationDate}">
+			<display:column>
+				<a href="tagValue/manager/edit.do?tagValueId=<jstl:out value="${tagValue.id}"></jstl:out>"><spring:message code="tagValue.edit"/></a>
+			</display:column>
+		</jstl:if>
+	 </display:table>
+	
+	<jstl:if test="${now < trip.publicationDate}">
+		<a href="tagValue/manager/create.do?tripId=${trip.id}"><spring:message code="tagValue.create"/></a>
+	</jstl:if>
+</security:authorize>
+
+<h1><spring:message code="trip.stages"/>: </h1>
+<display:table name="trip.stages" id="stage" requestURI="${stageRequestURI}" class="displaytag">
+	<display:column property="number" titleKey="stage.number" sortable="true"/>
+	
+	<display:column property="title" titleKey="stage.title"/>
+	
+	<display:column property="description" titleKey="stage.description"/>
+	
+	<display:column titleKey="stage.price">
+		<fmt:formatNumber type="currency" currencySymbol="&#8364;" pattern="${priceFormat}" value="${stage.price}" />
+	</display:column>
+	
+	<security:authorize access="hasRole('MANAGER')">
+		<jstl:if test="${now < trip.publicationDate}">
+			<display:column>
+				<a href="stage/manager/edit.do?stageId=<jstl:out value="${stage.id}"></jstl:out>"><spring:message code="stage.edit"/></a>
+			</display:column>
+		</jstl:if>
+	</security:authorize>
+</display:table>
