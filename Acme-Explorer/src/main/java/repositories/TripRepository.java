@@ -33,6 +33,9 @@ public interface TripRepository extends JpaRepository<Trip, Integer> {
 	@Query("select t from Trip t where t.startingDate > CURRENT_DATE")
 	Collection<Trip> findAllNotStarted();
 
+	@Query("select a.trip from Audit a where a.auditor.id = ?1")
+	Collection<Trip> findAuditorAuditedTrips(int auditorId);
+
 	// REVISAR
 
 	//DONE: Limit the Query

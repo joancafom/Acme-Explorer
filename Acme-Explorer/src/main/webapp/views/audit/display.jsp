@@ -9,31 +9,7 @@
 <%@taglib prefix="security"	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<security:authorize access="hasRole('ADMIN')">
-	<jstl:set var="actorWithSlash" value="admin/"></jstl:set>
-</security:authorize>
-<security:authorize access="hasRole('AUDITOR')">
-	<jstl:set var="actorWithSlash" value="auditor/"></jstl:set>
-</security:authorize>
-<security:authorize access="hasRole('EXPLORER')">
-	<jstl:set var="actorWithSlash" value="explorer/"></jstl:set>
-</security:authorize>
-<security:authorize access="hasRole('MANAGER')">
-	<jstl:set var="actorWithSlash" value="manager/"></jstl:set>
-</security:authorize>
-<security:authorize access="hasRole('RANGER')">
-	<jstl:set var="actorWithSlash" value="ranger/"></jstl:set>
-</security:authorize>
-<security:authorize access="hasRole('SPONSOR')">
-	<jstl:set var="actorWithSlash" value="sponsor/"></jstl:set>
-</security:authorize>
-<security:authorize access="isAnonymous()">
-	<jstl:set var="actorWithSlash" value=""></jstl:set>
-</security:authorize>
-
-<spring:message code="date.format" var="dateFormat"></spring:message>	
-
-<h1><tiles:insertAttribute name="title" /> - <jstl:out value="${audit.title}"></jstl:out> </h1>
+<spring:message code="date.format2" var="dateFormat"></spring:message>	
 
 <p><spring:message code="audit.description"/>: <jstl:out value="${audit.description}" /></p>
 
@@ -60,5 +36,5 @@
 
 <p><spring:message code="audit.auditor"/>: <jstl:out value="${audit.auditor.surname}"/>, <jstl:out value="${audit.auditor.name}"/></p>
 
-<p><spring:message code="audit.trip"/>: <a href="trip/${actorWithSlash}display.do?tripId=${audit.trip.id}"><jstl:out value="${audit.trip.ticker}" /></a></p>
+<p><spring:message code="audit.trip"/>: <a href="trip/${actorWS}display.do?tripId=${audit.trip.id}"><jstl:out value="${audit.trip.ticker}" /></a></p>
 

@@ -18,6 +18,7 @@ import repositories.TripRepository;
 import security.LoginService;
 import security.UserAccount;
 import domain.Audit;
+import domain.Auditor;
 import domain.Category;
 import domain.Explorer;
 import domain.Finder;
@@ -263,6 +264,15 @@ public class TripService {
 		Assert.notNull(trips);
 
 		return trips;
+	}
+
+	public Collection<Trip> findAuditorAuditedTrips(final Auditor auditor) {
+		Assert.notNull(auditor);
+		final Collection<Trip> res;
+
+		res = this.tripRepository.findAuditorAuditedTrips(auditor.getId());
+
+		return res;
 	}
 
 }

@@ -180,7 +180,9 @@
 </security:authorize>
 
 <security:authorize access="hasRole('AUDITOR')">
-	<p><a href="audit/auditor/create.do?tripId=${trip.id}">
-	<spring:message code="audit.create"/>
-	</a></p>
+	<jstl:if test="${canAudit}">
+		<p><a href="audit/auditor/create.do?tripId=${trip.id}">
+			<spring:message code="audit.create"/>
+		</a></p>
+	</jstl:if>
 </security:authorize>
