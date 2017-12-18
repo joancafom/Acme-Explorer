@@ -73,7 +73,7 @@ public class CategoryService {
 		Assert.notNull(category.getParentCategory());
 
 		for (final Category c : category.getParentCategory().getChildCategories())
-			if (c.getName().equals(category.getName()) && !c.equals(category)) {
+			if (c.getName().toLowerCase().equals(category.getName().toLowerCase()) && !c.equals(category)) {
 				res = true;
 				break;
 			}

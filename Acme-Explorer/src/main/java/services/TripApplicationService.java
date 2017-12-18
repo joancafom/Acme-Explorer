@@ -4,6 +4,7 @@ package services;
 import java.util.Collection;
 import java.util.Date;
 
+import org.joda.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -82,9 +83,16 @@ public class TripApplicationService {
 
 	public TripApplication save(final TripApplication application) {
 		Assert.notNull(application);
+		final LocalDate now = new LocalDate();
+
+		if (application.getCreditCard() != null) {
+			Assert.isTrue((now.getYear() == application.getCreditCard().getYear() && now.getMonthOfYear() == application.getCreditCard().getMonth())
+				|| (now.getYear() < application.getCreditCard().getYear())
+				|| (now.getYear() == application.getCreditCard().getYear() && now.getMonthOfYear() < application.getCreditCard().getMonth()));
+		}
+
 		return this.applicationRepository.save(application);
 	}
-
 	public Collection<TripApplication> findAll() {
 		return this.applicationRepository.findAll();
 	}
@@ -235,13 +243,13 @@ public class TripApplicationService {
 		tripApplication.setStatus(ApplicationStatus.CANCELLED);
 
 	}
-
-
+	
 	public TripApplication findByExplorerAndTrip(final Explorer explorer, final Trip trip) {
 		Assert.notNull(explorer);
 		Assert.notNull(trip);
 
 		return this.applicationRepository.findByExplorerIdAndTripId(explorer.getId(), trip.getId());
+	}
 
 	public Collection<TripApplication> findAllByTrip(final Trip trip) {
 		Assert.notNull(trip);
@@ -252,6 +260,5 @@ public class TripApplicationService {
 
 		final Collection<TripApplication> tripApplications = this.applicationRepository.findAllByTrip(trip.getId());
 		return tripApplications;
-
 	}
 }

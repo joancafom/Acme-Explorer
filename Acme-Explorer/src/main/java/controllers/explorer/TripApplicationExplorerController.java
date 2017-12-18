@@ -109,6 +109,9 @@ public class TripApplicationExplorerController extends AbstractController {
 			res = this.createEditModelAndView(tripApplication);
 		else
 			try {
+				if (tripApplication.getCreditCard() != null)
+					this.tripApplicationService.changeApplicationStatus(tripApplication, ApplicationStatus.ACCEPTED);
+
 				this.tripApplicationService.save(tripApplication);
 				res = new ModelAndView("redirect:list.do");
 			} catch (final Throwable oops) {
@@ -149,6 +152,7 @@ public class TripApplicationExplorerController extends AbstractController {
 
 		res = new ModelAndView("tripApplication/edit");
 		res.addObject("tripApplication", tripApplication);
+		res.addObject("message", messageCode);
 
 		return res;
 	}

@@ -12,9 +12,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import security.LoginService;
+import security.UserAccount;
 import services.CurriculumService;
+import services.RangerService;
 import controllers.AbstractController;
 import domain.Curriculum;
+import domain.Ranger;
 
 @Controller
 @RequestMapping("/curriculum/ranger")
@@ -24,6 +28,9 @@ public class CurriculumRangerController extends AbstractController {
 
 	@Autowired
 	private CurriculumService	curriculumService;
+
+	@Autowired
+	private RangerService		rangerService;
 
 
 	// Constructors ---------------------------
@@ -35,9 +42,16 @@ public class CurriculumRangerController extends AbstractController {
 	// Display --------------------------------
 
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
-	public ModelAndView display(@RequestParam final int curriculumId) {
+	public ModelAndView display(@RequestParam(required = false) Integer curriculumId) {
 		final ModelAndView res;
 		final Curriculum curriculum;
+		Ranger ranger;
+
+		final UserAccount userAccount = LoginService.getPrincipal();
+		ranger = this.rangerService.findByUserAccount(userAccount);
+
+		if (curriculumId == null)
+			curriculumId = ranger.getCurriculum().getId();
 
 		curriculum = this.curriculumService.findOne(curriculumId);
 

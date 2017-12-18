@@ -18,6 +18,7 @@ import security.UserAccount;
 import utilities.AbstractTest;
 import domain.Actor;
 import domain.Explorer;
+import domain.Finder;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
@@ -39,13 +40,14 @@ public class ExplorerServiceTest extends AbstractTest {
 
 		final UserAccount userAccount = new UserAccount();
 
-		final Explorer explorer = this.explorerService.create(userAccount);
+		final Explorer explorer = this.explorerService.create(userAccount, new Finder());
 		Assert.notNull(explorer.getSentMessages());
 		Assert.notNull(explorer.getReceivedMessages());
 		Assert.notNull(explorer.getEmergencyContacts());
 		Assert.notNull(explorer.getStories());
 		Assert.notNull(explorer.getSurvivalClasses());
 		Assert.notNull(explorer.getTripApplications());
+		Assert.notNull(explorer.getFinder());
 		this.unauthenticate();
 
 	}

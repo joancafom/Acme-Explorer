@@ -125,7 +125,7 @@
 		<spring:message code="date.format2" var="dateFormat2"></spring:message>
 	</jstl:if>
 	
-	<jstl:if test="${now >= trip.publicationDate and now < trip.startingDate}">
+	<jstl:if test="${now >= trip.publicationDate and now < trip.startingDate and trip.id != 0}">
 		<form:hidden path="id"/>
 		<form:hidden path="version"/>
 		<form:hidden path="ticker"/>
