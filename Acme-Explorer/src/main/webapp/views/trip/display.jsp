@@ -144,7 +144,7 @@
 </security:authorize>
 
 <p><spring:message code="auditions"/>: 
-<a href="audition/${url}list.do?tripId=${trip.id}"><spring:message code="audit.list"/></a>
+<a href="audit/${url}list.do?tripId=${trip.id}"><spring:message code="audit.list"/></a>
 </p>
 
 <p><spring:message code="stories"/>: 

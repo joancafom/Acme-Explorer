@@ -8,8 +8,6 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<h1><spring:message code="audit.list"/></h1>
-
 <display:table name="audits" id="audit" requestURI="${requestURI}" pagesize="5" class="displaytag">
 		
 	<display:column titleKey="audit.title" sortable="true">
