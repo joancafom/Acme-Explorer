@@ -73,13 +73,12 @@
 				<spring:message code="tripApplication.status"/>
 			</form:label>
 			<form:select path="status" id="selectStatus">
-				<form:option value="PENDING" label="---"/>
-				<jstl:forEach var="status" items="${allStatus}">
-					<spring:message code="tripApplication.status.${status}" var="tripApplicationStatus"/>
-      				<form:option label="${tripApplicationStatus}"
-      					value="${status}">
-      				</form:option>
-      			</jstl:forEach>	
+				<spring:message code="tripApplication.status.PENDING" var="pending"/>
+				<spring:message code="tripApplication.status.REJECTED" var="rejected"/>
+				<spring:message code="tripApplication.status.DUE" var="due"/>
+				<form:option value="PENDING" label="${pending}"/>
+				<form:option value="REJECTED" label="${rejected}"/>
+				<form:option value="DUE" label="${due}"/>
 			</form:select>
 		
 			<jstl:if test="${selectStatus=='REJECTED'}">

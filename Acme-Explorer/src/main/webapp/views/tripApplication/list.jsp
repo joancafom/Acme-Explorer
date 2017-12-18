@@ -68,6 +68,14 @@
 		<a href="trip/${actor}/display.do?tripId=${tripApplication.trip.id}"><jstl:out value="${tripApplication.trip.ticker}" /></a>
 	</display:column>
 	
+	<display:column titleKey="tripApplication.trip.title" sortable="true">
+		<jstl:out value="${tripApplication.trip.title}"/>
+	</display:column>
+	
+	<security:authorize access="hasRole('MANAGER')">
+		<display:column property="explorer.name" titleKey="tripApplication.explorer" sortable="true"/>
+	</security:authorize>
+	
 	<display:column property="moment" titleKey="tripApplication.moment" format="${dateFormat}" sortable="true" />
 	
 	<display:column style="background-color:${backColor};" titleKey="tripApplication.status" sortable="true">

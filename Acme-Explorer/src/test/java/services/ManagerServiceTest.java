@@ -132,7 +132,7 @@ public class ManagerServiceTest extends AbstractTest {
 			if (m.getIsSuspicious())
 				suspiciousManagers.add(m);
 
-		final Collection<Manager> foundSuspiciousManagers = this.managerService.listSuspicious();
+		final Collection<Manager> foundSuspiciousManagers = this.managerService.findAllSuspicious();
 
 		Assert.notNull(foundSuspiciousManagers);
 		Assert.isTrue(suspiciousManagers.containsAll(foundSuspiciousManagers));

@@ -18,8 +18,19 @@
 
 <h1><jstl:out value="${tripApplication.trip.title}" /> - <spring:message code="tripApplication.status.${tripApplication.status}"/></h1>
 
+<security:authorize access="hasRole('MANAGER')">
+	<h2><spring:message code="tripApplication.explorer"/></h2>
+	<p><strong><spring:message code="tripApplication.explorer.name"/>:</strong> <jstl:out value="${tripApplication.explorer.name}"/></p>
+	<p><strong><spring:message code="tripApplication.explorer.surname"/>:</strong> <jstl:out value="${tripApplication.explorer.surname}"/></p>
+	<p><strong><spring:message code="tripApplication.explorer.email"/>:</strong> <jstl:out value="${tripApplication.explorer.email}"/></p>
+	<p><strong><spring:message code="tripApplication.explorer.phoneNumber"/>:</strong> <jstl:out value="${tripApplication.explorer.phoneNumber}"/></p>
+	<p><strong><spring:message code="tripApplication.explorer.address"/>:</strong> <jstl:out value="${tripApplication.explorer.address}"/></p>
+	<hr>
+</security:authorize>
+
+
 <jstl:if test="${tripApplication.status == 'REJECTED'}">
-	<p><spring:message code="tripApplication.rejectionReason"/>: 
+	<p><strong><spring:message code="tripApplication.rejectionReason"/>:</strong> 
 		<jstl:choose>
 			<jstl:when test="${tripApplication.rejectionReason == null }">-</jstl:when>
 			<jstl:otherwise>
@@ -29,14 +40,14 @@
 	</p>
 </jstl:if>
 
-<p><spring:message code="tripApplication.trip"/>: <a href="trip/${actor}/display.do?tripId=${tripApplication.trip.id}"><jstl:out value="${tripApplication.trip.ticker}" /></a></p>
+<p><strong><spring:message code="tripApplication.trip"/>:</strong> <a href="trip/${actor}/display.do?tripId=${tripApplication.trip.id}"><jstl:out value="${tripApplication.trip.ticker}" /></a></p>
 
 <spring:message code="date.format2" var="dateFormat"></spring:message>
-<p><spring:message code="tripApplication.moment"/>: <fmt:formatDate value="${tripApplication.moment}" pattern="${dateFormat}" type="both"/></p>
+<p><strong><spring:message code="tripApplication.moment"/>:</strong> <fmt:formatDate value="${tripApplication.moment}" pattern="${dateFormat}" type="both"/></p>
 
-<p><spring:message code="tripApplication.comments"/>: <jstl:out value="${tripApplication.comments}"></jstl:out></p>
+<p><strong><spring:message code="tripApplication.comments"/>:</strong> <jstl:out value="${tripApplication.comments}"></jstl:out></p>
 
-<p><spring:message code="tripApplication.creditCard"/>:
+<p><strong><spring:message code="tripApplication.creditCard"/>:</strong>
 	<jstl:choose>
 		<jstl:when test="${tripApplication.creditCard == null}">-</jstl:when>
 		<jstl:otherwise>

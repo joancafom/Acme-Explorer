@@ -132,6 +132,7 @@
 		<security:intercept-url pattern="/trip/manager/display.do" access="hasRole('MANAGER')"/>
 		<security:intercept-url pattern="/trip/search.do" access="isAnonymous()"/>
 		<security:intercept-url pattern="/tripApplication/explorer/**" access="hasRole('EXPLORER')"/>
+		<security:intercept-url pattern="/tripApplication/manager/**" access="hasRole('MANAGER')"/>
 		
 		 
 	
