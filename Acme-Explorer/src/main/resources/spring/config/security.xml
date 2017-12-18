@@ -101,8 +101,11 @@
 		<security:intercept-url pattern="/ranger/display.do" access="isAnonymous()"/>
 		<security:intercept-url pattern="/ranger/edit.do" access="isAnonymous()"/>
 		
+		<security:intercept-url pattern="/socialID/**" access="isAuthenticated()"/>
+		
 		<security:intercept-url pattern="/stage/manager/edit.do" access="hasRole('MANAGER')"/>
 		<security:intercept-url pattern="/stage/manager/create.do" access="hasRole('MANAGER')"/>
+		
 		
 		<security:intercept-url pattern="/tagValue/manager/edit.do" access="hasRole('MANAGER')"/>
 		<security:intercept-url pattern="/tagValue/manager/create.do" access="hasRole('MANAGER')"/>

@@ -11,6 +11,7 @@
 
 <%-- Although this view is kind of generic, it could be used by any type of actor
 but, since in the requirements it only says about listing Explorers, it's adapted to them --%>
+<jstl:if test="${action==''}">
 <display:table name="actors" id="actor" requestURI="explorer/manager/list.do" pagesize="5" class="displaytag">
 	
 	<display:column titleKey="actor.list.name" sortable="true">
@@ -26,3 +27,31 @@ but, since in the requirements it only says about listing Explorers, it's adapte
 	<display:column property="address" titleKey="actor.address" />
 	
 </display:table>
+</jstl:if>
+
+<jstl:if test="${action=='listSuspicious'}">
+	<display:table name="managers" id="manager" class="displaytag">
+	
+		<display:column property="name" title="Name" sortable="true"/>
+	
+		<display:column property="surname" title="Surname" sortable="true" />
+	
+		<display:column property="email" title="Email" />
+	
+		<display:column property="phoneNumber" title="Phone Number" />
+
+		<display:column property="address" title="Address" />
+	</display:table>
+	<display:table name="rangers" id="ranger" class="displaytag">
+	
+		<display:column property="name" title="Name" sortable="true"/>
+	
+		<display:column property="surname" title="Surname" sortable="true" />
+	
+		<display:column property="email" title="Email" />
+	
+		<display:column property="phoneNumber" title="Phone Number" />
+
+		<display:column property="address" title="Address" />
+	</display:table>
+</jstl:if>

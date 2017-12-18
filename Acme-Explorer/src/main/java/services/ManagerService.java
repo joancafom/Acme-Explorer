@@ -76,7 +76,7 @@ public class ManagerService {
 
 	//Other Business operations
 
-	public Collection<Manager> listSuspicious() {
+	public Collection<Manager> findAllSuspicious() {
 
 		return this.managerRepository.listSuspicious();
 	}

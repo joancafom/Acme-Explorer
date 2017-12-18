@@ -39,7 +39,7 @@
 
 <h1><spring:message code="actor.socialIDs"/>:</h1>
 
-<display:table name="socialIDs" id="socialID" pagesize="3" class="displaytag">
+<display:table name="socialIDs" id="socialID" class="displaytag">
 	<display:column titleKey="actor.socialID.nick" sortable="true">
 		<jstl:out value="${socialID.nick}"/>	
 	</display:column>
@@ -57,10 +57,10 @@
 	</display:column>
 	
 	<display:column>
-		<a href="socialID/edit.do?socialIDId=${socialId.id}"><spring:message code="actor.socialID.edit"/></a>
+		<a href="socialID/${url}/edit.do?socialIDId=${socialID.id}"><spring:message code="actor.socialID.edit"/></a>
 	</display:column>
 </display:table>
-<a href="socialID/create.do"><spring:message code="actor.socialID.create"/></a>
+<a href="socialID/${url}/create.do"><spring:message code="actor.socialID.create"/></a>
 
 <security:authorize access="hasRole('EXPLORER')">
 	<h1><spring:message code="actor.explorer.emergencyContacts"/>:</h1>

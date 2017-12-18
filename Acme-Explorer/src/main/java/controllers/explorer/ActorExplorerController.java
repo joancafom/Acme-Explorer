@@ -1,10 +1,13 @@
 
 package controllers.explorer;
 
+import java.util.Collection;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -12,9 +15,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import security.LoginService;
 import security.UserAccount;
+import services.ActorService;
 import services.ExplorerService;
 import controllers.AbstractController;
+import domain.Actor;
 import domain.Explorer;
+import domain.SocialID;
 
 @Controller
 @RequestMapping("/actor/explorer")
@@ -23,10 +29,28 @@ public class ActorExplorerController extends AbstractController {
 	/* Services */
 	@Autowired
 	private ExplorerService	explorerService;
+	@Autowired
+	private ActorService	actorService;
 
 
 	public ActorExplorerController() {
 		super();
+	}
+
+	@RequestMapping(value = "/listSocialIDs", method = RequestMethod.GET)
+	public ModelAndView list() {
+		final ModelAndView result;
+		final Collection<SocialID> socialIDs;
+
+		final UserAccount userAccount = LoginService.getPrincipal();
+		final Actor actor = this.actorService.findByUserAccount(userAccount);
+		Assert.notNull(actor);
+		socialIDs = actor.getSocialIDs();
+
+		result = new ModelAndView();
+		result.addObject("socialIDs", socialIDs);
+		return result;
+
 	}
 
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
@@ -39,7 +63,7 @@ public class ActorExplorerController extends AbstractController {
 
 		result = new ModelAndView("explorer/display");
 		result.addObject("actor", actor);
-		//result.addObject("socialIDs", actor.getSocialIDs());
+		result.addObject("socialIDs", actor.getSocialIDs());
 		result.addObject("emergencyContacts", actor.getEmergencyContacts());
 
 		return result;
