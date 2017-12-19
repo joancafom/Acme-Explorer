@@ -291,48 +291,77 @@
 	
 </jstl:if>
 <jstl:if test="${actorClassName == 'ranger' && ranger.id!=0}">
-	<form:form action="actor/ranger/edit.do" modelAttribute="ranger">
-	<%-- Common Actor Attributes --%>
-		<form:hidden path="id"/>
-		<form:hidden path="version"/>
-		<form:hidden path="isSuspicious"/>
-		<form:hidden path="socialIDs"/>
-		<form:hidden path="sentMessages"/>
-		<form:hidden path="receivedMessages"/>
-		<form:hidden path="userAccount"/>
-		
 	
-	<!-- Ranger -->
 	<security:authorize access="hasRole('RANGER')">
-		<form:hidden path="curriculum"/>
-		<form:hidden path="trips"/>
+		<form:form action="${actionURI}" modelAttribute="ranger">
+		
+			<%-- Common Actor Attributes --%>
+			<form:hidden path="id"/>
+			<form:hidden path="version"/>
+			<form:hidden path="isSuspicious"/>
+			<form:hidden path="socialIDs"/>
+			<form:hidden path="sentMessages"/>
+			<form:hidden path="receivedMessages"/>
+			<form:hidden path="userAccount"/>
+	
+			<!-- Ranger -->
+			<form:hidden path="curriculum"/>
+			<form:hidden path="trips"/>
+	
+			<form:label path="name"><spring:message code="actor.name"/>:</form:label>
+			<form:input path="name"/>
+			<form:errors cssClass="error" path="name"/>
+			<br />
+			<form:label path="surname"><spring:message code="actor.surname"/>:</form:label>
+			<form:input path="surname"/>
+			<form:errors cssClass="error" path="surname"/>
+			<br />
+			<form:label path="email"><spring:message code="actor.email"/>:</form:label>
+			<form:input path="email"/>
+			<form:errors cssClass="error" path="email"/>
+			<br />
+			<form:label path="phoneNumber"><spring:message code="actor.phoneNumber"/>:</form:label>
+			<form:input path="phoneNumber" id="phoneNumber"/>
+			<form:errors cssClass="error" path="phoneNumber"/>
+			<br />
+			<form:label path="address"><spring:message code="actor.address"/>:</form:label>
+			<form:input path="address"/>
+			<form:errors cssClass="error" path="address"/>
+			<br /><br />
+	
+			<input type="submit" name="save" value="<spring:message code="actor.save"/>"/>
+			<input type="button" name="cancel" value="<spring:message code="actor.cancel"/>" onclick="javascript: relativeRedir('actor/ranger/display.do');" />
+	
+		</form:form>
 	</security:authorize>
 	
-	<form:label path="name"><spring:message code="actor.name"/>:</form:label>
-	<form:input path="name"/>
-	<form:errors cssClass="error" path="name"/>
-	<br />
-	<form:label path="surname"><spring:message code="actor.surname"/>:</form:label>
-	<form:input path="surname"/>
-	<form:errors cssClass="error" path="surname"/>
-	<br />
-	<form:label path="email"><spring:message code="actor.email"/>:</form:label>
-	<form:input path="email"/>
-	<form:errors cssClass="error" path="email"/>
-	<br />
-	<form:label path="phoneNumber"><spring:message code="actor.phoneNumber"/>:</form:label>
-	<form:input path="phoneNumber" id="phoneNumber"/>
-	<form:errors cssClass="error" path="phoneNumber"/>
-	<br />
-	<form:label path="address"><spring:message code="actor.address"/>:</form:label>
-	<form:input path="address"/>
-	<form:errors cssClass="error" path="address"/>
-	<br /><br />
+
+	<security:authorize access="hasRole('ADMIN')">
+		<form:form action="${actionURI}" modelAttribute="ranger">
+		
+			<%-- Common Actor Attributes --%>
+			<form:hidden path="id"/>
+			<form:hidden path="version"/>
+			<form:hidden path="name"/>
+			<form:hidden path="surname"/>
+			<form:hidden path="email"/>
+			<form:hidden path="phoneNumber"/>
+			<form:hidden path="address"/>
+			<form:hidden path="isSuspicious"/>
+			<form:hidden path="socialIDs"/>
+			<form:hidden path="sentMessages"/>
+			<form:hidden path="receivedMessages"/>
+			<form:hidden path="userAccount"/>
 	
-	<input type="submit" name="save" value="<spring:message code="actor.save"/>"/>
-	<input type="button" name="cancel" value="<spring:message code="actor.cancel"/>" onclick="javascript: relativeRedir('actor/ranger/display.do');" />
+			<!-- Ranger -->
+			<form:hidden path="curriculum"/>
+			<form:hidden path="trips"/>
 	
-</form:form>
+			<input type="submit" name="ban" value="<spring:message code="actor.ban"/>"/>
+			<input type="button" name="cancel" value="<spring:message code="actor.cancel"/>" onclick="javascript: relativeRedir('actor/ranger/display.do');" />
+	
+		</form:form>
+	</security:authorize>
 </jstl:if>
 
 <jstl:if test="${actorClassName == 'auditor' && auditor.id!=0}">
@@ -545,51 +574,77 @@
 </jstl:if>
 
 <jstl:if test="${actorClassName == 'manager' && manager.id!=0}">
-	<form:form action="actor/manager/edit.do" modelAttribute="manager">
-	<%-- Common Actor Attributes --%>
-		<form:hidden path="id"/>
-		<form:hidden path="version"/>
-		<form:hidden path="isSuspicious"/>
-		<form:hidden path="socialIDs"/>
-		<form:hidden path="sentMessages"/>
-		<form:hidden path="receivedMessages"/>
-		<form:hidden path="userAccount"/>
+
+	<security:authorize access="hasRole('MANAGER')">
+		<form:form action="${actionURI}" modelAttribute="manager">
+		
+			<%-- Common Actor Attributes --%>
+			<form:hidden path="id"/>
+			<form:hidden path="version"/>
+			<form:hidden path="isSuspicious"/>
+			<form:hidden path="socialIDs"/>
+			<form:hidden path="sentMessages"/>
+			<form:hidden path="receivedMessages"/>
+			<form:hidden path="userAccount"/>
 		
 	
-	<!-- Manager -->
-	<security:authorize access="hasRole('MANAGER')">
-		<form:hidden path="trips"/>
-		<form:hidden path="survivalClasses"/>
+			<!-- Manager -->
+			<form:hidden path="trips"/>
+			<form:hidden path="survivalClasses"/>
+	
+			<form:label path="name"><spring:message code="actor.name"/>:</form:label>
+			<form:input path="name"/>
+			<form:errors cssClass="error" path="name"/>
+			<br />
+			<form:label path="surname"><spring:message code="actor.surname"/>:</form:label>
+			<form:input path="surname"/>
+			<form:errors cssClass="error" path="surname"/>
+			<br />
+			<form:label path="email"><spring:message code="actor.email"/>:</form:label>
+			<form:input path="email"/>
+			<form:errors cssClass="error" path="email"/>
+			<br />
+			<form:label path="phoneNumber"><spring:message code="actor.phoneNumber"/>:</form:label>
+			<form:input path="phoneNumber" id="phoneNumber"/>
+			<form:errors cssClass="error" path="phoneNumber"/>
+			<br />
+			<form:label path="address"><spring:message code="actor.address"/>:</form:label>
+			<form:input path="address"/>
+			<form:errors cssClass="error" path="address"/>
+			<br /><br />
+	
+			<input type="submit" name="save" value="<spring:message code="actor.save"/>"/>
+			<input type="button" name="cancel" value="<spring:message code="actor.cancel"/>" onclick="javascript: relativeRedir('actor/manager/display.do');" />
+	
+		</form:form>
+	</security:authorize>
+
+	<security:authorize access="hasRole('ADMIN')">
+			<form:form action="${actionURI}" modelAttribute="manager">
+		
+			<%-- Common Actor Attributes --%>
+			<form:hidden path="id"/>
+			<form:hidden path="version"/>
+			<form:hidden path="name"/>
+			<form:hidden path="surname"/>
+			<form:hidden path="email"/>
+			<form:hidden path="phoneNumber"/>
+			<form:hidden path="address"/>
+			<form:hidden path="isSuspicious"/>
+			<form:hidden path="socialIDs"/>
+			<form:hidden path="sentMessages"/>
+			<form:hidden path="receivedMessages"/>
+			<form:hidden path="userAccount"/>
+		
+	
+			<!-- Manager -->
+			<form:hidden path="trips"/>
+			<form:hidden path="survivalClasses"/>
+	
+			<input type="submit" name="ban" value="<spring:message code="actor.ban"/>"/>
+			<input type="button" name="cancel" value="<spring:message code="actor.cancel"/>" onclick="javascript: relativeRedir('actor/manager/display.do');" />
+	
+		</form:form>
 	</security:authorize>
 	
-	<form:label path="name"><spring:message code="actor.name"/>:</form:label>
-	<form:input path="name"/>
-	<form:errors cssClass="error" path="name"/>
-	<br />
-	<form:label path="surname"><spring:message code="actor.surname"/>:</form:label>
-	<form:input path="surname"/>
-	<form:errors cssClass="error" path="surname"/>
-	<br />
-	<form:label path="email"><spring:message code="actor.email"/>:</form:label>
-	<form:input path="email"/>
-	<form:errors cssClass="error" path="email"/>
-	<br />
-	<form:label path="phoneNumber"><spring:message code="actor.phoneNumber"/>:</form:label>
-	<form:input path="phoneNumber" id="phoneNumber"/>
-	<form:errors cssClass="error" path="phoneNumber"/>
-	<br />
-	<form:label path="address"><spring:message code="actor.address"/>:</form:label>
-	<form:input path="address"/>
-	<form:errors cssClass="error" path="address"/>
-	<br /><br />
-	
-	<input type="submit" name="save" value="<spring:message code="actor.save"/>"/>
-	<input type="button" name="cancel" value="<spring:message code="actor.cancel"/>" onclick="javascript: relativeRedir('actor/manager/display.do');" />
-	
-</form:form>
 </jstl:if>
-
-
-
-
-
