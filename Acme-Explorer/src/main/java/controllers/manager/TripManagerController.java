@@ -2,6 +2,7 @@
 package controllers.manager;
 
 import java.util.Collection;
+import java.util.Date;
 
 import javax.validation.Valid;
 
@@ -102,15 +103,21 @@ public class TripManagerController extends AbstractController {
 	public ModelAndView edit(@RequestParam final int tripId) {
 		ModelAndView res;
 		Trip trip;
+		final UserAccount userAccount = LoginService.getPrincipal();
+		final Manager manager = this.managerService.findByUserAccount(userAccount);
+		final Date now = new Date();
+		Assert.notNull(manager);
 
 		trip = this.tripService.findOne(tripId);
 		Assert.notNull(trip);
+		Assert.isTrue(manager.equals(trip.getManager()));
+		Assert.isTrue(now.before(trip.getEndingDate()));
+
 		res = this.createEditModelAndView(trip);
 
 		return res;
 
 	}
-
 	//Save
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid final Trip trip, final BindingResult binding) {

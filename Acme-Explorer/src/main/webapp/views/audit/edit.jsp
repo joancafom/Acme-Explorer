@@ -16,6 +16,7 @@
 			<form:hidden path="id"/>
 			<form:hidden path="version"/>
 			<form:hidden path="auditor"/>
+			<form:hidden path="trip"/>
 			
 			<form:label path="moment">
 				<spring:message code="audit.moment"/>
@@ -43,18 +44,6 @@
 			</form:label>
 			<form:textarea path="attachments"/>
 			<form:errors cssClass="error" path="attachments"/>
-			<br />
-			
-			<form:label path="trip">
-				<spring:message code="audit.trip"/>
-			</form:label>
-			<form:select path="trip">
-				<form:option value="0" label="---"/>
-				<form:options items="${trips}"
-					itemValue="id"
-					itemLabel="ticker"/>
-			</form:select>
-			<form:errors cssClass="error" path="trip"/>
 			<br />
 			
 			<form:label path="isFinal">

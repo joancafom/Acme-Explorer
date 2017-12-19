@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.TagValueRepository;
-import domain.Tag;
 import domain.TagValue;
 import domain.Trip;
 
@@ -71,13 +70,7 @@ public class TagValueService {
 
 	public TagValue save(final TagValue tagValue) {
 
-		final Trip trip = tagValue.getTrip();
-		Assert.notNull(trip);
-		final Tag tag = tagValue.getTag();
-		Assert.notNull(tag);
-
-		if (tagValue.getId() == 0)
-			Assert.isTrue(!this.tagService.getTagsByTrip(trip).contains(tag));
+		Assert.notNull(tagValue);
 
 		return this.tagValueRepository.save(tagValue);
 	}

@@ -87,6 +87,7 @@ public class ActorRangerController extends AbstractController {
 		result = new ModelAndView("ranger/edit");
 		result.addObject("ranger", actor);
 		result.addObject("actorClassName", "ranger");
+		result.addObject("actionURI", "actor/ranger/edit.do");
 		return result;
 	}
 }

@@ -88,11 +88,13 @@ public class AuditService {
 	public Audit save(final Audit audit) {
 		final UserAccount userAccount = LoginService.getPrincipal();
 
-		if (audit.getId() != 0)
-			Assert.isTrue(!this.auditRepository.findOne(audit.getId()).getIsFinal());
-
 		final Auditor auditor = this.auditorService.findByUserAccount(userAccount);
 		Assert.isTrue(audit.getAuditor().equals(auditor));
+
+		if (audit.getId() != 0)
+			Assert.isTrue(!this.findOne(audit.getId()).getIsFinal());
+		else
+			Assert.isTrue(this.findByAuditorAndTrip(auditor, audit.getTrip()) == null);
 
 		if (!audit.getAttachments().isEmpty())
 			for (final String s : audit.getAttachments())
@@ -129,11 +131,19 @@ public class AuditService {
 		return this.auditRepository.findOne(id);
 	}
 
+	//Other Business Methods
+
 	public Collection<Audit> findByTrip(final Trip t) {
 		Assert.notNull(t);
 		return this.auditRepository.findByTripId(t.getId());
 	}
 
+	public Audit findByAuditorAndTrip(final Auditor auditor, final Trip trip) {
+		Assert.notNull(auditor);
+		Assert.notNull(trip);
+
+		return this.auditRepository.findByAuditorIdAndTripId(auditor.getId(), trip.getId());
+	}
 	private Boolean decideSuspiciousness(final String testString) {
 		final SystemConfiguration sysConfig = this.systemConfigurationService.getCurrentSystemConfiguration();
 		Assert.notNull(sysConfig);

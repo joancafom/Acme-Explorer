@@ -27,7 +27,8 @@
 					<li><a href="actor/admin/display.do"><spring:message code="master.page.user.profile" /></a></li>
 					<li><a href="category/admin/list.do"><spring:message code="master.page.admin.register.category" /></a></li>					
 					<li><a href="manager/admin/create.do"><spring:message code="master.page.admin.register.manager" /></a></li>					
-					<li><a href="ranger/admin/create.do"><spring:message code="master.page.admin.register.ranger" /></a></li>					
+					<li><a href="ranger/admin/create.do"><spring:message code="master.page.admin.register.ranger" /></a></li>
+					<li><a href="actor/admin/listSuspicious.do"><spring:message code="master.page.admin.list.suspicious" /></a></li>					
 					<li><a href="trip/admin/list.do"><spring:message code="master.page.user.trips" /></a></li>					
 					<li><a href="folder/list.do"><spring:message code="master.page.user.folders" /></a></li>					
 				</ul>

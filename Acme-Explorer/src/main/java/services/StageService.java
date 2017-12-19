@@ -12,6 +12,7 @@ import org.springframework.util.Assert;
 
 import repositories.StageRepository;
 import domain.Stage;
+import domain.SystemConfiguration;
 import domain.Trip;
 
 @Service
@@ -21,7 +22,10 @@ public class StageService {
 	// Managed repository ------------------
 
 	@Autowired
-	private StageRepository	stageRepository;
+	private StageRepository				stageRepository;
+
+	@Autowired
+	private SystemConfigurationService	systemConfigurationService;
 
 
 	// Supporting services -----------------
@@ -86,17 +90,24 @@ public class StageService {
 		final Date currentDate = new Date();
 		Assert.isTrue(stage.getTrip().getPublicationDate().after(currentDate));
 
+		final SystemConfiguration sysConfig = this.systemConfigurationService.getCurrentSystemConfiguration();
+		Assert.notNull(sysConfig);
+		final Double taxation = sysConfig.getVAT() + 1.0;
+
 		final Trip t = stage.getTrip();
 		if (stage.getId() != 0)
-			t.setPrice(t.getPrice() - this.findOne(stage.getId()).getPrice());
+			t.setPrice(t.getPrice() - this.findOne(stage.getId()).getPrice() * taxation);
 
-		t.setPrice(t.getPrice() + stage.getPrice());
+		t.setPrice(t.getPrice() + stage.getPrice() * taxation);
 
 		return this.stageRepository.save(stage);
 	}
-
 	public void delete(final Stage stage) {
 		Assert.notNull(stage);
+
+		final SystemConfiguration sysConfig = this.systemConfigurationService.getCurrentSystemConfiguration();
+		Assert.notNull(sysConfig);
+		final Double taxation = sysConfig.getVAT() + 1.0;
 
 		final Date currentDate = new Date();
 		Assert.isTrue(stage.getTrip().getPublicationDate().after(currentDate));
@@ -104,7 +115,7 @@ public class StageService {
 		Assert.isTrue(this.stageRepository.exists(stage.getId()));
 
 		final Trip t = stage.getTrip();
-		t.setPrice(t.getPrice() - stage.getPrice());
+		t.setPrice(t.getPrice() - stage.getPrice() * taxation);
 
 		this.stageRepository.delete(stage);
 	}
