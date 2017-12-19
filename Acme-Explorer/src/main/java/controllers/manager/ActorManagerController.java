@@ -87,6 +87,7 @@ public class ActorManagerController extends AbstractController {
 		result = new ModelAndView("manager/edit");
 		result.addObject("manager", actor);
 		result.addObject("actorClassName", "manager");
+		result.addObject("actionURI", "actor/manager/edit.do");
 		return result;
 	}
 }

@@ -30,6 +30,7 @@ but, since in the requirements it only says about listing Explorers, it's adapte
 </jstl:if>
 
 <jstl:if test="${action=='listSuspicious'}">
+	<h1><spring:message code="managers"/>:</h1>
 	<display:table name="managers" id="manager" class="displaytag">
 	
 		<display:column property="name" title="Name" sortable="true"/>
@@ -41,7 +42,18 @@ but, since in the requirements it only says about listing Explorers, it's adapte
 		<display:column property="phoneNumber" title="Phone Number" />
 
 		<display:column property="address" title="Address" />
+		
+		<display:column property="userAccount.isLocked" title="Is banned" />
+		
+		<jstl:if test="${manager.userAccount.isLocked == false}">
+			<display:column>
+				<a href="manager/admin/edit.do?managerId=${manager.id}"><spring:message code="actor.ban"/></a>
+			</display:column>
+		</jstl:if>
+		
 	</display:table>
+	
+	<h1><spring:message code="rangers"/>:</h1>
 	<display:table name="rangers" id="ranger" class="displaytag">
 	
 		<display:column property="name" title="Name" sortable="true"/>
@@ -53,5 +65,13 @@ but, since in the requirements it only says about listing Explorers, it's adapte
 		<display:column property="phoneNumber" title="Phone Number" />
 
 		<display:column property="address" title="Address" />
+		
+		<display:column property="userAccount.isLocked" title="Is banned" />
+		
+		<jstl:if test="${ranger.userAccount.isLocked == false}">
+			<display:column>
+				<a href="ranger/admin/edit.do?rangerId=${ranger.id}"><spring:message code="actor.ban"/></a>
+			</display:column>
+		</jstl:if>
 	</display:table>
 </jstl:if>

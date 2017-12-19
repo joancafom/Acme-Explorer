@@ -6,12 +6,15 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import security.UserAccount;
+import services.ActorService;
 import services.RangerService;
 import services.UserAccountService;
 import controllers.AbstractController;
@@ -28,6 +31,9 @@ public class RangerAdminController extends AbstractController {
 
 	@Autowired
 	private RangerService		rangerService;
+
+	@Autowired
+	private ActorService		actorService;
 
 
 	// Constructors ---------------------------
@@ -58,6 +64,19 @@ public class RangerAdminController extends AbstractController {
 
 	// Edition --------------------------------
 
+	@RequestMapping(value = "/edit", method = RequestMethod.GET)
+	public ModelAndView edit(@RequestParam final int rangerId) {
+		ModelAndView res;
+		final Ranger ranger;
+
+		ranger = this.rangerService.findOne(rangerId);
+		Assert.notNull(ranger);
+
+		res = this.createEditModelAndView(ranger);
+
+		return res;
+	}
+
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid final Ranger ranger, final BindingResult bindingResult) {
 
@@ -85,6 +104,27 @@ public class RangerAdminController extends AbstractController {
 				res = this.createEditModelAndView(ranger, "actor.commit.error");
 			}
 		}
+
+		return res;
+
+	}
+
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "ban")
+	public ModelAndView ban(@Valid final Ranger ranger, final BindingResult bindingResult) {
+
+		ModelAndView res;
+
+		if (bindingResult.hasErrors())
+			res = this.createEditModelAndView(ranger);
+		else
+			try {
+
+				this.actorService.ban(ranger);
+				res = new ModelAndView("redirect:/actor/admin/listSuspicious.do");
+
+			} catch (final Throwable oops) {
+				res = this.createEditModelAndView(ranger, "actor.commit.error");
+			}
 
 		return res;
 
