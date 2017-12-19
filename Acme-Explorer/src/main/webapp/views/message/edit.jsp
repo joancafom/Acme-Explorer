@@ -10,8 +10,8 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 
-<form:form action="message/edit.do" modelAttribute="messageEdit">
-		<jstl:if test="${messageEdit.id==0}">
+<form:form action="message/edit.do" modelAttribute="message">
+		<jstl:if test="${message.id==0}">
 			<form:hidden path="version"/>
 			<form:hidden path="id"/>
 			<form:hidden path="sender"/>
@@ -37,7 +37,6 @@
 			<br><br>
 			<form:label path="priority"><spring:message code="message.priority"/></form:label>
 			<form:select path="priority">
-				<form:option value="0" label="----"/>
 				<jstl:forEach items="${priorities}" var="priority">
 					<jstl:if test="${priority=='HIGH'}">
 						<jstl:set var="priorityLevel">
@@ -64,7 +63,7 @@
 	
 		</jstl:if>
 		
-		<jstl:if test="${messageEdit.id!=0}">
+		<jstl:if test="${message.id!=0}">
 			
 			<form:hidden path="version"/>
 			<form:hidden path="id"/>

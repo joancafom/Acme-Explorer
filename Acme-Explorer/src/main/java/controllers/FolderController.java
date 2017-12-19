@@ -138,6 +138,7 @@ public class FolderController extends AbstractController {
 
 		result = new ModelAndView("folder/edit");
 		result.addObject("folder", folder);
+		result.addObject("message", messageCode);
 		return result;
 	}
 }

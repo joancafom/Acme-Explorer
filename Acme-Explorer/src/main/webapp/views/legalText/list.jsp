@@ -8,8 +8,6 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<h1><spring:message code="legalText.list"/></h1>
-
 <display:table name="legalTexts" id="legalText" requestURI="${requestURI}" pagesize="5" class="displaytag">
 
 	<security:authorize access="hasRole('ADMIN')">
@@ -40,17 +38,17 @@
 	
 	<display:column property="body" titleKey="legalText.body"/>
 	
-	<display:column property="numberOfApplicableLaws" titleKey="legalText.applicableLaws"/>
+	<display:column property="laws" titleKey="legalText.laws"/>
 	
 	<spring:message code="date.format" var="dateFormat"></spring:message>	
 	<display:column property="registrationMoment" titleKey="legalText.moment" sortable="true" format="${dateFormat}"></display:column>
 	
 	<display:column titleKey="legalText.mode">
-		<jstl:if test="${true legalText.isFinal}">
+		<jstl:if test="${legalText.isFinal}">
 			<jstl:set var="mode" value="final"/>
 		</jstl:if>
 	
-		<jstl:if test="${false legalText.isFinal}">
+		<jstl:if test="${legalText.isFinal==false}">
 			<jstl:set var="mode" value="draft"/>
 		</jstl:if>
 		
@@ -69,4 +67,11 @@
 		</jstl:if>		
 	</display:column>
 	
+	<display:column>
+		<jstl:if test="${legalText.isFinal==false}">
+			<a href="legalText/admin/edit.do?legalTextId=${legalText.id}"><spring:message code="legalText.edit"/></a>
+		</jstl:if>
+	</display:column>
 </display:table>
+
+<a href="legalText/admin/create.do"><spring:message code="legalText.create"/></a>

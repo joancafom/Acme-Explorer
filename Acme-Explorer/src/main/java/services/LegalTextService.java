@@ -75,8 +75,8 @@ public class LegalTextService {
 	public LegalText save(final LegalText legalText) {
 
 		Assert.notNull(legalText);
-		Assert.isTrue(!this.legalTextRepository.findOne(legalText.getId()).getIsFinal());
-
+		if (legalText.getId() != 0)
+			Assert.isTrue(!this.legalTextRepository.findOne(legalText.getId()).getIsFinal());
 		if (!legalText.getTrips().isEmpty())
 			Assert.isTrue(legalText.getIsFinal());
 

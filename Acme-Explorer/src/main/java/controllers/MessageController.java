@@ -146,10 +146,11 @@ public class MessageController extends AbstractController {
 		folders = this.folderService.findAllByPrincipal();
 
 		result = new ModelAndView("message/edit");
-		result.addObject("messageEdit", message);
+		result.addObject("message", message);
 		result.addObject("actors", actors);
 		result.addObject("priorities", priorities);
 		result.addObject("folders", folders);
+		result.addObject("messageCode", messageCode);
 
 		return result;
 

@@ -102,12 +102,15 @@ public class FolderService {
 		Assert.isTrue(!folder.getName().equals("Notification Box"));
 		Assert.isTrue(!folder.getName().equals("Trash Box"));
 		Assert.isTrue(!folder.getName().equals("Spam Box"));
+		/*
+		 * A folder cannot have the same name as another folder of the same
+		 * actor
+		 */
+		for (final Folder f : this.findAllByPrincipal())
+			Assert.isTrue(!folder.getName().equals(f.getName()));
 
 		return this.folderRepository.save(folder);
 	}
-
-	// REVISAR !!!
-	// Es necesario hacer el delete?
 
 	// Other business methods --------------
 
