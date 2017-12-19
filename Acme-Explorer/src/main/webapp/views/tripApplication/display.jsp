@@ -30,7 +30,7 @@
 
 
 <jstl:if test="${tripApplication.status == 'REJECTED'}">
-	<p><strong><spring:message code="tripApplication.rejectionReason"/>:</strong> 
+	<p><strong style="color:red"><spring:message code="tripApplication.rejectionReason"/>:</strong> 
 		<jstl:choose>
 			<jstl:when test="${tripApplication.rejectionReason == null }">-</jstl:when>
 			<jstl:otherwise>

@@ -22,6 +22,8 @@ public class TagService {
 	//Managed Repository
 	@Autowired
 	private TagRepository	tagRepository;
+	@Autowired
+	private TagValueService	tagValueService;
 
 
 	//Simple CRUD operations
@@ -59,10 +61,10 @@ public class TagService {
 		Assert.notNull(tag);
 
 		//Do we need this?
-		//		//If we remove one Tag, its TagValue(s) disappears, if any.
-		//		if (!tag.getTagValues().isEmpty())
-		//			for (final TagValue tv : tag.getTagValues())
-		//				this.tagValueService.delete(tv);
+		//If we remove one Tag, its TagValue(s) disappears, if any.
+		if (!tag.getTagValues().isEmpty())
+			for (final TagValue tv : tag.getTagValues())
+				this.tagValueService.delete(tv);
 
 		this.tagRepository.delete(tag);
 	}
