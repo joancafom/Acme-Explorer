@@ -130,10 +130,8 @@ public class TagValueManagerController extends AbstractController {
 		final Collection<Tag> tags;
 		final Trip trip = tagValue.getTrip();
 		Assert.notNull(trip);
-		final Collection<Tag> usedTags = this.tagService.getTagsByTrip(trip);
 
 		tags = this.tagService.findAll();
-		tags.removeAll(usedTags);
 
 		res = new ModelAndView("tagValue/edit");
 		res.addObject("tagValue", tagValue);

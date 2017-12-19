@@ -126,10 +126,11 @@ public class TripService {
 
 		final Date currentDate = new Date();
 		Assert.isTrue(trip.getPublicationDate().after(currentDate) || trip.getCancelationReason() != null);
+		Assert.isTrue(trip.getPublicationDate().before(trip.getStartingDate()));
+		Assert.isTrue(trip.getEndingDate().after(trip.getStartingDate()));
 
 		return this.tripRepository.save(trip);
 	}
-
 	public void delete(final Trip trip) {
 		Assert.notNull(trip);
 
