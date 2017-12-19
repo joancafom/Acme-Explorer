@@ -105,7 +105,7 @@ public class StoryService {
 			}
 
 		Assert.isTrue(tripMatched);
-		Assert.isTrue(trip.getEndingDate().after(new Date()));
+		Assert.isTrue(trip.getEndingDate().before(new Date()));
 
 		final Boolean isSuspicious;
 		isSuspicious = this.decideSuspiciousness(story.getTitle() + " " + story.getText());

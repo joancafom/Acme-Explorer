@@ -131,6 +131,7 @@ public class TripService {
 
 		return this.tripRepository.save(trip);
 	}
+
 	public void delete(final Trip trip) {
 		Assert.notNull(trip);
 
@@ -276,4 +277,18 @@ public class TripService {
 		return res;
 	}
 
+	public Collection<Trip> findExplorerAcceptedAndOverTrips(final int explorerId) {
+		final UserAccount userAccount = LoginService.getPrincipal();
+		final Explorer explorer = this.explorerService.findByUserAccount(userAccount);
+
+		Assert.notNull(explorer);
+		Assert.isTrue(explorer.getId() == explorerId);
+
+		Collection<Trip> trips;
+
+		Assert.notNull(this.tripRepository);
+		trips = this.tripRepository.findExplorerAcceptedAndOverTrips(explorerId);
+
+		return trips;
+	}
 }
