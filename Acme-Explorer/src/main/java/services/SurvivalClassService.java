@@ -17,6 +17,7 @@ import security.UserAccount;
 import domain.Explorer;
 import domain.Manager;
 import domain.SurvivalClass;
+import domain.Trip;
 import domain.TripApplication;
 
 @Service
@@ -137,5 +138,10 @@ public class SurvivalClassService {
 		explorer.getSurvivalClasses().add(survivalClass);
 		survivalClass.getExplorers().add(explorer);
 
+	}
+
+	public Collection<SurvivalClass> findAllByTrip(final Trip trip) {
+		Assert.notNull(trip);
+		return this.survivalClassRepository.findAllByTripId(trip.getId());
 	}
 }

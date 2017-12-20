@@ -75,7 +75,8 @@
 					<li><a href="trip/manager/list.do"><spring:message code="master.page.manager.myTrips" /></a></li>
 					<li><a href="trip/manager/list.do?showAll=true"><spring:message code="master.page.user.trips" /></a></li>			
 					<li><a href="trip/manager/search.do"><spring:message code="master.page.user.tripSearch" /></a></li>	
-					<li><a href="tripApplication/manager/list.do"><spring:message code="master.page.manager.tripApplications" /></a></li>								
+					<li><a href="tripApplication/manager/list.do"><spring:message code="master.page.manager.tripApplications" /></a></li>
+					<li><a href="survivalClass/manager/list.do"><spring:message code="master.page.manager.survivalClasses" /></a></li>									
 					<li><a href="folder/manager/list.do"><spring:message code="master.page.user.folders" /></a></li>				
 				</ul>
 			</li>
