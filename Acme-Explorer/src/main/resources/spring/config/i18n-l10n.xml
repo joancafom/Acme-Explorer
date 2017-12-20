@@ -28,6 +28,7 @@
 		<value>/views/profile/messages</value>
 		
 		<value>/views/actor/messages</value>
+		<value>/views/admin/messages</value>
 		<value>/views/audit/messages</value>
 		<value>/views/category/messages</value>
 		<value>/views/curriculum/messages</value>

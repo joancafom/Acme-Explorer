@@ -130,6 +130,27 @@ public class ManagerAdminController extends AbstractController {
 
 	}
 
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "unban")
+	public ModelAndView unban(@Valid final Manager manager, final BindingResult bindingResult) {
+
+		ModelAndView res;
+
+		if (bindingResult.hasErrors())
+			res = this.createEditModelAndView(manager);
+		else
+			try {
+
+				this.actorService.unban(manager);
+				res = new ModelAndView("redirect:/actor/admin/listSuspicious.do");
+
+			} catch (final Throwable oops) {
+				res = this.createEditModelAndView(manager, "actor.commit.error");
+			}
+
+		return res;
+
+	}
+
 	// Ancillary methods ----------------------
 
 	protected ModelAndView createEditModelAndView(final Manager manager) {

@@ -1,7 +1,6 @@
 
 package services;
 
-import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.transaction.Transactional;
@@ -15,7 +14,9 @@ import security.LoginService;
 import security.UserAccount;
 import domain.Actor;
 import domain.Admin;
+import domain.LegalText;
 import domain.Message;
+import domain.Trip;
 
 @Service
 @Transactional
@@ -66,28 +67,93 @@ public class AdminService {
 		return res;
 	}
 
-	public Collection<Object> dashboardInformation() {
-		final Collection<Object> res = new ArrayList<Object>();
+	public Collection<Double> getApplicationsPerTripStatistics() {
 
-		res.add(this.adminRepository.applicationsPerTripStatistics());
-		res.add(this.adminRepository.tripsPerManagerStatistics());
-		res.add(this.adminRepository.tripPricesStatistics());
-		res.add(this.adminRepository.tripsPerRangerStatistics());
-		res.add(this.adminRepository.pendingApplicationsRatio());
-		res.add(this.adminRepository.dueApplicationsRatio());
-		res.add(this.adminRepository.acceptedApplicationsRatio());
-		res.add(this.adminRepository.cancelledApplicationsRatio());
-		res.add(this.adminRepository.cancelledVsOrganisedTripsRatio());
-		res.add(this.adminRepository.tripsMoreApplicationsOrdered());
-		res.add(this.adminRepository.legalTextsByTrip());
-		res.add(this.adminRepository.notesPerTripStatistics());
-		res.add(this.adminRepository.auditsPerTripStatistics());
-		res.add(this.adminRepository.tripsWithAuditsRatio());
-		res.add(this.adminRepository.rangersWithCurriculumRatio());
-		res.add(this.adminRepository.rangersWithEndorserRecordRatio());
-		res.add(this.adminRepository.suspiciousManagersRatio());
-		res.add(this.adminRepository.suspiciousRangersRatio());
+		return this.adminRepository.applicationsPerTripStatistics();
+	}
 
-		return res;
+	public Collection<Double> getTripsPerManagerStatistics() {
+
+		return this.adminRepository.tripsPerManagerStatistics();
+	}
+
+	public Collection<Double> getTripPricesStatistics() {
+
+		return this.adminRepository.tripPricesStatistics();
+	}
+
+	public Collection<Double> getTripsPerRangerStatistics() {
+
+		return this.adminRepository.tripsPerRangerStatistics();
+	}
+
+	public Double getPendingApplicationRatio() {
+
+		return this.adminRepository.pendingApplicationsRatio();
+	}
+
+	public Double getDueApplicationRatio() {
+
+		return this.adminRepository.dueApplicationsRatio();
+	}
+
+	public Double getAcceptedApplicationRatio() {
+
+		return this.adminRepository.acceptedApplicationsRatio();
+	}
+
+	public Double getCancelledApplicationRatio() {
+
+		return this.adminRepository.cancelledApplicationsRatio();
+	}
+
+	public Double getCancelledVsOrganisedTripsRatio() {
+
+		return this.adminRepository.cancelledApplicationsRatio();
+	}
+
+	public Collection<Trip> getTripsMoreApplicationsOrdered() {
+
+		return this.adminRepository.tripsMoreApplicationsOrdered();
+	}
+
+	public Integer getNumberReferences(final LegalText legalText) {
+		Assert.notNull(legalText);
+		return this.adminRepository.numberOfReferencesByLegalTextId(legalText.getId());
+	}
+
+	public Collection<Double> getNotesPerTripStatistics() {
+
+		return this.adminRepository.notesPerTripStatistics();
+	}
+
+	public Collection<Double> getAuditPerTripStatistics() {
+
+		return this.adminRepository.auditsPerTripStatistics();
+	}
+
+	public Double getTripsWithAuditRatio() {
+
+		return this.adminRepository.tripsWithAuditsRatio();
+	}
+
+	public Double getRangersWithCurriculumRatio() {
+
+		return this.adminRepository.rangersWithCurriculumRatio();
+	}
+
+	public Double getRangersWithERRatio() {
+
+		return this.adminRepository.rangersWithEndorserRecordRatio();
+	}
+
+	public Double getSuspiciousManagersRatio() {
+
+		return this.adminRepository.suspiciousManagersRatio();
+	}
+
+	public Double getSuspiciousRangersRatio() {
+
+		return this.adminRepository.suspiciousRangersRatio();
 	}
 }

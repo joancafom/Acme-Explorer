@@ -357,7 +357,14 @@
 			<form:hidden path="curriculum"/>
 			<form:hidden path="trips"/>
 	
-			<input type="submit" name="ban" value="<spring:message code="actor.ban"/>"/>
+			<jstl:choose>
+				<jstl:when test="${ranger.userAccount.isLocked == false}">
+					<input type="submit" name="ban" value="<spring:message code="actor.ban"/>"/>
+				</jstl:when>
+				<jstl:otherwise>
+					<input type="submit" name="unban" value="<spring:message code="actor.unban"/>"/>
+				</jstl:otherwise>
+			</jstl:choose>
 			<input type="button" name="cancel" value="<spring:message code="actor.cancel"/>" onclick="javascript: relativeRedir('actor/ranger/display.do');" />
 	
 		</form:form>
@@ -641,7 +648,14 @@
 			<form:hidden path="trips"/>
 			<form:hidden path="survivalClasses"/>
 	
-			<input type="submit" name="ban" value="<spring:message code="actor.ban"/>"/>
+			<jstl:choose>
+				<jstl:when test="${manager.userAccount.isLocked == false}">
+					<input type="submit" name="ban" value="<spring:message code="actor.ban"/>"/>
+				</jstl:when>
+				<jstl:otherwise>
+					<input type="submit" name="unban" value="<spring:message code="actor.unban"/>"/>
+				</jstl:otherwise>
+			</jstl:choose>
 			<input type="button" name="cancel" value="<spring:message code="actor.cancel"/>" onclick="javascript: relativeRedir('actor/manager/display.do');" />
 	
 		</form:form>

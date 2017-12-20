@@ -46,8 +46,8 @@ public interface AdminRepository extends JpaRepository<Admin, Integer> {
 	@Query("select t from Trip t where t.tripApplications.size >= (select avg(t2.tripApplications.size)*1.1 from Trip t2) order by t.tripApplications.size")
 	Collection<Trip> tripsMoreApplicationsOrdered();
 
-	@Query("select l.title, l.trips.size from LegalText l")
-	Collection<Object> legalTextsByTrip();
+	@Query("select l.trips.size from LegalText l where l.id = ?1")
+	int numberOfReferencesByLegalTextId(int legalTextId);
 
 	@Query("select min(t.notes.size), max(t.notes.size), avg(t.notes.size), sqrt(sum(t.notes.size*t.notes.size)/count(t.notes.size)-avg(t.notes.size)*avg(t.notes.size)) from Trip t")
 	Collection<Double> notesPerTripStatistics();

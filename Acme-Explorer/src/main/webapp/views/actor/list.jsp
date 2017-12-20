@@ -45,11 +45,16 @@ but, since in the requirements it only says about listing Explorers, it's adapte
 		
 		<display:column property="userAccount.isLocked" title="Is banned" />
 		
-		<jstl:if test="${manager.userAccount.isLocked == false}">
-			<display:column>
+		<display:column>
+		<jstl:choose>
+			<jstl:when test="${manager.userAccount.isLocked == false}">
 				<a href="manager/admin/edit.do?managerId=${manager.id}"><spring:message code="actor.ban"/></a>
-			</display:column>
-		</jstl:if>
+			</jstl:when>
+			<jstl:otherwise>
+				<a href="manager/admin/edit.do?managerId=${manager.id}"><spring:message code="actor.unban"/></a>
+			</jstl:otherwise>
+		</jstl:choose>
+		</display:column>
 		
 	</display:table>
 	

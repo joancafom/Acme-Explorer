@@ -52,6 +52,8 @@
 		<security:intercept-url pattern="/administrator/action-1.do" access="hasRole('ADMIN')" /> 
 		<security:intercept-url pattern="/administrator/action-2.do" access="hasRole('ADMIN')" /> 
 
+		<security:intercept-url pattern="/admin/display-dashboard.do" access="hasRole('ADMIN')" /> 
+
 		<security:intercept-url pattern="/audit/list.do" access="isAnonymous()"/>
 		<security:intercept-url pattern="/audit/display.do" access="isAnonymous()"/>
 		<security:intercept-url pattern="/audit/auditor/display.do" access="hasRole('AUDITOR')"/>
@@ -124,6 +126,7 @@
 		<security:intercept-url pattern="/trip/list.do" access="isAnonymous()"/>
 
 		<security:intercept-url pattern="/trip/admin/list.do" access="hasRole('ADMIN')"/>
+		<security:intercept-url pattern="/trip/admin/display.do" access="hasRole('ADMIN')"/>
 		<security:intercept-url pattern="/trip/auditor/list.do" access="hasRole('AUDITOR')"/>
 		<security:intercept-url pattern="/trip/auditor/display.do" access="hasRole('AUDITOR')"/>
 		<security:intercept-url pattern="/trip/manager/list.do" access="hasRole('MANAGER')"/>
