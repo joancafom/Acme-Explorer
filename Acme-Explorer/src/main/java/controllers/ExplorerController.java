@@ -99,7 +99,7 @@ public class ExplorerController extends AbstractController {
 		res.addObject("requestURI", "explorer/create.do");
 		res.addObject("actionURI", "explorer/edit.do");
 
-		res.addObject("message", messageCode);
+		res.addObject("messageCode", messageCode);
 
 		return res;
 	}

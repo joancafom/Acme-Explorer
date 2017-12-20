@@ -33,13 +33,22 @@ public class AdminService {
 	@Autowired
 	private ActorService	actorService;
 
+	@Autowired
+	private FolderService	folderService;
+
 
 	//CRUD
 
 	public Admin save(final Admin admin) {
 
 		Assert.notNull(admin);
-		return this.adminRepository.save(admin);
+
+		final Admin adminS = this.adminRepository.save(admin);
+
+		if (admin.getId() == 0)
+			this.folderService.createSystemFolders(adminS);
+
+		return adminS;
 	}
 
 	//Other Business process

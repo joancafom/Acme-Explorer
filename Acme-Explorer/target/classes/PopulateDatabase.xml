@@ -1653,12 +1653,12 @@
 		</property>
 		<property name="startingDate">
 			<bean factory-method="parse" factory-bean="dateFormat">
-				<constructor-arg value="13/12/2017 12:30" />
+				<constructor-arg value="13/12/2018 12:30" />
 			</bean>
 		</property>
 		<property name="endingDate">
 			<bean factory-method="parse" factory-bean="dateFormat">
-				<constructor-arg value="14/12/2017 23:59" />
+				<constructor-arg value="14/12/2018 23:59" />
 			</bean>
 		</property>
 		<property name="requirements" value="Withstand high temperatures."></property>
@@ -1763,7 +1763,7 @@
 		</property>
 		<property name="status" value="CANCELLED"></property>
 		<property name="explorer" ref="explorer2"></property>
-		<property name="trip" ref="trip4"></property>
+		<property name="trip" ref="trip1"></property>
 	</bean>
 
 	<!-- Folder -->

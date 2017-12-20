@@ -114,21 +114,18 @@ public class FolderService {
 
 	// Other business methods --------------
 
-	public Collection<Folder> createSystemFolders(final Actor actor) {
+	public void createSystemFolders(final Actor actor) {
 		final String[] sysFolderNames = {
 			"In Box", "Out Box", "Notification Box", "Trash Box", "Spam Box"
 		};
-
-		final List<Folder> res = new ArrayList<Folder>();
 
 		for (final String s : sysFolderNames) {
 			final Folder f = this.create(actor, null);
 			f.setIsSystem(true);
 			f.setName(s);
 			f.setActor(actor);
-			res.add(f);
+			this.folderRepository.save(f);
 		}
-		return res;
 	}
 
 	public Collection<Folder> findAllByPrincipal() {

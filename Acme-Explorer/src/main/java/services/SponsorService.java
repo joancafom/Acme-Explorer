@@ -31,6 +31,9 @@ public class SponsorService {
 	@Autowired
 	private ActorService		actorService;
 
+	@Autowired
+	private FolderService		folderService;
+
 
 	// Constructors ------------------------
 
@@ -89,7 +92,12 @@ public class SponsorService {
 		// REVISAR !!!
 		// Si el sponsor tiene sponsorships, debo setear el sponsor de esa sponsorship como el sponsor actual?  
 
-		return this.sponsorRepository.save(sponsor);
+		final Sponsor sponsorS = this.sponsorRepository.save(sponsor);
+
+		if (sponsor.getId() == 0)
+			this.folderService.createSystemFolders(sponsorS);
+
+		return sponsorS;
 	}
 
 	// REVISAR !!!

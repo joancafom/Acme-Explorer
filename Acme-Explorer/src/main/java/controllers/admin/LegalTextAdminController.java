@@ -100,17 +100,18 @@ public class LegalTextAdminController extends AbstractController {
 		return result;
 	}
 
-	private ModelAndView createEditModelAndView(final LegalText legalText) {
+	protected ModelAndView createEditModelAndView(final LegalText legalText) {
 		ModelAndView result;
 		result = this.createEditModelAndView(legalText, null);
 		return result;
 	}
 
-	private ModelAndView createEditModelAndView(final LegalText legalText, final String messageCode) {
+	protected ModelAndView createEditModelAndView(final LegalText legalText, final String messageCode) {
 		ModelAndView result;
 
 		result = new ModelAndView("legalText/edit");
 		result.addObject("legalText", legalText);
+		result.addObject("messageCode", messageCode);
 		return result;
 	}
 

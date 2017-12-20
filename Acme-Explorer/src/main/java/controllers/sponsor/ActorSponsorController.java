@@ -76,17 +76,18 @@ public class ActorSponsorController extends AbstractController {
 
 	}
 
-	private ModelAndView createEditModelAndView(final Sponsor actor) {
+	protected ModelAndView createEditModelAndView(final Sponsor actor) {
 		ModelAndView result;
 		result = this.createEditModelAndView(actor, null);
 		return result;
 	}
 
-	private ModelAndView createEditModelAndView(final Sponsor actor, final Object object) {
+	protected ModelAndView createEditModelAndView(final Sponsor actor, final String messageCode) {
 		ModelAndView result;
 		result = new ModelAndView("sponsor/edit");
 		result.addObject("sponsor", actor);
 		result.addObject("actorClassName", "sponsor");
+		result.addObject("messageCode", messageCode);
 		return result;
 	}
 }

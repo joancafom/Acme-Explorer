@@ -86,20 +86,20 @@ public class ActorAdminController extends AbstractController {
 
 	}
 
-	private ModelAndView createEditModelAndView(final Admin actor) {
+	protected ModelAndView createEditModelAndView(final Admin actor) {
 		ModelAndView result;
 		result = this.createEditModelAndView(actor, null);
 		return result;
 	}
 
-	private ModelAndView createEditModelAndView(final Admin actor, final Object object) {
+	protected ModelAndView createEditModelAndView(final Admin actor, final String messageCode) {
 		ModelAndView result;
 		result = new ModelAndView("admin/edit");
 		result.addObject("admin", actor);
 		result.addObject("actorClassName", "admin");
+		result.addObject("messageCode", messageCode);
 		return result;
 	}
-
 	@RequestMapping(value = "/listSuspicious", method = RequestMethod.GET)
 	public ModelAndView listSuspicious() {
 		final ModelAndView result;

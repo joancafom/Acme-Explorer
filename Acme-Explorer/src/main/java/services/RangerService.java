@@ -31,6 +31,9 @@ public class RangerService {
 	@Autowired
 	private ActorService		actorService;
 
+	@Autowired
+	private FolderService		folderService;
+
 
 	// Constructors ------------------------
 
@@ -91,7 +94,12 @@ public class RangerService {
 		// REVISAR !!!
 		// Si el ranger tiene currículum, debo setear el ranger de ese curriculum como el ranger actual?
 
-		return this.rangerRepository.save(ranger);
+		final Ranger rangerS = this.rangerRepository.save(ranger);
+
+		if (ranger.getId() == 0)
+			this.folderService.createSystemFolders(rangerS);
+
+		return rangerS;
 	}
 
 	// REVISAR !!!

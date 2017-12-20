@@ -122,12 +122,23 @@ public class TripService {
 	}
 
 	public Trip save(final Trip trip) {
+		final UserAccount userAccount = LoginService.getPrincipal();
+		final Manager manager = this.managerService.findByUserAccount(userAccount);
+
 		Assert.notNull(trip);
 
 		final Date currentDate = new Date();
 		Assert.isTrue(trip.getPublicationDate().after(currentDate) || trip.getCancelationReason() != null);
 		Assert.isTrue(trip.getPublicationDate().before(trip.getStartingDate()));
 		Assert.isTrue(trip.getEndingDate().after(trip.getStartingDate()));
+
+		Boolean isSuspicious = null;
+
+		if (trip.getCancelationReason() != null)
+			isSuspicious = this.decideSuspiciousness(trip.getCancelationReason());
+
+		if (isSuspicious)
+			manager.setIsSuspicious(isSuspicious);
 
 		return this.tripRepository.save(trip);
 	}
@@ -290,5 +301,20 @@ public class TripService {
 		trips = this.tripRepository.findExplorerAcceptedAndOverTrips(explorerId);
 
 		return trips;
+	}
+
+	public Boolean decideSuspiciousness(final String testString) {
+		final SystemConfiguration sysConfig = this.systemConfigurationService.getCurrentSystemConfiguration();
+		Assert.notNull(sysConfig);
+
+		Boolean res = false;
+
+		for (final String spamWord : sysConfig.getSpamWords())
+			if (testString.toLowerCase().contains(spamWord)) {
+				res = true;
+				break;
+			}
+
+		return res;
 	}
 }

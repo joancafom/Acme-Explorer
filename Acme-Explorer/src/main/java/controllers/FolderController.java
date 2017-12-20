@@ -127,18 +127,18 @@ public class FolderController extends AbstractController {
 		return result;
 	}
 
-	private ModelAndView createEditModelAndView(final Folder folder) {
+	protected ModelAndView createEditModelAndView(final Folder folder) {
 		ModelAndView result;
 		result = this.createEditModelAndView(folder, null);
 		return result;
 	}
 
-	private ModelAndView createEditModelAndView(final Folder folder, final String messageCode) {
+	protected ModelAndView createEditModelAndView(final Folder folder, final String messageCode) {
 		ModelAndView result;
 
 		result = new ModelAndView("folder/edit");
 		result.addObject("folder", folder);
-		result.addObject("message", messageCode);
+		result.addObject("messageCode", messageCode);
 		return result;
 	}
 }

@@ -39,7 +39,7 @@ public class CreditCard {
 		return this.number;
 	}
 
-	@Min(100)
+	@Min(1)
 	@Max(999)
 	public Integer getCVV() {
 		return this.CVV;

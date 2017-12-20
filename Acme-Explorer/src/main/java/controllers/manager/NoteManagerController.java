@@ -96,17 +96,17 @@ public class NoteManagerController extends AbstractController {
 	}
 
 	//Ancillary Methods
-	public ModelAndView createEditModelAndView(final Note note) {
+	protected ModelAndView createEditModelAndView(final Note note) {
 		return this.createEditModelAndView(note, null);
 	}
 
-	public ModelAndView createEditModelAndView(final Note note, final String messageCode) {
+	protected ModelAndView createEditModelAndView(final Note note, final String messageCode) {
 		ModelAndView res;
 
 		res = new ModelAndView("note/edit");
 		res.addObject("note", note);
 
-		res.addObject("message", messageCode);
+		res.addObject("messageCode", messageCode);
 
 		return res;
 	}

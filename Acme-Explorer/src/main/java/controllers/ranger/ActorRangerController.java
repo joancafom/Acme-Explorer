@@ -76,18 +76,19 @@ public class ActorRangerController extends AbstractController {
 
 	}
 
-	private ModelAndView createEditModelAndView(final Ranger actor) {
+	protected ModelAndView createEditModelAndView(final Ranger actor) {
 		ModelAndView result;
 		result = this.createEditModelAndView(actor, null);
 		return result;
 	}
 
-	private ModelAndView createEditModelAndView(final Ranger actor, final Object object) {
+	protected ModelAndView createEditModelAndView(final Ranger actor, final String messageCode) {
 		ModelAndView result;
 		result = new ModelAndView("ranger/edit");
 		result.addObject("ranger", actor);
 		result.addObject("actorClassName", "ranger");
 		result.addObject("actionURI", "actor/ranger/edit.do");
+		result.addObject("messageCode", messageCode);
 		return result;
 	}
 }

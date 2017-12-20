@@ -121,11 +121,11 @@ public class TagValueManagerController extends AbstractController {
 
 	//Ancillary Methods
 
-	public ModelAndView createEditModelAndView(final TagValue tagValue) {
+	protected ModelAndView createEditModelAndView(final TagValue tagValue) {
 		return this.createEditModelAndView(tagValue, null);
 	}
 
-	public ModelAndView createEditModelAndView(final TagValue tagValue, final String messageCode) {
+	protected ModelAndView createEditModelAndView(final TagValue tagValue, final String messageCode) {
 		ModelAndView res;
 		final Collection<Tag> tags;
 		final Trip trip = tagValue.getTrip();
@@ -137,7 +137,7 @@ public class TagValueManagerController extends AbstractController {
 		res.addObject("tagValue", tagValue);
 		res.addObject("tags", tags);
 
-		res.addObject("message", messageCode);
+		res.addObject("messageCode", messageCode);
 
 		return res;
 	}

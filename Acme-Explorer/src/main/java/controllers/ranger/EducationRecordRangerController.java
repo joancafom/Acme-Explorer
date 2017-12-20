@@ -120,6 +120,7 @@ public class EducationRecordRangerController extends AbstractController {
 
 		res = new ModelAndView("educationRecord/edit");
 		res.addObject("educationRecord", educationRecord);
+		res.addObject("messageCode", messageCode);
 
 		return res;
 	}

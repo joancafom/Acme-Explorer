@@ -145,7 +145,7 @@ public class ManagerAdminController extends AbstractController {
 		res.addObject("requestURI", "manager/admin/create.do");
 		res.addObject("actionURI", "manager/admin/edit.do");
 
-		res.addObject("message", messageCode);
+		res.addObject("messageCode", messageCode);
 
 		return res;
 	}

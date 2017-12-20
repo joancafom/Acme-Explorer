@@ -29,6 +29,9 @@ public class ManagerService {
 	@Autowired
 	private ActorService		actorService;
 
+	@Autowired
+	private FolderService		folderService;
+
 
 	//Simple CRUD methods
 	public Manager create(final UserAccount userAccount) {
@@ -67,8 +70,12 @@ public class ManagerService {
 	public Manager save(final Manager m) {
 
 		Assert.notNull(m);
+		final Manager manager = this.managerRepository.save(m);
 
-		return this.managerRepository.save(m);
+		if (m.getId() == 0)
+			this.folderService.createSystemFolders(manager);
+
+		return manager;
 	}
 
 	// REVISAR !!!

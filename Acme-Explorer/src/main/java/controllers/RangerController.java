@@ -119,7 +119,7 @@ public class RangerController extends AbstractController {
 		res.addObject("requestURI", "ranger/create.do");
 		res.addObject("actionURI", "ranger/edit.do");
 
-		res.addObject("message", messageCode);
+		res.addObject("messageCode", messageCode);
 
 		return res;
 	}

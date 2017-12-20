@@ -118,7 +118,7 @@ public class StoryExplorerController extends AbstractController {
 		res = new ModelAndView("story/edit");
 		res.addObject("story", story);
 		res.addObject("trips", trips);
-		res.addObject("message", messageCode);
+		res.addObject("messageCode", messageCode);
 
 		return res;
 	}

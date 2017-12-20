@@ -72,6 +72,15 @@
 		<jstl:out value="${tripApplication.trip.title}"/>
 	</display:column>
 	
+	<spring:message code="date.format2" var="datePattern"></spring:message>
+	<display:column titleKey="tripApplication.trip.startingDate" sortable="true">
+		<fmt:formatDate value="${tripApplication.trip.startingDate}" pattern="${datePattern}"/>
+	</display:column>
+	
+	<display:column titleKey="tripApplication.trip.endingDate">
+		<fmt:formatDate value="${tripApplication.trip.endingDate}" pattern="${datePattern}"/>
+	</display:column>
+	
 	<security:authorize access="hasRole('MANAGER')">
 		<display:column property="explorer.name" titleKey="tripApplication.explorer" sortable="true"/>
 	</security:authorize>
@@ -97,7 +106,7 @@
 	
 	<display:column>
 		<security:authorize access="hasRole('EXPLORER')">
-			<jstl:if test="${tripApplication.status == 'DUE' }">
+			<jstl:if test="${tripApplication.status == 'DUE' and tripApplication.trip.startingDate > now}">
 				<a href="tripApplication/explorer/edit.do?tripApplicationId=${tripApplication.id}"><spring:message code="tripApplication.enterCreditCard"/></a>
 			</jstl:if>
 		</security:authorize>
@@ -107,7 +116,7 @@
 			</jstl:if>
 		</security:authorize>
 		<security:authorize access="hasRole('EXPLORER')">
-			<jstl:if test="${tripApplication.status == 'ACCEPTED' }">
+			<jstl:if test="${tripApplication.status == 'ACCEPTED' and tripApplication.trip.startingDate > now}">
 				<a href="tripApplication/explorer/edit.do?tripApplicationId=${tripApplication.id}"><spring:message code="tripApplication.cancelApplication"/></a>
 			</jstl:if>
 		</security:authorize>
