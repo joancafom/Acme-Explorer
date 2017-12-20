@@ -120,6 +120,7 @@ public class TripManagerController extends AbstractController {
 
 		trip = this.tripService.findOne(tripId);
 		Assert.notNull(trip);
+		Assert.isTrue(trip.getId() == 0 || now.before(trip.getPublicationDate()));
 		Assert.isTrue(manager.equals(trip.getManager()));
 		Assert.isTrue(now.before(trip.getEndingDate()));
 
@@ -140,11 +141,6 @@ public class TripManagerController extends AbstractController {
 
 				if ("".equals(trip.getCancelationReason()))
 					trip.setCancelationReason(null);
-				else
-					for (final TripApplication ta : trip.getTripApplications()) {
-						ta.setRejectionReason("The trip was cancelled.");
-						this.tripApplicationService.changeApplicationStatus(ta, ApplicationStatus.REJECTED);
-					}
 
 				this.tripService.save(trip);
 				res = new ModelAndView("redirect:list.do");
@@ -152,6 +148,58 @@ public class TripManagerController extends AbstractController {
 				res = this.createEditModelAndView(trip, "trip.commit.error");
 			}
 
+		return res;
+
+	}
+
+	//Cancel Save
+	@RequestMapping(value = "/cancel", method = RequestMethod.GET)
+	public ModelAndView cancel(@RequestParam final int tripId) {
+		ModelAndView res;
+		Trip trip;
+		final UserAccount userAccount = LoginService.getPrincipal();
+		final Manager manager = this.managerService.findByUserAccount(userAccount);
+		final Date now = new Date();
+		Assert.notNull(manager);
+
+		trip = this.tripService.findOne(tripId);
+		Assert.notNull(trip);
+		Assert.isTrue(now.after(trip.getPublicationDate()) || now.equals(trip.getPublicationDate()));
+		Assert.isTrue(now.before(trip.getStartingDate()));
+		Assert.isTrue(manager.equals(trip.getManager()));
+
+		res = new ModelAndView("trip/cancel");
+		res.addObject("trip", trip);
+
+		return res;
+
+	}
+
+	//Cancel Save
+	@RequestMapping(value = "/cancel", method = RequestMethod.POST)
+	public ModelAndView cancelSave(@Valid final Trip trip, final BindingResult binding) {
+		ModelAndView res;
+
+		res = new ModelAndView("trip/cancel");
+
+		if (binding.hasErrors())
+			res.addObject("trip", trip);
+		else
+			try {
+
+				Assert.notNull(trip.getCancelationReason());
+				Assert.isTrue(!trip.getCancelationReason().isEmpty());
+				this.tripService.save(trip);
+
+				for (final TripApplication ta : trip.getTripApplications()) {
+					ta.setRejectionReason("The trip was cancelled.");
+					this.tripApplicationService.changeApplicationStatus(ta, ApplicationStatus.REJECTED);
+				}
+				res = new ModelAndView("redirect:list.do");
+			} catch (final Throwable oops) {
+				res.addObject("messageCode", "trip.commit.error");
+				res.addObject("trip", trip);
+			}
 		return res;
 
 	}
@@ -185,7 +233,7 @@ public class TripManagerController extends AbstractController {
 		res = new ModelAndView("trip/display");
 		res.addObject("trip", trip);
 		res.addObject("sponsorship", sponsorship);
-		res.addObject("stageRequestURI", "stage/list.do?tripId=" + trip.getId());
+		res.addObject("stageRequestURI", "stage/manager/list.do?tripId=" + trip.getId());
 		res.addObject("rangerURI", "ranger/manager/display.do?tripId=" + tripId);
 
 		return res;

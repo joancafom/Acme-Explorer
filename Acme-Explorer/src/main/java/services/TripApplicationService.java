@@ -134,7 +134,7 @@ public class TripApplicationService {
 	}
 
 	public void changeApplicationStatus(final TripApplication application, final ApplicationStatus status) {
-		//Version 0.3 by JA
+		//Version 0.4 by JA
 
 		final UserAccount userAccount = LoginService.getPrincipal();
 
@@ -162,8 +162,8 @@ public class TripApplicationService {
 
 			//We test that he manages the associated Trip 
 			Assert.isTrue(application.getTrip().getManager().equals(this.managerService.findByUserAccount(userAccount)));
-			//He can do it if the application status was Pending
-			Assert.isTrue(application.getStatus().equals(ApplicationStatus.PENDING));
+			//He can do it if the application status was Pending // Or if the trip is cancelled
+			Assert.isTrue(application.getStatus().equals(ApplicationStatus.PENDING) || application.getTrip().getCancelationReason() != null);
 			//To either Rejected or Due
 			Assert.isTrue(status.equals(ApplicationStatus.REJECTED) || status.equals(ApplicationStatus.DUE));
 			//If it were Rejected, the application must have a rejection reason

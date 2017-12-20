@@ -137,7 +137,7 @@ public class TripService {
 		if (trip.getCancelationReason() != null)
 			isSuspicious = this.decideSuspiciousness(trip.getCancelationReason());
 
-		if (isSuspicious)
+		if (isSuspicious != null && isSuspicious)
 			manager.setIsSuspicious(isSuspicious);
 
 		return this.tripRepository.save(trip);

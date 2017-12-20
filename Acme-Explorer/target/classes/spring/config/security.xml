@@ -165,6 +165,7 @@
 		<security:intercept-url pattern="/trip/explorer/list.do" access="hasRole('EXPLORER')"/>
 		<security:intercept-url pattern="/trip/explorer/search.do" access="hasRole('EXPLORER')"/>
 		<security:intercept-url pattern="/trip/manager/edit.do" access="hasRole('MANAGER')"/>
+		<security:intercept-url pattern="/trip/manager/cancel.do" access="hasRole('MANAGER')"/>
 		<security:intercept-url pattern="/trip/manager/create.do" access="hasRole('MANAGER')"/>
 		<security:intercept-url pattern="/trip/manager/display.do" access="hasRole('MANAGER')"/>
 		<security:intercept-url pattern="/trip/manager/list.do" access="hasRole('MANAGER')"/>

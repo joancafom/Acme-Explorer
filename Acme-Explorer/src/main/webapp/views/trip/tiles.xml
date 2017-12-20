@@ -36,4 +36,9 @@
 		<put-attribute name="body" value="/views/trip/edit.jsp"/>
 	</definition>
 	
+	<definition name="trip/cancel" extends="master.page">
+		<put-attribute name="title" value="Cancel a trip"/>
+		<put-attribute name="body" value="/views/trip/cancel.jsp"/>
+	</definition>
+	
 </tiles-definitions>
