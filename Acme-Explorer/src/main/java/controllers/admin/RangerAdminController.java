@@ -58,7 +58,7 @@ public class RangerAdminController extends AbstractController {
 
 		return res;
 	}
-
+	
 	// Creation -------------------------------
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
@@ -135,6 +135,27 @@ public class RangerAdminController extends AbstractController {
 			try {
 
 				this.actorService.ban(ranger);
+				res = new ModelAndView("redirect:/actor/admin/listSuspicious.do");
+
+			} catch (final Throwable oops) {
+				res = this.createEditModelAndView(ranger, "actor.commit.error");
+			}
+
+		return res;
+
+	}
+
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "unban")
+	public ModelAndView unban(@Valid final Ranger ranger, final BindingResult bindingResult) {
+
+		ModelAndView res;
+
+		if (bindingResult.hasErrors())
+			res = this.createEditModelAndView(ranger);
+		else
+			try {
+
+				this.actorService.unban(ranger);
 				res = new ModelAndView("redirect:/actor/admin/listSuspicious.do");
 
 			} catch (final Throwable oops) {

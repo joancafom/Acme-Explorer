@@ -73,10 +73,16 @@ but, since in the requirements it only says about listing Explorers, it's adapte
 		
 		<display:column property="userAccount.isLocked" title="Is banned" />
 		
-		<jstl:if test="${ranger.userAccount.isLocked == false}">
-			<display:column>
+		<display:column>
+		<jstl:choose>
+			<jstl:when test="${ranger.userAccount.isLocked == false}">
 				<a href="ranger/admin/edit.do?rangerId=${ranger.id}"><spring:message code="actor.ban"/></a>
-			</display:column>
-		</jstl:if>
+			</jstl:when>
+			<jstl:otherwise>
+				<a href="ranger/admin/edit.do?rangerId=${ranger.id}"><spring:message code="actor.unban"/></a>
+			</jstl:otherwise>
+		</jstl:choose>
+		</display:column>
+		
 	</display:table>
 </jstl:if>
