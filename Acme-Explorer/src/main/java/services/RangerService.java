@@ -3,6 +3,7 @@ package services;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 
 import javax.transaction.Transactional;
 
@@ -123,5 +124,17 @@ public class RangerService {
 		Assert.notNull(rangers);
 
 		return rangers;
+	}
+
+	public Boolean hasPublicatedTrips(final Ranger ranger) {
+		Boolean res = false;
+
+		for (final Trip t : ranger.getTrips())
+			if (t.getPublicationDate().before(new Date())) {
+				res = true;
+				break;
+			}
+
+		return res;
 	}
 }

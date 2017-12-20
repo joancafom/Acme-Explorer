@@ -67,8 +67,8 @@ public class TripAdminController extends AbstractController {
 		res = new ModelAndView("trip/display");
 		res.addObject("trip", trip);
 		res.addObject("sponsorship", sponsorship);
-		res.addObject("stageRequestURI", "stage/admin/list.do?tripId=" + trip.getId());
-		res.addObject("rangerURI", "ranger/admin/display.do?rangerId=" + trip.getRanger().getId());
+		res.addObject("stageRequestURI", "stage/admin/list.do?tripId=" + tripId);
+		res.addObject("rangerURI", "ranger/admin/display.do?tripId=" + tripId);
 
 		return res;
 

@@ -14,6 +14,7 @@ import repositories.ManagerRepository;
 import security.Authority;
 import security.UserAccount;
 import domain.Manager;
+import domain.Ranger;
 import domain.SurvivalClass;
 import domain.Trip;
 
@@ -93,6 +94,17 @@ public class ManagerService {
 
 		final Manager res = this.managerRepository.findByUserAccountId(userAccount.getId());
 
+		return res;
+	}
+
+	public Boolean rangerHasManagerTrips(final Ranger ranger, final Manager manager) {
+		Boolean res = false;
+
+		for (final Trip t : manager.getTrips())
+			if (t.getRanger().equals(ranger)) {
+				res = true;
+				break;
+			}
 		return res;
 	}
 

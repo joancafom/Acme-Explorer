@@ -72,7 +72,7 @@ public class TripManagerController extends AbstractController {
 			final UserAccount userAccount = LoginService.getPrincipal();
 			final Manager current = this.managerService.findByUserAccount(userAccount);
 			Assert.notNull(current);
-			
+
 			if (showAll == null || !showAll)
 				trips = this.tripService.findAllManagedBy(current);
 			else
@@ -186,7 +186,7 @@ public class TripManagerController extends AbstractController {
 		res.addObject("trip", trip);
 		res.addObject("sponsorship", sponsorship);
 		res.addObject("stageRequestURI", "stage/list.do?tripId=" + trip.getId());
-		res.addObject("rangerURI", "ranger/manager/display.do?rangerId=" + trip.getRanger().getId());
+		res.addObject("rangerURI", "ranger/manager/display.do?tripId=" + tripId);
 
 		return res;
 

@@ -1,6 +1,8 @@
 
 package controllers.admin;
 
+import java.util.Date;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +18,11 @@ import org.springframework.web.servlet.ModelAndView;
 import security.UserAccount;
 import services.ActorService;
 import services.RangerService;
+import services.TripService;
 import services.UserAccountService;
 import controllers.AbstractController;
 import domain.Ranger;
+import domain.Trip;
 
 @Controller
 @RequestMapping("/ranger/admin")
@@ -35,6 +39,9 @@ public class RangerAdminController extends AbstractController {
 	@Autowired
 	private ActorService		actorService;
 
+	@Autowired
+	private TripService			tripService;
+
 
 	// Constructors ---------------------------
 
@@ -45,20 +52,28 @@ public class RangerAdminController extends AbstractController {
 	// Display --------------------------------
 
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
-	public ModelAndView display(@RequestParam final int rangerId) {
+	public ModelAndView display(@RequestParam final int tripId) {
 		final ModelAndView res;
+		final Trip trip;
 		Ranger ranger;
+		String curriculumURI = "";
 
-		ranger = this.rangerService.findOne(rangerId);
+		trip = this.tripService.findOne(tripId);
+		ranger = this.rangerService.findOne(trip.getRanger().getId());
+
+		Assert.isTrue(trip.getPublicationDate().before(new Date()));
+
+		if (ranger.getCurriculum() != null)
+			curriculumURI = "curriculum/admin/display.do?curriculumId=" + ranger.getCurriculum().getId();
 
 		res = new ModelAndView("ranger/display");
 		res.addObject("actor", ranger);
-		res.addObject("curriculumURI", "curriculum/admin/display.do?curriculumId=" + ranger.getCurriculum().getId());
+		res.addObject("curriculumURI", curriculumURI);
 		res.addObject("ownProfile", false);
 
 		return res;
 	}
-	
+
 	// Creation -------------------------------
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
@@ -134,6 +149,7 @@ public class RangerAdminController extends AbstractController {
 		else
 			try {
 
+				Assert.isTrue(!ranger.getUserAccount().getIsLocked());
 				this.actorService.ban(ranger);
 				res = new ModelAndView("redirect:/actor/admin/listSuspicious.do");
 
@@ -144,7 +160,7 @@ public class RangerAdminController extends AbstractController {
 		return res;
 
 	}
-
+	
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "unban")
 	public ModelAndView unban(@Valid final Ranger ranger, final BindingResult bindingResult) {
 

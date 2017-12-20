@@ -72,6 +72,9 @@
 		<security:intercept-url pattern="/category/sponsor/list.do" access="hasRole('SPONSOR')"/>
 		
 		<security:intercept-url pattern="/curriculum/display.do" access="isAnonymous()"/>
+		<security:intercept-url pattern="/curriculum/admin/display.do" access="hasRole('ADMIN')"/>
+		<security:intercept-url pattern="/curriculum/explorer/display.do" access="hasRole('EXPLORER')"/>
+		<security:intercept-url pattern="/curriculum/manager/display.do" access="hasRole('MANAGER')"/>
 		<security:intercept-url pattern="/curriculum/ranger/display.do" access="hasRole('RANGER')"/>
 		<security:intercept-url pattern="/curriculum/ranger/edit.do" access="hasRole('RANGER')"/>
 		
@@ -112,6 +115,9 @@
 		<security:intercept-url pattern="/miscellaneousRecord/ranger/create.do" access="hasRole('RANGER')"/>
 		<security:intercept-url pattern="/miscellaneousRecord/ranger/edit.do" access="hasRole('RANGER')"/>
 
+		<security:intercept-url pattern="/note/auditor/list.do" access="hasRole('AUDITOR')"/>
+		<security:intercept-url pattern="/note/auditor/create.do" access="hasRole('AUDITOR')"/>
+		<security:intercept-url pattern="/note/auditor/edit.do" access="hasRole('AUDITOR')"/>
 		<security:intercept-url pattern="/note/manager/list.do" access="hasRole('MANAGER')"/>
 		<security:intercept-url pattern="/note/manager/edit.do" access="hasRole('MANAGER')"/>
 
@@ -128,6 +134,7 @@
 		<security:intercept-url pattern="/ranger/admin/display.do" access="hasRole('ADMIN')"/>
 		<security:intercept-url pattern="/ranger/admin/edit.do" access="hasRole('ADMIN')"/>
 		<security:intercept-url pattern="/ranger/explorer/display.do" access="hasRole('EXPLORER')"/>
+		<security:intercept-url pattern="/ranger/manager/display.do" access="hasRole('MANAGER')"/>
 		<security:intercept-url pattern="/ranger/create.do" access="isAnonymous()"/>
 		<security:intercept-url pattern="/ranger/display.do" access="isAnonymous()"/>
 		<security:intercept-url pattern="/ranger/edit.do" access="isAnonymous()"/>

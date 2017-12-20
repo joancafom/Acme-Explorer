@@ -53,11 +53,14 @@
 	</display:column>
 	
 	<security:authorize access="hasRole('MANAGER')">
-		<jstl:if test="${note.reply == null}">
-			<display:column>
+		<display:column titleKey="note.option">
+			<jstl:if test="${note.reply == ''}">
 				<a href="note/manager/edit.do?noteId=${note.id}"><spring:message code="note.edit"/></a>
-			</display:column>
-		</jstl:if>
-	</security:authorize>
-		
+			</jstl:if>
+		</display:column>
+	</security:authorize>	
 </display:table>
+
+<security:authorize access="hasRole('AUDITOR')">
+	<a href="note/auditor/create.do"><spring:message code="note.create"/></a>
+</security:authorize>

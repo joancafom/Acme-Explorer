@@ -87,7 +87,7 @@ public class NoteManagerController extends AbstractController {
 			try {
 
 				this.noteService.writeReply(note);
-				res = new ModelAndView("redirect:/trip/manager/display.do?tripId=" + note.getTrip().getId());
+				res = new ModelAndView("redirect:/note/manager/list.do?tripId=" + note.getTrip().getId());
 			} catch (final Throwable oops) {
 				res = this.createEditModelAndView(note, "note.commit.error");
 			}
