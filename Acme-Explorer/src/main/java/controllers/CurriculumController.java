@@ -3,13 +3,16 @@ package controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.CurriculumService;
+import services.RangerService;
 import domain.Curriculum;
+import domain.Ranger;
 
 @Controller
 @RequestMapping("/curriculum")
@@ -19,6 +22,9 @@ public class CurriculumController extends AbstractController {
 
 	@Autowired
 	private CurriculumService	curriculumService;
+
+	@Autowired
+	private RangerService		rangerService;
 
 
 	// Constructors ---------------------------
@@ -33,8 +39,12 @@ public class CurriculumController extends AbstractController {
 	public ModelAndView display(@RequestParam final int curriculumId) {
 		final ModelAndView res;
 		final Curriculum curriculum;
+		Ranger ranger;
 
 		curriculum = this.curriculumService.findOne(curriculumId);
+		ranger = curriculum.getRanger();
+
+		Assert.isTrue(this.rangerService.hasPublicatedTrips(ranger));
 
 		res = new ModelAndView("curriculum/display");
 		res.addObject("curriculum", curriculum);

@@ -160,7 +160,7 @@ public class RangerAdminController extends AbstractController {
 		return res;
 
 	}
-	
+
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "unban")
 	public ModelAndView unban(@Valid final Ranger ranger, final BindingResult bindingResult) {
 
@@ -170,7 +170,7 @@ public class RangerAdminController extends AbstractController {
 			res = this.createEditModelAndView(ranger);
 		else
 			try {
-
+				Assert.isTrue(ranger.getUserAccount().getIsLocked());
 				this.actorService.unban(ranger);
 				res = new ModelAndView("redirect:/actor/admin/listSuspicious.do");
 
