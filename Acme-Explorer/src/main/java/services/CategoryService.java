@@ -92,17 +92,24 @@ public class CategoryService {
 		Assert.notNull(category);
 		Assert.isTrue(this.categoryRepository.exists(category.getId()));
 
-		if (category.getChildCategories().isEmpty()) {
-			for (final Trip t : category.getTrips())
-				t.setCategory(category.getParentCategory());
-			this.categoryRepository.delete(category);
-		} else
-			for (final Category c : category.getChildCategories())
-				this.delete(c);
+		final Collection<Category> categories = new HashSet<Category>();
+		final Category parentCategory = this.categoryRepository.findOne(category.getParentCategory().getId());
 
-		this.categoryRepository.delete(category);
+		categories.add(category);
+
+		for (final Category c : this.categoryRepository.findAll())
+			if (categories.contains(c.getParentCategory()))
+				categories.add(c);
+
+		for (final Category c : categories) {
+			if (!c.equals(category))
+				Assert.isTrue(categories.contains(c.getParentCategory()));
+			for (final Trip t : c.getTrips())
+				t.setCategory(parentCategory);
+			this.categoryRepository.delete(c);
+		}
+
 	}
-
 	// Other business methods --------------
 
 	public Category getParentRootCategory() {

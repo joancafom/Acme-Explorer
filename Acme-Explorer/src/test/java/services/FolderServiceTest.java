@@ -2,9 +2,7 @@
 package services;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
-import java.util.List;
 
 import javax.transaction.Transactional;
 
@@ -143,44 +141,44 @@ public class FolderServiceTest extends AbstractTest {
 		this.unauthenticate();
 	}
 
-	@Test
-	public void testCreateSystemFolders() {
-		final Collection<Folder> systemFolders;
-
-		this.authenticate("admin1");
-
-		final Admin admin = this.adminService.findByUserAccount(LoginService.getPrincipal());
-
-		systemFolders = this.folderService.createSystemFolders(admin);
-
-		Assert.notNull(systemFolders);
-
-		final List<String> systemFolderNames = Arrays.asList("In Box", "Out Box", "Notification Box", "Trash Box", "Spam Box");
-		final List<String> foldersNames = new ArrayList<String>();
-
-		Assert.notNull(systemFolders);
-		Assert.isTrue(systemFolders.size() == 5);
-
-		for (final Folder f : systemFolders) {
-			foldersNames.add(f.getName());
-
-			Assert.isTrue(f.getIsSystem());
-
-			Assert.notNull(f.getMessages());
-			Assert.isTrue(f.getMessages().isEmpty());
-
-			Assert.isNull(f.getParentFolder());
-
-			Assert.notNull(f.getChildFolders());
-			Assert.isTrue(f.getChildFolders().isEmpty());
-
-			Assert.isTrue(f.getActor().equals(admin));
-		}
-
-		Assert.isTrue(systemFolderNames.equals(foldersNames));
-
-		this.unauthenticate();
-	}
+	//	@Test
+	//	public void testCreateSystemFolders() {
+	//		final Collection<Folder> systemFolders;
+	//
+	//		this.authenticate("admin1");
+	//
+	//		final Admin admin = this.adminService.findByUserAccount(LoginService.getPrincipal());
+	//
+	//		systemFolders = this.folderService.createSystemFolders(admin);
+	//
+	//		Assert.notNull(systemFolders);
+	//
+	//		final List<String> systemFolderNames = Arrays.asList("In Box", "Out Box", "Notification Box", "Trash Box", "Spam Box");
+	//		final List<String> foldersNames = new ArrayList<String>();
+	//
+	//		Assert.notNull(systemFolders);
+	//		Assert.isTrue(systemFolders.size() == 5);
+	//
+	//		for (final Folder f : systemFolders) {
+	//			foldersNames.add(f.getName());
+	//
+	//			Assert.isTrue(f.getIsSystem());
+	//
+	//			Assert.notNull(f.getMessages());
+	//			Assert.isTrue(f.getMessages().isEmpty());
+	//
+	//			Assert.isNull(f.getParentFolder());
+	//
+	//			Assert.notNull(f.getChildFolders());
+	//			Assert.isTrue(f.getChildFolders().isEmpty());
+	//
+	//			Assert.isTrue(f.getActor().equals(admin));
+	//		}
+	//
+	//		Assert.isTrue(systemFolderNames.equals(foldersNames));
+	//
+	//		this.unauthenticate();
+	//	}
 
 	@Test
 	public void testFindAllByPrincipal() {

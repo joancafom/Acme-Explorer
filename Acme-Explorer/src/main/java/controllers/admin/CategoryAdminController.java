@@ -110,8 +110,9 @@ public class CategoryAdminController extends AbstractController {
 			res = this.createEditModelAndView(category);
 		else
 			try {
+				final int pCategoryId = category.getParentCategory().getId();
 				this.categoryService.delete(category);
-				res = new ModelAndView("redirect:/category/admin/list.do?parentCategoryId=" + category.getParentCategory().getId());
+				res = new ModelAndView("redirect:/category/admin/list.do?parentCategoryId=" + pCategoryId);
 			} catch (final Throwable oops) {
 				res = this.createEditModelAndView(category, "category.commit.error");
 			}
