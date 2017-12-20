@@ -1,8 +1,6 @@
 
 package controllers.explorer;
 
-import java.util.Date;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
@@ -11,56 +9,51 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.CurriculumService;
 import services.RangerService;
-import services.TripService;
 import controllers.AbstractController;
+import domain.Curriculum;
 import domain.Ranger;
-import domain.Trip;
 
 @Controller
-@RequestMapping("/ranger/explorer")
-public class RangerExplorerController extends AbstractController {
+@RequestMapping("/curriculum/explorer")
+public class CurriculumExplorerController extends AbstractController {
 
 	// Services -------------------------------
 
 	@Autowired
-	private RangerService	rangerService;
+	private CurriculumService	curriculumService;
 
 	@Autowired
-	private TripService		tripService;
+	private RangerService		rangerService;
 
 
 	// Constructors ---------------------------
 
-	public RangerExplorerController() {
+	public CurriculumExplorerController() {
 		super();
 	}
 
 	// Display --------------------------------
 
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
-	public ModelAndView display(@RequestParam final int tripId) {
+	public ModelAndView display(@RequestParam final int curriculumId) {
 		final ModelAndView res;
-		final Trip trip;
+		final Curriculum curriculum;
 		Ranger ranger;
-		String curriculumURI = "";
 
-		trip = this.tripService.findOne(tripId);
-		ranger = this.rangerService.findOne(trip.getRanger().getId());
+		curriculum = this.curriculumService.findOne(curriculumId);
+		ranger = curriculum.getRanger();
 
-		Assert.isTrue(trip.getPublicationDate().before(new Date()));
+		Assert.isTrue(this.rangerService.hasPublicatedTrips(ranger));
 
-		if (ranger.getCurriculum() != null)
-			curriculumURI = "curriculum/explorer/display.do?curriculumId=" + ranger.getCurriculum().getId();
-
-		res = new ModelAndView("ranger/display");
-		res.addObject("actor", ranger);
-		res.addObject("curriculumURI", curriculumURI);
-		res.addObject("ownProfile", false);
+		res = new ModelAndView("curriculum/display");
+		res.addObject("curriculum", curriculum);
+		res.addObject("RequestURI", "curriculum/explorer/display.do?curriculumId=" + curriculum.getId());
+		res.addObject("ownCurriculum", false);
 
 		return res;
 	}
-
 	// Creation -------------------------------
 
 	// Edition --------------------------------
