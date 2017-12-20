@@ -133,4 +133,14 @@ public class StoryService {
 
 		return res;
 	}
+
+	public Collection<Story> findAllByTripId(final int tripId) {
+		Collection<Story> stories;
+
+		Assert.notNull(this.storyRepository);
+		stories = this.storyRepository.findAllByTripId(tripId);
+		Assert.notNull(stories);
+
+		return stories;
+	}
 }

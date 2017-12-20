@@ -68,6 +68,7 @@ public class TripSponsorController extends AbstractController {
 		res.addObject("trip", trip);
 		res.addObject("sponsorship", sponsorship);
 		res.addObject("stageRequestURI", "stage/list.do?tripId=" + trip.getId());
+		res.addObject("rangerURI", "ranger/sponsor/display.do?tripId=" + tripId);
 
 		return res;
 

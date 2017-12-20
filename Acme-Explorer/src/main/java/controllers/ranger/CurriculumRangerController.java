@@ -15,9 +15,11 @@ import org.springframework.web.servlet.ModelAndView;
 import security.LoginService;
 import security.UserAccount;
 import services.CurriculumService;
+import services.PersonalRecordService;
 import services.RangerService;
 import controllers.AbstractController;
 import domain.Curriculum;
+import domain.PersonalRecord;
 import domain.Ranger;
 
 @Controller
@@ -27,10 +29,13 @@ public class CurriculumRangerController extends AbstractController {
 	// Services -------------------------------
 
 	@Autowired
-	private CurriculumService	curriculumService;
+	private CurriculumService		curriculumService;
 
 	@Autowired
-	private RangerService		rangerService;
+	private RangerService			rangerService;
+
+	@Autowired
+	private PersonalRecordService	personalRecordService;
 
 
 	// Constructors ---------------------------
@@ -56,6 +61,8 @@ public class CurriculumRangerController extends AbstractController {
 
 		curriculum = this.curriculumService.findOne(curriculumId);
 
+		Assert.isTrue(curriculum.getRanger().equals(ranger) || this.rangerService.hasPublicatedTrips(curriculum.getRanger()));
+
 		if (ranger.equals(curriculum.getRanger()))
 			b = true;
 
@@ -69,6 +76,22 @@ public class CurriculumRangerController extends AbstractController {
 
 	// Creation -------------------------------
 
+	@RequestMapping(value = "/create", method = RequestMethod.GET)
+	public ModelAndView create() {
+		ModelAndView res;
+		final Curriculum curriculum;
+		PersonalRecord personalRecord;
+
+		curriculum = this.curriculumService.create();
+		personalRecord = this.personalRecordService.create(curriculum);
+		personalRecord.setCurriculum(curriculum);
+		this.personalRecordService.save(personalRecord);
+
+		res = this.createEditModelAndView(curriculum);
+
+		return res;
+	}
+
 	// Edition --------------------------------
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
@@ -78,8 +101,26 @@ public class CurriculumRangerController extends AbstractController {
 
 		curriculum = this.curriculumService.findOne(curriculumId);
 		Assert.notNull(curriculum);
+		Assert.isTrue(curriculum.getRanger().getUserAccount().equals(LoginService.getPrincipal()));
 
 		res = this.createEditModelAndView(curriculum);
+
+		return res;
+	}
+
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
+	public ModelAndView save(@Valid final Curriculum curriculum, final BindingResult binding) {
+		ModelAndView res;
+
+		if (binding.hasErrors())
+			res = this.createEditModelAndView(curriculum);
+		else
+			try {
+				this.curriculumService.save(curriculum);
+				res = new ModelAndView("redirect:/curriculum/ranger/display.do?curriculumId=" + curriculum.getId());
+			} catch (final Throwable oops) {
+				res = this.createEditModelAndView(curriculum, "personalRecord.commit.error");
+			}
 
 		return res;
 	}
@@ -92,8 +133,9 @@ public class CurriculumRangerController extends AbstractController {
 			res = this.createEditModelAndView(curriculum);
 		else
 			try {
+				Assert.isTrue(curriculum.getRanger().getUserAccount().equals(LoginService.getPrincipal()));
 				this.curriculumService.delete(curriculum);
-				res = new ModelAndView("redirect:/index.jsp");
+				res = new ModelAndView("redirect:/");
 			} catch (final Throwable oops) {
 				res = this.createEditModelAndView(curriculum, "curriculum.commit.error");
 			}

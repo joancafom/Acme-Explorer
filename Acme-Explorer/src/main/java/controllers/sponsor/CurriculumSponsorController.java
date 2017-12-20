@@ -1,5 +1,5 @@
 
-package controllers;
+package controllers.sponsor;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,12 +11,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 import services.CurriculumService;
 import services.RangerService;
+import controllers.AbstractController;
 import domain.Curriculum;
 import domain.Ranger;
 
 @Controller
-@RequestMapping("/curriculum")
-public class CurriculumController extends AbstractController {
+@RequestMapping("/curriculum/sponsor")
+public class CurriculumSponsorController extends AbstractController {
 
 	// Services -------------------------------
 
@@ -29,7 +30,7 @@ public class CurriculumController extends AbstractController {
 
 	// Constructors ---------------------------
 
-	public CurriculumController() {
+	public CurriculumSponsorController() {
 		super();
 	}
 
@@ -48,7 +49,7 @@ public class CurriculumController extends AbstractController {
 
 		res = new ModelAndView("curriculum/display");
 		res.addObject("curriculum", curriculum);
-		res.addObject("RequestURI", "curriculum/display.do?curriculumId=" + curriculum.getId());
+		res.addObject("RequestURI", "curriculum/sponsor/display.do?curriculumId=" + curriculum.getId());
 		res.addObject("ownCurriculum", false);
 
 		return res;

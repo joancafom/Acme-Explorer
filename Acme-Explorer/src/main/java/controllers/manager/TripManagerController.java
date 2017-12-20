@@ -68,9 +68,11 @@ public class TripManagerController extends AbstractController {
 		final ModelAndView res;
 		final Collection<Trip> trips;
 
+		final UserAccount userAccount = LoginService.getPrincipal();
+		final Manager current = this.managerService.findByUserAccount(userAccount);
+
 		if (keyword == null && categoryId == null) {
-			final UserAccount userAccount = LoginService.getPrincipal();
-			final Manager current = this.managerService.findByUserAccount(userAccount);
+
 			Assert.notNull(current);
 
 			if (showAll == null || !showAll)
@@ -92,10 +94,10 @@ public class TripManagerController extends AbstractController {
 		res.addObject("trips", trips);
 		res.addObject("requestURI", "/trip/manager/list.do");
 		res.addObject("actorWS", "manager/");
+		res.addObject("principalId", current.getId());
 
 		return res;
 	}
-
 	//Create
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView create() {
