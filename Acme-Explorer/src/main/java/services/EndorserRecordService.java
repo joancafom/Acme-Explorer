@@ -14,6 +14,7 @@ import security.LoginService;
 import security.UserAccount;
 import domain.Curriculum;
 import domain.EndorserRecord;
+import domain.Ranger;
 
 @Service
 @Transactional
@@ -23,11 +24,20 @@ public class EndorserRecordService {
 	@Autowired
 	private EndorserRecordRepository	endorserRecordRepository;
 
+	//Supporting Services
+	@Autowired
+	private RangerService				rangerService;
 
-	//External Repositories
 
 	public EndorserRecord create(final Curriculum curriculum) {
 		Assert.notNull(curriculum);
+
+		final UserAccount userAccount = LoginService.getPrincipal();
+		final Ranger ranger = this.rangerService.findByUserAccount(userAccount);
+
+		Assert.notNull(ranger);
+		Assert.isTrue(curriculum.getRanger().equals(ranger));
+
 		final EndorserRecord endorserRecord = new EndorserRecord();
 
 		endorserRecord.setCurriculum(curriculum);

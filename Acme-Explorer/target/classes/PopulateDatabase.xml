@@ -1653,12 +1653,12 @@
 		</property>
 		<property name="startingDate">
 			<bean factory-method="parse" factory-bean="dateFormat">
-				<constructor-arg value="13/12/2018 12:30" />
+				<constructor-arg value="13/12/2017 12:30" />
 			</bean>
 		</property>
 		<property name="endingDate">
 			<bean factory-method="parse" factory-bean="dateFormat">
-				<constructor-arg value="14/12/2018 23:59" />
+				<constructor-arg value="14/12/2017 23:59" />
 			</bean>
 		</property>
 		<property name="requirements" value="Withstand high temperatures."></property>
@@ -2231,20 +2231,6 @@
 			</list>
 		</property>
 		<property name="actor" ref="explorer1"></property>
-	</bean>
-	
-	<bean id="folder33" class="domain.Folder">
-		<property name="isSystem" value="true"></property>
-		<property name="name" value="Out Box"></property>
-		<property name="messages">
-			<list>
-			</list>
-		</property>
-		<property name="childFolders">
-			<list>
-			</list>
-		</property>
-		<property name="actor" ref="admin1"></property>
 	</bean>
 
 	<!-- Message -->

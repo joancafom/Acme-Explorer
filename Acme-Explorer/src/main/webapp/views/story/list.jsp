@@ -11,38 +11,14 @@
 <h1><spring:message code="story.list"/></h1>
 
 <display:table name="stories" id="story" requestURI="${requestURI}" pagesize="5" class="displaytag">
-
-	<security:authorize access="hasRole('ADMIN')">
-		<jstl:set var="url" value="admin/"></jstl:set>
-	</security:authorize>
-
-	<security:authorize access="hasRole('AUDITOR')">
-		<jstl:set var="url" value="auditor/"></jstl:set>
-	</security:authorize>
-
-	<security:authorize access="hasRole('EXPLORER')">
-		<jstl:set var="url" value="explorer/"></jstl:set>
-	</security:authorize>
-
-	<security:authorize access="hasRole('MANAGER')">
-		<jstl:set var="url" value="manager/"></jstl:set>
-	</security:authorize>
-
-	<security:authorize access="hasRole('RANGER')">
-		<jstl:set var="url" value="ranger/"></jstl:set>
-	</security:authorize>
-
-	<security:authorize access="hasRole('SPONSOR')">
-		<jstl:set var="url" value="sponsor/"></jstl:set>
-	</security:authorize>
 		
 	<display:column property="title" titleKey="story.title" sortable="true"/>
 	
 	<display:column titleKey="story.trip" sortable="true">
-		<a href="trip/${url}display.do?tripId=${story.trip.id}"><jstl:out value="${story.trip.ticker}"/></a>
+		<a href="${tripURI}${story.trip.id}"><jstl:out value="${story.trip.ticker}"/></a>
 	</display:column>	
 
-	<display:column property="text" titleKey="audit.text"/>
+	<display:column property="text" titleKey="story.text"/>
 	
 	<display:column titleKey="story.attachments">
 		<jstl:if test="${not empty story.attachments}">
