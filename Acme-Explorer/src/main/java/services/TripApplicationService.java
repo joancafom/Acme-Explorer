@@ -64,6 +64,10 @@ public class TripApplicationService {
 
 		Assert.isTrue(explorerFirstTripApplication);
 
+		Assert.isTrue(t.getPublicationDate().before(new Date()));
+		Assert.isTrue(t.getStartingDate().after(new Date()));
+		Assert.isNull(t.getCancelationReason());
+
 		final TripApplication tripApplication = new TripApplication();
 
 		tripApplication.setTrip(t);
@@ -84,12 +88,22 @@ public class TripApplicationService {
 	public TripApplication save(final TripApplication application) {
 		Assert.notNull(application);
 		final LocalDate now = new LocalDate();
+		final UserAccount userAccount = LoginService.getPrincipal();
+		final Manager manager = this.managerService.findByUserAccount(userAccount);
+		final Explorer explorer = this.explorerService.findByUserAccount(userAccount);
 
-		if (application.getCreditCard() != null) {
-			Assert.isTrue((now.getYear() == application.getCreditCard().getYear() && now.getMonthOfYear() == application.getCreditCard().getMonth())
-				|| (now.getYear() < application.getCreditCard().getYear())
-				|| (now.getYear() == application.getCreditCard().getYear() && now.getMonthOfYear() < application.getCreditCard().getMonth()));
+		if (manager != null) {
+			final TripApplication oldApplication = this.applicationRepository.findOne(application.getId());
+			Assert.isTrue(!oldApplication.getStatus().equals(ApplicationStatus.DUE));
+			Assert.isTrue(!oldApplication.getStatus().equals(ApplicationStatus.REJECTED));
 		}
+
+		if (explorer != null)
+			Assert.isTrue(application.getExplorer().equals(explorer));
+
+		if (application.getCreditCard() != null)
+			Assert.isTrue((now.getYear() == application.getCreditCard().getYear() && now.getMonthOfYear() == application.getCreditCard().getMonth()) || (now.getYear() < application.getCreditCard().getYear())
+				|| (now.getYear() == application.getCreditCard().getYear() && now.getMonthOfYear() < application.getCreditCard().getMonth()));
 
 		return this.applicationRepository.save(application);
 	}
@@ -127,6 +141,7 @@ public class TripApplicationService {
 		Assert.notNull(userAccount);
 		Assert.notNull(application);
 		Assert.notNull(status);
+		Assert.isTrue(application.getTrip().getStartingDate().after(new Date()));
 
 		final Message notification_me = this.messageService.create();
 		final Message notification_other = this.messageService.create();
@@ -243,7 +258,7 @@ public class TripApplicationService {
 		tripApplication.setStatus(ApplicationStatus.CANCELLED);
 
 	}
-	
+
 	public TripApplication findByExplorerAndTrip(final Explorer explorer, final Trip trip) {
 		Assert.notNull(explorer);
 		Assert.notNull(trip);

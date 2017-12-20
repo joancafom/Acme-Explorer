@@ -10,7 +10,6 @@
 
 package controllers;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.springframework.stereotype.Controller;
@@ -33,11 +32,9 @@ public class WelcomeController extends AbstractController {
 	@RequestMapping(value = "/index")
 	public ModelAndView index(@RequestParam(required = false, defaultValue = "John Doe") final String name) {
 		ModelAndView result;
-		SimpleDateFormat formatter;
-		String moment;
+		Date moment;
 
-		formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-		moment = formatter.format(new Date());
+		moment = new Date();
 
 		result = new ModelAndView("welcome/index");
 		result.addObject("name", name);

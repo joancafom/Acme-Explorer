@@ -32,6 +32,9 @@ public class ExplorerService {
 	@Autowired
 	private ActorService		actorService;
 
+	@Autowired
+	private FolderService		folderService;
+
 
 	public Explorer create(final UserAccount userAccount, final Finder finder) {
 
@@ -68,7 +71,12 @@ public class ExplorerService {
 	public Explorer save(final Explorer explorer) {
 		Assert.notNull(explorer);
 
-		return this.explorerRepository.save(explorer);
+		final Explorer explorerS = this.explorerRepository.save(explorer);
+
+		if (explorer.getId() == 0)
+			this.folderService.createSystemFolders(explorerS);
+
+		return explorerS;
 	}
 	public Explorer findByUserAccount(final UserAccount userAccount) {
 

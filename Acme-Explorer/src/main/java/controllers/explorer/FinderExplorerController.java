@@ -118,6 +118,7 @@ public class FinderExplorerController extends AbstractController {
 
 		res = new ModelAndView("finder/edit");
 		res.addObject("finder", finder);
+		res.addObject("messageCode", messageCode);
 
 		return res;
 	}

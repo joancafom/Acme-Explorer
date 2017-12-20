@@ -9,6 +9,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 <display:table name="trips" id="trip" requestURI="${requestURI}" pagesize="5" class="displaytag">
+	<jsp:useBean id="now" class="java.util.Date" />
 
 	<jstl:if test="${trip.cancelationReason != null}">
 		<spring:message code="trip.cancelled" var="tripCancelled"></spring:message>	
@@ -41,7 +42,7 @@
 	
 	<security:authorize access="hasRole('EXPLORER')">
 		<display:column>
-			<jstl:if test="${canCreateTA[trip.ticker]}">
+			<jstl:if test="${canCreateTA[trip.ticker] and !tripCancelled and trip.startingDate > now}">
 				<a href="tripApplication/explorer/create.do?tripId=${trip.id}"><spring:message code="tripApplication.create"/></a>
 			</jstl:if>
 		</display:column>
@@ -54,7 +55,6 @@
 			<a href="tripApplication/manager/list.do?tripId=${trip.id}"><spring:message code="tripApplication.list"/></a>
 		</display:column>
 		<spring:message code="date.format2" var="dateFormat2"></spring:message>
-		<jsp:useBean id="now" class="java.util.Date" />
 		<fmt:formatDate value="${now}" pattern="${dateFormat2}"/>
 		<display:column>
 			<jstl:if test="${now.time < trip.publicationDate.time}">

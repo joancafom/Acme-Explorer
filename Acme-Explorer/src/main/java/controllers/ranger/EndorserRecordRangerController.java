@@ -120,6 +120,7 @@ public class EndorserRecordRangerController extends AbstractController {
 
 		res = new ModelAndView("endorserRecord/edit");
 		res.addObject("endorserRecord", endorserRecord);
+		res.addObject("messageCode", messageCode);
 
 		return res;
 	}

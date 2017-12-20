@@ -54,7 +54,8 @@
 					<li><a href="actor/explorer/display.do"><spring:message code="master.page.user.profile" /></a></li>
 					<li><a href="finder/explorer/display.do"><spring:message code="master.page.explorer.finder" /></a></li>									
 					<li><a href="trip/explorer/list.do"><spring:message code="master.page.user.trips" /></a></li>					
-					<li><a href="tripApplication/explorer/list.do"><spring:message code="master.page.explorer.tripApplication" /></a></li>					
+					<li><a href="tripApplication/explorer/list.do"><spring:message code="master.page.explorer.tripApplication" /></a></li>
+					<li><a href="story/explorer/create.do"><spring:message code="master.page.explorer.story" /></a></li>						
 					<li><a href="folder/list.do"><spring:message code="master.page.user.folders" /></a></li>				
 				</ul>
 			</li>

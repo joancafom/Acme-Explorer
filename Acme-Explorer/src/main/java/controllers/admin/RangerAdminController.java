@@ -145,7 +145,7 @@ public class RangerAdminController extends AbstractController {
 		res.addObject("requestURI", "ranger/admin/create.do");
 		res.addObject("actionURI", "ranger/admin/edit.do");
 
-		res.addObject("message", messageCode);
+		res.addObject("messageCode", messageCode);
 
 		return res;
 	}

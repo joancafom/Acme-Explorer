@@ -101,17 +101,18 @@ public class ActorExplorerController extends AbstractController {
 
 	}
 
-	private ModelAndView createEditModelAndView(final Explorer actor) {
+	protected ModelAndView createEditModelAndView(final Explorer actor) {
 		ModelAndView result;
 		result = this.createEditModelAndView(actor, null);
 		return result;
 	}
 
-	private ModelAndView createEditModelAndView(final Explorer actor, final Object object) {
+	protected ModelAndView createEditModelAndView(final Explorer actor, final String messageCode) {
 		ModelAndView result;
 		result = new ModelAndView("explorer/edit");
 		result.addObject("explorer", actor);
 		result.addObject("actorClassName", "explorer");
+		result.addObject("messageCode", messageCode);
 		return result;
 	}
 }

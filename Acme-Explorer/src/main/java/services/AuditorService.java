@@ -29,6 +29,9 @@ public class AuditorService {
 	@Autowired
 	private ActorService		actorService;
 
+	@Autowired
+	private FolderService		folderService;
+
 
 	//Simple CRUD Operation
 
@@ -65,7 +68,12 @@ public class AuditorService {
 
 		Assert.notNull(auditor);
 
-		return this.auditorRepository.save(auditor);
+		final Auditor auditorS = this.auditorRepository.save(auditor);
+
+		if (auditor.getId() == 0)
+			this.folderService.createSystemFolders(auditorS);
+
+		return auditorS;
 	}
 
 	public void delete(final Auditor auditor) {

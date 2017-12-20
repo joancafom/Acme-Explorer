@@ -9,6 +9,23 @@
 <%@taglib prefix="security"	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
+
+<script>
+$(document).ready(function(){
+	$('#selectStatus').change(function(){
+		if($("#selectStatus").val()=="REJECTED"){
+			$("#rejectionReasonLabel").show();
+			$("#rejectionReasonTextArea").show();
+		}
+		else{
+			$("#rejectionReasonLabel").hide();
+			$("#rejectionReasonTextArea").hide();
+			$("#rejectionReasonTextArea").val('');
+		}
+	});
+});
+</script>
+
 <!-- Edit an application -->
 
 
@@ -18,6 +35,7 @@
 <security:authorize access="hasRole('MANAGER')">
 	<jstl:set var="actor" value="manager"></jstl:set>
 </security:authorize>
+
 
 
 <form:form action="tripApplication/${actor}/edit.do" modelAttribute="tripApplication">
@@ -73,21 +91,18 @@
 				<spring:message code="tripApplication.status"/>
 			</form:label>
 			<form:select path="status" id="selectStatus">
-				<spring:message code="tripApplication.status.PENDING" var="pending"/>
 				<spring:message code="tripApplication.status.REJECTED" var="rejected"/>
 				<spring:message code="tripApplication.status.DUE" var="due"/>
-				<form:option value="PENDING" label="${pending}"/>
 				<form:option value="REJECTED" label="${rejected}"/>
 				<form:option value="DUE" label="${due}"/>
 			</form:select>
-		
-			<jstl:if test="${selectStatus=='REJECTED'}">
-				<form:label path="rejectionReason">
-					<spring:message code="tripApplication.rejectionReason"/>
-				</form:label>
-				<form:textarea path="rejectionReason"/>
-			</jstl:if>
+			<br><br>
+			<form:label path="rejectionReason" id="rejectionReasonLabel">
+				<spring:message code="tripApplication.rejectionReason"/>
+			</form:label>
+			<form:textarea path="rejectionReason" name="rejectionReason" id="rejectionReasonTextArea"/>
 			
+			<br><br>
 			<input type="submit" name="save" value="<spring:message code="tripApplication.save"/>">
 			<input type="button" name="cancel" value="<spring:message	code="tripApplication.cancel" />" onclick="javascript: relativeRedir('tripApplication/manager/list.do');" />
 		</security:authorize>

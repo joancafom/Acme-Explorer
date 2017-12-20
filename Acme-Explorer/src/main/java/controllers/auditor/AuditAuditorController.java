@@ -167,7 +167,7 @@ public class AuditAuditorController extends AbstractController {
 		res.addObject("audit", audit);
 		res.addObject("trips", trips);
 
-		res.addObject("message", messageCode);
+		res.addObject("messageCode", messageCode);
 
 		return res;
 	}

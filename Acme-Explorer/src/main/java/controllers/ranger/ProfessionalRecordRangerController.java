@@ -120,6 +120,7 @@ public class ProfessionalRecordRangerController extends AbstractController {
 
 		res = new ModelAndView("professionalRecord/edit");
 		res.addObject("professionalRecord", professionalRecord);
+		res.addObject("messageCode", messageCode);
 
 		return res;
 	}

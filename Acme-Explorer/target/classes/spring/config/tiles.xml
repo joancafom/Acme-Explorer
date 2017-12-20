@@ -51,6 +51,7 @@
 		<value>/views/story/tiles.xml</value>
 		<value>/views/survivalClass/tiles.xml</value>
 		<value>/views/suspicious/tiles.xml</value>
+		<value>/views/tag/tiles.xml</value>
 		<value>/views/tagValue/tiles.xml</value>
 		<value>/views/trip/tiles.xml</value>
 		<value>/views/tripApplication/tiles.xml</value>

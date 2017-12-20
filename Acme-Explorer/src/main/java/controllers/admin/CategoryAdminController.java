@@ -134,7 +134,7 @@ public class CategoryAdminController extends AbstractController {
 
 		res = new ModelAndView("category/edit");
 		res.addObject("category", category);
-		res.addObject("message", messageCode);
+		res.addObject("messageCode", messageCode);
 
 		return res;
 	}

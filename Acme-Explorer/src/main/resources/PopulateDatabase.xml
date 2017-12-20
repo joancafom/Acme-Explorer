@@ -1763,7 +1763,7 @@
 		</property>
 		<property name="status" value="CANCELLED"></property>
 		<property name="explorer" ref="explorer2"></property>
-		<property name="trip" ref="trip4"></property>
+		<property name="trip" ref="trip1"></property>
 	</bean>
 
 	<!-- Folder -->

@@ -107,17 +107,18 @@ public class SocialIDManagerController extends AbstractController {
 		return result;
 	}
 
-	private ModelAndView createEditModelAndView(final SocialID socialID) {
+	protected ModelAndView createEditModelAndView(final SocialID socialID) {
 		ModelAndView result;
 		result = this.createEditModelAndView(socialID, null);
 		return result;
 	}
 
-	private ModelAndView createEditModelAndView(final SocialID socialID, final String messageCode) {
+	protected ModelAndView createEditModelAndView(final SocialID socialID, final String messageCode) {
 		ModelAndView result;
 
 		result = new ModelAndView("socialID/edit");
 		result.addObject("socialID", socialID);
+		result.addObject("messageCode", messageCode);
 		return result;
 	}
 }

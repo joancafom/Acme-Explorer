@@ -85,6 +85,7 @@ public class PersonalRecordRangerController extends AbstractController {
 
 		res = new ModelAndView("personalRecord/edit");
 		res.addObject("personalRecord", personalRecord);
+		res.addObject("messageCode", messageCode);
 
 		return res;
 	}

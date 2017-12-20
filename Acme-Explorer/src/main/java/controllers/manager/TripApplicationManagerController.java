@@ -99,17 +99,18 @@ public class TripApplicationManagerController extends AbstractController {
 		return result;
 
 	}
-	private ModelAndView createEditModelAndView(final TripApplication tripApplication) {
+	protected ModelAndView createEditModelAndView(final TripApplication tripApplication) {
 		ModelAndView result;
 		result = this.createEditModelAndView(tripApplication, null);
 		return result;
 	}
 
-	private ModelAndView createEditModelAndView(final TripApplication tripApplication, final String messageCode) {
+	protected ModelAndView createEditModelAndView(final TripApplication tripApplication, final String messageCode) {
 		ModelAndView result;
 
 		result = new ModelAndView("tripApplication/edit");
 		result.addObject("tripApplication", tripApplication);
+		result.addObject("messageCode", messageCode);
 
 		return result;
 	}

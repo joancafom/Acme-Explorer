@@ -14,10 +14,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import security.LoginService;
+import security.UserAccount;
+import services.ExplorerService;
 import services.TripApplicationService;
 import services.TripService;
 import controllers.AbstractController;
 import domain.ApplicationStatus;
+import domain.Explorer;
 import domain.Trip;
 import domain.TripApplication;
 
@@ -32,6 +36,9 @@ public class TripApplicationExplorerController extends AbstractController {
 
 	@Autowired
 	private TripService				tripService;
+
+	@Autowired
+	private ExplorerService			explorerService;
 
 
 	// Constructors ---------------------------
@@ -95,6 +102,13 @@ public class TripApplicationExplorerController extends AbstractController {
 
 		tripApplication = this.tripApplicationService.findOne(tripApplicationId);
 		Assert.notNull(tripApplication);
+		Assert.isTrue(tripApplication.getStatus().equals(ApplicationStatus.DUE) || tripApplication.getStatus().equals(ApplicationStatus.ACCEPTED));
+
+		final UserAccount userAccount = LoginService.getPrincipal();
+		final Explorer explorer = this.explorerService.findByUserAccount(userAccount);
+
+		if (explorer != null)
+			Assert.isTrue(tripApplication.getExplorer().equals(explorer));
 
 		res = this.createEditModelAndView(tripApplication);
 
@@ -152,7 +166,7 @@ public class TripApplicationExplorerController extends AbstractController {
 
 		res = new ModelAndView("tripApplication/edit");
 		res.addObject("tripApplication", tripApplication);
-		res.addObject("message", messageCode);
+		res.addObject("messageCode", messageCode);
 
 		return res;
 	}

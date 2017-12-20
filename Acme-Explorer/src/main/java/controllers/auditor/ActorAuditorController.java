@@ -76,17 +76,18 @@ public class ActorAuditorController extends AbstractController {
 
 	}
 
-	private ModelAndView createEditModelAndView(final Auditor actor) {
+	protected ModelAndView createEditModelAndView(final Auditor actor) {
 		ModelAndView result;
 		result = this.createEditModelAndView(actor, null);
 		return result;
 	}
 
-	private ModelAndView createEditModelAndView(final Auditor actor, final Object object) {
+	protected ModelAndView createEditModelAndView(final Auditor actor, final String messageCode) {
 		ModelAndView result;
 		result = new ModelAndView("auditor/edit");
 		result.addObject("auditor", actor);
 		result.addObject("actorClassName", "auditor");
+		result.addObject("messageCode", messageCode);
 		return result;
 	}
 }

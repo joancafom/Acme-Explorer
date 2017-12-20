@@ -76,18 +76,19 @@ public class ActorManagerController extends AbstractController {
 
 	}
 
-	private ModelAndView createEditModelAndView(final Manager actor) {
+	protected ModelAndView createEditModelAndView(final Manager actor) {
 		ModelAndView result;
 		result = this.createEditModelAndView(actor, null);
 		return result;
 	}
 
-	private ModelAndView createEditModelAndView(final Manager actor, final Object object) {
+	protected ModelAndView createEditModelAndView(final Manager actor, final String messageCode) {
 		ModelAndView result;
 		result = new ModelAndView("manager/edit");
 		result.addObject("manager", actor);
 		result.addObject("actorClassName", "manager");
 		result.addObject("actionURI", "actor/manager/edit.do");
+		result.addObject("messageCode", messageCode);
 		return result;
 	}
 }

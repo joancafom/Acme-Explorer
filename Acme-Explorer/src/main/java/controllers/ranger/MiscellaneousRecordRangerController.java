@@ -120,8 +120,8 @@ public class MiscellaneousRecordRangerController extends AbstractController {
 
 		res = new ModelAndView("miscellaneousRecord/edit");
 		res.addObject("miscellaneousRecord", miscellaneousRecord);
+		res.addObject("messageCode", messageCode);
 
 		return res;
 	}
-
 }
