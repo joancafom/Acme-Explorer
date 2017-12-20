@@ -154,7 +154,6 @@
 		<security:intercept-url pattern="/trip/auditor/list.do" access="hasRole('AUDITOR')"/>
 		<security:intercept-url pattern="/trip/auditor/display.do" access="hasRole('AUDITOR')"/>
 		<security:intercept-url pattern="/trip/auditor/search.do" access="hasRole('AUDITOR')"/>
-		<security:intercept-url pattern="/trip/manager/list.do" access="hasRole('MANAGER')"/>
 		<security:intercept-url pattern="/trip/explorer/display.do" access="hasRole('EXPLORER')"/>
 		<security:intercept-url pattern="/trip/explorer/list.do" access="hasRole('EXPLORER')"/>
 		<security:intercept-url pattern="/trip/explorer/search.do" access="hasRole('EXPLORER')"/>
