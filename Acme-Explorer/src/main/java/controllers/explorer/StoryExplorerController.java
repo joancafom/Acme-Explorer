@@ -2,7 +2,6 @@
 package controllers.explorer;
 
 import java.util.Collection;
-import java.util.Date;
 
 import javax.validation.Valid;
 
@@ -50,22 +49,6 @@ public class StoryExplorerController extends AbstractController {
 	// Display --------------------------------
 
 	// Listing --------------------------------
-
-	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView list(@RequestParam final int tripId) {
-		ModelAndView res;
-		Collection<Story> stories;
-
-		stories = this.storyService.findAllByTripId(tripId);
-		Assert.isTrue(this.tripService.findOne(tripId).getPublicationDate().before(new Date()));
-
-		res = new ModelAndView("story/list");
-		res.addObject("stories", stories);
-		res.addObject("requestURI", "story/explorer/list.do");
-		res.addObject("tripURI", "trip/explorer/display.do?tripId=");
-
-		return res;
-	}
 
 	// Creation -------------------------------
 

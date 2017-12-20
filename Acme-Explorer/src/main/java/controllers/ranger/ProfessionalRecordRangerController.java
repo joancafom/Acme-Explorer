@@ -12,15 +12,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import security.LoginService;
-import security.UserAccount;
 import services.CurriculumService;
 import services.ProfessionalRecordService;
-import services.RangerService;
 import controllers.AbstractController;
 import domain.Curriculum;
 import domain.ProfessionalRecord;
-import domain.Ranger;
 
 @Controller
 @RequestMapping("/professionalRecord/ranger")
@@ -33,9 +29,6 @@ public class ProfessionalRecordRangerController extends AbstractController {
 
 	@Autowired
 	private CurriculumService			curriculumService;
-
-	@Autowired
-	private RangerService				rangerService;
 
 
 	// Constructors ---------------------------
@@ -69,15 +62,9 @@ public class ProfessionalRecordRangerController extends AbstractController {
 	public ModelAndView edit(@RequestParam final int professionalRecordId) {
 		ModelAndView res;
 		final ProfessionalRecord professionalRecord;
-		Ranger ranger;
-
-		final UserAccount userAccount = LoginService.getPrincipal();
-		ranger = this.rangerService.findByUserAccount(userAccount);
 
 		professionalRecord = this.professionalRecordService.findOne(professionalRecordId);
-
 		Assert.notNull(professionalRecord);
-		Assert.isTrue(professionalRecord.getCurriculum().getRanger().equals(ranger));
 
 		res = this.createEditModelAndView(professionalRecord);
 

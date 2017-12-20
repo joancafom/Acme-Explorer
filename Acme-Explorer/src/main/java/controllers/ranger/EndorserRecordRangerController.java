@@ -12,15 +12,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import security.LoginService;
-import security.UserAccount;
 import services.CurriculumService;
 import services.EndorserRecordService;
-import services.RangerService;
 import controllers.AbstractController;
 import domain.Curriculum;
 import domain.EndorserRecord;
-import domain.Ranger;
 
 @Controller
 @RequestMapping("/endorserRecord/ranger")
@@ -33,9 +29,6 @@ public class EndorserRecordRangerController extends AbstractController {
 
 	@Autowired
 	private CurriculumService		curriculumService;
-
-	@Autowired
-	private RangerService			rangerService;
 
 
 	// Constructors ---------------------------
@@ -69,15 +62,9 @@ public class EndorserRecordRangerController extends AbstractController {
 	public ModelAndView edit(@RequestParam final int endorserRecordId) {
 		ModelAndView res;
 		final EndorserRecord endorserRecord;
-		Ranger ranger;
-
-		final UserAccount userAccount = LoginService.getPrincipal();
-		ranger = this.rangerService.findByUserAccount(userAccount);
 
 		endorserRecord = this.endorserRecordService.findOne(endorserRecordId);
-
 		Assert.notNull(endorserRecord);
-		Assert.isTrue(endorserRecord.getCurriculum().getRanger().equals(ranger));
 
 		res = this.createEditModelAndView(endorserRecord);
 

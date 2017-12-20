@@ -56,7 +56,4 @@
 </jstl:if>
 <jstl:if test="${curriculumURI == ''}">
 	<spring:message code="ranger.noCurriculum"/>
-	<jstl:if test="${ownProfile}">
-		<a href="curriculum/ranger/create.do"><spring:message code="ranger.curriculum.create"/></a>
-	</jstl:if>
 </jstl:if>

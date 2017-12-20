@@ -12,13 +12,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import security.LoginService;
-import security.UserAccount;
 import services.PersonalRecordService;
-import services.RangerService;
 import controllers.AbstractController;
 import domain.PersonalRecord;
-import domain.Ranger;
 
 @Controller
 @RequestMapping("/personalRecord/ranger")
@@ -28,9 +24,6 @@ public class PersonalRecordRangerController extends AbstractController {
 
 	@Autowired
 	private PersonalRecordService	personalRecordService;
-
-	@Autowired
-	private RangerService			rangerService;
 
 
 	// Constructors ---------------------------
@@ -51,20 +44,15 @@ public class PersonalRecordRangerController extends AbstractController {
 	public ModelAndView edit(@RequestParam final int personalRecordId) {
 		ModelAndView res;
 		final PersonalRecord personalRecord;
-		Ranger ranger;
-
-		final UserAccount userAccount = LoginService.getPrincipal();
-		ranger = this.rangerService.findByUserAccount(userAccount);
 
 		personalRecord = this.personalRecordService.findOne(personalRecordId);
-
 		Assert.notNull(personalRecord);
-		Assert.isTrue(personalRecord.getCurriculum().getRanger().equals(ranger));
 
 		res = this.createEditModelAndView(personalRecord);
 
 		return res;
 	}
+
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid final PersonalRecord personalRecord, final BindingResult binding) {
 		ModelAndView res;

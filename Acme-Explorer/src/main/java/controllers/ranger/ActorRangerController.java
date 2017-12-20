@@ -1,13 +1,10 @@
 
 package controllers.ranger;
 
-import java.util.Date;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,10 +14,8 @@ import org.springframework.web.servlet.ModelAndView;
 import security.LoginService;
 import security.UserAccount;
 import services.RangerService;
-import services.TripService;
 import controllers.AbstractController;
 import domain.Ranger;
-import domain.Trip;
 
 @Controller
 @RequestMapping("/actor/ranger")
@@ -30,33 +25,22 @@ public class ActorRangerController extends AbstractController {
 	@Autowired
 	private RangerService	rangerService;
 
-	@Autowired
-	private TripService		tripService;
-
 
 	public ActorRangerController() {
 		super();
 	}
 
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
-	public ModelAndView display(@RequestParam(required = false) final Integer tripId) {
+	public ModelAndView display(@RequestParam(required = false) final Integer rangerId) {
 		final ModelAndView result;
-		final Trip trip;
 		final Ranger actor;
-		String curriculumURI = "";
 		Boolean b = false;
 
-		if (tripId == null) {
+		if (rangerId == null) {
 			final UserAccount userAccount = LoginService.getPrincipal();
 			actor = this.rangerService.findByUserAccount(userAccount);
-		} else {
-			trip = this.tripService.findOne(tripId);
-			actor = this.rangerService.findOne(trip.getRanger().getId());
-			Assert.isTrue(trip.getPublicationDate().before(new Date()));
-		}
-
-		if (actor.getCurriculum() != null)
-			curriculumURI = "curriculum/ranger/display.do?curriculumId=" + actor.getCurriculum().getId();
+		} else
+			actor = this.rangerService.findOne(rangerId);
 
 		result = new ModelAndView("ranger/display");
 		result.addObject("actor", actor);
@@ -65,7 +49,7 @@ public class ActorRangerController extends AbstractController {
 		if (actor.getUserAccount().equals(LoginService.getPrincipal()))
 			b = true;
 
-		result.addObject("curriculumURI", curriculumURI);
+		result.addObject("curriculumURI", "curriculum/ranger/display.do?curriculumId=" + actor.getCurriculum().getId());
 		result.addObject("ownProfile", b);
 
 		return result;
