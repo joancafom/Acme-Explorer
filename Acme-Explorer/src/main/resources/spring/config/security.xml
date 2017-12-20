@@ -114,6 +114,10 @@
 
 		<security:intercept-url pattern="/note/manager/list.do" access="hasRole('MANAGER')"/>
 		<security:intercept-url pattern="/note/manager/edit.do" access="hasRole('MANAGER')"/>
+		
+		<security:intercept-url pattern="/note/auditor/list.do" access="hasRole('AUDITOR')"/>
+		<security:intercept-url pattern="/note/auditor/create.do" access="hasRole('AUDITOR')"/>
+		<security:intercept-url pattern="/note/auditor/edit.do" access="hasRole('AUDITOR')"/>
 
 		<security:intercept-url pattern="/personalRecord/ranger/edit.do" access="hasRole('RANGER')"/>
 		
