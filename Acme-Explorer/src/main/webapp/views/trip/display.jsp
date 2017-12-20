@@ -101,11 +101,12 @@
 <p><spring:message code="stories"/>: 
 <a href="story/${url}list.do?tripId=${trip.id}"><spring:message code="story.list"/></a>
 </p>
-
-<p><spring:message code="legalTexts"/>: 
-<a href="legalText/${url}list.do?tripId=${trip.id}"><spring:message code="legalText.list"/></a>
-</p>
-
+<hr>
+<h3><spring:message code="legalText"/>:</h3>
+<p><strong><spring:message code="trip.legalText.title"/></strong>: <jstl:out value="${trip.legalText.title}"/></p>
+<p><strong><spring:message code="trip.legalText.body"/></strong>: <jstl:out value="${trip.legalText.body}"/></p>
+<p><strong><spring:message code="trip.legalText.laws"/></strong>: <jstl:out value="${trip.legalText.laws}"/></p>
+<hr>
 <security:authorize access="hasRole('MANAGER')">
 	<p><spring:message code="notes"/>: 
 	<a href="note/manager/list.do?tripId=${trip.id}"><spring:message code="note.list"/></a>
@@ -151,6 +152,7 @@
 	</jstl:forEach>
 </p>
 </security:authorize>
+
 <security:authorize access="hasRole('MANAGER')">
 	 <h1><spring:message code="tagValues"/>:</h1>
 	 <display:table name="trip.tagValues" id="tagValue" class="displaytag">
