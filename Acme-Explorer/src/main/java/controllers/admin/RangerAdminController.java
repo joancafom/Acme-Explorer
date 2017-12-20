@@ -44,6 +44,21 @@ public class RangerAdminController extends AbstractController {
 
 	// Display --------------------------------
 
+	@RequestMapping(value = "/display", method = RequestMethod.GET)
+	public ModelAndView display(@RequestParam final int rangerId) {
+		final ModelAndView res;
+		Ranger ranger;
+
+		ranger = this.rangerService.findOne(rangerId);
+
+		res = new ModelAndView("ranger/display");
+		res.addObject("actor", ranger);
+		res.addObject("curriculumURI", "curriculum/admin/display.do?curriculumId=" + ranger.getCurriculum().getId());
+		res.addObject("ownProfile", false);
+
+		return res;
+	}
+
 	// Creation -------------------------------
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)

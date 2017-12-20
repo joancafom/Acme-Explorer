@@ -10,22 +10,44 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 <!-- Display a ranger -->
-<p><spring:message code="ranger.name"/>: <jstl:out value="${ranger.name}"/></p>
-<p><spring:message code="ranger.surname"/>: <jstl:out value="${ranger.surname}"/></p>
-<p><spring:message code="ranger.email"/>: <jstl:out value="${ranger.email}"/></p>
-<p><spring:message code="ranger.phoneNumber"/>: <jstl:out value="${ranger.phoneNumber}"/></p>
+<p><strong><spring:message code="ranger.name"/>:</strong> <jstl:out value="${actor.name}"/></p>
+<p><strong><spring:message code="ranger.surname"/>:</strong> <jstl:out value="${actor.surname}"/></p>
+<p><strong><spring:message code="ranger.email"/>:</strong> <jstl:out value="${actor.email}"/></p>
+<p><strong><spring:message code="ranger.phoneNumber"/>:</strong> <jstl:out value="${actor.phoneNumber}"/></p>
+<p><strong><spring:message code="ranger.address"/>:</strong> <jstl:out value="${actor.address}"/></p>
 
-<p><spring:message code="ranger.socialIDs"/>:</p> 
+<jstl:if test="${ownProfile}">
+	<a href="actor/ranger/edit.do"><spring:message code="ranger.edit"/></a>
+</jstl:if>
+	
+	<h1><spring:message code="ranger.socialIDs"/>:</h1>
 
-<display:table name="ranger.socialIDs" id="socialID" requestURI="${socialIDRequestURI}" class="displaytag">
-	<display:column property="nick" titleKey="socialID.nick" sortable="true"/>
-	<display:column property="nameSocialNetwork" titleKey="socialID.nameSocialNetwork" sortable="true"/>
-	<display:column titleKey="socialID.link" sortable="true">
-		<a href="${socialID.link}"><jstl:out value="${socialID.link}"/></a>
-	</display:column>
-	<display:column titleKey="socialID.photo" sortable="true">
-		<a href="${socialID.photo}"><jstl:out value="${socialID.photo}"/></a>
-	</display:column>
-</display:table>
+	<display:table name="socialIDs" id="socialID" class="displaytag">
+		<display:column titleKey="ranger.socialID.nick" sortable="true">
+			<jstl:out value="${socialID.nick}"/>	
+		</display:column>
+	
+		<display:column titleKey="ranger.socialID.nameSocialNetwork" sortable="true">
+			<jstl:out value="${socialID.nameSocialNetwork}"/>	
+		</display:column>
+	
+		<display:column titleKey="ranger.socialID.link" sortable="true">
+			<a href="<jstl:out value="${socialID.link}"/>"> ${socialID.link}</a>	
+		</display:column>
+	
+		<display:column titleKey="actor.socialID.photo" sortable="true">
+			<a href="<jstl:out value="${socialID.photo}"/>"> ${socialID.photo} </a>	
+		</display:column>
+	
+		<jstl:if test="${ownProfile}">	
+			<display:column>
+				<a href="socialID/ranger/edit.do?socialIDId=${socialID.id}"><spring:message code="ranger.socialID.edit"/></a>
+			</display:column>
+		</jstl:if>
+	</display:table>
+	
+	<jstl:if test="${ownProfile}">
+		<a href="socialID/ranger/create.do"><spring:message code="ranger.socialID.create"/></a>
+	</jstl:if>
 
-<p><spring:message code="ranger.curriculum"/>: <a href="curriculum/display.do?curriculumId=${ranger.curriculum.id}"><spring:message code="ranger.curriculum.display"/></a></p>
+<p><spring:message code="ranger.curriculum"/>: <a href="${curriculumURI}"><spring:message code="ranger.curriculum.display"/></a></p>

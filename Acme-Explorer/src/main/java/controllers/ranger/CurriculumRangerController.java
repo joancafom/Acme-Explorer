@@ -46,6 +46,7 @@ public class CurriculumRangerController extends AbstractController {
 		final ModelAndView res;
 		final Curriculum curriculum;
 		Ranger ranger;
+		Boolean b = false;
 
 		final UserAccount userAccount = LoginService.getPrincipal();
 		ranger = this.rangerService.findByUserAccount(userAccount);
@@ -55,9 +56,13 @@ public class CurriculumRangerController extends AbstractController {
 
 		curriculum = this.curriculumService.findOne(curriculumId);
 
+		if (ranger.equals(curriculum.getRanger()))
+			b = true;
+
 		res = new ModelAndView("curriculum/display");
 		res.addObject("curriculum", curriculum);
 		res.addObject("RequestURI", "curriculum/ranger/display.do?curriculumId=" + curriculum.getId());
+		res.addObject("ownCurriculum", b);
 
 		return res;
 	}

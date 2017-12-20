@@ -46,12 +46,12 @@ public class RangerController extends AbstractController {
 		ranger = this.rangerService.findOne(rangerId);
 
 		res = new ModelAndView("ranger/display");
-		res.addObject("ranger", ranger);
-		res.addObject("socialIDRequestURI", "ranger/display.do?rangerId=" + ranger.getId());
+		res.addObject("actor", ranger);
+		res.addObject("curriculumURI", "curriculum/display.do?curriculumId=" + ranger.getCurriculum().getId());
+		res.addObject("ownProfile", false);
 
 		return res;
 	}
-
 	// Creation -------------------------------
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)

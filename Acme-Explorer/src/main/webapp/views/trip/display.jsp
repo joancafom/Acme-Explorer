@@ -58,7 +58,7 @@
 
 <p><spring:message code="trip.manager"/>: <jstl:out value="${trip.manager.surname}"/>, <jstl:out value="${trip.manager.name}"/></p>
 
-<spring:message code="trip.ranger"/>: <a href="ranger/display.do?rangerId=${trip.ranger.id}"><jstl:out value="${trip.ranger.surname}"/>, <jstl:out value="${trip.ranger.name}"/></a>
+<spring:message code="trip.ranger"/>: <a href="${rangerURI}"><jstl:out value="${trip.ranger.surname}"/>, <jstl:out value="${trip.ranger.name}"/></a>
 
 <security:authorize access="hasRole('MANAGER')">
 	<p><spring:message code="survivalClasses"/>: <a href="survivalClass/manager/list.do?tripId=${trip.id}"><spring:message code="survivalClass.list"/></a></p>

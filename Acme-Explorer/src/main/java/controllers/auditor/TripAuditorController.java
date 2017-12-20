@@ -39,7 +39,6 @@ public class TripAuditorController extends AbstractController {
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list(@RequestParam(required = false) final String keyword, @RequestParam(required = false) final Integer categoryId) {
-
 		final ModelAndView res;
 		Collection<Trip> trips = null;
 
@@ -57,7 +56,7 @@ public class TripAuditorController extends AbstractController {
 
 		res = new ModelAndView("trip/list");
 		res.addObject("trips", trips);
-		res.addObject("requestURI", "/trip/list.do");
+		res.addObject("requestURI", "/trip/auditor/list.do");
 		res.addObject("actorWS", "auditor/");
 
 		return res;
@@ -82,12 +81,13 @@ public class TripAuditorController extends AbstractController {
 		res.addObject("trip", trip);
 		res.addObject("sponsorship", sponsorship);
 		res.addObject("stageRequestURI", "trip/auditor/display.do?tripId=" + trip.getId());
+		res.addObject("rangerURI", "ranger/auditor/display.do?rangerId=" + trip.getRanger().getId());
 		res.addObject("canAudit", canAudit);
 
 		return res;
 
 	}
-
+	
 	@RequestMapping(value = "/search", method = RequestMethod.GET)
 	public ModelAndView search() {
 		final ModelAndView res;

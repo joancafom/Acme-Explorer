@@ -31,7 +31,7 @@ public class TripAdminController extends AbstractController {
 
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView list(@RequestParam(required = false) final String keyword, @RequestParam(required = false) final Integer categoryId) {
+	public ModelAndView list(@RequestParam(required = false) final String keyword, @RequestParam(required = false) final Integer categoryId, @RequestParam(required = false) final Boolean showAll) {
 		final ModelAndView res;
 		final Collection<Trip> trips;
 
@@ -68,6 +68,7 @@ public class TripAdminController extends AbstractController {
 		res.addObject("trip", trip);
 		res.addObject("sponsorship", sponsorship);
 		res.addObject("stageRequestURI", "stage/admin/list.do?tripId=" + trip.getId());
+		res.addObject("rangerURI", "ranger/admin/display.do?rangerId=" + trip.getRanger().getId());
 
 		return res;
 

@@ -18,9 +18,9 @@
 <p><spring:message code="personalRecord.phoneNumber"/>: <jstl:out value="${curriculum.personalRecord.phoneNumber}"/></p>
 <p><spring:message code="personalRecord.linkedInProfile"/>: <a href="${curriculum.personalRecord.linkedInProfile}"><jstl:out value="${curriculum.personalRecord.linkedInProfile}"/></a></p>
 
-<security:authorize access="hasRole('RANGER')">
+<jstl:if test="${ownCurriculum}">
 	<a href="personalRecord/ranger/edit.do?personalRecordId=${curriculum.personalRecord.id}"><spring:message code="personalRecord.edit"/></a>
-</security:authorize>
+</jstl:if>
 
 <h1><spring:message code="curriculum.educationRecords"/></h1> 
 
@@ -39,16 +39,16 @@
 	
 	<display:column property="comments" titleKey="educationRecord.comments"/>
 	
-	<display:column>
-		<security:authorize access="hasRole('RANGER')">
+	<jstl:if test="${ownCurriculum}">
+		<display:column>
 			<a href="educationRecord/ranger/edit.do?educationRecordId=${educationRecord.id}"><spring:message code="educationRecord.edit"/></a>
-		</security:authorize>
-	</display:column>
+		</display:column>
+	</jstl:if>
 </display:table>
 
-<security:authorize access="hasRole('RANGER')">
+<jstl:if test="${ownCurriculum}">
 	<a href="educationRecord/ranger/create.do?curriculumId=${educationRecord.curriculum.id}"><spring:message code="educationRecord.create"/></a>
-</security:authorize>
+</jstl:if>
 
 <h1><spring:message code="curriculum.professionalRecords"/></h1> 
 
@@ -67,16 +67,16 @@
 	
 	<display:column property="comments" titleKey="professionalRecord.comments"/>
 	
-	<display:column>
-		<security:authorize access="hasRole('RANGER')">
+	<jstl:if test="${ownCurriculum}">
+		<display:column>
 			<a href="professionalRecord/ranger/edit.do?professionalRecordId=${professionalRecord.id}"><spring:message code="professionalRecord.edit"/></a>
-		</security:authorize>
-	</display:column>
+		</display:column>
+	</jstl:if>
 </display:table>
 
-<security:authorize access="hasRole('RANGER')">
+<jstl:if test="${ownCurriculum}">
 	<a href="professionalRecord/ranger/create.do?curriculumId=${professionalRecord.curriculum.id}"><spring:message code="professionalRecord.create"/></a>
-</security:authorize>
+</jstl:if>
 
 <h1><spring:message code="curriculum.endorserRecords"/></h1> 
 
@@ -93,40 +93,40 @@
 	
 	<display:column property="comments" titleKey="endorserRecord.comments"/>
 	
-	<display:column>
-		<security:authorize access="hasRole('RANGER')">
+	<jstl:if test="${ownCurriculum}">
+		<display:column>
 			<a href="endorserRecord/ranger/edit.do?endorserRecordId=${endorserRecord.id}"><spring:message code="endorserRecord.edit"/></a>
-		</security:authorize>
-	</display:column>
+		</display:column>
+	</jstl:if>
 </display:table>
 
-<security:authorize access="hasRole('RANGER')">
+<jstl:if test="${ownCurriculum}">
 	<a href="endorserRecord/ranger/create.do?curriculumId=${endorserRecord.curriculum.id}"><spring:message code="endorserRecord.create"/></a>
-</security:authorize>
+</jstl:if>
 
 <h1><spring:message code="curriculum.miscellaneousRecords"/></h1> 
 
 <display:table name="curriculum.miscellaneousRecords" id="miscellaneousRecord" requestURI="${RequestURI}" class="displaytag">
 	<display:column property="title" titleKey="miscellaneousRecord.title" sortable="true"/>
 	
-		<display:column titleKey="miscellaneousRecord.attachment">
+	<display:column titleKey="miscellaneousRecord.attachment">
 		<a href="${miscellaneousRecord.attachment}"><jstl:out value="${miscellaneousRecord.attachment}"/></a>
 	</display:column>
 	
 	<display:column property="comments" titleKey="miscellaneousRecord.comments"/>
 	
-	<display:column>
-		<security:authorize access="hasRole('RANGER')">
+	<jstl:if test="${ownCurriculum}">
+		<display:column>
 			<a href="miscellaneousRecord/ranger/edit.do?miscellaneousRecordId=${miscellaneousRecord.id}"><spring:message code="miscellaneousRecord.edit"/></a>
-		</security:authorize>
-	</display:column>
+		</display:column>
+	</jstl:if>
 </display:table>
 
-<security:authorize access="hasRole('RANGER')">
+<jstl:if test="${ownCurriculum}">
 	<a href="miscellaneousRecord/ranger/create.do?curriculumId=${miscellaneousRecord.curriculum.id}"><spring:message code="miscellaneousRecord.create"/></a>
-</security:authorize>
+</jstl:if>
 
-<security:authorize access="hasRole('RANGER')">
+<jstl:if test="${ownCurriculum}">
 	<br/>
 	<a href="curriculum/ranger/edit.do?curriculumId=${curriculum.id}"><spring:message code="curriculum.delete"/></a>
-</security:authorize>
+</jstl:if>

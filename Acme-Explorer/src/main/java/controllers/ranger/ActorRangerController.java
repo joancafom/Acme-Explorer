@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import security.LoginService;
@@ -30,16 +31,26 @@ public class ActorRangerController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
-	public ModelAndView display() {
+	public ModelAndView display(@RequestParam(required = false) final Integer rangerId) {
 		final ModelAndView result;
 		final Ranger actor;
+		Boolean b = false;
 
-		final UserAccount userAccount = LoginService.getPrincipal();
-		actor = this.rangerService.findByUserAccount(userAccount);
+		if (rangerId == null) {
+			final UserAccount userAccount = LoginService.getPrincipal();
+			actor = this.rangerService.findByUserAccount(userAccount);
+		} else
+			actor = this.rangerService.findOne(rangerId);
 
 		result = new ModelAndView("ranger/display");
 		result.addObject("actor", actor);
 		result.addObject("socialIDs", actor.getSocialIDs());
+
+		if (actor.getUserAccount().equals(LoginService.getPrincipal()))
+			b = true;
+
+		result.addObject("curriculumURI", "curriculum/ranger/display.do?curriculumId=" + actor.getCurriculum().getId());
+		result.addObject("ownProfile", b);
 
 		return result;
 

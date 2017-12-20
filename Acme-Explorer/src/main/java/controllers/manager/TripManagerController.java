@@ -22,8 +22,10 @@ import services.LegalTextService;
 import services.ManagerService;
 import services.RangerService;
 import services.TagService;
+import services.TripApplicationService;
 import services.TripService;
 import controllers.AbstractController;
+import domain.ApplicationStatus;
 import domain.Category;
 import domain.LegalText;
 import domain.Manager;
@@ -31,6 +33,7 @@ import domain.Ranger;
 import domain.Sponsorship;
 import domain.Tag;
 import domain.Trip;
+import domain.TripApplication;
 
 @Controller
 @RequestMapping("/trip/manager")
@@ -38,22 +41,25 @@ public class TripManagerController extends AbstractController {
 
 	//Services
 	@Autowired
-	private TripService			tripService;
+	private TripService				tripService;
 
 	@Autowired
-	private ManagerService		managerService;
+	private ManagerService			managerService;
 
 	@Autowired
-	private RangerService		rangerService;
+	private RangerService			rangerService;
 
 	@Autowired
-	private LegalTextService	legalTextService;
+	private LegalTextService		legalTextService;
 
 	@Autowired
-	private TagService			tagService;
+	private TagService				tagService;
 
 	@Autowired
-	private CategoryService		categoryService;
+	private CategoryService			categoryService;
+
+	@Autowired
+	private TripApplicationService	tripApplicationService;
 
 
 	//List
@@ -66,11 +72,12 @@ public class TripManagerController extends AbstractController {
 			final UserAccount userAccount = LoginService.getPrincipal();
 			final Manager current = this.managerService.findByUserAccount(userAccount);
 			Assert.notNull(current);
-
+			
 			if (showAll == null || !showAll)
 				trips = this.tripService.findAllManagedBy(current);
 			else
 				trips = this.tripService.findAllPublished();
+
 		} else if (keyword != null)
 			trips = this.tripService.findByKeyWordPublished(keyword);
 		else {
@@ -130,8 +137,15 @@ public class TripManagerController extends AbstractController {
 			res = this.createEditModelAndView(trip);
 		else
 			try {
+
 				if ("".equals(trip.getCancelationReason()))
 					trip.setCancelationReason(null);
+				else
+					for (final TripApplication ta : trip.getTripApplications()) {
+						ta.setRejectionReason("The trip was cancelled.");
+						this.tripApplicationService.changeApplicationStatus(ta, ApplicationStatus.REJECTED);
+					}
+
 				this.tripService.save(trip);
 				res = new ModelAndView("redirect:list.do");
 			} catch (final Throwable oops) {
@@ -172,6 +186,7 @@ public class TripManagerController extends AbstractController {
 		res.addObject("trip", trip);
 		res.addObject("sponsorship", sponsorship);
 		res.addObject("stageRequestURI", "stage/list.do?tripId=" + trip.getId());
+		res.addObject("rangerURI", "ranger/manager/display.do?rangerId=" + trip.getRanger().getId());
 
 		return res;
 

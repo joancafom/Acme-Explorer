@@ -1,5 +1,5 @@
 
-package controllers;
+package controllers.manager;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,41 +8,43 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import services.CurriculumService;
-import domain.Curriculum;
+import services.RangerService;
+import controllers.AbstractController;
+import domain.Ranger;
 
 @Controller
-@RequestMapping("/curriculum")
-public class CurriculumController extends AbstractController {
+@RequestMapping("/ranger/manager")
+public class RangerManagerController extends AbstractController {
 
 	// Services -------------------------------
 
 	@Autowired
-	private CurriculumService	curriculumService;
+	private RangerService	rangerService;
 
 
 	// Constructors ---------------------------
 
-	public CurriculumController() {
+	public RangerManagerController() {
 		super();
 	}
 
 	// Display --------------------------------
 
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
-	public ModelAndView display(@RequestParam final int curriculumId) {
+	public ModelAndView display(@RequestParam final int rangerId) {
 		final ModelAndView res;
-		final Curriculum curriculum;
+		Ranger ranger;
 
-		curriculum = this.curriculumService.findOne(curriculumId);
+		ranger = this.rangerService.findOne(rangerId);
 
-		res = new ModelAndView("curriculum/display");
-		res.addObject("curriculum", curriculum);
-		res.addObject("RequestURI", "curriculum/display.do?curriculumId=" + curriculum.getId());
-		res.addObject("ownCurriculum", false);
+		res = new ModelAndView("ranger/display");
+		res.addObject("actor", ranger);
+		res.addObject("curriculumURI", "curriculum/manager/display.do?curriculumId=" + ranger.getCurriculum().getId());
+		res.addObject("ownProfile", false);
 
 		return res;
 	}
+
 	// Creation -------------------------------
 
 	// Edition --------------------------------
