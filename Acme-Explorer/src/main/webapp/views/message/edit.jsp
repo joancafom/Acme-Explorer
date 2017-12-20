@@ -28,6 +28,14 @@
 	<jstl:set var="actor" value="sponsor"></jstl:set>
 </security:authorize>
 
+<security:authorize access="hasRole('ADMIN')">
+	<jstl:if test="${isNotification}">
+		<strong><spring:message code="message.notification.info"/></strong> 
+		<br />
+		<br />
+	</jstl:if>
+</security:authorize>
+
 <form:form action="message/${actor}/edit.do" modelAttribute="message">
 		<jstl:if test="${message.id==0}">
 			<form:hidden path="version"/>
@@ -44,14 +52,30 @@
 			<form:textarea path="body"/>
 			<form:errors cssClass="error" path="body"/>
 			<br><br>
-			<form:label path="recipient"><spring:message code="message.recipient"/></form:label>
-			<form:select path="recipient">
-				<form:option value="0" label="----"/>
-				<form:options items="${actors}"
-					itemValue="id"
-					itemLabel="name"/>
-			</form:select>
-			<form:errors cssClass="error" path="recipient"/>
+			
+			<security:authorize access="hasRole('ADMIN')">
+				<jstl:choose>
+					<jstl:when test="${isNotification}">
+						<form:hidden path="recipient" value="${message.sender.id}"/>
+					</jstl:when>
+					<jstl:otherwise>
+						<form:select path="recipient">
+							<form:option value="0" label="----"/>
+							<form:options items="${actors}" itemValue="id" itemLabel="name"/>
+						</form:select>
+					</jstl:otherwise>
+				</jstl:choose>
+			</security:authorize>
+			<security:authorize access="!hasRole('ADMIN')">
+				<form:label path="recipient"><spring:message code="message.recipient"/></form:label>
+				<form:select path="recipient">
+					<form:option value="0" label="----"/>
+					<form:options items="${actors}"
+						itemValue="id"
+						itemLabel="name"/>
+				</form:select>
+				<form:errors cssClass="error" path="recipient"/>
+			</security:authorize>
 			<br><br>
 			<form:label path="priority"><spring:message code="message.priority"/></form:label>
 			<form:select path="priority">
@@ -76,7 +100,19 @@
 			</form:select>
 			<form:errors cssClass="error" path="priority"/>
 			<br><br>
-			<input type="submit" name="save" value="<spring:message code="message.save"/>"/>	
+			<security:authorize access="hasRole('ADMIN')">
+				<jstl:choose>
+					<jstl:when test="${isNotification}">
+						<input type="submit" name="saveNotification" value="<spring:message code="message.save"/>"/>
+					</jstl:when>
+					<jstl:otherwise>
+						<input type="submit" name="save" value="<spring:message code="message.save"/>"/>
+					</jstl:otherwise>
+				</jstl:choose>
+			</security:authorize>
+			<security:authorize access="!hasRole('ADMIN')">
+				<input type="submit" name="save" value="<spring:message code="message.save"/>"/>
+			</security:authorize>	
 			<input type="button" name="cancel" value="<spring:message code="message.cancel"/>" onclick="javascript: relativeRedir('folder/${actor}/list.do');" />
 	
 		</jstl:if>

@@ -2232,6 +2232,20 @@
 		</property>
 		<property name="actor" ref="explorer1"></property>
 	</bean>
+	
+	<bean id="folder33" class="domain.Folder">
+		<property name="isSystem" value="true"></property>
+		<property name="name" value="Out Box"></property>
+		<property name="messages">
+			<list>
+			</list>
+		</property>
+		<property name="childFolders">
+			<list>
+			</list>
+		</property>
+		<property name="actor" ref="admin1"></property>
+	</bean>
 
 	<!-- Message -->
 

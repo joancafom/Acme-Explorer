@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.AdminRepository;
-import security.LoginService;
 import security.UserAccount;
 import domain.Actor;
 import domain.Admin;
@@ -56,15 +55,11 @@ public class AdminService {
 
 	public void broadcastNotification(final Message message) {
 
-		final UserAccount userAccount = LoginService.getPrincipal();
-
-		final Admin me = this.findByUserAccount(userAccount);
-
-		final Collection<Actor> allActorsWithoutMe = this.actorService.findAll();
-		allActorsWithoutMe.remove(me);
-		for (final Actor a : allActorsWithoutMe)
+		final Collection<Actor> allActors = this.actorService.findAll();
+		for (final Actor a : allActors) {
 			message.setRecipient(a);
-		this.messageService.sendNotification(message);
+			this.messageService.sendNotification(message);
+		}
 
 	}
 

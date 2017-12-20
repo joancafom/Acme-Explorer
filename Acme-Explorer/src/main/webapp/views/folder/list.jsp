@@ -29,14 +29,19 @@
 </security:authorize>
 
 <a href="message/${actor}/create.do"><spring:message code="folder.message.send"/></a><br>
+
+<security:authorize access="hasRole('ADMIN')">
+	<a href="message/admin/create.do?isNotification=true"><spring:message code="folder.notification.send"/></a><br>
+</security:authorize>
+
 <br>
 <display:table name="folders" id="folder" requestURI="folder/${actor}/list.do" class="displaytag" pagesize="5">
 	<display:column titleKey="folder.name">
-		<a href="folder/list.do?folderId=${folder.id}"><jstl:out value="${folder.name}"/></a>
+		<a href="folder/${actor}/list.do?folderId=${folder.id}"><jstl:out value="${folder.name}"/></a>
 	</display:column>
 	<display:column>
 		<jstl:if test="${folder.isSystem == false}">
-			<a href="folder/edit.do?folderId=${folder.id}"><spring:message code="folder.edit"/></a>
+			<a href="folder/${actor}/edit.do?folderId=${folder.id}"><spring:message code="folder.edit"/></a>
 		</jstl:if>
 	</display:column>
 </display:table>
@@ -45,7 +50,7 @@
 
 <jstl:if test="${folderId!=null}">
 	<p><spring:message code="folder.messages"/>:</p>
-	<display:table name="messages" id="message" requestURI="message/list.do?folderId=${folderId}" class="displaytag">
+	<display:table name="messages" id="message" requestURI="message/list.do?folderId=${folderId}" class="displaytag" pagesize="5">
 	<display:column titleKey="folder.message.date">
 		<jstl:out value="${message.sentMoment}"/>
 	</display:column>

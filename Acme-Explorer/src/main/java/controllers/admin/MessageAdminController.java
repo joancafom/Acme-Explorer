@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.ActorService;
+import services.AdminService;
 import services.FolderService;
 import services.MessageService;
 import controllers.AbstractController;
@@ -36,6 +37,9 @@ public class MessageAdminController extends AbstractController {
 
 	@Autowired
 	private ActorService	actorService;
+
+	@Autowired
+	private AdminService	adminService;
 
 
 	public MessageAdminController() {
@@ -71,16 +75,17 @@ public class MessageAdminController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
-	public ModelAndView create() {
+	public ModelAndView create(@RequestParam(required = false, defaultValue = "false") final Boolean isNotification) {
 		ModelAndView result;
 		final Message message;
 
 		message = this.messageService.create();
 		result = this.createEditModelAndView(message);
 
+		result.addObject("isNotification", isNotification);
+
 		return result;
 	}
-
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public ModelAndView edit(@RequestParam final int messageId) {
 		ModelAndView result;
@@ -114,6 +119,24 @@ public class MessageAdminController extends AbstractController {
 
 	}
 
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "saveNotification")
+	public ModelAndView saveNotification(@Valid final Message message, final BindingResult binding) {
+		ModelAndView result;
+
+		if (binding.hasErrors())
+			result = this.createEditModelAndView(message);
+		else
+			try {
+
+				this.adminService.broadcastNotification(message);
+				result = new ModelAndView("redirect:/folder/admin/list.do");
+			} catch (final Throwable oops) {
+				result = this.createEditModelAndView(message, "message.commit.error");
+			}
+
+		return result;
+
+	}
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
 	public ModelAndView delete(final Message message, final BindingResult binding) {
 		ModelAndView result;
