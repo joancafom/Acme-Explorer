@@ -15,4 +15,7 @@ public interface SurvivalClassRepository extends JpaRepository<SurvivalClass, In
 	@Query("select s from SurvivalClass s where s.manager.id = ?1")
 	Collection<SurvivalClass> findByManagerId(int id);
 
+	@Query("select s from SurvivalClass s where s.trip.id= ?1")
+	Collection<SurvivalClass> findAllByTripId(int id);
+
 }
