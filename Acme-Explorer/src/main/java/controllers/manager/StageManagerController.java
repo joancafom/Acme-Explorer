@@ -105,17 +105,17 @@ public class StageManagerController extends AbstractController {
 		return res;
 	}
 	//Ancillary Methods
-	protected ModelAndView createEditModelAndView(final Stage stage) {
+	public ModelAndView createEditModelAndView(final Stage stage) {
 		return this.createEditModelAndView(stage, null);
 	}
 
-	protected ModelAndView createEditModelAndView(final Stage stage, final String messageCode) {
+	public ModelAndView createEditModelAndView(final Stage stage, final String messageCode) {
 		ModelAndView res;
 
 		res = new ModelAndView("stage/edit");
 		res.addObject("stage", stage);
 
-		res.addObject("messageCode", messageCode);
+		res.addObject("message", messageCode);
 
 		return res;
 	}

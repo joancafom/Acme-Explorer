@@ -29,8 +29,9 @@
 					<li><a href="manager/admin/create.do"><spring:message code="master.page.admin.register.manager" /></a></li>					
 					<li><a href="ranger/admin/create.do"><spring:message code="master.page.admin.register.ranger" /></a></li>
 					<li><a href="actor/admin/listSuspicious.do"><spring:message code="master.page.admin.list.suspicious" /></a></li>					
-					<li><a href="trip/admin/list.do"><spring:message code="master.page.user.trips" /></a></li>					
-					<li><a href="folder/list.do"><spring:message code="master.page.user.folders" /></a></li>					
+					<li><a href="trip/admin/list.do"><spring:message code="master.page.user.trips" /></a></li>				
+					<li><a href="trip/admin/search.do"><spring:message code="master.page.user.tripSearch" /></a></li>					
+					<li><a href="folder/admin/list.do"><spring:message code="master.page.user.folders" /></a></li>					
 				</ul>
 			</li>
 		</security:authorize>
@@ -40,9 +41,11 @@
 				<ul>
 					<li class="arrow"></li>
 					<li><a href="actor/auditor/display.do"><spring:message code="master.page.user.profile" /></a></li>
-					<li><a href="audit/auditor/list.do"><spring:message code="master.page.auditor.audit" /></a></li>										
-					<li><a href="trip/auditor/list.do"><spring:message code="master.page.user.trips" /></a></li>					
-					<li><a href="folder/list.do"><spring:message code="master.page.user.folders" /></a></li>				
+					<li><a href="audit/auditor/list.do"><spring:message code="master.page.auditor.audit" /></a></li>
+					<li><a href="category/auditor/list.do"><spring:message code="master.page.user.category" /></a></li>										
+					<li><a href="trip/auditor/list.do"><spring:message code="master.page.user.trips" /></a></li>			
+					<li><a href="trip/auditor/search.do"><spring:message code="master.page.user.tripSearch" /></a></li>				
+					<li><a href="folder/auditor/list.do"><spring:message code="master.page.user.folders" /></a></li>				
 				</ul>
 			</li>
 		</security:authorize>
@@ -52,11 +55,13 @@
 				<ul>
 					<li class="arrow"></li>
 					<li><a href="actor/explorer/display.do"><spring:message code="master.page.user.profile" /></a></li>
-					<li><a href="finder/explorer/display.do"><spring:message code="master.page.explorer.finder" /></a></li>									
-					<li><a href="trip/explorer/list.do"><spring:message code="master.page.user.trips" /></a></li>					
+					<li><a href="finder/explorer/display.do"><spring:message code="master.page.explorer.finder" /></a></li>
+					<li><a href="category/explorer/list.do"><spring:message code="master.page.user.category" /></a></li>										
+					<li><a href="trip/explorer/list.do"><spring:message code="master.page.user.trips" /></a></li>			
+					<li><a href="trip/explorer/search.do"><spring:message code="master.page.user.tripSearch" /></a></li>					
 					<li><a href="tripApplication/explorer/list.do"><spring:message code="master.page.explorer.tripApplication" /></a></li>
 					<li><a href="story/explorer/create.do"><spring:message code="master.page.explorer.story" /></a></li>						
-					<li><a href="folder/list.do"><spring:message code="master.page.user.folders" /></a></li>				
+					<li><a href="folder/explorer/list.do"><spring:message code="master.page.user.folders" /></a></li>				
 				</ul>
 			</li>
 		</security:authorize>
@@ -65,10 +70,13 @@
 			<li><a class="fNiv"><spring:message	code="master.page.manager" /></a>
 				<ul>
 					<li class="arrow"></li>
-					<li><a href="actor/manager/display.do"><spring:message code="master.page.user.profile" /></a></li>									
-					<li><a href="trip/manager/list.do"><spring:message code="master.page.user.trips" /></a></li>	
+					<li><a href="actor/manager/display.do"><spring:message code="master.page.user.profile" /></a></li>	
+					<li><a href="category/manager/list.do"><spring:message code="master.page.user.category" /></a></li>									
+					<li><a href="trip/manager/list.do"><spring:message code="master.page.manager.myTrips" /></a></li>
+					<li><a href="trip/manager/list.do?showAll=true"><spring:message code="master.page.user.trips" /></a></li>			
+					<li><a href="trip/manager/search.do"><spring:message code="master.page.user.tripSearch" /></a></li>	
 					<li><a href="tripApplication/manager/list.do"><spring:message code="master.page.manager.tripApplications" /></a></li>								
-					<li><a href="folder/list.do"><spring:message code="master.page.user.folders" /></a></li>				
+					<li><a href="folder/manager/list.do"><spring:message code="master.page.user.folders" /></a></li>				
 				</ul>
 			</li>
 		</security:authorize>
@@ -77,8 +85,11 @@
 			<li><a class="fNiv"><spring:message	code="master.page.ranger" /></a>
 				<ul>
 					<li class="arrow"></li>
-					<li><a href="actor/ranger/display.do"><spring:message code="master.page.user.profile" /></a></li>								
-					<li><a href="folder/list.do"><spring:message code="master.page.user.folders" /></a></li>				
+					<li><a href="actor/ranger/display.do"><spring:message code="master.page.user.profile" /></a></li>
+					<li><a href="category/ranger/list.do"><spring:message code="master.page.user.category" /></a></li>	
+					<li><a href="trip/ranger/list.do"><spring:message code="master.page.user.trips" /></a></li>				
+					<li><a href="trip/ranger/search.do"><spring:message code="master.page.user.tripSearch" /></a></li>								
+					<li><a href="folder/ranger/list.do"><spring:message code="master.page.user.folders" /></a></li>				
 				</ul>
 			</li>
 		</security:authorize>
@@ -87,8 +98,11 @@
 			<li><a class="fNiv"><spring:message	code="master.page.sponsor" /></a>
 				<ul>
 					<li class="arrow"></li>
-					<li><a href="actor/sponsor/display.do"><spring:message code="master.page.user.profile" /></a></li>																
-					<li><a href="folder/list.do"><spring:message code="master.page.user.folders" /></a></li>				
+					<li><a href="actor/sponsor/display.do"><spring:message code="master.page.user.profile" /></a></li>
+					<li><a href="category/sponsor/list.do"><spring:message code="master.page.user.category" /></a></li>	
+					<li><a href="trip/sponsor/list.do"><spring:message code="master.page.user.trips" /></a></li>				
+					<li><a href="trip/sponsor/search.do"><spring:message code="master.page.user.tripSearch" /></a></li>																
+					<li><a href="folder/sponsor/list.do"><spring:message code="master.page.user.folders" /></a></li>				
 				</ul>
 			</li>
 		</security:authorize>
@@ -100,7 +114,7 @@
 					<li><a href="category/list.do"><spring:message code="master.page.anonymous.register.category" /></a></li>																
 					<li><a href="explorer/create.do"><spring:message code="master.page.anonymous.register.explorer" /></a></li>				
 					<li><a href="ranger/create.do"><spring:message code="master.page.anonymous.register.ranger" /></a></li>				
-					<li><a href="trip/list.do"><spring:message code="master.page.anonymous.register.category" /></a></li>				
+					<li><a href="trip/list.do"><spring:message code="master.page.anonymous.register.listTrips" /></a></li>				
 					<li><a href="trip/search.do"><spring:message code="master.page.anonymous.register.tripSearch" /></a></li>				
 				</ul>
 			</li>

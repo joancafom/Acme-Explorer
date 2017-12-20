@@ -15,12 +15,10 @@ import security.LoginService;
 import security.UserAccount;
 import services.AuditorService;
 import services.CategoryService;
-import services.FinderService;
 import services.TripService;
 import controllers.AbstractController;
 import domain.Auditor;
 import domain.Category;
-import domain.Finder;
 import domain.Sponsorship;
 import domain.Trip;
 
@@ -36,31 +34,25 @@ public class TripAuditorController extends AbstractController {
 	private CategoryService	categoryService;
 
 	@Autowired
-	private FinderService	finderService;
-
-	@Autowired
 	private AuditorService	auditorService;
 
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView list(@RequestParam(required = false) final String keyword, @RequestParam(required = false) final Integer categoryId, @RequestParam(required = false) final Integer finderId) {
+	public ModelAndView list(@RequestParam(required = false) final String keyword, @RequestParam(required = false) final Integer categoryId) {
 
 		final ModelAndView res;
 		Collection<Trip> trips = null;
 
-		if (keyword == null && categoryId == null && finderId == null)
+		if (keyword == null && categoryId == null)
 			trips = this.tripService.findAllPublished();
-
-		else if (keyword == null && categoryId != null && finderId == null) {
-			final Category category = this.categoryService.findOne(categoryId);
-			trips = this.tripService.findByCategoryPublished(category);
-
-		} else if (keyword != null && categoryId == null && finderId == null)
+		else if (keyword != null)
 			trips = this.tripService.findByKeyWordPublished(keyword);
+		else {
+			Assert.notNull(categoryId);
+			final Category c = this.categoryService.findOne(categoryId);
+			Assert.notNull(c);
 
-		else if (keyword == null && categoryId == null && finderId != null) {
-			final Finder finder = this.finderService.findOne(finderId);
-			trips = this.tripService.findByFinderPublished(finder);
+			trips = this.tripService.findByCategoryPublished(c);
 		}
 
 		res = new ModelAndView("trip/list");
@@ -91,6 +83,17 @@ public class TripAuditorController extends AbstractController {
 		res.addObject("sponsorship", sponsorship);
 		res.addObject("stageRequestURI", "trip/auditor/display.do?tripId=" + trip.getId());
 		res.addObject("canAudit", canAudit);
+
+		return res;
+
+	}
+
+	@RequestMapping(value = "/search", method = RequestMethod.GET)
+	public ModelAndView search() {
+		final ModelAndView res;
+
+		res = new ModelAndView("trip/search");
+		res.addObject("actorWS", "auditor/");
 
 		return res;
 

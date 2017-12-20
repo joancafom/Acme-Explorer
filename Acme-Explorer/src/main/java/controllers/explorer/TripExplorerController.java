@@ -112,4 +112,15 @@ public class TripExplorerController extends AbstractController {
 
 	}
 
+	@RequestMapping(value = "/search", method = RequestMethod.GET)
+	public ModelAndView search() {
+		final ModelAndView res;
+
+		res = new ModelAndView("trip/search");
+		res.addObject("actorWS", "explorer/");
+
+		return res;
+
+	}
+
 }

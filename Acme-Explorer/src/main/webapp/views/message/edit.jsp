@@ -9,8 +9,26 @@
 <%@taglib prefix="security"	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
+<security:authorize access="hasRole('EXPLORER')">
+	<jstl:set var="actor" value="explorer"></jstl:set>
+</security:authorize>
+<security:authorize access="hasRole('MANAGER')">
+	<jstl:set var="actor" value="manager"></jstl:set>
+</security:authorize>
+<security:authorize access="hasRole('ADMIN')">
+	<jstl:set var="actor" value="admin"></jstl:set>
+</security:authorize>
+<security:authorize access="hasRole('AUDITOR')">
+	<jstl:set var="actor" value="auditor"></jstl:set>
+</security:authorize>
+<security:authorize access="hasRole('RANGER')">
+	<jstl:set var="actor" value="ranger"></jstl:set>
+</security:authorize>
+<security:authorize access="hasRole('SPONSOR')">
+	<jstl:set var="actor" value="sponsor"></jstl:set>
+</security:authorize>
 
-<form:form action="message/edit.do" modelAttribute="message">
+<form:form action="message/${actor}/edit.do" modelAttribute="message">
 		<jstl:if test="${message.id==0}">
 			<form:hidden path="version"/>
 			<form:hidden path="id"/>
@@ -59,7 +77,7 @@
 			<form:errors cssClass="error" path="priority"/>
 			<br><br>
 			<input type="submit" name="save" value="<spring:message code="message.save"/>"/>	
-			<input type="button" name="cancel" value="<spring:message code="message.cancel"/>" onclick="javascript: relativeRedir('folder/list.do');" />
+			<input type="button" name="cancel" value="<spring:message code="message.cancel"/>" onclick="javascript: relativeRedir('folder/${actor}/list.do');" />
 	
 		</jstl:if>
 		
@@ -85,7 +103,7 @@
 			<br><br>
 			<input type="submit" name="save" value="<spring:message code="message.save"/>"/>	
 			<input type="submit" name="delete" value="<spring:message code="message.delete"/>"/>
-			<input type="button" name="cancel" value="<spring:message code="message.cancel"/>" onclick="javascript: relativeRedir('folder/list.do');" />
+			<input type="button" name="cancel" value="<spring:message code="message.cancel"/>" onclick="javascript: relativeRedir('folder/${actor}/list.do');" />
 		
 		</jstl:if>
 </form:form>

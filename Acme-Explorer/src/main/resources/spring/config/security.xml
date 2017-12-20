@@ -65,6 +65,11 @@
 		<security:intercept-url pattern="/category/admin/create.do" access="hasRole('ADMIN')"/>
 		<security:intercept-url pattern="/category/admin/edit.do" access="hasRole('ADMIN')"/>
 		<security:intercept-url pattern="/category/admin/list.do" access="hasRole('ADMIN')"/>
+		<security:intercept-url pattern="/category/auditor/list.do" access="hasRole('AUDITOR')"/>
+		<security:intercept-url pattern="/category/explorer/list.do" access="hasRole('EXPLORER')"/>
+		<security:intercept-url pattern="/category/manager/list.do" access="hasRole('MANAGER')"/>
+		<security:intercept-url pattern="/category/ranger/list.do" access="hasRole('RANGER')"/>
+		<security:intercept-url pattern="/category/sponsor/list.do" access="hasRole('SPONSOR')"/>
 		
 		<security:intercept-url pattern="/curriculum/display.do" access="isAnonymous()"/>
 		<security:intercept-url pattern="/curriculum/ranger/display.do" access="hasRole('RANGER')"/>
@@ -85,14 +90,24 @@
 		<security:intercept-url pattern="/finder/explorer/display.do" access="hasRole('EXPLORER')"/>
 		<security:intercept-url pattern="/finder/explorer/edit.do" access="hasRole('EXPLORER')"/>
 		
-		<security:intercept-url pattern="/folder/**" access="isAuthenticated()"/>
+		<security:intercept-url pattern="/folder/admin/**" access="hasRole('ADMIN')"/>
+		<security:intercept-url pattern="/folder/auditor/**" access="hasRole('AUDITOR')"/>
+		<security:intercept-url pattern="/folder/explorer/**" access="hasRole('EXPLORER')"/>
+		<security:intercept-url pattern="/folder/manager/**" access="hasRole('MANAGER')"/>
+		<security:intercept-url pattern="/folder/ranger/**" access="hasRole('RANGER')"/>
+		<security:intercept-url pattern="/folder/sponsor/**" access="hasRole('SPONSOR')"/>
 		
 		<security:intercept-url pattern="/legalText/admin/**" access="hasRole('ADMIN')"/>
 		
 		<security:intercept-url pattern="/manager/admin/create.do" access="hasRole('ADMIN')"/>
 		<security:intercept-url pattern="/manager/admin/edit.do" access="hasRole('ADMIN')"/>
 		
-		<security:intercept-url pattern="/message/**" access="isAuthenticated()"/>
+		<security:intercept-url pattern="/message/admin/**" access="hasRole('ADMIN')"/>
+		<security:intercept-url pattern="/message/auditor/**" access="hasRole('AUDITOR')"/>
+		<security:intercept-url pattern="/message/explorer/**" access="hasRole('EXPLORER')"/>
+		<security:intercept-url pattern="/message/manager/**" access="hasRole('MANAGER')"/>
+		<security:intercept-url pattern="/message/ranger/**" access="hasRole('RANGER')"/>
+		<security:intercept-url pattern="/message/sponsor/**" access="hasRole('SPONSOR')"/>
 		
 		<security:intercept-url pattern="/miscellaneousRecord/ranger/create.do" access="hasRole('RANGER')"/>
 		<security:intercept-url pattern="/miscellaneousRecord/ranger/edit.do" access="hasRole('RANGER')"/>
@@ -121,8 +136,8 @@
 		<security:intercept-url pattern="/stage/manager/create.do" access="hasRole('MANAGER')"/>
 		
 		<security:intercept-url pattern="/story/explorer/create.do" access="hasRole('EXPLORER')"/>
-		<security:intercept-url pattern="/story/explorer/edit.do" access="hasRole('EXPLORER')"/>	
-		
+		<security:intercept-url pattern="/story/explorer/edit.do" access="hasRole('EXPLORER')"/>
+
 		<security:intercept-url pattern="/tag/admin/**" access="hasRole('ADMIN')"/>
 		
 		<security:intercept-url pattern="/tagValue/manager/edit.do" access="hasRole('MANAGER')"/>
@@ -130,23 +145,30 @@
 		
 		<security:intercept-url pattern="/trip/display.do" access="isAnonymous()"/>
 		<security:intercept-url pattern="/trip/list.do" access="isAnonymous()"/>
+		<security:intercept-url pattern="/trip/search.do" access="isAnonymous()"/>
 
 		<security:intercept-url pattern="/trip/admin/list.do" access="hasRole('ADMIN')"/>
 		<security:intercept-url pattern="/trip/admin/display.do" access="hasRole('ADMIN')"/>
+		<security:intercept-url pattern="/trip/admin/search.do" access="hasRole('ADMIN')"/>
 		<security:intercept-url pattern="/trip/auditor/list.do" access="hasRole('AUDITOR')"/>
 		<security:intercept-url pattern="/trip/auditor/display.do" access="hasRole('AUDITOR')"/>
-		<security:intercept-url pattern="/trip/manager/list.do" access="hasRole('MANAGER')"/>
+		<security:intercept-url pattern="/trip/auditor/search.do" access="hasRole('AUDITOR')"/>
 		<security:intercept-url pattern="/trip/explorer/display.do" access="hasRole('EXPLORER')"/>
 		<security:intercept-url pattern="/trip/explorer/list.do" access="hasRole('EXPLORER')"/>
+		<security:intercept-url pattern="/trip/explorer/search.do" access="hasRole('EXPLORER')"/>
 		<security:intercept-url pattern="/trip/manager/edit.do" access="hasRole('MANAGER')"/>
 		<security:intercept-url pattern="/trip/manager/create.do" access="hasRole('MANAGER')"/>
 		<security:intercept-url pattern="/trip/manager/display.do" access="hasRole('MANAGER')"/>
-		<security:intercept-url pattern="/trip/search.do" access="isAnonymous()"/>
+		<security:intercept-url pattern="/trip/manager/list.do" access="hasRole('MANAGER')"/>
+		<security:intercept-url pattern="/trip/manager/search.do" access="hasRole('MANAGER')"/>
+		<security:intercept-url pattern="/trip/ranger/list.do" access="hasRole('RANGER')"/>
+		<security:intercept-url pattern="/trip/ranger/display.do" access="hasRole('RANGER')"/>
+		<security:intercept-url pattern="/trip/ranger/search.do" access="hasRole('RANGER')"/>
+		<security:intercept-url pattern="/trip/sponsor/list.do" access="hasRole('SPONSOR')"/>
+		<security:intercept-url pattern="/trip/sponsor/display.do" access="hasRole('SPONSOR')"/>
+		<security:intercept-url pattern="/trip/sponsor/search.do" access="hasRole('SPONSOR')"/>
 		
-		<security:intercept-url pattern="/tripApplication/explorer/create.do" access="hasRole('EXPLORER')"/>
-		<security:intercept-url pattern="/tripApplication/explorer/display.do" access="hasRole('EXPLORER')"/>
-		<security:intercept-url pattern="/tripApplication/explorer/edit.do" access="hasRole('EXPLORER')"/>
-		<security:intercept-url pattern="/tripApplication/explorer/list.do" access="hasRole('EXPLORER')"/>
+		<security:intercept-url pattern="/tripApplication/explorer/**" access="hasRole('EXPLORER')"/>
 		<security:intercept-url pattern="/tripApplication/manager/**" access="hasRole('MANAGER')"/>
 		
 		 

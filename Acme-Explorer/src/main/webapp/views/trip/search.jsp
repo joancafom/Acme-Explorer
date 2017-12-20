@@ -10,7 +10,7 @@
 
 <h1><spring:message code="trip.search"/></h1>
 
-<form action="trip/list.do" method="get">
+<form action="trip/${actorWS}list.do" method="get">
 	<input type="text" name="keyword" placeholder="keyWord">
 	<input type="submit" value="<spring:message code="submit"/>">
 </form>

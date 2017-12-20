@@ -35,15 +35,15 @@ public class TripController extends AbstractController {
 		final Collection<Trip> trips;
 
 		if (keyword == null && categoryId == null)
-			trips = this.tripService.findAll();
+			trips = this.tripService.findAllPublished();
 		else if (keyword != null)
-			trips = this.tripService.findByKeyWord(keyword);
+			trips = this.tripService.findByKeyWordPublished(keyword);
 		else {
 			Assert.notNull(categoryId);
 			final Category c = this.categoryService.findOne(categoryId);
 			Assert.notNull(c);
 
-			trips = this.tripService.findByCategory(c);
+			trips = this.tripService.findByCategoryPublished(c);
 		}
 
 		res = new ModelAndView("trip/list");

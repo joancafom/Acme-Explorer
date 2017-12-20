@@ -84,4 +84,18 @@ public class AdminServiceTest extends AbstractTest {
 		this.unauthenticate();
 
 	}
+
+	@Test
+	public void testDashboardInformation() {
+
+		this.authenticate("admin1");
+
+		final Collection<Object> dashInfo = this.adminService.dashboardInformation();
+
+		Assert.notNull(dashInfo);
+		Assert.notNull(dashInfo.size() == 8);
+
+		this.unauthenticate();
+
+	}
 }

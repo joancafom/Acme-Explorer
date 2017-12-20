@@ -106,7 +106,7 @@ public class FolderController extends AbstractController {
 				this.folderService.save(folder);
 				result = new ModelAndView("redirect:/folder/list.do");
 			} catch (final Throwable oops) {
-				result = this.createEditModelAndView(folder, "message.commit.error");
+				result = this.createEditModelAndView(folder, "folder.commit.error");
 			}
 
 		return result;
@@ -121,19 +121,19 @@ public class FolderController extends AbstractController {
 			this.folderService.deleteByPrincipal(folder);
 			result = new ModelAndView("redirect:/folder/list.do");
 		} catch (final Throwable oops) {
-			result = this.createEditModelAndView(folder, "message.commit.error");
+			result = this.createEditModelAndView(folder, "folder.commit.error");
 		}
 
 		return result;
 	}
 
-	protected ModelAndView createEditModelAndView(final Folder folder) {
+	private ModelAndView createEditModelAndView(final Folder folder) {
 		ModelAndView result;
 		result = this.createEditModelAndView(folder, null);
 		return result;
 	}
 
-	protected ModelAndView createEditModelAndView(final Folder folder, final String messageCode) {
+	private ModelAndView createEditModelAndView(final Folder folder, final String messageCode) {
 		ModelAndView result;
 
 		result = new ModelAndView("folder/edit");

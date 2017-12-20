@@ -9,9 +9,28 @@
 <%@taglib prefix="security"	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<a href="message/create.do"><spring:message code="folder.message.send"/></a><br>
+<security:authorize access="hasRole('EXPLORER')">
+	<jstl:set var="actor" value="explorer"></jstl:set>
+</security:authorize>
+<security:authorize access="hasRole('MANAGER')">
+	<jstl:set var="actor" value="manager"></jstl:set>
+</security:authorize>
+<security:authorize access="hasRole('ADMIN')">
+	<jstl:set var="actor" value="admin"></jstl:set>
+</security:authorize>
+<security:authorize access="hasRole('AUDITOR')">
+	<jstl:set var="actor" value="auditor"></jstl:set>
+</security:authorize>
+<security:authorize access="hasRole('RANGER')">
+	<jstl:set var="actor" value="ranger"></jstl:set>
+</security:authorize>
+<security:authorize access="hasRole('SPONSOR')">
+	<jstl:set var="actor" value="sponsor"></jstl:set>
+</security:authorize>
+
+<a href="message/${actor}/create.do"><spring:message code="folder.message.send"/></a><br>
 <br>
-<display:table name="folders" id="folder" requestURI="folder/list.do" class="displaytag">
+<display:table name="folders" id="folder" requestURI="folder/${actor}/list.do" class="displaytag" pagesize="5">
 	<display:column titleKey="folder.name">
 		<a href="folder/list.do?folderId=${folder.id}"><jstl:out value="${folder.name}"/></a>
 	</display:column>
@@ -22,7 +41,7 @@
 	</display:column>
 </display:table>
 
-<a href="folder/create.do?folderId=${folderId}"><spring:message code="folder.create"/></a>
+<a href="folder/${actor}/create.do?folderId=${folderId}"><spring:message code="folder.create"/></a>
 
 <jstl:if test="${folderId!=null}">
 	<p><spring:message code="folder.messages"/>:</p>
@@ -40,8 +59,8 @@
 		<jstl:out value="${message.priority}"/>
 	</display:column>
 	<display:column >
-		<a href="message/display.do?messageId=${message.id}"><spring:message code="folder.message.details"/></a>
-		<a href="message/edit.do?messageId=${message.id}"><spring:message code="folder.message.edit"/></a>
+		<a href="message/${actor}/display.do?messageId=${message.id}"><spring:message code="folder.message.details"/></a>
+		<a href="message/${actor}/edit.do?messageId=${message.id}"><spring:message code="folder.message.edit"/></a>
 	</display:column>
 </display:table>
 </jstl:if>
