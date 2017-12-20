@@ -42,7 +42,3 @@
 	</security:authorize>
 	
 </display:table>
-
-<security:authorize access="hasRole('MANAGER')">
-	<a href="survivalClass/manager/create.do"><spring:message code="survivalClass.create"/></a>
-</security:authorize>
