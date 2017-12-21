@@ -8,8 +8,6 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<h1><spring:message code="survivalClass.list"/></h1>
-
 <display:table name="survivalClasses" id="survivalClass" requestURI="${requestURI}" pagesize="5" class="displaytag">
 
 	<security:authorize access="hasRole('EXPLORER')">
@@ -34,7 +32,14 @@
 	<display:column titleKey="survivalClass.location">
 		<jstl:out value="${survivalClass.location.name}"></jstl:out>
 	</display:column>
-		
+	
+	<security:authorize access="hasRole('MANAGER')">
+		<jstl:if test="${enableEdit==true}">
+		<display:column>
+			<a href="survivalClass/manager/edit.do?survivalClassId=${survivalClass.id}"><spring:message code="survivalClass.edit"/></a>
+		</display:column>
+		</jstl:if>
+	</security:authorize>
 	<security:authorize access="hasRole('EXPLORER')">
 		<display:column>
 			<a href="survivalClass/explorer/enroll.do?survivalClassId=${survivalClass.id}"><spring:message code="survivalClass.enroll"/></a>
@@ -42,3 +47,9 @@
 	</security:authorize>
 	
 </display:table>
+
+<security:authorize access="hasRole('MANAGER')">
+	<jstl:if test="${enableEdit==true}">
+		<a href="survivalClass/manager/create.do"><spring:message code="survivalClass.create"/></a>
+	</jstl:if>
+</security:authorize>

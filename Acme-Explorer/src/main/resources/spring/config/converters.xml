@@ -65,6 +65,9 @@
 		<bean class="converters.LegalTextToStringConverter" />
 		<bean class="converters.StringToLegalTextConverter" />
 		
+		<bean class="converters.LocationToStringConverter"/>
+		<bean class="converters.StringToLocationConverter"/>
+		
 		<bean class="converters.ManagerToStringConverter" />
 		<bean class="converters.StringToManagerConverter" />
 		

@@ -92,6 +92,7 @@
 
 		<security:intercept-url pattern="/explorer/create.do" access="isAnonymous()"/>
 		<security:intercept-url pattern="/explorer/edit.do" access="isAnonymous()"/>
+		<security:intercept-url pattern="/explorer/manager/list.do" access="hasRole('MANAGER')"/>
 		
 		<security:intercept-url pattern="/finder/explorer/display.do" access="hasRole('EXPLORER')"/>
 		<security:intercept-url pattern="/finder/explorer/edit.do" access="hasRole('EXPLORER')"/>
@@ -158,6 +159,9 @@
 		<security:intercept-url pattern="/story/manager/list.do" access="hasRole('MANAGER')"/>	
 		<security:intercept-url pattern="/story/ranger/list.do" access="hasRole('RANGER')"/>	
 		<security:intercept-url pattern="/story/sponsor/list.do" access="hasRole('SPONSOR')"/>	
+		
+		<security:intercept-url pattern="/survivalClass/manager/**" access="hasRole('MANAGER')"/>
+		<security:intercept-url pattern="/survivalClass/explorer/**" access="hasRole('EXPLORER')"/>
 		
 		<security:intercept-url pattern="/tag/admin/**" access="hasRole('ADMIN')"/>
 		

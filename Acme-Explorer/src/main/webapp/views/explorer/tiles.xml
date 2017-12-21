@@ -30,6 +30,11 @@
 		<put-attribute name="title" value="Explorer List" />
 		<put-attribute name="body" value="/views/actor/list.jsp" />
 	</definition>
+	
+	<definition name="explorer/listExplorers" extends="master.page">	
+		<put-attribute name="title" value="Explorer List" />
+		<put-attribute name="body" value="/views/explorer/list.jsp" />
+	</definition>
 
 	<definition name="explorer/display" extends="master.page">
 		<put-attribute name="title" value="Explorer Profile"/>

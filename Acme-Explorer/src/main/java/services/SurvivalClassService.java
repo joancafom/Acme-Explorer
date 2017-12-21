@@ -17,6 +17,7 @@ import security.UserAccount;
 import domain.Explorer;
 import domain.Manager;
 import domain.SurvivalClass;
+import domain.Trip;
 import domain.TripApplication;
 
 @Service
@@ -73,10 +74,13 @@ public class SurvivalClassService {
 
 		final UserAccount userAccount = LoginService.getPrincipal();
 		final Manager manager = this.managerService.findByUserAccount(userAccount);
-		Assert.notNull(manager);
+		final Explorer explorer = this.explorerService.findByUserAccount(userAccount);
 
-		Assert.isTrue(survivalClass.getManager().equals(manager));
-		Assert.isTrue(manager.getTrips().contains(survivalClass.getTrip()));
+		Assert.isTrue(manager != null || explorer != null);
+		if (manager != null) {
+			Assert.isTrue(survivalClass.getManager().equals(manager));
+			Assert.isTrue(manager.getTrips().contains(survivalClass.getTrip()));
+		}
 
 		return this.survivalClassRepository.save(survivalClass);
 	}
@@ -131,11 +135,16 @@ public class SurvivalClassService {
 				break;
 			}
 
-		Assert.isTrue(survivalClass.getMoment().after(new Date()));
+		Assert.isTrue(survivalClass.getMoment().before(new Date()));
 		Assert.isTrue(res);
 
 		explorer.getSurvivalClasses().add(survivalClass);
 		survivalClass.getExplorers().add(explorer);
 
+	}
+
+	public Collection<SurvivalClass> findAllByTrip(final Trip trip) {
+		Assert.notNull(trip);
+		return this.survivalClassRepository.findAllByTripId(trip.getId());
 	}
 }
