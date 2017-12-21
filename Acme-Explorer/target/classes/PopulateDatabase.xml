@@ -270,7 +270,7 @@
 	<bean id="audit1" class="domain.Audit">
 		<property name="moment">
 			<bean factory-method="parse" factory-bean="dateFormat">
-				<constructor-arg value="27/10/2017 06:00" />
+				<constructor-arg value="27/11/2017 06:00" />
 			</bean>
 		</property>
 		<property name="title" value="... Ready For It? - The Audit"></property>
@@ -287,7 +287,7 @@
 	<bean id="audit2" class="domain.Audit">
 		<property name="moment">
 			<bean factory-method="parse" factory-bean="dateFormat">
-				<constructor-arg value="02/09/2015 14:00" />
+				<constructor-arg value="01/06/2015 14:00" />
 			</bean>
 		</property>
 		<property name="title" value="Gorgeous - The Audit"></property>
@@ -297,7 +297,7 @@
 				<value>http://attachment.com/attachment1</value>
 			</list>
 		</property>
-		<property name="isFinal" value="false"></property>
+		<property name="isFinal" value="true"></property>
 		<property name="auditor" ref="auditor2"></property>
 		<property name="trip" ref="trip2"></property>
 	</bean>
@@ -622,7 +622,12 @@
 		<property name="titleOfDiploma" value="Computer Engineering"></property>
 		<property name="startingDate">
 			<bean factory-method="parse" factory-bean="dateFormat">
-				<constructor-arg value="28/09/2007 17:00" />
+				<constructor-arg value="28/09/2000 17:00" />
+			</bean>
+		</property>
+		<property name="endingDate">
+			<bean factory-method="parse" factory-bean="dateFormat">
+				<constructor-arg value="11/08/2010 19:00" />
 			</bean>
 		</property>
 		<property name="institution" value="Taylor School"></property>
@@ -633,7 +638,7 @@
 		<property name="titleOfDiploma" value="Superior Physics"></property>
 		<property name="startingDate">
 			<bean factory-method="parse" factory-bean="dateFormat">
-				<constructor-arg value="05/11/2010 21:00" />
+				<constructor-arg value="05/11/2008 21:00" />
 			</bean>
 		</property>
 		<property name="endingDate">
@@ -650,7 +655,7 @@
 	<!-- EndorserRecord -->
 
 	<bean id="endorserRecord1" class="domain.EndorserRecord">
-		<property name="fullName" value="Lana Del Rey"></property>
+		<property name="fullName" value="Elizabeth Woolridge Grant"></property>
 		<property name="email" value="lanadelrey@gmail.com"></property>
 		<property name="linkedInProfile" value="http://www.linkedin.com/lanadelrey"></property>
 		<property name="curriculum" ref="curriculum1"></property>
@@ -768,12 +773,12 @@
 		<property name="maxRange" value="6000.0"></property>
 		<property name="minDate">
 			<bean factory-method="parse" factory-bean="dateFormat">
-				<constructor-arg value="02/02/2012 10:00" />
+				<constructor-arg value="01/01/2018 10:00" />
 			</bean>
 		</property>
 		<property name="maxDate">
 			<bean factory-method="parse" factory-bean="dateFormat">
-				<constructor-arg value="02/02/2016 10:00" />
+				<constructor-arg value="31/12/2018 10:00" />
 			</bean>
 		</property>
 	</bean>
@@ -951,7 +956,7 @@
 
 	<bean id="miscellaneousRecord2" class="domain.MiscellaneousRecord">
 		<property name="title" value="Painting Record"></property>
-		<property name="attachment" value="http://attachment.com/attachment_paint.png"></property>
+		<property name="attachment" value="http://im.hunt.in/cg/chennai/City-Guide/painting.jpg"></property>
 		<property name="comments" value="Had my own painting exhibition."></property>
 		<property name="curriculum" ref="curriculum2"></property>
 	</bean>
@@ -961,7 +966,7 @@
 	<bean id="note1" class="domain.Note">
 		<property name="writtenMoment">
 			<bean factory-method="parse" factory-bean="dateFormat">
-				<constructor-arg value="18/09/2016 13:56" />
+				<constructor-arg value="09/12/2017 13:56" />
 			</bean>
 		</property>
 		<property name="remark" value="Wow, that was amazing!!"></property>
@@ -972,7 +977,7 @@
 	<bean id="note2" class="domain.Note">
 		<property name="writtenMoment">
 			<bean factory-method="parse" factory-bean="dateFormat">
-				<constructor-arg value="11/05/2014 14:06" />
+				<constructor-arg value="10/10/2017 14:06" />
 			</bean>
 		</property>
 		<property name="remark" value="Had a bad time at the hotel. I don't recommend this trip."></property>
@@ -981,7 +986,7 @@
 		<property name="reply" value="Please, contact us with the details and we'll try to improve our trips."></property>
 		<property name="replyMoment">
 			<bean factory-method="parse" factory-bean="dateFormat">
-				<constructor-arg value="22/08/2014 11:48" />
+				<constructor-arg value="12/10/2017 11:48" />
 			</bean>
 		</property>
 	</bean>
@@ -989,19 +994,19 @@
 	<!-- Personal Record -->
 
 	<bean id="personalRecord1" class="domain.PersonalRecord">
-		<property name="fullName" value="Dua Lipa"></property>
-		<property name="photo" value="http://www.photo.com/DuaLipa.png"></property>
-		<property name="email" value="dualipa@gmail.com"></property>
-		<property name="linkedInProfile" value="http://www.linkedin.com/dualipa"></property>
+		<property name="fullName" value="Edward Christopher Sheeran"></property>
+		<property name="photo" value="http://image.europafm.com/clipping/cmsimages01/2017/01/06/7AE0D3CD-1C56-49E2-933C-E8F6C8D51DAD/51.jpg"></property>
+		<property name="email" value="edsheeran@gmail.com"></property>
+		<property name="linkedInProfile" value="http://www.linkedin.com/edsheeran"></property>
 		<property name="curriculum" ref="curriculum1"></property>
 	</bean>
 
 	<bean id="personalRecord2" class="domain.PersonalRecord">
-		<property name="fullName" value="Ana Bernárdez González"></property>
-		<property name="photo" value="http://www.photo.com/bernardez.png"></property>
-		<property name="email" value="ana_bg@gmail.com"></property>
+		<property name="fullName" value="Tambor Bellido Cuesta"></property>
+		<property name="photo" value="https://www.myrockymountainpark.com/.image/t_share/MTQ3OTg3NjE2MjI4NDUxNDgz/rm-ranger-tim-phillips_fullerton_680.jpg"></property>
+		<property name="email" value="tambor@gmail.com"></property>
 		<property name="phoneNumber" value="652980600"></property>
-		<property name="linkedInProfile" value="http://www.linkedin.com/anabg"></property>
+		<property name="linkedInProfile" value="http://www.linkedin.com/tmbrbellido"></property>
 		<property name="curriculum" ref="curriculum2"></property>
 	</bean>
 
@@ -1147,23 +1152,23 @@
 	<!-- Social ID -->
 
 	<bean id="socialID1" class="domain.SocialID">
-		<property name="nick" value="@taylorswift"></property>
+		<property name="nick" value="@taylorswift13"></property>
 		<property name="nameSocialNetwork" value="Twitter"></property>
-		<property name="link" value="http://www.twitter.com/taylorswift"></property>
+		<property name="link" value="https://twitter.com/taylorswift13"></property>
 		<property name="actor" ref="admin1"></property>
 	</bean>
 
 	<bean id="socialID2" class="domain.SocialID">
-		<property name="nick" value="@ladygaga"></property>
+		<property name="nick" value="@LanaDelRey"></property>
 		<property name="nameSocialNetwork" value="Twitter"></property>
-		<property name="link" value="http://www.twitter.com/ladygaga"></property>
+		<property name="link" value="https://twitter.com/LanaDelRey"></property>
 		<property name="actor" ref="admin2"></property>
 	</bean>
 
 	<bean id="socialID3" class="domain.SocialID">
-		<property name="nick" value="@lorde"></property>
+		<property name="nick" value="@CharliMontana23"></property>
 		<property name="nameSocialNetwork" value="Twitter"></property>
-		<property name="link" value="http://www.twitter.com/lorde"></property>
+		<property name="link" value="http://www.twitter.com/CharliMontana23"></property>
 		<property name="actor" ref="explorer2"></property>
 	</bean>
 
@@ -1451,7 +1456,7 @@
 		<property name="price" value="800"></property>
 		<property name="publicationDate">
 			<bean factory-method="parse" factory-bean="dateFormat">
-				<constructor-arg value="28/10/2018 19:00" />
+				<constructor-arg value="20/11/2017 19:00" />
 			</bean>
 		</property>
 		<property name="startingDate">
@@ -2328,7 +2333,7 @@
 			</bean>
 		</property>
 		<property name="subject" value="Tea session"></property>
-		<property name="body" value="Hope you didn't forget about our tea session tomorrow. See you ;)"></property>
+		<property name="body" value="Hope you didn't forget about our tea session tomorrow. Us women are not the weaker sex! See you ;)"></property>
 		<property name="priority" value="HIGH"></property>
 		<property name="recipient" ref="admin2"></property>
 		<property name="sender" ref="auditor2"></property>
