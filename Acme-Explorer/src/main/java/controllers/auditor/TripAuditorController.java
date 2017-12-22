@@ -76,7 +76,7 @@ public class TripAuditorController extends AbstractController {
 
 		trip = this.tripService.findOne(tripId);
 		Assert.notNull(trip);
-
+		
 		Assert.isTrue(trip.getPublicationDate().before(new Date()));
 
 		final List<Sponsorship> sponsorships = new ArrayList<Sponsorship>(trip.getSponsorships());
@@ -90,6 +90,7 @@ public class TripAuditorController extends AbstractController {
 		res.addObject("sponsorship", sponsorship);
 		res.addObject("stageRequestURI", "trip/auditor/display.do?tripId=" + trip.getId());
 		res.addObject("rangerURI", "ranger/auditor/display.do?tripId=" + tripId);
+		res.addObject("myTrip", false);
 
 		return res;
 

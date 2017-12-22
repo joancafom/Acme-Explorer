@@ -30,9 +30,9 @@
 					<li><a href="ranger/admin/create.do"><spring:message code="master.page.admin.register.ranger" /></a></li>
 					<li><a href="actor/admin/listSuspicious.do"><spring:message code="master.page.admin.list.suspicious" /></a></li>					
 					<li><a href="admin/display-dashboard.do"><spring:message code="master.page.admin.dashboard" /></a></li>					
-					<li><a href="trip/admin/list.do"><spring:message code="master.page.user.trips" /></a></li>				
-					<li><a href="trip/admin/search.do"><spring:message code="master.page.user.tripSearch" /></a></li>	
-					<li><a href="systemConfiguration/admin/display.do"><spring:message code="master.page.admin.systemConfiguration" /></a></li>				
+					<li><a href="trip/admin/list.do"><spring:message code="master.page.user.trips" /></a></li>
+					<li><a href="systemConfiguration/admin/display.do"><spring:message code="master.page.admin.systemConfiguration" /></a></li>						
+					<li><a href="trip/admin/search.do"><spring:message code="master.page.user.tripSearch" /></a></li>					
 					<li><a href="folder/admin/list.do"><spring:message code="master.page.user.folders" /></a></li>					
 				</ul>
 			</li>
@@ -106,7 +106,8 @@
 					<li><a href="actor/sponsor/display.do"><spring:message code="master.page.user.profile" /></a></li>
 					<li><a href="category/sponsor/list.do"><spring:message code="master.page.user.category" /></a></li>	
 					<li><a href="trip/sponsor/list.do"><spring:message code="master.page.user.trips" /></a></li>				
-					<li><a href="trip/sponsor/search.do"><spring:message code="master.page.user.tripSearch" /></a></li>																
+					<li><a href="trip/sponsor/search.do"><spring:message code="master.page.user.tripSearch" /></a></li>
+					<li><a href="sponsorship/sponsor/list.do"><spring:message code="master.page.user.sponsorships" /></a></li>																
 					<li><a href="folder/sponsor/list.do"><spring:message code="master.page.user.folders" /></a></li>				
 				</ul>
 			</li>

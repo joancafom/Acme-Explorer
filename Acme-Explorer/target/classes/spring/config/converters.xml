@@ -89,6 +89,9 @@
 		<bean class="converters.SocialIDToStringConverter"/>
 		<bean class="converters.StringToSocialIDConverter"/>
 		
+		<bean class="converters.SponsorToStringConverter"/>
+		<bean class="converters.StringToSponsorConverter"/>
+		
 		<bean class="converters.SponsorshipToStringConverter"/>
 		<bean class="converters.StringToSponsorshipConverter"/>
 		

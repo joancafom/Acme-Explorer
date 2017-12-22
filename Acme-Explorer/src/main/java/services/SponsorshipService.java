@@ -5,6 +5,7 @@ import java.util.Collection;
 
 import javax.transaction.Transactional;
 
+import org.joda.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -58,9 +59,13 @@ public class SponsorshipService {
 
 		final UserAccount userAccount = LoginService.getPrincipal();
 		final Sponsor sponsor = this.sponsorService.findByUserAccount(userAccount);
+		final LocalDate now = new LocalDate();
 
 		Assert.notNull(ss);
 		Assert.isTrue(sponsor.equals(ss.getSponsor()));
+
+		Assert.isTrue((now.getYear() == ss.getCreditCard().getYear() && now.getMonthOfYear() == ss.getCreditCard().getMonth()) || (now.getYear() < ss.getCreditCard().getYear())
+			|| (now.getYear() == ss.getCreditCard().getYear() && now.getMonthOfYear() < ss.getCreditCard().getMonth()));
 
 		return this.sponsorshipRepository.save(ss);
 	}
@@ -82,5 +87,15 @@ public class SponsorshipService {
 		Assert.notNull(trip);
 
 		return this.sponsorshipRepository.findByTripId(trip.getId());
+	}
+
+	public Collection<Sponsorship> findByCurrentSponsor() {
+
+		final UserAccount userAccount = LoginService.getPrincipal();
+		final Sponsor sponsor = this.sponsorService.findByUserAccount(userAccount);
+
+		Assert.notNull(sponsor);
+
+		return this.sponsorshipRepository.findBySponsorId(sponsor.getId());
 	}
 }

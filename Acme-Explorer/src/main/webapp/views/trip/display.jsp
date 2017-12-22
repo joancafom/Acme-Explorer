@@ -46,6 +46,12 @@
 
 <p><spring:message code="trip.publicationDate"/>: <fmt:formatDate value="${trip.publicationDate}" pattern="${dateFormat}"/>
 
+<security:authorize access="hasRole('MANAGER')">
+	<jstl:if test="${now < trip.publicationDate}">
+		<a href="stage/manager/create.do?tripId=${trip.id}"><spring:message code="stage.create"/></a>
+	</jstl:if>
+</security:authorize>
+
 <p><spring:message code="trip.requirements"/>: <jstl:out value="${trip.requirements}"/></p>
 
 <p><spring:message code="category"/>: <jstl:out value="${trip.category.name}"></jstl:out></p>
@@ -102,27 +108,41 @@
 <p><strong><spring:message code="trip.legalText.laws"/></strong>: <jstl:out value="${trip.legalText.laws}"/></p>
 <hr>
 <security:authorize access="hasRole('MANAGER')">
+	<jstl:if test="${myTrip}">
 	<p><spring:message code="notes"/>: 
 	<a href="note/manager/list.do?tripId=${trip.id}"><spring:message code="note.list"/></a>
 	</p>
+	</jstl:if>
 </security:authorize>
 
 <security:authorize access="hasRole('MANAGER')">
+	<jstl:if test="${myTrip}">
 	<p><spring:message code="tripApplications"/>: 
 	<a href="tripApplication/manager/list.do?tripId=${trip.id}"><spring:message code="tripApplication.list"/></a>
 	</p>
+	</jstl:if>
 </security:authorize>
 
 <security:authorize access="hasRole('MANAGER')">
+	<jstl:if test="${myTrip}">
 	<p><spring:message code="sponsorships"/>: 
 	<a href="sponsorship/manager/list.do?tripId=${trip.id}"><spring:message code="sponsorship.list"/></a>
 	</p>
+	</jstl:if>
 </security:authorize>
 
 <security:authorize access="hasRole('EXPLORER')">
 	<jstl:if test="${canCreateTA}">
 		<p><a href="tripApplication/explorer/create.do?tripId=${trip.id}">
 			<spring:message code="tripApplication.create"/>
+		</a></p>
+	</jstl:if>
+</security:authorize>
+
+<security:authorize access="hasRole('AUDITOR')">
+	<jstl:if test="${canAudit}">
+		<p><a href="audit/auditor/create.do?tripId=${trip.id}">
+			<spring:message code="audit.create"/>
 		</a></p>
 	</jstl:if>
 </security:authorize>
@@ -176,6 +196,7 @@
 		</jstl:if>
 	</security:authorize>
 </display:table>
+
 <security:authorize access="hasRole('MANAGER')">
 	<jstl:if test="${now < trip.publicationDate and trip.manager.id == principalId}">
 		<a href="stage/manager/create.do?tripId=${trip.id}"><spring:message code="stage.create"/></a>

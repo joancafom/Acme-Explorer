@@ -143,6 +143,7 @@ public class TripManagerController extends AbstractController {
 			res = this.createEditModelAndView(trip);
 		else
 			try {
+
 				if ("".equals(trip.getCancelationReason()))
 					trip.setCancelationReason(null);
 
@@ -190,6 +191,7 @@ public class TripManagerController extends AbstractController {
 			res.addObject("trip", trip);
 		else
 			try {
+
 				Assert.notNull(trip.getCancelationReason());
 				Assert.isTrue(!trip.getCancelationReason().isEmpty());
 				this.tripService.save(trip);
@@ -227,10 +229,11 @@ public class TripManagerController extends AbstractController {
 	public ModelAndView display(@RequestParam final int tripId) {
 		final ModelAndView res;
 		Trip trip;
+		Boolean myTrip = false;
 
 		trip = this.tripService.findOne(tripId);
 		Assert.notNull(trip);
-
+		
 		final UserAccount userAccount = LoginService.getPrincipal();
 		final Manager manager = this.managerService.findByUserAccount(userAccount);
 		Assert.notNull(manager);
@@ -240,20 +243,26 @@ public class TripManagerController extends AbstractController {
 		Sponsorship sponsorship = null;
 		if (sponsorships.isEmpty() == false)
 			sponsorship = sponsorships.get(0);
-
+		
 		if (!trip.getManager().equals(manager))
 			Assert.isTrue(trip.getPublicationDate().before(new Date()));
+
+		if (trip.getManager().getUserAccount().equals(LoginService.getPrincipal()))
+			myTrip = true;
+		
+		res.addObject("principalId", manager.getId());
 
 		res = new ModelAndView("trip/display");
 		res.addObject("trip", trip);
 		res.addObject("sponsorship", sponsorship);
 		res.addObject("stageRequestURI", "stage/manager/list.do?tripId=" + trip.getId());
 		res.addObject("rangerURI", "ranger/manager/display.do?tripId=" + tripId);
-		res.addObject("principalId", manager.getId());
+		res.addObject("myTrip", myTrip);
 
 		return res;
 
 	}
+
 	//TODO: Req 11.1 not mine
 	@RequestMapping(value = "/search", method = RequestMethod.GET)
 	public ModelAndView search() {

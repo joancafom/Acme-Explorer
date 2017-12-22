@@ -81,6 +81,8 @@
 		<security:intercept-url pattern="/category/ranger/list.do" access="hasRole('RANGER')"/>
 		<security:intercept-url pattern="/category/sponsor/list.do" access="hasRole('SPONSOR')"/>
 		
+		<security:intercept-url pattern="/contact/explorer/**" access="hasRole('EXPLORER')"/>
+		
 		<security:intercept-url pattern="/curriculum/display.do" access="isAnonymous()"/>
 		<security:intercept-url pattern="/curriculum/admin/display.do" access="hasRole('ADMIN')"/>
 		<security:intercept-url pattern="/curriculum/auditor/display.do" access="hasRole('AUDITOR')"/>
@@ -93,8 +95,6 @@
 		
 		<security:intercept-url pattern="/customer/action-1.do" access="hasRole('CUSTOMER')" /> 
 		<security:intercept-url pattern="/customer/action-2.do" access="hasRole('CUSTOMER')" /> 
-
-		<security:intercept-url pattern="/contact/explorer/**" access="hasRole('EXPLORER')"/>
 		
 		<security:intercept-url pattern="/educationRecord/ranger/create.do" access="hasRole('RANGER')"/>
 		<security:intercept-url pattern="/educationRecord/ranger/edit.do" access="hasRole('RANGER')"/>
@@ -158,6 +158,11 @@
 		<security:intercept-url pattern="/ranger/edit.do" access="isAnonymous()"/>
 		
 		<security:intercept-url pattern="/socialID/**" access="isAuthenticated()"/>
+		
+		<security:intercept-url pattern="/sponsorship/sponsor/create.do" access="hasRole('SPONSOR')"/>	
+		<security:intercept-url pattern="/sponsorship/sponsor/edit.do" access="hasRole('SPONSOR')"/>	
+		<security:intercept-url pattern="/sponsorship/sponsor/list.do" access="hasRole('SPONSOR')"/>	
+		<security:intercept-url pattern="/sponsorship/manager/list.do" access="hasRole('MANAGER')"/>	
 		
 		<security:intercept-url pattern="/stage/manager/edit.do" access="hasRole('MANAGER')"/>
 		<security:intercept-url pattern="/stage/manager/create.do" access="hasRole('MANAGER')"/>

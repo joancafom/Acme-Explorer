@@ -11,23 +11,28 @@
 
 
 
-<display:table name="sponsorships" id="sponsorship" requestURI="sponsorship/sponsor/list.do" pagesize="5" class="displaytag">
-	<display:column titleKey="sponsorship.trip.title" sortable="true">
-		<jstl:out value="${sponsorship.trip.title}"></jstl:out>
+<display:table name="sponsorships" id="sponsorship" requestURI="${requestURI}" pagesize="5" class="displaytag">
+
+	<display:column titleKey="sponsorship.trip.ticker" sortable="true">
+		<a href="${tripURI}${sponsorship.trip.id}"><jstl:out value="${sponsorship.trip.ticker}"></jstl:out></a>
 	</display:column>
 	
 	<display:column titleKey="sponsorship.infoPageLink" sortable="true">
-		<a href="<jstl:out value='${sponsorship.infoPageLink}'/>"></a>
+		<a href="${sponsorship.infoPageLink}"><jstl:out value='${sponsorship.infoPageLink}'/></a>
 	</display:column>
 	
-	<display:column titleKey="sponsorship.creditCard.numer" sortable="true">
-		<jstl:out value="${sponsorship.creditCard}"></jstl:out>
+	<display:column titleKey="sponsorship.creditCard.number" sortable="true">
+		<jstl:out value="${sponsorship.creditCard.number}"></jstl:out>
 	</display:column>
-	
-	<display:column>
-		<a href="/sponsorship/sponsor/edit.do?sponsorshipId=${sponsorship.id}"><spring:message code="sponsorship.edit"/></a>
-		<a href="/sponsorship/sponsor/display.do?sponsorshipId=${sponsorship.id}"><spring:message code="sponsorship.display"/></a>
-	</display:column>
+
+	<security:authorize access="hasRole('MANAGER')">
+		<display:column titleKey="sponsorship.sponsor" sortable="true">
+			<jstl:out value="${sponsorship.sponsor.surname}, ${sponsorship.sponsor.name}"></jstl:out>
+		</display:column>
+	</security:authorize>	
 	
 </display:table>
-<a href="/sponsorship/sponsor/create.do"><spring:message code="sponsorship.create"/></a>
+
+<security:authorize access="hasRole('SPONSOR')">
+	<a href="sponsorship/sponsor/create.do"><spring:message code="sponsorship.create"/></a>
+</security:authorize>
