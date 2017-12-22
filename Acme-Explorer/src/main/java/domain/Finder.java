@@ -22,6 +22,8 @@ public class Finder extends DomainEntity {
 	private Date	maxDate;
 
 
+	//private Collection<Trip>	cache;
+
 	public String getKeyword() {
 		return this.keyword;
 	}
@@ -46,6 +48,12 @@ public class Finder extends DomainEntity {
 		return this.maxDate;
 	}
 
+	/*
+	 * public Collection<Trip> getCache() {
+	 * return this.cache;
+	 * }
+	 */
+
 	public void setKeyword(final String keyword) {
 		this.keyword = keyword;
 	}
@@ -65,5 +73,11 @@ public class Finder extends DomainEntity {
 	public void setMaxDate(final Date maxDate) {
 		this.maxDate = maxDate;
 	}
+
+	/*
+	 * public void setCache(final Collection<Trip> cache) {
+	 * this.cache = cache;
+	 * }
+	 */
 
 }

@@ -1,7 +1,10 @@
 
 package controllers.ranger;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -62,7 +65,11 @@ public class TripRangerController extends AbstractController {
 		trip = this.tripService.findOne(tripId);
 		Assert.notNull(trip);
 
-		final Sponsorship sponsorship = trip.getSponsorships().isEmpty() ? null : trip.getSponsorships().iterator().next();
+		final List<Sponsorship> sponsorships = new ArrayList<Sponsorship>(trip.getSponsorships());
+		Collections.shuffle(sponsorships);
+		Sponsorship sponsorship = null;
+		if (sponsorships.isEmpty() == false)
+			sponsorship = sponsorships.get(0);
 
 		res = new ModelAndView("trip/display");
 		res.addObject("trip", trip);
