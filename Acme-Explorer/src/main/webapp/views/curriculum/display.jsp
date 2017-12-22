@@ -10,17 +10,18 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 <jstl:out value="${curriculum.ticker}" />
-<h1><spring:message code="curriculum.personalRecord"/></h1>
-
-<p><spring:message code="personalRecord.fullName"/>: <jstl:out value="${curriculum.personalRecord.fullName}"/></p>
-<p><spring:message code="personalRecord.photo"/>: <a href="${curriculum.personalRecord.photo}"><jstl:out value="${curriculum.personalRecord.photo}"/></a></p>
-<p><spring:message code="personalRecord.email"/>: <jstl:out value="${curriculum.personalRecord.email}"/></p>
-<p><spring:message code="personalRecord.phoneNumber"/>: <jstl:out value="${curriculum.personalRecord.phoneNumber}"/></p>
-<p><spring:message code="personalRecord.linkedInProfile"/>: <a href="${curriculum.personalRecord.linkedInProfile}"><jstl:out value="${curriculum.personalRecord.linkedInProfile}"/></a></p>
 
 <jstl:if test="${ownCurriculum}">
-	<a href="personalRecord/ranger/edit.do?personalRecordId=${curriculum.personalRecord.id}"><spring:message code="personalRecord.edit"/></a>
+	<a href="curriculum/ranger/edit.do?curriculumId=${curriculum.id}"><spring:message code="personalRecord.edit"/></a>
 </jstl:if>
+
+<h1><spring:message code="curriculum.personalRecord"/></h1>
+
+<p><spring:message code="personalRecord.fullName"/>: <jstl:out value="${curriculum.fullName}"/></p>
+<p><spring:message code="personalRecord.photo"/>:</p> <img src="${curriculum.photo}" alt="<spring:message code="noImage"/>" height="200"/> 
+<p><spring:message code="personalRecord.email"/>: <jstl:out value="${curriculum.email}"/></p>
+<p><spring:message code="personalRecord.phoneNumber"/>: <jstl:out value="${curriculum.phoneNumber}"/></p>
+<p><spring:message code="personalRecord.linkedInProfile"/>: <a href="${curriculum.linkedInProfile}"><jstl:out value="${curriculum.linkedInProfile}"/></a></p>
 
 <h1><spring:message code="curriculum.educationRecords"/></h1> 
 
@@ -45,10 +46,6 @@
 		</display:column>
 	</jstl:if>
 </display:table>
-
-<jstl:if test="${ownCurriculum}">
-	<a href="educationRecord/ranger/create.do?curriculumId=${educationRecord.curriculum.id}"><spring:message code="educationRecord.create"/></a>
-</jstl:if>
 
 <h1><spring:message code="curriculum.professionalRecords"/></h1> 
 

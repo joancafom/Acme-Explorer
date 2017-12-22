@@ -207,6 +207,7 @@
 		<security:intercept-url pattern="/trip/sponsor/search.do" access="hasRole('SPONSOR')"/>
 		<security:intercept-url pattern="/trip/search.do" access="isAnonymous()"/>
 		
+		<security:intercept-url pattern="/tripApplication/explorer/cancel.do" access="hasRole('EXPLORER')"/>
 		<security:intercept-url pattern="/tripApplication/explorer/create.do" access="hasRole('EXPLORER')"/>
 		<security:intercept-url pattern="/tripApplication/explorer/display.do" access="hasRole('EXPLORER')"/>
 		<security:intercept-url pattern="/tripApplication/explorer/edit.do" access="hasRole('EXPLORER')"/>

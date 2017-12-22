@@ -256,6 +256,7 @@ public class TripApplicationService {
 		Assert.isTrue(tripApplication.getTrip().getStartingDate().after(currentDate));
 
 		tripApplication.setStatus(ApplicationStatus.CANCELLED);
+		this.save(tripApplication);
 
 	}
 

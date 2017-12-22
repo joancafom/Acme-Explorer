@@ -35,21 +35,6 @@ public class CurriculumService {
 	@Autowired
 	private SystemConfigurationService	systemConfigurationService;
 
-	@Autowired
-	private PersonalRecordService		personalRecordService;
-
-	@Autowired
-	private EducationRecordService		educationRecordService;
-
-	@Autowired
-	private ProfessionalRecordService	professionalRecordService;
-
-	@Autowired
-	private EndorserRecordService		endorserRecordService;
-
-	@Autowired
-	private MiscellaneousRecordService	miscellaneousRecordService;
-
 
 	//CRUD operations
 
@@ -102,20 +87,6 @@ public class CurriculumService {
 
 		final UserAccount userAccount = LoginService.getPrincipal();
 		Assert.isTrue(userAccount.equals(curriculum.getRanger().getUserAccount()));
-
-		this.personalRecordService.delete(curriculum.getPersonalRecord());
-
-		for (final EducationRecord er : curriculum.getEducationRecords())
-			this.educationRecordService.delete(er);
-
-		for (final ProfessionalRecord pr : curriculum.getProfessionalRecords())
-			this.professionalRecordService.delete(pr);
-
-		for (final EndorserRecord er : curriculum.getEndorserRecords())
-			this.endorserRecordService.delete(er);
-
-		for (final MiscellaneousRecord mr : curriculum.getMiscellaneousRecords())
-			this.miscellaneousRecordService.delete(mr);
 
 		this.curriculumRepository.delete(curriculum);
 	}

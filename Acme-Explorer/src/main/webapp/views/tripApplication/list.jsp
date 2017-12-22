@@ -112,12 +112,12 @@
 		</security:authorize>
 		<security:authorize access="hasRole('MANAGER')">
 			<jstl:if test="${tripApplication.status == 'PENDING' }">
-				<a href="tripApplication/manager/edit.do?tripApplicationId=${tripApplication.id}">Edit</a>
+				<a href="tripApplication/manager/edit.do?tripApplicationId=${tripApplication.id}"><spring:message code="tripApplication.edit"/></a>
 			</jstl:if>
 		</security:authorize>
 		<security:authorize access="hasRole('EXPLORER')">
 			<jstl:if test="${tripApplication.status == 'ACCEPTED' and tripApplication.trip.startingDate > now}">
-				<a href="tripApplication/explorer/edit.do?tripApplicationId=${tripApplication.id}"><spring:message code="tripApplication.cancelApplication"/></a>
+				<a href="tripApplication/explorer/cancel.do?tripApplicationId=${tripApplication.id}"><spring:message code="tripApplication.cancelApplication"/></a>
 			</jstl:if>
 		</security:authorize>
 	</display:column>

@@ -134,21 +134,46 @@ public class TripApplicationExplorerController extends AbstractController {
 
 		return res;
 	}
-	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "cancelTripApplication")
-	public ModelAndView cancelTripApplication(@Valid final TripApplication tripApplication, final BindingResult binding) {
+
+	@RequestMapping(value = "/cancel", method = RequestMethod.GET)
+	public ModelAndView cancel(@RequestParam final int tripApplicationId) {
+		ModelAndView res;
+		final TripApplication tripApplication;
+		final UserAccount userAccount = LoginService.getPrincipal();
+		final Explorer explorer = this.explorerService.findByUserAccount(userAccount);
+
+		Assert.notNull(explorer);
+
+		tripApplication = this.tripApplicationService.findOne(tripApplicationId);
+		Assert.notNull(tripApplication);
+		Assert.isTrue(explorer.equals(tripApplication.getExplorer()));
+
+		res = new ModelAndView("tripApplication/cancel");
+		res.addObject("tripApplication", tripApplication);
+
+		return res;
+
+	}
+
+	@RequestMapping(value = "/cancel", method = RequestMethod.POST)
+	public ModelAndView cancelSave(@Valid final TripApplication tripApplication, final BindingResult binding) {
 		ModelAndView res;
 
+		res = new ModelAndView("tripApplication/cancel");
+
 		if (binding.hasErrors())
-			res = this.createEditModelAndView(tripApplication);
+			res.addObject("tripApplication", tripApplication);
 		else
 			try {
-				this.tripApplicationService.changeApplicationStatus(tripApplication, ApplicationStatus.CANCELLED);
-				this.tripApplicationService.save(tripApplication);
+
+				this.tripApplicationService.cancel(tripApplication);
 				res = new ModelAndView("redirect:list.do");
 			} catch (final Throwable oops) {
-				res = this.createEditModelAndView(tripApplication, "tripApplication.commit.error");
+				res.addObject("messageCode", "tripApplication.commit.error");
+				res.addObject("tripApplication", tripApplication);
 			}
 		return res;
+
 	}
 
 	// Ancillary methods ----------------------
