@@ -48,7 +48,7 @@
 		<form:hidden path="remark"/>
 		
 		<form:label path="reply"><spring:message code="note.reply"/></form:label>
-		<form:textarea path="reply"/>
+		<form:textarea path="reply" required="required" />
 		<form:errors cssClass="error" path="reply"/>
 	</security:authorize>
 	

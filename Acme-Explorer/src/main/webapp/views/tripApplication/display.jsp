@@ -15,7 +15,7 @@
 <security:authorize access="hasRole('EXPLORER')">
 	<jstl:set var="actor" value="explorer"></jstl:set>
 </security:authorize>
-
+<%-- 
 <h1><jstl:out value="${tripApplication.trip.title}" /> - <spring:message code="tripApplication.status.${tripApplication.status}"/></h1>
 
 <security:authorize access="hasRole('MANAGER')">
@@ -54,4 +54,4 @@
 			<jstl:out value="${tripApplication.creditCard.number}"></jstl:out>
 		</jstl:otherwise>
 	</jstl:choose>
-</p>
+</p> --%>

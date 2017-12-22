@@ -8,9 +8,10 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<h1><spring:message code="trip.search"/></h1>
-
+<spring:message code="trip.search.description" />
+<br>
+<br>
 <form action="trip/${actorWS}list.do" method="get">
-	<input type="text" name="keyword" placeholder="keyWord">
+	<input type="text" name="keyword">
 	<input type="submit" value="<spring:message code="submit"/>">
 </form>

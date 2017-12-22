@@ -18,12 +18,19 @@
 			<form:hidden path="auditor"/>
 			<form:hidden path="trip"/>
 			
-			<form:label path="moment">
-				<spring:message code="audit.moment"/>
-			</form:label>
-			<form:input path="moment"/>
-			<form:errors cssClass="error" path="moment"/>
-			<br />
+			<jstl:choose>
+				<jstl:when test="${audit.id != 0}">
+					<form:label path="moment">
+						<spring:message code="audit.moment"/>
+					</form:label>
+					<form:input path="moment"/>
+					<form:errors cssClass="error" path="moment"/>
+					<br />
+				</jstl:when>
+				<jstl:otherwise>
+					<form:hidden path="moment"/>
+				</jstl:otherwise>
+			</jstl:choose>
 			
 			<form:label path="title">
 				<spring:message code="audit.title"/>

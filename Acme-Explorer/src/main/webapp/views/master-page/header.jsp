@@ -14,7 +14,7 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 
 <div>
-	<img src="images/logo.png" alt="Sample Co., Inc." />
+	<img src="${logo}" alt="Sample Co., Inc." height="200"/>
 </div>
 
 <div>
@@ -29,6 +29,7 @@
 					<li><a href="manager/admin/create.do"><spring:message code="master.page.admin.register.manager" /></a></li>					
 					<li><a href="ranger/admin/create.do"><spring:message code="master.page.admin.register.ranger" /></a></li>
 					<li><a href="actor/admin/listSuspicious.do"><spring:message code="master.page.admin.list.suspicious" /></a></li>					
+					<li><a href="admin/display-dashboard.do"><spring:message code="master.page.admin.dashboard" /></a></li>					
 					<li><a href="trip/admin/list.do"><spring:message code="master.page.user.trips" /></a></li>				
 					<li><a href="trip/admin/search.do"><spring:message code="master.page.user.tripSearch" /></a></li>					
 					<li><a href="folder/admin/list.do"><spring:message code="master.page.user.folders" /></a></li>					
@@ -42,6 +43,7 @@
 					<li class="arrow"></li>
 					<li><a href="actor/auditor/display.do"><spring:message code="master.page.user.profile" /></a></li>
 					<li><a href="audit/auditor/list.do"><spring:message code="master.page.auditor.audit" /></a></li>
+					<li><a href="note/auditor/list.do"><spring:message code="master.page.auditor.notes" /></a></li>
 					<li><a href="category/auditor/list.do"><spring:message code="master.page.user.category" /></a></li>										
 					<li><a href="trip/auditor/list.do"><spring:message code="master.page.user.trips" /></a></li>			
 					<li><a href="trip/auditor/search.do"><spring:message code="master.page.user.tripSearch" /></a></li>				

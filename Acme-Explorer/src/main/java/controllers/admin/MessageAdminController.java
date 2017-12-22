@@ -123,15 +123,17 @@ public class MessageAdminController extends AbstractController {
 	public ModelAndView saveNotification(@Valid final Message message, final BindingResult binding) {
 		ModelAndView result;
 
-		if (binding.hasErrors())
+		if (binding.hasErrors()) {
 			result = this.createEditModelAndView(message);
-		else
+			result.addObject("isNotification", true);
+		} else
 			try {
 
 				this.adminService.broadcastNotification(message);
 				result = new ModelAndView("redirect:/folder/admin/list.do");
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(message, "message.commit.error");
+				result.addObject("isNotification", true);
 			}
 
 		return result;

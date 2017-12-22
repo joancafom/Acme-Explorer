@@ -2,6 +2,7 @@
 package controllers;
 
 import java.util.Collection;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -60,6 +61,7 @@ public class TripController extends AbstractController {
 
 		trip = this.tripService.findOne(tripId);
 		Assert.notNull(trip);
+		Assert.isTrue(trip.getPublicationDate().before(new Date()));
 
 		final Sponsorship sponsorship = trip.getSponsorships().isEmpty() ? null : trip.getSponsorships().iterator().next();
 

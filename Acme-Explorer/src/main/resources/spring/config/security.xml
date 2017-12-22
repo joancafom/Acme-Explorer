@@ -60,6 +60,16 @@
 		<security:intercept-url pattern="/audit/auditor/list.do" access="hasRole('AUDITOR')"/>
 		<security:intercept-url pattern="/audit/auditor/edit.do" access="hasRole('AUDITOR')"/>
 		<security:intercept-url pattern="/audit/auditor/create.do" access="hasRole('AUDITOR')"/>
+		<security:intercept-url pattern="/audit/admin/display.do" access="hasRole('ADMIN')"/>
+		<security:intercept-url pattern="/audit/admin/list.do" access="hasRole('ADMIN')"/>
+		<security:intercept-url pattern="/audit/explorer/display.do" access="hasRole('EXPLORER')"/>
+		<security:intercept-url pattern="/audit/explorer/list.do" access="hasRole('EXPLORER')"/>
+		<security:intercept-url pattern="/audit/manager/display.do" access="hasRole('MANAGER')"/>
+		<security:intercept-url pattern="/audit/manager/list.do" access="hasRole('MANAGER')"/>
+		<security:intercept-url pattern="/audit/ranger/display.do" access="hasRole('RANGER')"/>
+		<security:intercept-url pattern="/audit/ranger/list.do" access="hasRole('RANGER')"/>
+		<security:intercept-url pattern="/audit/sponsor/display.do" access="hasRole('SPONSOR')"/>
+		<security:intercept-url pattern="/audit/sponsor/list.do" access="hasRole('SPONSOR')"/>
 
 		<security:intercept-url pattern="/category/list.do" access="isAnonymous()"/>
 		<security:intercept-url pattern="/category/admin/create.do" access="hasRole('ADMIN')"/>
