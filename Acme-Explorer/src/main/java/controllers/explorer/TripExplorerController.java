@@ -1,8 +1,11 @@
 
 package controllers.explorer;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -99,7 +102,12 @@ public class TripExplorerController extends AbstractController {
 		trip = this.tripService.findOne(tripId);
 		Assert.notNull(trip);
 
-		final Sponsorship sponsorship = trip.getSponsorships().isEmpty() ? null : trip.getSponsorships().iterator().next();
+		final List<Sponsorship> sponsorships = new ArrayList<Sponsorship>(trip.getSponsorships());
+		Collections.shuffle(sponsorships);
+		Sponsorship sponsorship = null;
+		if (sponsorships.isEmpty() == false)
+			sponsorship = sponsorships.get(0);
+
 		final Boolean canCreateTA = this.tripApplicationService.findByExplorerAndTrip(explorer, trip) == null ? true : false;
 
 		res = new ModelAndView("trip/display");
