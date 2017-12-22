@@ -46,6 +46,7 @@ public class AuditRangerController extends AbstractController {
 
 		result = new ModelAndView("audit/list");
 		result.addObject("audits", audits);
+		result.addObject("actorWS", "ranger/");
 		result.addObject("requestURI", "audit/list.do");
 
 		return result;

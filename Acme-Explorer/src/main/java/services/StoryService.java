@@ -119,7 +119,7 @@ public class StoryService {
 
 	//Other Business Methods
 
-	public Boolean decideSuspiciousness(final String testString) {
+	private Boolean decideSuspiciousness(final String testString) {
 		final SystemConfiguration sysConfig = this.systemConfigurationService.getCurrentSystemConfiguration();
 		Assert.notNull(sysConfig);
 

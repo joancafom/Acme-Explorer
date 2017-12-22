@@ -35,7 +35,7 @@
 	<form:label path="price">
 		<spring:message code="stage.price"/>:
 	</form:label>
-	<form:input path="price"/>
+	<form:input path="price" type="number" step="1"/>
 	<form:errors cssClass="error" path="price"/>
 	
 	<br/>

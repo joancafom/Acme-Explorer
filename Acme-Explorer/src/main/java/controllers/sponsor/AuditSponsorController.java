@@ -46,6 +46,7 @@ public class AuditSponsorController extends AbstractController {
 
 		result = new ModelAndView("audit/list");
 		result.addObject("audits", audits);
+		result.addObject("actorWS", "sponsor/");
 		result.addObject("requestURI", "audit/list.do");
 
 		return result;

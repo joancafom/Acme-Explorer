@@ -163,7 +163,7 @@ public class TripServiceTest extends AbstractTest {
 		Trip trip1 = null;
 		Trip trip2 = null;
 
-		this.authenticate("manager1");
+		this.authenticate("manager2");
 
 		final Collection<Trip> trips = this.tripService.findAll();
 
@@ -225,7 +225,7 @@ public class TripServiceTest extends AbstractTest {
 		final Collection<Trip> trips = this.tripService.findAll();
 
 		for (final Trip t : trips)
-			if (t != null) {
+			if (t != null && t.getPublicationDate().after(new Date())) {
 				trip = t;
 				break;
 			}

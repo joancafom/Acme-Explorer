@@ -46,6 +46,7 @@ public class AuditExplorerController extends AbstractController {
 
 		result = new ModelAndView("audit/list");
 		result.addObject("audits", audits);
+		result.addObject("actorWS", "explorer/");
 		result.addObject("requestURI", "audit/list.do");
 
 		return result;

@@ -74,11 +74,11 @@ public class StoryServiceTest extends AbstractTest {
 
 		this.authenticate("explorer1");
 
-		Trip tripAccepted = null;
+		Trip tripAccepted = new Trip();
 		final Date today = new Date();
 
 		for (final TripApplication ta : this.tripApplicationService.findAcceptedByCurrentExplorer())
-			if (ta.getTrip().getEndingDate().after(today)) {
+			if (ta.getTrip().getEndingDate().before(today)) {
 				tripAccepted = ta.getTrip();
 				break;
 			}
@@ -172,5 +172,27 @@ public class StoryServiceTest extends AbstractTest {
 
 		this.unauthenticate();
 
+	}
+
+	@Test
+	public void testfindAllByTripId() {
+
+		this.authenticate("manager1");
+
+		Trip t1 = null;
+
+		for (final Trip t : this.tripService.findAll())
+			if (!t.getStories().isEmpty()) {
+				t1 = t;
+				break;
+			}
+
+		final Collection<Story> foundStories = this.storyService.findAllByTripId(t1.getId());
+
+		Assert.notNull(foundStories);
+		Assert.isTrue(t1.getStories().containsAll(foundStories));
+		Assert.isTrue(foundStories.containsAll(t1.getStories()));
+
+		this.unauthenticate();
 	}
 }

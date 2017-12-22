@@ -57,21 +57,12 @@ public class AuditServiceTest extends AbstractTest {
 	@Test
 	public void testCreate() {
 		final Audit audit;
-		Collection<Trip> trips;
-		Trip trip = null;
 		Date currentMoment;
-
-		trips = this.tripService.findAll();
-		for (final Trip t : trips) {
-			trip = t;
-			break;
-		}
 
 		currentMoment = new Date();
 
 		this.authenticate("auditor2");
 
-		//TODO:This was changed!
 		audit = this.auditService.create();
 
 		Assert.notNull(audit.getMoment());
@@ -89,8 +80,7 @@ public class AuditServiceTest extends AbstractTest {
 		Assert.notNull(audit.getAuditor());
 		Assert.isTrue(audit.getAuditor().getUserAccount().equals(this.userAccountRepository.findByUsername("auditor2")));
 
-		Assert.notNull(audit.getTrip());
-		Assert.isTrue(audit.getTrip().equals(trip));
+		Assert.isNull(audit.getTrip());
 
 		this.unauthenticate();
 	}

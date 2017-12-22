@@ -53,7 +53,6 @@ public class StageServiceTest extends AbstractTest {
 		Assert.isTrue(stage.getNumber() == 1);
 		Assert.notNull(stage.getTrip());
 		Assert.isTrue(stage.getTrip().equals(trip));
-		Assert.isTrue(trip.getStages().contains(stage));
 
 		this.unauthenticate();
 	}
