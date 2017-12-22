@@ -566,13 +566,16 @@
 
 	<bean id="curriculum1" class="domain.Curriculum">
 		<property name="ticker" value="171028-TSQL"></property>
+		<property name="fullName" value="Edward Christopher Sheeran"></property>
+		<property name="photo" value="http://image.europafm.com/clipping/cmsimages01/2017/01/06/7AE0D3CD-1C56-49E2-933C-E8F6C8D51DAD/51.jpg"></property>
+		<property name="email" value="edsheeran@gmail.com"></property>
+		<property name="linkedInProfile" value="http://www.linkedin.com/edsheeran"></property>
 		<property name="ranger" ref="ranger1"></property>
 		<property name="educationRecords">
 			<list>
 				<ref bean="educationRecord1" />
 			</list>
 		</property>
-		<property name="personalRecord" ref="personalRecord1"></property>
 		<property name="professionalRecords">
 			<list>
 				<ref bean="professionalRecord1" />
@@ -592,13 +595,17 @@
 
 	<bean id="curriculum2" class="domain.Curriculum">
 		<property name="ticker" value="161231-MLDM"></property>
+		<property name="fullName" value="Tambor Bellido Cuesta"></property>
+		<property name="photo" value="https://www.myrockymountainpark.com/.image/t_share/MTQ3OTg3NjE2MjI4NDUxNDgz/rm-ranger-tim-phillips_fullerton_680.jpg"></property>
+		<property name="email" value="tambor@gmail.com"></property>
+		<property name="phoneNumber" value="652980600"></property>
+		<property name="linkedInProfile" value="http://www.linkedin.com/tmbrbellido"></property>
 		<property name="ranger" ref="ranger2"></property>
 		<property name="educationRecords">
 			<list>
 				<ref bean="educationRecord2" />
 			</list>
 		</property>
-		<property name="personalRecord" ref="personalRecord2"></property>
 		<property name="professionalRecords">
 			<list>
 				<ref bean="professionalRecord2" />
@@ -989,25 +996,6 @@
 				<constructor-arg value="12/10/2017 11:48" />
 			</bean>
 		</property>
-	</bean>
-
-	<!-- Personal Record -->
-
-	<bean id="personalRecord1" class="domain.PersonalRecord">
-		<property name="fullName" value="Edward Christopher Sheeran"></property>
-		<property name="photo" value="http://image.europafm.com/clipping/cmsimages01/2017/01/06/7AE0D3CD-1C56-49E2-933C-E8F6C8D51DAD/51.jpg"></property>
-		<property name="email" value="edsheeran@gmail.com"></property>
-		<property name="linkedInProfile" value="http://www.linkedin.com/edsheeran"></property>
-		<property name="curriculum" ref="curriculum1"></property>
-	</bean>
-
-	<bean id="personalRecord2" class="domain.PersonalRecord">
-		<property name="fullName" value="Tambor Bellido Cuesta"></property>
-		<property name="photo" value="https://www.myrockymountainpark.com/.image/t_share/MTQ3OTg3NjE2MjI4NDUxNDgz/rm-ranger-tim-phillips_fullerton_680.jpg"></property>
-		<property name="email" value="tambor@gmail.com"></property>
-		<property name="phoneNumber" value="652980600"></property>
-		<property name="linkedInProfile" value="http://www.linkedin.com/tmbrbellido"></property>
-		<property name="curriculum" ref="curriculum2"></property>
 	</bean>
 
 	<!-- Professional Record -->

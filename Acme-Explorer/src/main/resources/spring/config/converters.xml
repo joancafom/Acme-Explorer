@@ -80,9 +80,6 @@
 		<bean class="converters.NoteToStringConverter" />
 		<bean class="converters.StringToNoteConverter" />
 		
-		<bean class="converters.PersonalRecordToStringConverter"/>
-		<bean class="converters.StringToPersonalRecordConverter"/>
-		
 		<bean class="converters.ProfessionalRecordToStringConverter"/>
 		<bean class="converters.StringToProfessionalRecordConverter"/>
 		

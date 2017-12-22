@@ -31,4 +31,9 @@
 		<put-attribute name="body" value="/views/tripApplication/edit.jsp"/>
 	</definition>
 	
+	<definition name="tripApplication/cancel" extends="master.page">
+		<put-attribute name="title" value="Cancelar una aplicación"/>
+		<put-attribute name="body" value="/views/tripApplication/cancel.jsp"/>
+	</definition>
+	
 </tiles-definitions>
