@@ -51,21 +51,23 @@
 	<display:column property="category.name" titleKey="trip.category" sortable="true"></display:column>
 		
 	<security:authorize access="hasRole('MANAGER')">
-		<display:column titleKey="tripApplications">
-			<a href="tripApplication/manager/list.do?tripId=${trip.id}"><spring:message code="tripApplication.list"/></a>
-		</display:column>
-		<spring:message code="date.format2" var="dateFormat2"></spring:message>
-		<fmt:formatDate value="${now}" pattern="${dateFormat2}"/>
-		<display:column>
-			<jstl:if test="${now.time < trip.publicationDate.time}">
-				<a href="trip/manager/edit.do?tripId=${trip.id}" ><spring:message code="trip.list.edit"/></a>
-			</jstl:if>
-			<jstl:if test="${now.time >= trip.publicationDate.time}">
-				<jstl:if test="${now.time < trip.startingDate.time and trip.cancelationReason == null and trip.manager.id == principalId}">
-						<a href="trip/manager/cancel.do?tripId=${trip.id}" ><spring:message code="trip.list.cancel"/></a>
+		<jstl:if test="${trip.manager.id == principalId}">
+			<display:column titleKey="tripApplications">
+				<a href="tripApplication/manager/list.do?tripId=${trip.id}"><spring:message code="tripApplication.list"/></a>
+			</display:column>
+			<spring:message code="date.format2" var="dateFormat2"></spring:message>
+			<fmt:formatDate value="${now}" pattern="${dateFormat2}"/>
+			<display:column>
+				<jstl:if test="${now.time < trip.publicationDate.time}">
+					<a href="trip/manager/edit.do?tripId=${trip.id}" ><spring:message code="trip.list.edit"/></a>
 				</jstl:if>
-			</jstl:if>
-		</display:column>
+				<jstl:if test="${now.time >= trip.publicationDate.time}">
+					<jstl:if test="${now.time < trip.startingDate.time and trip.cancelationReason == null and trip.manager.id == principalId}">
+							<a href="trip/manager/cancel.do?tripId=${trip.id}" ><spring:message code="trip.list.cancel"/></a>
+					</jstl:if>
+				</jstl:if>
+			</display:column>
+		</jstl:if>
 	</security:authorize>	
 		
 </display:table>

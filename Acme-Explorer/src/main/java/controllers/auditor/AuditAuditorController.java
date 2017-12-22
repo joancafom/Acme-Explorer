@@ -76,12 +76,10 @@ public class AuditAuditorController extends AbstractController {
 	// Creation -------------------------------
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
-	public ModelAndView create(@RequestParam final int tripId) {
+	public ModelAndView create() {
 		ModelAndView res;
-		Trip trip;
 
-		trip = this.tripService.findOne(tripId);
-		final Audit audit = this.auditService.create(trip);
+		final Audit audit = this.auditService.create();
 		res = this.createEditModelAndView(audit);
 
 		return res;
@@ -159,13 +157,13 @@ public class AuditAuditorController extends AbstractController {
 
 		Assert.notNull(auditor);
 
-		trips = this.tripService.findAll();
+		trips = this.tripService.findAllPublished();
 		trips.removeAll(this.tripService.findAuditorAuditedTrips(auditor));
-		trips.add(audit.getTrip());
 
 		res = new ModelAndView("audit/edit");
 		res.addObject("audit", audit);
 		res.addObject("trips", trips);
+		audit.setTrip(new Trip());
 
 		res.addObject("messageCode", messageCode);
 

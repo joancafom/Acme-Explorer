@@ -71,7 +71,8 @@ public class AuditServiceTest extends AbstractTest {
 
 		this.authenticate("auditor2");
 
-		audit = this.auditService.create(trip);
+		//TODO:This was changed!
+		audit = this.auditService.create();
 
 		Assert.notNull(audit.getMoment());
 		Assert.isTrue(audit.getMoment().before(currentMoment));

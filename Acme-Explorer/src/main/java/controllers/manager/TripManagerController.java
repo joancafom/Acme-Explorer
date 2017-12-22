@@ -72,14 +72,14 @@ public class TripManagerController extends AbstractController {
 		final Collection<Trip> trips;
 
 		final UserAccount userAccount = LoginService.getPrincipal();
-		final Manager current = this.managerService.findByUserAccount(userAccount);
+		final Manager currentM = this.managerService.findByUserAccount(userAccount);
 
 		if (keyword == null && categoryId == null) {
 
-			Assert.notNull(current);
+			Assert.notNull(currentM);
 
 			if (showAll == null || !showAll)
-				trips = this.tripService.findAllManagedBy(current);
+				trips = this.tripService.findAllManagedBy(currentM);
 			else
 				trips = this.tripService.findAllPublished();
 
@@ -97,7 +97,7 @@ public class TripManagerController extends AbstractController {
 		res.addObject("trips", trips);
 		res.addObject("requestURI", "/trip/manager/list.do");
 		res.addObject("actorWS", "manager/");
-		res.addObject("principalId", current.getId());
+		res.addObject("principalId", currentM.getId());
 
 		return res;
 	}
@@ -143,7 +143,6 @@ public class TripManagerController extends AbstractController {
 			res = this.createEditModelAndView(trip);
 		else
 			try {
-
 				if ("".equals(trip.getCancelationReason()))
 					trip.setCancelationReason(null);
 
@@ -191,7 +190,6 @@ public class TripManagerController extends AbstractController {
 			res.addObject("trip", trip);
 		else
 			try {
-
 				Assert.notNull(trip.getCancelationReason());
 				Assert.isTrue(!trip.getCancelationReason().isEmpty());
 				this.tripService.save(trip);
@@ -233,22 +231,29 @@ public class TripManagerController extends AbstractController {
 		trip = this.tripService.findOne(tripId);
 		Assert.notNull(trip);
 
+		final UserAccount userAccount = LoginService.getPrincipal();
+		final Manager manager = this.managerService.findByUserAccount(userAccount);
+		Assert.notNull(manager);
+
 		final List<Sponsorship> sponsorships = new ArrayList<Sponsorship>(trip.getSponsorships());
 		Collections.shuffle(sponsorships);
 		Sponsorship sponsorship = null;
 		if (sponsorships.isEmpty() == false)
 			sponsorship = sponsorships.get(0);
 
+		if (!trip.getManager().equals(manager))
+			Assert.isTrue(trip.getPublicationDate().before(new Date()));
+
 		res = new ModelAndView("trip/display");
 		res.addObject("trip", trip);
 		res.addObject("sponsorship", sponsorship);
 		res.addObject("stageRequestURI", "stage/manager/list.do?tripId=" + trip.getId());
 		res.addObject("rangerURI", "ranger/manager/display.do?tripId=" + tripId);
+		res.addObject("principalId", manager.getId());
 
 		return res;
 
 	}
-
 	//TODO: Req 11.1 not mine
 	@RequestMapping(value = "/search", method = RequestMethod.GET)
 	public ModelAndView search() {

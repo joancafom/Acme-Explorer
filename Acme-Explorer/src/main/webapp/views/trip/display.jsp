@@ -46,12 +46,6 @@
 
 <p><spring:message code="trip.publicationDate"/>: <fmt:formatDate value="${trip.publicationDate}" pattern="${dateFormat}"/>
 
-<security:authorize access="hasRole('MANAGER')">
-	<jstl:if test="${now < trip.publicationDate}">
-		<a href="stage/manager/create.do?tripId=${trip.id}"><spring:message code="stage.create"/></a>
-	</jstl:if>
-</security:authorize>
-
 <p><spring:message code="trip.requirements"/>: <jstl:out value="${trip.requirements}"/></p>
 
 <p><spring:message code="category"/>: <jstl:out value="${trip.category.name}"></jstl:out></p>
@@ -133,14 +127,6 @@
 	</jstl:if>
 </security:authorize>
 
-<security:authorize access="hasRole('AUDITOR')">
-	<jstl:if test="${canAudit}">
-		<p><a href="audit/auditor/create.do?tripId=${trip.id}">
-			<spring:message code="audit.create"/>
-		</a></p>
-	</jstl:if>
-</security:authorize>
-
 <security:authorize access="!hasRole('MANAGER')">
  <p>
 	<spring:message code="tagValues"/>:
@@ -190,3 +176,8 @@
 		</jstl:if>
 	</security:authorize>
 </display:table>
+<security:authorize access="hasRole('MANAGER')">
+	<jstl:if test="${now < trip.publicationDate and trip.manager.id == principalId}">
+		<a href="stage/manager/create.do?tripId=${trip.id}"><spring:message code="stage.create"/></a>
+	</jstl:if>
+</security:authorize>

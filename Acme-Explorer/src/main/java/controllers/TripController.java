@@ -65,6 +65,8 @@ public class TripController extends AbstractController {
 
 		final Sponsorship sponsorship = trip.getSponsorships().isEmpty() ? null : trip.getSponsorships().iterator().next();
 
+		Assert.isTrue(trip.getPublicationDate().before(new Date()));
+
 		res = new ModelAndView("trip/display");
 		res.addObject("trip", trip);
 		res.addObject("sponsorship", sponsorship);

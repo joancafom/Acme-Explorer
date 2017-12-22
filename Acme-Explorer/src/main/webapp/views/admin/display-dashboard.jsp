@@ -9,120 +9,120 @@
 <%@taglib prefix="security"	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix='fn' uri='http://java.sun.com/jsp/jstl/functions' %>
-
+<spring:message code="format.number" var="numberFormat"/>
 <p>
-<spring:message code="statistic.avg" /> <spring:message code="statistic.numberApplicationsTrip" />: <jstl:out value="${tripApplicationsPerTripStatistics[0]}" />
+<spring:message code="statistic.avg" /> <spring:message code="statistic.numberApplicationsTrip" />: <fmt:formatNumber pattern="${numberFormat}" value="${tripApplicationsPerTripStatistics[0]}" />
 </p>
 <p> 
-<spring:message code="statistic.min" /> <spring:message code="statistic.numberApplicationsTrip" />: <jstl:out value="${tripApplicationsPerTripStatistics[1]}" /> 
+<spring:message code="statistic.min" /> <spring:message code="statistic.numberApplicationsTrip" />: <fmt:formatNumber pattern="${numberFormat}" value="${tripApplicationsPerTripStatistics[1]}" /> 
 </p>
 <p>
-<spring:message code="statistic.max" /> <spring:message code="statistic.numberApplicationsTrip" />: <jstl:out value="${tripApplicationsPerTripStatistics[2]}" /> 
+<spring:message code="statistic.max" /> <spring:message code="statistic.numberApplicationsTrip" />: <fmt:formatNumber pattern="${numberFormat}" value="${tripApplicationsPerTripStatistics[2]}" /> 
 </p>
 <p>
-<spring:message code="statistic.std" /> <spring:message code="statistic.numberApplicationsTrip" />: <jstl:out value="${tripApplicationsPerTripStatistics[3]}" /> 
+<spring:message code="statistic.std" /> <spring:message code="statistic.numberApplicationsTrip" />: <fmt:formatNumber pattern="${numberFormat}" value="${tripApplicationsPerTripStatistics[3]}" /> 
 </p>
 
 <p>
-<spring:message code="statistic.avg" /> <spring:message code="statistic.numberTripsPerManager" />: <jstl:out value="${tripsPerManagerStatistics[0]}" />
+<spring:message code="statistic.avg" /> <spring:message code="statistic.numberTripsPerManager" />: <fmt:formatNumber pattern="${numberFormat}" value="${tripsPerManagerStatistics[0]}" />
 </p>
 <p> 
-<spring:message code="statistic.min" /> <spring:message code="statistic.numberTripsPerManager" />: <jstl:out value="${tripsPerManagerStatistics[1]}" /> 
+<spring:message code="statistic.min" /> <spring:message code="statistic.numberTripsPerManager" />: <fmt:formatNumber pattern="${numberFormat}" value="${tripsPerManagerStatistics[1]}" /> 
 </p>
 <p>
-<spring:message code="statistic.max" /> <spring:message code="statistic.numberTripsPerManager" />: <jstl:out value="${tripsPerManagerStatistics[2]}" /> 
+<spring:message code="statistic.max" /> <spring:message code="statistic.numberTripsPerManager" />: <fmt:formatNumber pattern="${numberFormat}" value="${tripsPerManagerStatistics[2]}" /> 
 </p>
 <p>
-<spring:message code="statistic.std" /> <spring:message code="statistic.numberTripsPerManager" />: <jstl:out value="${tripsPerManagerStatistics[3]}" /> 
+<spring:message code="statistic.std" /> <spring:message code="statistic.numberTripsPerManager" />: <fmt:formatNumber pattern="${numberFormat}" value="${tripsPerManagerStatistics[3]}" /> 
 </p>
 
 <p>
-<spring:message code="statistic.avg" /> <spring:message code="statistic.tripPrice" />: <jstl:out value="${tripsPriceStatistics[0]}" />
+<spring:message code="statistic.avg" /> <spring:message code="statistic.tripPrice" />: <fmt:formatNumber pattern="${numberFormat}" value="${tripsPriceStatistics[0]}" />
 </p>
 <p> 
-<spring:message code="statistic.min" /> <spring:message code="statistic.tripPrice" />: <jstl:out value="${tripsPriceStatistics[1]}" /> 
+<spring:message code="statistic.min" /> <spring:message code="statistic.tripPrice" />: <fmt:formatNumber pattern="${numberFormat}" value="${tripsPriceStatistics[1]}" /> 
 </p>
 <p>
-<spring:message code="statistic.max" /> <spring:message code="statistic.tripPrice" />: <jstl:out value="${tripsPriceStatistics[2]}" /> 
+<spring:message code="statistic.max" /> <spring:message code="statistic.tripPrice" />: <fmt:formatNumber pattern="${numberFormat}" value="${tripsPriceStatistics[2]}" /> 
 </p>
 <p>
-<spring:message code="statistic.std" /> <spring:message code="statistic.tripPrice" />: <jstl:out value="${tripsPriceStatistics[3]}" /> 
+<spring:message code="statistic.std" /> <spring:message code="statistic.tripPrice" />: <fmt:formatNumber pattern="${numberFormat}" value="${tripsPriceStatistics[3]}" /> 
 </p>
 
 <p>
-<spring:message code="statistic.avg" /> <spring:message code="statistic.numberTripsPerRanger" />: <jstl:out value="${tripsPerRangerStatistics[0]}" />
+<spring:message code="statistic.avg" /> <spring:message code="statistic.numberTripsPerRanger" />: <fmt:formatNumber pattern="${numberFormat}" value="${tripsPerRangerStatistics[0]}" />
 </p>
 <p> 
-<spring:message code="statistic.min" /> <spring:message code="statistic.numberTripsPerRanger" />: <jstl:out value="${tripsPerRangerStatistics[1]}" /> 
+<spring:message code="statistic.min" /> <spring:message code="statistic.numberTripsPerRanger" />: <fmt:formatNumber pattern="${numberFormat}" value="${tripsPerRangerStatistics[1]}" /> 
 </p>
 <p>
-<spring:message code="statistic.max" /> <spring:message code="statistic.numberTripsPerRanger" />: <jstl:out value="${tripsPerRangerStatistics[2]}" /> 
+<spring:message code="statistic.max" /> <spring:message code="statistic.numberTripsPerRanger" />: <fmt:formatNumber pattern="${numberFormat}" value="${tripsPerRangerStatistics[2]}" /> 
 </p>
 <p>
-<spring:message code="statistic.std" /> <spring:message code="statistic.numberTripsPerRanger" />: <jstl:out value="${tripsPerRangerStatistics[3]}" /> 
+<spring:message code="statistic.std" /> <spring:message code="statistic.numberTripsPerRanger" />: <fmt:formatNumber pattern="${numberFormat}" value="${tripsPerRangerStatistics[3]}" /> 
 </p>
 
 <p>
-<spring:message code="ratioTA" /> <spring:message code="status.pending" />: <jstl:out value="${pendingRatio}" />
+<spring:message code="ratioTA" /> <spring:message code="status.pending" />: <fmt:formatNumber pattern="${numberFormat}" value="${pendingRatio}" />
 </p>
 <p> 
-<spring:message code="ratioTA" /> <spring:message code="status.due" />: <jstl:out value="${dueRatio}" /> 
+<spring:message code="ratioTA" /> <spring:message code="status.due" />: <fmt:formatNumber pattern="${numberFormat}" value="${dueRatio}" /> 
 </p>
 <p>
-<spring:message code="ratioTA" /> <spring:message code="status.accepted" />: <jstl:out value="${acceptedRatio}" /> 
+<spring:message code="ratioTA" /> <spring:message code="status.accepted" />: <fmt:formatNumber pattern="${numberFormat}" value="${acceptedRatio}" /> 
 </p>
 <p>
-<spring:message code="ratioTA" /> <spring:message code="status.cancelled" />: <jstl:out value="${cancelledRatio}" /> 
-</p>
-
-<p>
-<spring:message code="ratioT" />: <jstl:out value="${cancelledVsOrganisedRatio}" /> 
+<spring:message code="ratioTA" /> <spring:message code="status.cancelled" />: <fmt:formatNumber pattern="${numberFormat}" value="${cancelledRatio}" /> 
 </p>
 
 <p>
-<spring:message code="statistic.min" /> <spring:message code="statistic.numberNotesPerTrip" />: <jstl:out value="${notesPerTripStatistics[0]}" />
+<spring:message code="ratioT" />: <fmt:formatNumber pattern="${numberFormat}" value="${cancelledVsOrganisedRatio}" /> 
+</p>
+
+<p>
+<spring:message code="statistic.min" /> <spring:message code="statistic.numberNotesPerTrip" />: <fmt:formatNumber pattern="${numberFormat}" value="${notesPerTripStatistics[0]}" />
 </p>
 <p> 
-<spring:message code="statistic.max" /> <spring:message code="statistic.numberNotesPerTrip" />: <jstl:out value="${notesPerTripStatistics[1]}" /> 
+<spring:message code="statistic.max" /> <spring:message code="statistic.numberNotesPerTrip" />: <fmt:formatNumber pattern="${numberFormat}" value="${notesPerTripStatistics[1]}" /> 
 </p>
 <p>
-<spring:message code="statistic.avg" /> <spring:message code="statistic.numberNotesPerTrip" />: <jstl:out value="${notesPerTripStatistics[2]}" /> 
+<spring:message code="statistic.avg" /> <spring:message code="statistic.numberNotesPerTrip" />: <fmt:formatNumber pattern="${numberFormat}" value="${notesPerTripStatistics[2]}" /> 
 </p>
 <p>
-<spring:message code="statistic.std" /> <spring:message code="statistic.numberNotesPerTrip" />: <jstl:out value="${notesPerTripStatistics[3]}" /> 
+<spring:message code="statistic.std" /> <spring:message code="statistic.numberNotesPerTrip" />: <fmt:formatNumber pattern="${numberFormat}" value="${notesPerTripStatistics[3]}" /> 
 </p>
 
 <p>
-<spring:message code="statistic.min" /> <spring:message code="statistic.numberAuditPerTrip" />: <jstl:out value="${auditsPerTripStatistics[0]}" />
+<spring:message code="statistic.min" /> <spring:message code="statistic.numberAuditPerTrip" />: <fmt:formatNumber pattern="${numberFormat}" value="${auditsPerTripStatistics[0]}" />
 </p>
 <p> 
-<spring:message code="statistic.max" /> <spring:message code="statistic.numberAuditPerTrip" />: <jstl:out value="${auditsPerTripStatistics[1]}" /> 
+<spring:message code="statistic.max" /> <spring:message code="statistic.numberAuditPerTrip" />: <fmt:formatNumber pattern="${numberFormat}" value="${auditsPerTripStatistics[1]}" /> 
 </p>
 <p>
-<spring:message code="statistic.avg" /> <spring:message code="statistic.numberAuditPerTrip" />: <jstl:out value="${auditsPerTripStatistics[2]}" /> 
+<spring:message code="statistic.avg" /> <spring:message code="statistic.numberAuditPerTrip" />: <fmt:formatNumber pattern="${numberFormat}" value="${auditsPerTripStatistics[2]}" /> 
 </p>
 <p>
-<spring:message code="statistic.std" /> <spring:message code="statistic.numberAuditPerTrip" />: <jstl:out value="${auditsPerTripStatistics[3]}" /> 
-</p>
-
-<p>
-<spring:message code="ratioTripsAudit" />: <jstl:out value="${tripsWithAuditRatio}" /> 
+<spring:message code="statistic.std" /> <spring:message code="statistic.numberAuditPerTrip" />: <fmt:formatNumber pattern="${numberFormat}" value="${auditsPerTripStatistics[3]}" /> 
 </p>
 
 <p>
-<spring:message code="ratioRangerCurriculum" />: <jstl:out value="${rangersCurriculumRatio}" /> 
+<spring:message code="ratioTripsAudit" />: <fmt:formatNumber pattern="${numberFormat}" value="${tripsWithAuditRatio}" /> 
 </p>
 
 <p>
-<spring:message code="ratioRangerCurriculumEndorsed" />: <jstl:out value="${rangersERRatio}" /> 
+<spring:message code="ratioRangerCurriculum" />: <fmt:formatNumber pattern="${numberFormat}" value="${rangersCurriculumRatio}" /> 
 </p>
 
 <p>
-<spring:message code="ratioSuspiciousManagers" />: <jstl:out value="${suspiciousManagersRatio}" /> 
+<spring:message code="ratioRangerCurriculumEndorsed" />: <fmt:formatNumber pattern="${numberFormat}" value="${rangersERRatio}" /> 
 </p>
 
 <p>
-<spring:message code="ratioSuspiciousRangers" />: <jstl:out value="${suspiciousRangersRatio}" /> 
+<spring:message code="ratioSuspiciousManagers" />: <fmt:formatNumber pattern="${numberFormat}" value="${suspiciousManagersRatio}" /> 
+</p>
+
+<p>
+<spring:message code="ratioSuspiciousRangers" />: <fmt:formatNumber pattern="${numberFormat}" value="${suspiciousRangersRatio}" /> 
 </p>
 
 <p>

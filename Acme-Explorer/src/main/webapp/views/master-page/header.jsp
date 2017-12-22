@@ -31,7 +31,8 @@
 					<li><a href="actor/admin/listSuspicious.do"><spring:message code="master.page.admin.list.suspicious" /></a></li>					
 					<li><a href="admin/display-dashboard.do"><spring:message code="master.page.admin.dashboard" /></a></li>					
 					<li><a href="trip/admin/list.do"><spring:message code="master.page.user.trips" /></a></li>				
-					<li><a href="trip/admin/search.do"><spring:message code="master.page.user.tripSearch" /></a></li>					
+					<li><a href="trip/admin/search.do"><spring:message code="master.page.user.tripSearch" /></a></li>	
+					<li><a href="systemConfiguration/admin/display.do"><spring:message code="master.page.admin.systemConfiguration" /></a></li>				
 					<li><a href="folder/admin/list.do"><spring:message code="master.page.user.folders" /></a></li>					
 				</ul>
 			</li>

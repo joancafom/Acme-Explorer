@@ -16,21 +16,29 @@
 			<form:hidden path="id"/>
 			<form:hidden path="version"/>
 			<form:hidden path="auditor"/>
-			<form:hidden path="trip"/>
-			
+						
 			<jstl:choose>
-				<jstl:when test="${audit.id != 0}">
-					<form:label path="moment">
-						<spring:message code="audit.moment"/>
+				<jstl:when test="${audit.id == 0}">
+					<form:label path="trip">
+						<spring:message code="audit.trip"/>
 					</form:label>
-					<form:input path="moment"/>
-					<form:errors cssClass="error" path="moment"/>
+					<form:select path="trip">
+						<form:option value="0" label="---"/>
+						<form:options items="${trips}" itemValue="id" itemLabel="ticker"/>
+					</form:select>
+					<form:errors cssClass="error" path="trip"/>
 					<br />
 				</jstl:when>
 				<jstl:otherwise>
-					<form:hidden path="moment"/>
+					<form:hidden path="trip"/>
 				</jstl:otherwise>
-			</jstl:choose>
+			</jstl:choose>	
+			<form:label path="moment">
+				<spring:message code="audit.moment"/>
+			</form:label>
+			<form:input path="moment"/>
+			<form:errors cssClass="error" path="moment"/>
+			<br />
 			
 			<form:label path="title">
 				<spring:message code="audit.title"/>
@@ -65,5 +73,5 @@
 				<input type="submit" name="delete" value="<spring:message code="audit.delete"/>">
 			</jstl:if>
 		</form:form>
-		<input type="button" name="cancel" value="<spring:message	code="audit.cancel" />" onclick="javascript: relativeRedir('audit/auditor/list.do');" />
-</jstl:if>
+		<input type="button" name="cancel" value="<spring:message	code="audit.cancel" />" onclick="javascript: relativeRedir('audit/auditor/list.do');" /> 
+</jstl:if> 

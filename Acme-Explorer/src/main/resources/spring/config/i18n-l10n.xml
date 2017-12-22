@@ -48,6 +48,7 @@
 		<value>/views/stage/messages</value>
 		<value>/views/story/messages</value>
 		<value>/views/survivalClass/messages</value>
+		<value>/views/systemConfiguration/messages</value>
 		<value>/views/tag/messages</value>
 		<value>/views/tagValue/messages</value>
 		<value>/views/trip/messages</value>

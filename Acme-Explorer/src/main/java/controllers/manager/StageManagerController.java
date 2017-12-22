@@ -41,9 +41,13 @@ public class StageManagerController extends AbstractController {
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView create(@RequestParam final int tripId) {
 		ModelAndView res;
+		final UserAccount userAccount = LoginService.getPrincipal();
+		final Manager manager = this.managerService.findByUserAccount(userAccount);
 
 		final Trip trip = this.tripService.findOne(tripId);
 		Assert.notNull(trip);
+		Assert.notNull(manager);
+		Assert.isTrue(manager.equals(trip.getManager()));
 
 		final Stage stage = this.stageService.create(trip);
 
@@ -51,7 +55,6 @@ public class StageManagerController extends AbstractController {
 
 		return res;
 	}
-
 	//Edit
 	@RequestMapping(value = "/edit")
 	public ModelAndView edit(@RequestParam final int stageId) {
@@ -75,6 +78,10 @@ public class StageManagerController extends AbstractController {
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid final Stage stage, final BindingResult binding) {
 		ModelAndView res;
+		final UserAccount userAccount = LoginService.getPrincipal();
+		final Manager manager = this.managerService.findByUserAccount(userAccount);
+		Assert.notNull(manager);
+		Assert.isTrue(manager.equals(stage.getTrip().getManager()));
 
 		if (binding.hasErrors())
 			res = this.createEditModelAndView(stage);
@@ -94,6 +101,10 @@ public class StageManagerController extends AbstractController {
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
 	public ModelAndView delete(final Stage stage, final BindingResult binding) {
 		ModelAndView res;
+		final UserAccount userAccount = LoginService.getPrincipal();
+		final Manager manager = this.managerService.findByUserAccount(userAccount);
+		Assert.notNull(manager);
+		Assert.isTrue(manager.equals(stage.getTrip().getManager()));
 
 		try {
 			this.stageService.delete(stage);

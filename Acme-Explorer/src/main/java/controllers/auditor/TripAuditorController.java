@@ -4,6 +4,7 @@ package controllers.auditor;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,7 +77,7 @@ public class TripAuditorController extends AbstractController {
 		trip = this.tripService.findOne(tripId);
 		Assert.notNull(trip);
 
-		final boolean canAudit = !this.tripService.findAuditorAuditedTrips(auditor).contains(trip);
+		Assert.isTrue(trip.getPublicationDate().before(new Date()));
 
 		final List<Sponsorship> sponsorships = new ArrayList<Sponsorship>(trip.getSponsorships());
 		Collections.shuffle(sponsorships);
@@ -89,7 +90,6 @@ public class TripAuditorController extends AbstractController {
 		res.addObject("sponsorship", sponsorship);
 		res.addObject("stageRequestURI", "trip/auditor/display.do?tripId=" + trip.getId());
 		res.addObject("rangerURI", "ranger/auditor/display.do?tripId=" + tripId);
-		res.addObject("canAudit", canAudit);
 
 		return res;
 

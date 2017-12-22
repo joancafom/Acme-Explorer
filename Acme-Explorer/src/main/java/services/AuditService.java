@@ -34,14 +34,11 @@ public class AuditService {
 	private AuditorService				auditorService;
 
 	@Autowired
-	private TripService					tripService;
-
-	@Autowired
 	private SystemConfigurationService	systemConfigurationService;
 
 
 	/* CRUD */
-	public Audit create(final Trip t) {
+	public Audit create() {
 		long millis;
 		final Date moment;
 
@@ -49,12 +46,7 @@ public class AuditService {
 
 		final Auditor auditor = this.auditorService.findByUserAccount(userAccount);
 
-		Assert.notNull(t);
-
-		Assert.isTrue(!this.tripService.findAuditorAuditedTrips(auditor).contains(t));
-
 		final Audit audit = new Audit();
-		audit.setTrip(t);
 		audit.setAuditor(auditor);
 
 		final Collection<String> attachments = new ArrayList<String>();
@@ -65,8 +57,6 @@ public class AuditService {
 
 		audit.setMoment(moment);
 		audit.setIsFinal(false);
-
-		t.getAudits().add(audit);
 
 		return audit;
 	}

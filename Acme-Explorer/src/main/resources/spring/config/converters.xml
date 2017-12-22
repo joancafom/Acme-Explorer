@@ -103,6 +103,9 @@
 		
 		<bean class="converters.SurvivalClassToStringConverter"/>
 		<bean class="converters.StringToSurvivalClassConverter"/>
+		
+		<bean class="converters.SystemConfigurationToStringConverter"/>
+		<bean class="converters.StringToSystemConfigurationConverter"/>
 
 		<bean class="converters.TagToStringConverter"/>
 		<bean class="converters.StringToTagConverter"/>
