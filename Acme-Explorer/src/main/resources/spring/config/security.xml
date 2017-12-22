@@ -93,6 +93,8 @@
 		
 		<security:intercept-url pattern="/customer/action-1.do" access="hasRole('CUSTOMER')" /> 
 		<security:intercept-url pattern="/customer/action-2.do" access="hasRole('CUSTOMER')" /> 
+
+		<security:intercept-url pattern="/contact/explorer/**" access="hasRole('EXPLORER')"/>
 		
 		<security:intercept-url pattern="/educationRecord/ranger/create.do" access="hasRole('RANGER')"/>
 		<security:intercept-url pattern="/educationRecord/ranger/edit.do" access="hasRole('RANGER')"/>

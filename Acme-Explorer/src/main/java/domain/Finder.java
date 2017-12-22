@@ -1,13 +1,17 @@
 
 package domain;
 
+import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -15,14 +19,14 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Access(AccessType.PROPERTY)
 public class Finder extends DomainEntity {
 
-	private String	keyword;
-	private Double	minRange;
-	private Double	maxRange;
-	private Date	minDate;
-	private Date	maxDate;
+	private String				keyword;
+	private Double				minRange;
+	private Double				maxRange;
+	private Date				minDate;
+	private Date				maxDate;
+	private Collection<Trip>	cache;
+	private Date				cacheTime;
 
-
-	//private Collection<Trip>	cache;
 
 	public String getKeyword() {
 		return this.keyword;
@@ -48,11 +52,18 @@ public class Finder extends DomainEntity {
 		return this.maxDate;
 	}
 
-	/*
-	 * public Collection<Trip> getCache() {
-	 * return this.cache;
-	 * }
-	 */
+	@Valid
+	@NotNull
+	@ElementCollection
+	public Collection<Trip> getCache() {
+		return this.cache;
+	}
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
+	public Date getCacheTime() {
+		return this.cacheTime;
+	}
 
 	public void setKeyword(final String keyword) {
 		this.keyword = keyword;
@@ -74,10 +85,12 @@ public class Finder extends DomainEntity {
 		this.maxDate = maxDate;
 	}
 
-	/*
-	 * public void setCache(final Collection<Trip> cache) {
-	 * this.cache = cache;
-	 * }
-	 */
+	public void setCache(final Collection<Trip> cache) {
+		this.cache = cache;
+	}
+
+	public void setCacheTime(final Date cacheTime) {
+		this.cacheTime = cacheTime;
+	}
 
 }

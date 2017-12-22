@@ -77,9 +77,6 @@
 			<jstl:out value="${emergencyContact.phoneNumber}"/>
 		</display:column>
 		
-		<display:column>
-			<a href="contact/explorer/edit.do?contactId="><spring:message code="actor.explorer.emergencyContact.edit"/></a>
-		</display:column>
 	</display:table>
 	<a href="contact/explorer/create.do"><spring:message code="actor.explorer.emergencyContact.create"/></a>
 	<p><strong><spring:message code="actor.explorer.stories"/>:</strong> <a href="story/manager/list.do?explorerId=${explorer.id}"><spring:message code="actor.listAll"/></a></p>
