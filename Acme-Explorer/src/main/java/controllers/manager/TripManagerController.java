@@ -233,7 +233,7 @@ public class TripManagerController extends AbstractController {
 
 		trip = this.tripService.findOne(tripId);
 		Assert.notNull(trip);
-		
+
 		final UserAccount userAccount = LoginService.getPrincipal();
 		final Manager manager = this.managerService.findByUserAccount(userAccount);
 		Assert.notNull(manager);
@@ -243,16 +243,15 @@ public class TripManagerController extends AbstractController {
 		Sponsorship sponsorship = null;
 		if (sponsorships.isEmpty() == false)
 			sponsorship = sponsorships.get(0);
-		
+
 		if (!trip.getManager().equals(manager))
 			Assert.isTrue(trip.getPublicationDate().before(new Date()));
 
 		if (trip.getManager().getUserAccount().equals(LoginService.getPrincipal()))
 			myTrip = true;
-		
-		res.addObject("principalId", manager.getId());
 
 		res = new ModelAndView("trip/display");
+		res.addObject("principalId", manager.getId());
 		res.addObject("trip", trip);
 		res.addObject("sponsorship", sponsorship);
 		res.addObject("stageRequestURI", "stage/manager/list.do?tripId=" + trip.getId());

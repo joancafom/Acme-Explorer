@@ -65,8 +65,8 @@
 	</bean>
 
 	<bean id="userAccount3" class="security.UserAccount">
-		<property name="username" value="admin1" />
-		<property name="password" value="e00cf25ad42683b3df678c61f42c6bda" />
+		<property name="username" value="admin" />
+		<property name="password" value="21232f297a57a5a743894a0e4a801fc3" />
 		<property name="isLocked" value="false" />
 		<property name="authorities">
 			<list>
@@ -213,12 +213,12 @@
 
 	<!-- Admin -->
 
-	<bean id="admin1" class="domain.Admin">
+	<bean id="admin" class="domain.Admin">
 		<property name="name" value="Taylor"></property>
 		<property name="surname" value="Swift"></property>
 		<property name="email" value="taylor89@gmail.com"></property>
 		<property name="isSuspicious" value="false"></property>
-		
+
 		<property name="socialIDs">
 			<list>
 				<ref bean="socialID1" />
@@ -244,7 +244,7 @@
 		<property name="phoneNumber" value="638452566"></property>
 		<property name="address" value="C/ Tropico nº30"></property>
 		<property name="isSuspicious" value="false"></property>
-		
+
 		<property name="socialIDs">
 			<list>
 				<ref bean="socialID2" />
@@ -309,7 +309,7 @@
 		<property name="surname" value="Lipa"></property>
 		<property name="email" value="dualipa@gmail.com"></property>
 		<property name="isSuspicious" value="false"></property>
-		
+
 		<property name="socialIDs">
 			<list>
 			</list>
@@ -342,7 +342,7 @@
 		<property name="phoneNumber" value="651980500"></property>
 		<property name="address" value="Av/ Lonely Hearts Club nº14"></property>
 		<property name="isSuspicious" value="true"></property>
-		
+
 		<property name="socialIDs">
 			<list>
 			</list>
@@ -567,7 +567,8 @@
 	<bean id="curriculum1" class="domain.Curriculum">
 		<property name="ticker" value="171028-TSQL"></property>
 		<property name="fullName" value="Edward Christopher Sheeran"></property>
-		<property name="photo" value="http://image.europafm.com/clipping/cmsimages01/2017/01/06/7AE0D3CD-1C56-49E2-933C-E8F6C8D51DAD/51.jpg"></property>
+		<property name="photo"
+			value="http://image.europafm.com/clipping/cmsimages01/2017/01/06/7AE0D3CD-1C56-49E2-933C-E8F6C8D51DAD/51.jpg"></property>
 		<property name="email" value="edsheeran@gmail.com"></property>
 		<property name="linkedInProfile" value="http://www.linkedin.com/edsheeran"></property>
 		<property name="ranger" ref="ranger1"></property>
@@ -596,7 +597,8 @@
 	<bean id="curriculum2" class="domain.Curriculum">
 		<property name="ticker" value="161231-MLDM"></property>
 		<property name="fullName" value="Tambor Bellido Cuesta"></property>
-		<property name="photo" value="https://www.myrockymountainpark.com/.image/t_share/MTQ3OTg3NjE2MjI4NDUxNDgz/rm-ranger-tim-phillips_fullerton_680.jpg"></property>
+		<property name="photo"
+			value="https://www.myrockymountainpark.com/.image/t_share/MTQ3OTg3NjE2MjI4NDUxNDgz/rm-ranger-tim-phillips_fullerton_680.jpg"></property>
 		<property name="email" value="tambor@gmail.com"></property>
 		<property name="phoneNumber" value="652980600"></property>
 		<property name="linkedInProfile" value="http://www.linkedin.com/tmbrbellido"></property>
@@ -686,7 +688,7 @@
 		<property name="phoneNumber" value="666777111"></property>
 		<property name="address" value="C/ Angel nº1"></property>
 		<property name="isSuspicious" value="false"></property>
-		
+
 		<property name="socialIDs">
 			<list>
 				<ref bean="socialID3" />
@@ -732,7 +734,7 @@
 		<property name="surname" value="Furler"></property>
 		<property name="email" value="sia@gmail.com"></property>
 		<property name="isSuspicious" value="false"></property>
-		
+
 		<property name="socialIDs">
 			<list>
 			</list>
@@ -771,7 +773,10 @@
 	<!-- Finder -->
 
 	<bean id="finder1" class="domain.Finder">
-		
+		<property name="cache">
+			<list>
+			</list>
+		</property>
 	</bean>
 
 	<bean id="finder2" class="domain.Finder">
@@ -787,6 +792,10 @@
 			<bean factory-method="parse" factory-bean="dateFormat">
 				<constructor-arg value="31/12/2018 10:00" />
 			</bean>
+		</property>
+		<property name="cache">
+			<list>
+			</list>
 		</property>
 	</bean>
 
@@ -815,7 +824,8 @@
 
 	<bean id="legalText2" class="domain.LegalText">
 		<property name="title" value="Pacemakers"></property>
-		<property name="body" value="People with pacemakers can't apply for this trip."></property>
+		<property name="body"
+			value="People with pacemakers can't apply for this trip."></property>
 		<property name="laws" value="Law 50, Law 27."></property>
 		<property name="registrationMoment">
 			<bean factory-method="parse" factory-bean="dateFormat">
@@ -851,7 +861,7 @@
 		<property name="surname" value="López"></property>
 		<property name="email" value="lopez@gmail.com"></property>
 		<property name="isSuspicious" value="true"></property>
-		
+
 		<property name="socialIDs">
 			<list>
 			</list>
@@ -886,7 +896,7 @@
 		<property name="phoneNumber" value="668236483"></property>
 		<property name="address" value="C/ Science Women nº23"></property>
 		<property name="isSuspicious" value="false"></property>
-		
+
 		<property name="socialIDs">
 			<list>
 				<ref bean="socialID4" />
@@ -927,7 +937,7 @@
 		<property name="phoneNumber" value="772881992"></property>
 		<property name="address" value="Avd. de la Constitución nº23"></property>
 		<property name="isSuspicious" value="true"></property>
-		
+
 		<property name="socialIDs">
 			<list>
 			</list>
@@ -963,7 +973,8 @@
 
 	<bean id="miscellaneousRecord2" class="domain.MiscellaneousRecord">
 		<property name="title" value="Painting Record"></property>
-		<property name="attachment" value="http://im.hunt.in/cg/chennai/City-Guide/painting.jpg"></property>
+		<property name="attachment"
+			value="http://im.hunt.in/cg/chennai/City-Guide/painting.jpg"></property>
 		<property name="comments" value="Had my own painting exhibition."></property>
 		<property name="curriculum" ref="curriculum2"></property>
 	</bean>
@@ -987,10 +998,12 @@
 				<constructor-arg value="10/10/2017 14:06" />
 			</bean>
 		</property>
-		<property name="remark" value="Had a bad time at the hotel. I don't recommend this trip."></property>
+		<property name="remark"
+			value="Had a bad time at the hotel. I don't recommend this trip."></property>
 		<property name="auditor" ref="auditor2"></property>
 		<property name="trip" ref="trip2"></property>
-		<property name="reply" value="Please, contact us with the details and we'll try to improve our trips."></property>
+		<property name="reply"
+			value="Please, contact us with the details and we'll try to improve our trips."></property>
 		<property name="replyMoment">
 			<bean factory-method="parse" factory-bean="dateFormat">
 				<constructor-arg value="12/10/2017 11:48" />
@@ -1031,7 +1044,7 @@
 		<property name="surname" value="Sheeran"></property>
 		<property name="email" value="edsheeran@gmail.com"></property>
 		<property name="isSuspicious" value="true"></property>
-		
+
 		<property name="socialIDs">
 			<list>
 			</list>
@@ -1059,7 +1072,7 @@
 		<property name="phoneNumber" value="633017787"></property>
 		<property name="address" value="Av/ Paseo de la Independencia nº127"></property>
 		<property name="isSuspicious" value="true"></property>
-		
+
 		<property name="socialIDs">
 			<list>
 				<ref bean="socialID5" />
@@ -1091,7 +1104,7 @@
 		<property name="surname" value="Gaga"></property>
 		<property name="email" value="bornthisway@gmail.com"></property>
 		<property name="isSuspicious" value="false"></property>
-		
+
 		<property name="socialIDs">
 			<list>
 			</list>
@@ -1117,7 +1130,7 @@
 		<property name="surname" value="Carmona"></property>
 		<property name="email" value="sojita@gmail.com"></property>
 		<property name="isSuspicious" value="true"></property>
-		
+
 		<property name="socialIDs">
 			<list>
 			</list>
@@ -1143,7 +1156,7 @@
 		<property name="nick" value="@taylorswift13"></property>
 		<property name="nameSocialNetwork" value="Twitter"></property>
 		<property name="link" value="https://twitter.com/taylorswift13"></property>
-		<property name="actor" ref="admin1"></property>
+		<property name="actor" ref="admin"></property>
 	</bean>
 
 	<bean id="socialID2" class="domain.SocialID">
@@ -1188,7 +1201,7 @@
 		<property name="surname" value="Gaga"></property>
 		<property name="email" value="ladygag@gmail.com"></property>
 		<property name="isSuspicious" value="false"></property>
-		
+
 		<property name="socialIDs">
 			<list>
 			</list>
@@ -1214,7 +1227,7 @@
 		<property name="surname" value="Perry"></property>
 		<property name="email" value="katypurry@gmail.com"></property>
 		<property name="isSuspicious" value="true"></property>
-		
+
 		<property name="socialIDs">
 			<list>
 				<ref bean="socialID6" />
@@ -1243,7 +1256,8 @@
 	<!-- Sponsorship -->
 
 	<bean id="sponsorship1" class="domain.Sponsorship">
-		<property name="bannerUrl" value="https://about.canva.com/wp-content/uploads/sites/3/2017/02/congratulations_-banner.png"></property>
+		<property name="bannerUrl"
+			value="https://about.canva.com/wp-content/uploads/sites/3/2017/02/congratulations_-banner.png"></property>
 		<property name="infoPageLink" value="http://www.infopage1.com"></property>
 		<property name="trip" ref="trip1"></property>
 		<property name="sponsor" ref="sponsor1"></property>
@@ -1261,7 +1275,8 @@
 
 	<bean id="stage1" class="domain.Stage">
 		<property name="title" value="Seville sightseeing."></property>
-		<property name="description"		value="Enjoy the beautiful places in Seville with this 4 hours tour."></property>
+		<property name="description"
+			value="Enjoy the beautiful places in Seville with this 4 hours tour."></property>
 		<property name="price" value="800"></property>
 		<property name="number" value="1"></property>
 		<property name="trip" ref="trip1"></property>
@@ -1269,7 +1284,8 @@
 
 	<bean id="stage2" class="domain.Stage">
 		<property name="title" value="... Shopping time!"></property>
-		<property name="description" value="Visit to one of the most famous shopping centers of the city."></property>
+		<property name="description"
+			value="Visit to one of the most famous shopping centers of the city."></property>
 		<property name="price" value="10000"></property>
 		<property name="number" value="1"></property>
 		<property name="trip" ref="trip2"></property>
@@ -1277,7 +1293,8 @@
 
 	<bean id="stage3" class="domain.Stage">
 		<property name="title" value="Harry Potter Tour"></property>
-		<property name="description" value="Visit most of the films location in this tour!"></property>
+		<property name="description"
+			value="Visit most of the films location in this tour!"></property>
 		<property name="price" value="2000"></property>
 		<property name="number" value="1"></property>
 		<property name="trip" ref="trip3"></property>
@@ -1307,7 +1324,8 @@
 
 	<bean id="story2" class="domain.Story">
 		<property name="title" value="The London Underground puzzle."></property>
-		<property name="text" value="We nearly didn't made it to the hotel. Couldn't buy the Oyster card, brought the wrong line ticket... 
+		<property name="text"
+			value="We nearly didn't made it to the hotel. Couldn't buy the Oyster card, brought the wrong line ticket... 
 		There was only one last train. Be prepared if you're going to London!"></property>
 		<property name="attachments">
 			<list>
@@ -1341,7 +1359,8 @@
 
 	<bean id="survivalClass2" class="domain.SurvivalClass">
 		<property name="title" value="How to survive in a forest."></property>
-		<property name="description" value="Lessons on how spend a night in a forest with success! (and not freezing)."></property>
+		<property name="description"
+			value="Lessons on how spend a night in a forest with success! (and not freezing)."></property>
 		<property name="moment">
 			<bean factory-method="parse" factory-bean="dateFormat">
 				<constructor-arg value="10/11/2017 00:00" />
@@ -1358,7 +1377,8 @@
 
 	<bean id="survivalClass3" class="domain.SurvivalClass">
 		<property name="title" value="Lifeguard"></property>
-		<property name="description" value="Basic lessons on how to proceed if someone is having trouble at the beach."></property>
+		<property name="description"
+			value="Basic lessons on how to proceed if someone is having trouble at the beach."></property>
 		<property name="moment">
 			<bean factory-method="parse" factory-bean="dateFormat">
 				<constructor-arg value="10/11/2017 00:00" />
@@ -1439,8 +1459,7 @@
 	<bean id="trip1" class="domain.Trip">
 		<property name="ticker" value="171209-TSQL"></property>
 		<property name="title" value="Reputation World Tour"></property>
-		<property name="description"
-			value="Tour all around the world with us!"></property>
+		<property name="description" value="Tour all around the world with us!"></property>
 		<property name="price" value="800"></property>
 		<property name="publicationDate">
 			<bean factory-method="parse" factory-bean="dateFormat">
@@ -1457,8 +1476,7 @@
 				<constructor-arg value="10/11/2018 23:59" />
 			</bean>
 		</property>
-		<property name="requirements"
-			value="Be willing to have some fun!"></property>
+		<property name="requirements" value="Be willing to have some fun!"></property>
 		<property name="sponsorships">
 			<list>
 				<ref bean="sponsorship1" />
@@ -1508,8 +1526,7 @@
 	<bean id="trip2" class="domain.Trip">
 		<property name="ticker" value="971029-MLDM"></property>
 		<property name="title" value="Melodrama World Tour - Barcelona"></property>
-		<property name="description"
-			value="Visit this fantastic city with us."></property>
+		<property name="description" value="Visit this fantastic city with us."></property>
 		<property name="price" value="10000"></property>
 		<property name="publicationDate">
 			<bean factory-method="parse" factory-bean="dateFormat">
@@ -1773,7 +1790,7 @@
 			<list>
 			</list>
 		</property>
-		<property name="actor" ref="admin1"></property>
+		<property name="actor" ref="admin"></property>
 	</bean>
 
 	<bean id="folder2" class="domain.Folder">
@@ -1813,7 +1830,7 @@
 		</property>
 		<property name="childFolders">
 			<list>
-				<ref bean="folder31"/>
+				<ref bean="folder31" />
 			</list>
 		</property>
 		<property name="actor" ref="explorer1"></property>
@@ -2054,7 +2071,7 @@
 			<list>
 			</list>
 		</property>
-		<property name="actor" ref="admin1"></property>
+		<property name="actor" ref="admin"></property>
 	</bean>
 
 	<bean id="folder21" class="domain.Folder">
@@ -2196,7 +2213,7 @@
 		</property>
 		<property name="actor" ref="manager3"></property>
 	</bean>
-	
+
 	<bean id="folder31" class="domain.Folder">
 		<property name="isSystem" value="false"></property>
 		<property name="name" value="Child Folder"></property>
@@ -2211,7 +2228,7 @@
 		<property name="parentFolder" ref="folder4"></property>
 		<property name="actor" ref="explorer1"></property>
 	</bean>
-	
+
 	<bean id="folder32" class="domain.Folder">
 		<property name="isSystem" value="true"></property>
 		<property name="name" value="In Box"></property>
@@ -2225,7 +2242,7 @@
 		</property>
 		<property name="actor" ref="explorer1"></property>
 	</bean>
-	
+
 	<bean id="folder33" class="domain.Folder">
 		<property name="isSystem" value="true"></property>
 		<property name="name" value="Out Box"></property>
@@ -2237,9 +2254,9 @@
 			<list>
 			</list>
 		</property>
-		<property name="actor" ref="admin1"></property>
+		<property name="actor" ref="admin"></property>
 	</bean>
-		
+
 	<bean id="folder34" class="domain.Folder">
 		<property name="isSystem" value="true"></property>
 		<property name="name" value="Out Box"></property>
@@ -2253,7 +2270,7 @@
 		</property>
 		<property name="actor" ref="manager1"></property>
 	</bean>
-	
+
 	<bean id="folder35" class="domain.Folder">
 		<property name="isSystem" value="true"></property>
 		<property name="name" value="Out Box"></property>
@@ -2281,7 +2298,7 @@
 			value="Estoy harta de mentiras y por eso mando este correo."></property>
 		<property name="priority" value="LOW"></property>
 		<property name="recipient" ref="manager1"></property>
-		<property name="sender" ref="admin1"></property>
+		<property name="sender" ref="admin"></property>
 		<property name="folder" ref="folder5"></property>
 	</bean>
 
@@ -2296,7 +2313,7 @@
 			value="Estoy harta de mentiras y por eso mando este correo."></property>
 		<property name="priority" value="LOW"></property>
 		<property name="recipient" ref="manager1"></property>
-		<property name="sender" ref="admin1"></property>
+		<property name="sender" ref="admin"></property>
 		<property name="folder" ref="folder1"></property>
 	</bean>
 
@@ -2307,7 +2324,8 @@
 			</bean>
 		</property>
 		<property name="subject" value="Surprise gurl!"></property>
-		<property name="body" value="I'm back from the city!! Are you ready to catch up?"></property>
+		<property name="body"
+			value="I'm back from the city!! Are you ready to catch up?"></property>
 		<property name="priority" value="HIGH"></property>
 		<property name="recipient" ref="auditor2"></property>
 		<property name="sender" ref="admin2"></property>
@@ -2321,7 +2339,8 @@
 			</bean>
 		</property>
 		<property name="subject" value="Surprise gurl!"></property>
-		<property name="body" value="I'm back from the city!! Are you ready to catch up?"></property>
+		<property name="body"
+			value="I'm back from the city!! Are you ready to catch up?"></property>
 		<property name="priority" value="HIGH"></property>
 		<property name="recipient" ref="auditor2"></property>
 		<property name="sender" ref="admin2"></property>
@@ -2335,7 +2354,8 @@
 			</bean>
 		</property>
 		<property name="subject" value="Tea session"></property>
-		<property name="body" value="Hope you didn't forget about our tea session tomorrow. Us women are not the weaker sex! See you ;)"></property>
+		<property name="body"
+			value="Hope you didn't forget about our tea session tomorrow. Us women are not the weaker sex! See you ;)"></property>
 		<property name="priority" value="HIGH"></property>
 		<property name="recipient" ref="admin2"></property>
 		<property name="sender" ref="auditor2"></property>
@@ -2349,7 +2369,8 @@
 			</bean>
 		</property>
 		<property name="subject" value="Tea session"></property>
-		<property name="body" value="Hope you didn't forget about our tea session tomorrow. See you ;)"></property>
+		<property name="body"
+			value="Hope you didn't forget about our tea session tomorrow. See you ;)"></property>
 		<property name="priority" value="HIGH"></property>
 		<property name="recipient" ref="admin2"></property>
 		<property name="sender" ref="auditor2"></property>
@@ -2363,7 +2384,8 @@
 			</bean>
 		</property>
 		<property name="subject" value="Karaoke"></property>
-		<property name="body" value="I had so much fun last night, OMG!! We definitely need to go again."></property>
+		<property name="body"
+			value="I had so much fun last night, OMG!! We definitely need to go again."></property>
 		<property name="priority" value="HIGH"></property>
 		<property name="recipient" ref="manager2"></property>
 		<property name="sender" ref="explorer2"></property>
@@ -2377,7 +2399,8 @@
 			</bean>
 		</property>
 		<property name="subject" value="Karaoke"></property>
-		<property name="body" value="I had so much fun last night, OMG!! We definitely need to go again."></property>
+		<property name="body"
+			value="I had so much fun last night, OMG!! We definitely need to go again."></property>
 		<property name="priority" value="HIGH"></property>
 		<property name="recipient" ref="manager2"></property>
 		<property name="sender" ref="explorer2"></property>
@@ -2391,7 +2414,8 @@
 			</bean>
 		</property>
 		<property name="subject" value="Ice skating"></property>
-		<property name="body" value="What do you think about going ice-skating next week?"></property>
+		<property name="body"
+			value="What do you think about going ice-skating next week?"></property>
 		<property name="priority" value="HIGH"></property>
 		<property name="recipient" ref="explorer2"></property>
 		<property name="sender" ref="manager2"></property>
@@ -2405,7 +2429,8 @@
 			</bean>
 		</property>
 		<property name="subject" value="Ice skating"></property>
-		<property name="body" value="What do you think about going ice-skating next week?"></property>
+		<property name="body"
+			value="What do you think about going ice-skating next week?"></property>
 		<property name="priority" value="HIGH"></property>
 		<property name="recipient" ref="explorer2"></property>
 		<property name="sender" ref="manager2"></property>
@@ -2419,7 +2444,8 @@
 			</bean>
 		</property>
 		<property name="subject" value="Star Wars premiere"></property>
-		<property name="body" value="Went to the cinema this morning and I FREAKED OUT. Can't wait for the next movie."></property>
+		<property name="body"
+			value="Went to the cinema this morning and I FREAKED OUT. Can't wait for the next movie."></property>
 		<property name="priority" value="LOW"></property>
 		<property name="recipient" ref="sponsor2"></property>
 		<property name="sender" ref="ranger2"></property>
@@ -2433,7 +2459,8 @@
 			</bean>
 		</property>
 		<property name="subject" value="Star Wars premiere"></property>
-		<property name="body" value="Went to the cinema this morning and I FREAKED OUT. Can't wait for the next movie."></property>
+		<property name="body"
+			value="Went to the cinema this morning and I FREAKED OUT. Can't wait for the next movie."></property>
 		<property name="priority" value="LOW"></property>
 		<property name="recipient" ref="sponsor2"></property>
 		<property name="sender" ref="ranger2"></property>

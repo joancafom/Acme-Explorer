@@ -81,6 +81,8 @@
 		<security:intercept-url pattern="/category/ranger/list.do" access="hasRole('RANGER')"/>
 		<security:intercept-url pattern="/category/sponsor/list.do" access="hasRole('SPONSOR')"/>
 		
+		<security:intercept-url pattern="/contact/explorer/**" access="hasRole('EXPLORER')"/>
+		
 		<security:intercept-url pattern="/curriculum/display.do" access="isAnonymous()"/>
 		<security:intercept-url pattern="/curriculum/admin/display.do" access="hasRole('ADMIN')"/>
 		<security:intercept-url pattern="/curriculum/auditor/display.do" access="hasRole('AUDITOR')"/>

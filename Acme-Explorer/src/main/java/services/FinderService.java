@@ -2,6 +2,8 @@
 package services;
 
 import java.util.Collection;
+import java.util.Date;
+import java.util.HashSet;
 
 import javax.transaction.Transactional;
 
@@ -14,6 +16,7 @@ import security.LoginService;
 import security.UserAccount;
 import domain.Explorer;
 import domain.Finder;
+import domain.Trip;
 
 @Service
 @Transactional
@@ -40,8 +43,12 @@ public class FinderService {
 
 	public Finder create() {
 		Finder finder;
+		final Collection<Trip> cache = new HashSet<Trip>();
+		final Date now = new Date();
 
 		finder = new Finder();
+		finder.setCache(cache);
+		finder.setCacheTime(now);
 
 		return finder;
 	}

@@ -24,13 +24,16 @@ public class MessageService {
 
 	//Managed Repository
 	@Autowired
-	private MessageRepository	messageRepository;
+	private MessageRepository			messageRepository;
 
 	//External Services
 	@Autowired
-	private ActorService		actorService;
+	private ActorService				actorService;
 	@Autowired
-	private FolderService		folderService;
+	private FolderService				folderService;
+
+	@Autowired
+	private SystemConfigurationService	systemConfigurationService;
 
 
 	/* Crud */
@@ -119,7 +122,6 @@ public class MessageService {
 
 	/* Other business methods */
 
-	
 	public void send(final Actor receiver, final Message messageSender) {
 		/* 1. We check that the receiver and the message to send are not null */
 		Assert.notNull(receiver);
