@@ -113,11 +113,13 @@ public class MessageService {
 		else {
 			final Folder trashBox = this.folderService.findByActorAndName(actor, "Trash Box");
 			message.setFolder(trashBox);
+			this.save(message);
 		}
 	}
 
 	/* Other business methods */
 
+	
 	public void send(final Actor receiver, final Message messageSender) {
 		/* 1. We check that the receiver and the message to send are not null */
 		Assert.notNull(receiver);
@@ -142,14 +144,29 @@ public class MessageService {
 		messageSender.setSentMoment(new Date());
 		messageReceiver.setSentMoment(new Date());
 
+		/* 6. We check if the message contains spam words */
+		Boolean spam = false;
+		for (final String spamWord : this.systemConfigurationService.getCurrentSystemConfiguration().getSpamWords())
+			if (messageSender.getSubject().contains(spamWord)) {
+				spam = true;
+				break;
+			} else if (messageSender.getBody().contains(spamWord)) {
+				spam = true;
+				break;
+			}
+
 		/* 6. We add the messages to their folders and collections */
 		sender.getSentMessages().add(messageSender);
-		final Folder folderSenderInbox = this.folderService.findByActorAndName(sender, "Out Box");
-		messageSender.setFolder(folderSenderInbox);
+		final Folder folderSenderOutbox = this.folderService.findByActorAndName(sender, "Out Box");
+		messageSender.setFolder(folderSenderOutbox);
 
 		receiver.getReceivedMessages().add(messageReceiver);
-		final Folder folderReceiverOutbox = this.folderService.findByActorAndName(receiver, "In Box");
-		messageReceiver.setFolder(folderReceiverOutbox);
+		final Folder folderReceiverInbox;
+		if (spam == true)
+			folderReceiverInbox = this.folderService.findByActorAndName(receiver, "Spam Box");
+		else
+			folderReceiverInbox = this.folderService.findByActorAndName(receiver, "In Box");
+		messageReceiver.setFolder(folderReceiverInbox);
 
 		this.save(messageReceiver);
 	}
