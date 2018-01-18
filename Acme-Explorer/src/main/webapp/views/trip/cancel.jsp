@@ -36,15 +36,39 @@
 		<form:hidden path="survivalClasses"/>
 		<form:hidden path="manager"/>
 		
+		<script type="text/javascript">
+	
+		window.onload = function checkField(){
+				var cancelationReason = document.getElementById('cancelationReason').value;
+			
+				if(cancelationReason != ""){
+					document.getElementById('submitButton').disabled = false;
+				}else{
+					document.getElementById('submitButton').disabled = true;
+				}
+		};
+		
+		function checkField2(){
+			var cancelationReason = document.getElementById('cancelationReason').value;
+		
+			if(cancelationReason != ""){
+				document.getElementById('submitButton').disabled = false;
+			}else{
+				document.getElementById('submitButton').disabled = true;
+			}
+		};
+			
+		</script>
+		
 		<form:label path="cancelationReason">
 				<spring:message code="trip.cancelationReason"/>
 		</form:label>
-		<form:textarea path="cancelationReason" required="required"/>
+		<form:textarea path="cancelationReason" id="cancelationReason" required="required" onkeyup="checkField2()"/>
 		<form:errors cssClass="error" path="cancelationReason"/>
 		
 		<br/>
 		
-		<input type="submit" value="<spring:message code="trip.cancelTrip"/>">
+		<input type="submit" id="submitButton" value="<spring:message code="trip.cancelTrip"/>">
 		<input type="button" name="cancel" value="<spring:message code="trip.cancel"/>" onclick="javascript: relativeRedir('trip/manager/list.do');" />
 		
 </form:form>
