@@ -62,7 +62,7 @@ public class FinderServiceTest extends AbstractTest {
 
 		final Integer currentNumberOfFindersInTheXML = 2;
 
-		this.authenticate("admin1");
+		this.authenticate("admin");
 
 		final Collection<Finder> finders = this.finderService.findAll();
 
@@ -77,7 +77,7 @@ public class FinderServiceTest extends AbstractTest {
 		Finder finder1 = null;
 		Finder finder2 = null;
 
-		this.authenticate("admin1");
+		this.authenticate("admin");
 
 		final Collection<Finder> finders = this.finderService.findAll();
 

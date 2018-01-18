@@ -47,7 +47,7 @@ public class CategoryServiceTest extends AbstractTest {
 	//	public void testCreate() {
 	//		Category category;
 	//
-	//		this.authenticate("admin1");
+	//		this.authenticate("admin");
 	//
 	//		category = this.categoryService.create();
 	//
@@ -72,7 +72,7 @@ public class CategoryServiceTest extends AbstractTest {
 		Collection<Trip> trips;
 		Trip trip = null;
 
-		this.authenticate("admin1");
+		this.authenticate("admin");
 
 		categories = this.categoryService.findAll();
 
@@ -112,7 +112,7 @@ public class CategoryServiceTest extends AbstractTest {
 	public void testDelete() {
 		Category category = null;
 
-		this.authenticate("admin1");
+		this.authenticate("admin");
 
 		int i = 0;
 		for (final Category c : this.categoryService.findAll()) {
@@ -132,7 +132,7 @@ public class CategoryServiceTest extends AbstractTest {
 
 	@Test
 	public void testFindAll() {
-		this.authenticate("admin1");
+		this.authenticate("admin");
 
 		final Collection<Category> categories = this.categoryRepository.findAll();
 		final Collection<Category> categories2 = this.categoryService.findAll();
@@ -144,7 +144,7 @@ public class CategoryServiceTest extends AbstractTest {
 
 	@Test
 	public void testFindOne() {
-		this.authenticate("admin1");
+		this.authenticate("admin");
 
 		final List<Category> categories = this.categoryRepository.findAll();
 		final Category category = categories.get(0);

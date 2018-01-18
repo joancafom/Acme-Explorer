@@ -36,7 +36,7 @@ public class LegalTextServiceTest extends AbstractTest {
 	public void testCreate() {
 		LegalText legalText;
 
-		this.authenticate("admin1");
+		this.authenticate("admin");
 
 		legalText = this.legalTextService.create();
 
@@ -58,7 +58,7 @@ public class LegalTextServiceTest extends AbstractTest {
 
 		final Integer currentNumberOfLegalTextsInTheXML = 2;
 
-		this.authenticate("admin1");
+		this.authenticate("admin");
 
 		final Collection<LegalText> legalTexts = this.legalTextService.findAll();
 
@@ -73,7 +73,7 @@ public class LegalTextServiceTest extends AbstractTest {
 		LegalText legalText1 = null;
 		LegalText legalText2 = null;
 
-		this.authenticate("admin1");
+		this.authenticate("admin");
 
 		final Collection<LegalText> legalTexts = this.legalTextService.findAll();
 
@@ -95,7 +95,7 @@ public class LegalTextServiceTest extends AbstractTest {
 		LegalText legalText1 = null;
 		LegalText legalText2 = null;
 
-		this.authenticate("admin1");
+		this.authenticate("admin");
 
 		final Collection<LegalText> legalTexts = this.legalTextService.findAll();
 
@@ -124,7 +124,7 @@ public class LegalTextServiceTest extends AbstractTest {
 	public void testDelete() {
 		LegalText legalText = null;
 
-		this.authenticate("admin1");
+		this.authenticate("admin");
 
 		final Collection<LegalText> legalTexts = this.legalTextService.findAll();
 

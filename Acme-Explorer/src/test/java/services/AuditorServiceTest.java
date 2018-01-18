@@ -46,7 +46,7 @@ public class AuditorServiceTest extends AbstractTest {
 	@Test
 	public void testCreate() {
 
-		this.authenticate("admin1");
+		this.authenticate("admin");
 		final UserAccount userAccount = new UserAccount();
 		final Auditor auditor = this.auditorService.create(userAccount);
 
@@ -78,7 +78,7 @@ public class AuditorServiceTest extends AbstractTest {
 	@Test
 	public void testFindAll() {
 
-		this.authenticate("admin1");
+		this.authenticate("admin");
 
 		final Collection<Auditor> allAuditors = new HashSet<Auditor>();
 
@@ -100,7 +100,7 @@ public class AuditorServiceTest extends AbstractTest {
 	@Test
 	public void testSave() {
 
-		this.authenticate("admin1");
+		this.authenticate("admin");
 
 		final List<Auditor> allAuditors = new ArrayList<Auditor>(this.auditorService.findAll());
 		final Auditor auditor1 = allAuditors.get(0);
@@ -132,7 +132,7 @@ public class AuditorServiceTest extends AbstractTest {
 		Auditor auditor1 = null;
 		Auditor auditor2 = null;
 
-		this.authenticate("admin1");
+		this.authenticate("admin");
 
 		final Collection<Auditor> auditors = this.auditorService.findAll();
 

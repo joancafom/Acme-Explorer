@@ -85,7 +85,7 @@ public class SponsorshipServiceTest extends AbstractTest {
 	@Test
 	public void testFindAll() {
 
-		this.authenticate("admin1");
+		this.authenticate("admin");
 
 		final Collection<Sponsorship> allSponsorships = new HashSet<Sponsorship>();
 

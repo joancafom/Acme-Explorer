@@ -38,7 +38,7 @@ public class ActorServiceTest extends AbstractTest {
 	public void testCreate() {
 		Actor actor;
 
-		this.authenticate("admin1");
+		this.authenticate("admin");
 
 		final UserAccount userAccount = new UserAccount();
 		final Class<Ranger> clase = Ranger.class;
@@ -70,7 +70,7 @@ public class ActorServiceTest extends AbstractTest {
 
 		final Integer currentNumberOfActorsInTheXML = 15;
 
-		this.authenticate("admin1");
+		this.authenticate("admin");
 
 		final Collection<Actor> actors = this.actorService.findAll();
 
@@ -85,7 +85,7 @@ public class ActorServiceTest extends AbstractTest {
 		Actor actor1 = null;
 		Actor actor2 = null;
 
-		this.authenticate("admin1");
+		this.authenticate("admin");
 
 		final Collection<Actor> actors = this.actorService.findAll();
 
@@ -107,7 +107,7 @@ public class ActorServiceTest extends AbstractTest {
 		Actor actor1 = null;
 		Actor actor2 = null;
 
-		this.authenticate("admin1");
+		this.authenticate("admin");
 
 		final Collection<Actor> actors = this.actorService.findAll();
 
@@ -130,7 +130,7 @@ public class ActorServiceTest extends AbstractTest {
 		Actor actor1 = null;
 		Actor actor2 = null;
 
-		this.authenticate("admin1");
+		this.authenticate("admin");
 
 		final Collection<Actor> actors = this.actorService.findAll();
 		for (final Actor a : actors)
@@ -149,7 +149,7 @@ public class ActorServiceTest extends AbstractTest {
 		Actor actor1 = null;
 		Actor actor2 = null;
 
-		this.authenticate("admin1");
+		this.authenticate("admin");
 
 		final Collection<Actor> actors = this.actorService.findAll();
 		for (final Actor a : actors)
