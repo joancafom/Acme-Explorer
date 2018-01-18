@@ -162,8 +162,8 @@ public class SurvivalClassManagerController extends AbstractController {
 		result.addObject("survivalClass", survivalClass);
 		result.addObject("trips", trips);
 		result.addObject("actor", "manager");
+		result.addObject("messageCode", messageCode);
 
 		return result;
 	}
-
 }

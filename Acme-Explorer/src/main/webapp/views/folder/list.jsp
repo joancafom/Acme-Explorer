@@ -36,7 +36,7 @@
 
 <br>
 <display:table name="folders" id="folder" requestURI="folder/${actor}/list.do" class="displaytag" pagesize="5">
-	<display:column titleKey="folder.name">
+	<display:column titleKey="folder.name" sortable="true">
 		<a href="folder/${actor}/list.do?folderId=${folder.id}"><jstl:out value="${folder.name}"/></a>
 	</display:column>
 	<display:column>
@@ -50,17 +50,17 @@
 
 <jstl:if test="${folderId!=null}">
 	<p><spring:message code="folder.messages"/>:</p>
-	<display:table name="messages" id="message" requestURI="message/list.do?folderId=${folderId}" class="displaytag" pagesize="5">
+	<display:table name="messages" id="message" requestURI="${requestURI}" class="displaytag" pagesize="5">
 	<display:column titleKey="folder.message.date">
 		<jstl:out value="${message.sentMoment}"/>
 	</display:column>
-	<display:column titleKey="folder.message.sender">
+	<display:column titleKey="folder.message.sender" sortable="true">
 		<jstl:out value="${message.sender.name}"/>
 	</display:column>
-	<display:column titleKey="folder.message.subject">
+	<display:column titleKey="folder.message.subject" sortable="true">
 		<jstl:out value="${ message.subject}"/>
 	</display:column>
-	<display:column titleKey="folder.message.priority">
+	<display:column titleKey="folder.message.priority" sortable="true">
 		<jstl:out value="${message.priority}"/>
 	</display:column>
 	<display:column >

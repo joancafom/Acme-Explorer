@@ -68,14 +68,13 @@ public class TripController extends AbstractController {
 		res = new ModelAndView("trip/display");
 		res.addObject("trip", trip);
 		res.addObject("sponsorship", sponsorship);
-		res.addObject("stageRequestURI", "stage/list.do?tripId=" + trip.getId());
+		res.addObject("requestURI", "trip/display.do?tripId=" + tripId);
 		res.addObject("rangerURI", "ranger/display.do?tripId=" + tripId);
 		res.addObject("myTrip", false);
 
 		return res;
 
 	}
-
 	@RequestMapping(value = "/search", method = RequestMethod.GET)
 	public ModelAndView search() {
 		final ModelAndView res;

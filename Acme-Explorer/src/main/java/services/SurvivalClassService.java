@@ -77,6 +77,8 @@ public class SurvivalClassService {
 		final Explorer explorer = this.explorerService.findByUserAccount(userAccount);
 
 		Assert.isTrue(manager != null || explorer != null);
+		Assert.isTrue(survivalClass.getMoment().after(new Date()));
+
 		if (manager != null) {
 			Assert.isTrue(survivalClass.getManager().equals(manager));
 			Assert.isTrue(manager.getTrips().contains(survivalClass.getTrip()));
@@ -84,7 +86,6 @@ public class SurvivalClassService {
 
 		return this.survivalClassRepository.save(survivalClass);
 	}
-
 	public void delete(final SurvivalClass survivalClass) {
 
 		Assert.notNull(survivalClass);

@@ -1,6 +1,7 @@
 
 package services;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -112,15 +113,14 @@ public class SystemConfigurationService {
 
 		//Now we compute the YYMMDD
 
+		//In order to get two digits
+		final DecimalFormat decimalFormat = new DecimalFormat("00");
+
 		final LocalDate date = new LocalDate();
-		final Integer year = new Integer(date.getYear());
-		final String yy = new String(year.toString());
 
-		final Integer month = new Integer(date.getMonthOfYear());
-		final String mm = new String(month.toString());
-
-		final Integer day = new Integer(date.getDayOfMonth());
-		final String dd = new String(day.toString());
+		final String yy = new String(decimalFormat.format(date.getYear()));
+		final String mm = new String(decimalFormat.format(date.getMonthOfYear()));
+		final String dd = new String(decimalFormat.format(date.getDayOfMonth()));
 
 		final String ticker = yy.substring(2).toUpperCase() + mm.toUpperCase() + dd.toUpperCase() + "-" + new String(wwww);
 

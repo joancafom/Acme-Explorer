@@ -58,7 +58,7 @@ public class SurvivalClassExplorerController extends AbstractController {
 
 		result = new ModelAndView("survivalClass/list");
 		result.addObject("survivalClasses", survivalClasses);
-		result.addObject("requestURI", "survivalClass/manager/list.do");
+		result.addObject("requestURI", "survivalClass/explorer/list.do");
 
 		return result;
 	}

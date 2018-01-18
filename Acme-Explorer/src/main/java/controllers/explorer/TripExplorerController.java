@@ -115,8 +115,8 @@ public class TripExplorerController extends AbstractController {
 		res = new ModelAndView("trip/display");
 		res.addObject("trip", trip);
 		res.addObject("sponsorship", sponsorship);
-		res.addObject("stageRequestURI", "trip/explorer/display.do?tripId=" + tripId);
 		res.addObject("rangerURI", "ranger/explorer/display.do?tripId=" + tripId);
+		res.addObject("requestURI", "trip/explorer/display.do?tripId=" + tripId);
 		res.addObject("canCreateTA", canCreateTA);
 		res.addObject("myTrip", false);
 
