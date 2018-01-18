@@ -127,7 +127,7 @@ public class StoryServiceTest extends AbstractTest {
 	@Test
 	public void testFindAll() {
 
-		this.authenticate("admin");
+		this.authenticate("admin1");
 
 		final Collection<Story> allStories = new HashSet<Story>();
 

@@ -47,7 +47,7 @@ public class FolderServiceTest extends AbstractTest {
 	public void testCreate() {
 		Folder folder;
 
-		this.authenticate("admin");
+		this.authenticate("admin1");
 
 		final Admin admin = this.adminService.findByUserAccount(LoginService.getPrincipal());
 
@@ -74,7 +74,7 @@ public class FolderServiceTest extends AbstractTest {
 
 		final Integer currentNumberOfFoldersInTheXML = 32;
 
-		this.authenticate("admin");
+		this.authenticate("admin1");
 
 		final Collection<Folder> folders = this.folderService.findAll();
 
@@ -113,7 +113,7 @@ public class FolderServiceTest extends AbstractTest {
 		Folder folder1 = null;
 		Folder folder2 = null;
 
-		this.authenticate("admin");
+		this.authenticate("admin1");
 
 		final Collection<Folder> folders = this.folderService.findAll();
 
@@ -145,7 +145,7 @@ public class FolderServiceTest extends AbstractTest {
 	//	public void testCreateSystemFolders() {
 	//		final Collection<Folder> systemFolders;
 	//
-	//		this.authenticate("admin");
+	//		this.authenticate("admin1");
 	//
 	//		final Admin admin = this.adminService.findByUserAccount(LoginService.getPrincipal());
 	//
@@ -185,7 +185,7 @@ public class FolderServiceTest extends AbstractTest {
 		// REVISAR !!!
 		// Cómo se comprueba que el findAll() funciona correctamente?
 
-		this.authenticate("admin");
+		this.authenticate("admin1");
 
 		final Collection<Folder> folders1 = this.folderService.findAllByPrincipal();
 		final Collection<Folder> folders2 = this.folderService.findAll();
@@ -208,7 +208,7 @@ public class FolderServiceTest extends AbstractTest {
 		Folder folder1 = null;
 		Folder folder2 = null;
 
-		this.authenticate("admin");
+		this.authenticate("admin1");
 
 		final Collection<Folder> folders = this.folderService.findAll();
 
@@ -229,7 +229,7 @@ public class FolderServiceTest extends AbstractTest {
 	public void testDeleteByPrincipal() {
 		Folder folder = null;
 
-		this.authenticate("admin");
+		this.authenticate("admin1");
 
 		final Collection<Folder> folders = this.folderService.findAll();
 

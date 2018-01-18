@@ -35,7 +35,7 @@ public class TagServiceTest extends AbstractTest {
 	@Test
 	public void testCreate() {
 
-		this.authenticate("admin");
+		this.authenticate("admin1");
 
 		final Tag tag = this.tagService.create();
 
@@ -50,7 +50,7 @@ public class TagServiceTest extends AbstractTest {
 	@Test
 	public void testFindAll() {
 
-		this.authenticate("admin");
+		this.authenticate("admin1");
 
 		//Tags with TagValues
 		final Collection<Tag> tags = new HashSet<Tag>();
@@ -70,7 +70,7 @@ public class TagServiceTest extends AbstractTest {
 	@Test
 	public void testFindOne() {
 
-		this.authenticate("admin");
+		this.authenticate("admin1");
 
 		final List<Tag> allTags = new ArrayList<Tag>(this.tagService.findAll());
 		final Tag toFind = allTags.get(0);

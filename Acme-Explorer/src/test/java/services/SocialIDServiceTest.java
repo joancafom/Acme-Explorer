@@ -51,7 +51,7 @@ public class SocialIDServiceTest extends AbstractTest {
 
 	@Test
 	public void testFindAll() {
-		super.authenticate("admin");
+		super.authenticate("admin1");
 		final Collection<SocialID> socialIDs = new LinkedList<SocialID>();
 		for (final Actor a : this.actorService.findAll())
 			socialIDs.addAll(a.getSocialIDs());
@@ -76,7 +76,7 @@ public class SocialIDServiceTest extends AbstractTest {
 
 	@Test
 	public void testDelete() {
-		super.authenticate("admin");
+		super.authenticate("admin1");
 		final UserAccount userAccount = LoginService.getPrincipal();
 		final Actor explorer = this.actorService.findByUserAccount(userAccount);
 
@@ -90,7 +90,7 @@ public class SocialIDServiceTest extends AbstractTest {
 
 	@Test
 	public void testFindOne() {
-		super.authenticate("admin");
+		super.authenticate("admin1");
 		final UserAccount userAccount = LoginService.getPrincipal();
 		final Actor explorer = this.actorService.findByUserAccount(userAccount);
 

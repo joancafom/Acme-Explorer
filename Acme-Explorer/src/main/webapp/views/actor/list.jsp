@@ -31,7 +31,7 @@ but, since in the requirements it only says about listing Explorers, it's adapte
 
 <jstl:if test="${action=='listSuspicious'}">
 	<h1><spring:message code="managers"/>:</h1>
-	<display:table name="managers" id="manager" requestURI="actor/admin/listSuspicious.do" class="displaytag">
+	<display:table name="managers" id="manager" class="displaytag">
 	
 		<display:column property="name" title="Name" sortable="true"/>
 	
@@ -59,7 +59,7 @@ but, since in the requirements it only says about listing Explorers, it's adapte
 	</display:table>
 	
 	<h1><spring:message code="rangers"/>:</h1>
-	<display:table name="rangers" id="ranger" requestURI="actor/admin/listSuspicious.do" class="displaytag">
+	<display:table name="rangers" id="ranger" class="displaytag">
 	
 		<display:column property="name" title="Name" sortable="true"/>
 	

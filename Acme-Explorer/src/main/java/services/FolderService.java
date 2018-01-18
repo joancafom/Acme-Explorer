@@ -103,11 +103,15 @@ public class FolderService {
 		Assert.isTrue(!folder.getName().equals("Trash Box"));
 		Assert.isTrue(!folder.getName().equals("Spam Box"));
 		/*
-		 * A folder cannot have the same name as another folder of the same
+		 * A folder cannot have the same name as another folder IN THE SAME LEVEL of the same
 		 * actor
 		 */
-		for (final Folder f : this.findAllByPrincipal())
-			Assert.isTrue(!folder.getName().equals(f.getName()));
+		if (folder.getParentFolder() == null)
+			for (final Folder f : this.findAllParentFoldersByPrincipal())
+				Assert.isTrue(!f.getName().equals(folder.getName()));
+		else
+			for (final Folder f : folder.getParentFolder().getChildFolders())
+				Assert.isTrue(!f.getName().equals(folder.getName()));
 
 		return this.folderRepository.save(folder);
 	}

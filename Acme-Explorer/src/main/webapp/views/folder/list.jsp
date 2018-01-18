@@ -27,6 +27,8 @@
 <security:authorize access="hasRole('SPONSOR')">
 	<jstl:set var="actor" value="sponsor"></jstl:set>
 </security:authorize>
+<h3><jstl:out value="${folder.name}"/></h3>
+
 
 <a href="message/${actor}/create.do"><spring:message code="folder.message.send"/></a><br>
 
@@ -35,8 +37,11 @@
 </security:authorize>
 
 <br>
+
+
+<hr>
 <display:table name="folders" id="folder" requestURI="folder/${actor}/list.do" class="displaytag" pagesize="5">
-	<display:column titleKey="folder.name" sortable="true">
+	<display:column titleKey="folder.name">
 		<a href="folder/${actor}/list.do?folderId=${folder.id}"><jstl:out value="${folder.name}"/></a>
 	</display:column>
 	<display:column>
@@ -46,21 +51,25 @@
 	</display:column>
 </display:table>
 
-<a href="folder/${actor}/create.do?folderId=${folderId}"><spring:message code="folder.create"/></a>
+<jstl:if test="${folder.isSystem==false || folderId==null}">
+	<a href="folder/${actor}/create.do?folderId=${folderId}"><spring:message code="folder.create"/></a>
+</jstl:if>
+
 
 <jstl:if test="${folderId!=null}">
-	<p><spring:message code="folder.messages"/>:</p>
-	<display:table name="messages" id="message" requestURI="${requestURI}" class="displaytag" pagesize="5">
+	<hr>
+	<strong><spring:message code="folder.messages"/>:</strong>
+	<display:table name="messages" id="message" requestURI="message/list.do?folderId=${folderId}" class="displaytag" pagesize="5">
 	<display:column titleKey="folder.message.date">
 		<jstl:out value="${message.sentMoment}"/>
 	</display:column>
-	<display:column titleKey="folder.message.sender" sortable="true">
+	<display:column titleKey="folder.message.sender">
 		<jstl:out value="${message.sender.name}"/>
 	</display:column>
-	<display:column titleKey="folder.message.subject" sortable="true">
+	<display:column titleKey="folder.message.subject">
 		<jstl:out value="${ message.subject}"/>
 	</display:column>
-	<display:column titleKey="folder.message.priority" sortable="true">
+	<display:column titleKey="folder.message.priority">
 		<jstl:out value="${message.priority}"/>
 	</display:column>
 	<display:column >

@@ -12,8 +12,6 @@
 <form:form action="finder/explorer/edit.do" modelAttribute="finder">
 	<form:hidden path="id"/>
 	<form:hidden path="version"/>
-	<form:hidden path="cache"/>
-	<form:hidden path="cacheTime"/>
 	
 	<form:label path="keyword">
 		<spring:message code="finder.keyword"/>

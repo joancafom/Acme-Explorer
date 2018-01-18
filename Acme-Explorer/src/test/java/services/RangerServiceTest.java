@@ -38,7 +38,7 @@ public class RangerServiceTest extends AbstractTest {
 	public void testCreate() {
 		final Ranger ranger;
 
-		this.authenticate("admin");
+		this.authenticate("admin1");
 
 		final UserAccount userAccount = new UserAccount();
 
@@ -58,7 +58,7 @@ public class RangerServiceTest extends AbstractTest {
 
 		final Integer currentNumberOfRangersInTheXML = 4;
 
-		this.authenticate("admin");
+		this.authenticate("admin1");
 
 		final Collection<Ranger> rangers = this.rangerService.findAll();
 
@@ -73,7 +73,7 @@ public class RangerServiceTest extends AbstractTest {
 		Ranger ranger1 = null;
 		Ranger ranger2 = null;
 
-		this.authenticate("admin");
+		this.authenticate("admin1");
 
 		final Collection<Ranger> rangers = this.rangerService.findAll();
 
@@ -136,7 +136,7 @@ public class RangerServiceTest extends AbstractTest {
 		Ranger ranger1 = null;
 		Ranger ranger2 = null;
 
-		this.authenticate("admin");
+		this.authenticate("admin1");
 
 		final Collection<Ranger> rangers = this.rangerService.findAll();
 
@@ -160,7 +160,7 @@ public class RangerServiceTest extends AbstractTest {
 
 		final Integer currentNumberOfSuspiciousRangersInTheXML = 3;
 
-		this.authenticate("admin");
+		this.authenticate("admin1");
 
 		final Collection<Ranger> rangers = this.rangerService.findAllSuspicious();
 

@@ -50,7 +50,7 @@
 	<a href="socialID/ranger/create.do"><spring:message code="ranger.socialID.create"/></a>
 </jstl:if>
 
-<h1><spring:message code="ranger.curriculum"/>:</h1>
+<h1><spring:message code="ranger.curriculum"/></h1>:
 <jstl:if test="${curriculumURI != ''}">
 	<a href="${curriculumURI}"><spring:message code="ranger.curriculum.display"/></a>
 </jstl:if>

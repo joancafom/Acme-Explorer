@@ -43,7 +43,7 @@ public class ManagerServiceTest extends AbstractTest {
 	@Test
 	public void testCreate() {
 
-		this.authenticate("admin");
+		this.authenticate("admin1");
 		final UserAccount userAccount = new UserAccount();
 		final Manager manager = this.managerService.create(userAccount);
 
@@ -75,7 +75,7 @@ public class ManagerServiceTest extends AbstractTest {
 	@Test
 	public void testFindAll() {
 
-		this.authenticate("admin");
+		this.authenticate("admin1");
 
 		final Collection<Manager> allManagers = new HashSet<Manager>();
 
@@ -97,7 +97,7 @@ public class ManagerServiceTest extends AbstractTest {
 	@Test
 	public void testSave() {
 
-		this.authenticate("admin");
+		this.authenticate("admin1");
 
 		final List<Manager> allManagers = new ArrayList<Manager>(this.managerService.findAll());
 		final Manager manager1 = allManagers.get(0);
@@ -124,7 +124,7 @@ public class ManagerServiceTest extends AbstractTest {
 	}
 	@Test
 	public void testSuspicious() {
-		this.authenticate("admin");
+		this.authenticate("admin1");
 
 		final Collection<Manager> suspiciousManagers = new HashSet<Manager>();
 
@@ -147,7 +147,7 @@ public class ManagerServiceTest extends AbstractTest {
 		Manager manager1 = null;
 		Manager manager2 = null;
 
-		this.authenticate("admin");
+		this.authenticate("admin1");
 
 		final Collection<Manager> managers = this.managerService.findAll();
 

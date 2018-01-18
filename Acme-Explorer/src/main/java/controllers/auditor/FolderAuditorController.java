@@ -44,7 +44,6 @@ public class FolderAuditorController extends AbstractController {
 		final ModelAndView result;
 		Collection<Folder> folders;
 		Collection<Message> messages;
-		String requestURI = "folder/auditor/list.do?folderId=";
 
 		if (folderId == null) {
 			folders = this.folderService.findAllParentFoldersByPrincipal();
@@ -57,12 +56,11 @@ public class FolderAuditorController extends AbstractController {
 			folders = parentFolder.getChildFolders();
 
 			result = new ModelAndView("folder/list");
+			result.addObject("folder", parentFolder);
 			result.addObject("messages", messages);
-			requestURI += folderId;
 		}
 		result.addObject("folderId", folderId);
 		result.addObject("folders", folders);
-		result.addObject("requestURI", requestURI);
 
 		return result;
 

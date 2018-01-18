@@ -238,7 +238,7 @@ public class TripServiceTest extends AbstractTest {
 
 	@Test
 	public void testFindByKeyWord() {
-		this.authenticate("admin");
+		this.authenticate("admin1");
 
 		final String keyword = "Brownie";
 		final Collection<Trip> trips = this.tripService.findAll();
@@ -257,7 +257,7 @@ public class TripServiceTest extends AbstractTest {
 
 	@Test
 	public void testFindByCategory() {
-		this.authenticate("admin");
+		this.authenticate("admin1");
 
 		Category category = null;
 

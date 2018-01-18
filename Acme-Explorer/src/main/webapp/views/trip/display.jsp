@@ -161,7 +161,7 @@
 
 <security:authorize access="hasRole('MANAGER')">
 	 <h1><spring:message code="tagValues"/>:</h1>
-	 <display:table name="trip.tagValues" requestURI="${requestURI}" id="tagValue" class="displaytag">
+	 <display:table name="trip.tagValues" id="tagValue" class="displaytag">
 	 	<display:column property="tag.name" titleKey="tagValue.tag" sortable="true" />
 	 	<display:column property="value" titleKey="tagValue.value" />
 	 	<jstl:if test="${now < trip.publicationDate}">
@@ -177,7 +177,7 @@
 </security:authorize>
 
 <h1><spring:message code="trip.stages"/>: </h1>
-<display:table name="trip.stages" id="stage" requestURI="${requestURI}" class="displaytag">
+<display:table name="trip.stages" id="stage" requestURI="${stageRequestURI}" class="displaytag">
 	<display:column property="number" titleKey="stage.number" sortable="true"/>
 	
 	<display:column property="title" titleKey="stage.title"/>

@@ -65,8 +65,8 @@
 	</bean>
 
 	<bean id="userAccount3" class="security.UserAccount">
-		<property name="username" value="admin" />
-		<property name="password" value="21232f297a57a5a743894a0e4a801fc3" />
+		<property name="username" value="admin1" />
+		<property name="password" value="e00cf25ad42683b3df678c61f42c6bda" />
 		<property name="isLocked" value="false" />
 		<property name="authorities">
 			<list>
@@ -213,7 +213,7 @@
 
 	<!-- Admin -->
 
-	<bean id="admin" class="domain.Admin">
+	<bean id="admin1" class="domain.Admin">
 		<property name="name" value="Taylor"></property>
 		<property name="surname" value="Swift"></property>
 		<property name="email" value="taylor89@gmail.com"></property>
@@ -1151,7 +1151,7 @@
 		<property name="nick" value="@taylorswift13"></property>
 		<property name="nameSocialNetwork" value="Twitter"></property>
 		<property name="link" value="https://twitter.com/taylorswift13"></property>
-		<property name="actor" ref="admin"></property>
+		<property name="actor" ref="admin1"></property>
 	</bean>
 
 	<bean id="socialID2" class="domain.SocialID">
@@ -1794,7 +1794,7 @@
 			<list>
 			</list>
 		</property>
-		<property name="actor" ref="admin"></property>
+		<property name="actor" ref="admin1"></property>
 	</bean>
 
 	<bean id="folder2" class="domain.Folder">
@@ -1808,7 +1808,7 @@
 			<list>
 			</list>
 		</property>
-		<property name="actor" ref="admin"></property>
+		<property name="actor" ref="admin1"></property>
 	</bean>
 
 	<bean id="folder3" class="domain.Folder">
@@ -1822,7 +1822,7 @@
 			<list>
 			</list>
 		</property>
-		<property name="actor" ref="admin"></property>
+		<property name="actor" ref="admin1"></property>
 	</bean>
 
 	<bean id="folder4" class="domain.Folder">
@@ -1836,7 +1836,7 @@
 			<list>
 			</list>
 		</property>
-		<property name="actor" ref="admin"></property>
+		<property name="actor" ref="admin1"></property>
 	</bean>
 
 	<bean id="folder5" class="domain.Folder">
@@ -1850,7 +1850,7 @@
 			<list>
 			</list>
 		</property>
-		<property name="actor" ref="admin"></property>
+		<property name="actor" ref="admin1"></property>
 	</bean>
 
 
@@ -2876,7 +2876,7 @@
 			value="Estoy harta de mentiras y por eso mando este correo."></property>
 		<property name="priority" value="LOW"></property>
 		<property name="recipient" ref="manager1"></property>
-		<property name="sender" ref="admin"></property>
+		<property name="sender" ref="admin1"></property>
 		<property name="folder" ref="folder2"></property>
 	</bean>
 
@@ -2891,7 +2891,7 @@
 			value="Estoy harta de mentiras y por eso mando este correo."></property>
 		<property name="priority" value="LOW"></property>
 		<property name="recipient" ref="manager1"></property>
-		<property name="sender" ref="admin"></property>
+		<property name="sender" ref="admin1"></property>
 		<property name="folder" ref="folder31"></property>
 	</bean>
 

@@ -129,7 +129,7 @@
 <spring:message code="trips.moreTA" />:
 </p>
 
-<display:table name="tripsMoreApplications" id="trip"  requestURI="admin/display-dashboard.do" class="displaytag">
+<display:table name="tripsMoreApplications" id="trip" class="displaytag">
 	<display:column titleKey="trip.ticker">
 		<jstl:out value="${trip.ticker}"/>	
 	</display:column>
@@ -142,11 +142,11 @@
 <p>
 <spring:message code="legaltext.references" />:
 
-<display:table name="legalTexts" id="legt" requestURI="admin/display-dashboard.do" class="displaytag">
+<display:table name="legalTexts" id="legt" class="displaytag">
 	<display:column titleKey="legaltext.title">
 		<jstl:out value="${legt.title}"/>	
 	</display:column>
-		<display:column sortable="true" titleKey="legaltext.nref">
+		<display:column titleKey="legaltext.nref">
 		<jstl:out value="${references[legt.id]}"/>	
 	</display:column>
 </display:table>
