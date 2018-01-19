@@ -12,7 +12,6 @@ import org.springframework.util.Assert;
 
 import repositories.SponsorRepository;
 import security.Authority;
-import security.LoginService;
 import security.UserAccount;
 import domain.Sponsor;
 import domain.Sponsorship;
@@ -87,7 +86,7 @@ public class SponsorService {
 
 	public Sponsor save(final Sponsor sponsor) {
 		Assert.notNull(sponsor);
-		Assert.isTrue(sponsor.getUserAccount().equals(LoginService.getPrincipal()));
+		//Assert.isTrue(sponsor.getUserAccount().equals(LoginService.getPrincipal()));
 
 		// REVISAR !!!
 		// Si el sponsor tiene sponsorships, debo setear el sponsor de esa sponsorship como el sponsor actual?  
