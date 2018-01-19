@@ -52,7 +52,6 @@ public class SurvivalClassExplorerController extends AbstractController {
 			final Trip trip = this.tripService.findOne(tripId);
 			Assert.notNull(trip);
 			Assert.isTrue(trip.getPublicationDate().before(new Date()));
-
 			survivalClasses = trip.getSurvivalClasses();
 		}
 
@@ -66,11 +65,23 @@ public class SurvivalClassExplorerController extends AbstractController {
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
 	public ModelAndView display(@RequestParam final int survivalClassId) {
 		ModelAndView result;
+		Boolean enrollable = true;
+		Boolean alreadyEnrolled = false;
+		final Explorer explorer = this.explorerService.findByUserAccount(LoginService.getPrincipal());
+
 		final SurvivalClass survivalClass = this.survivalClassService.findOne(survivalClassId);
 		Assert.notNull(survivalClass);
 
+		if (!this.explorerService.findAcceptedTripsByExplorer().contains(survivalClass.getTrip()))
+			enrollable = false;
+
+		if (explorer.getSurvivalClasses().contains(survivalClass))
+			alreadyEnrolled = true;
+
 		result = new ModelAndView("survivalClass/display");
 		result.addObject("survivalClass", survivalClass);
+		result.addObject("isEnrollable", enrollable);
+		result.addObject("alreadyEnrolled", alreadyEnrolled);
 
 		return result;
 	}

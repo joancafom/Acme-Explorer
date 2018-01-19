@@ -58,6 +58,7 @@ public class FolderAdminController extends AbstractController {
 
 			result = new ModelAndView("folder/list");
 			result.addObject("messages", messages);
+			result.addObject("folder", parentFolder);
 			requestURI += folderId;
 		}
 		result.addObject("folderId", folderId);

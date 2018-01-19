@@ -136,7 +136,7 @@ public class SurvivalClassService {
 				break;
 			}
 
-		Assert.isTrue(survivalClass.getMoment().before(new Date()));
+		Assert.isTrue(survivalClass.getMoment().after(new Date()));
 		Assert.isTrue(res);
 
 		explorer.getSurvivalClasses().add(survivalClass);

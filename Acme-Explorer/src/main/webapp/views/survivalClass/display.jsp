@@ -8,6 +8,18 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
+<spring:message code="survivalClass.enroll.deniedBecause" var="cannotEnrollMessage"></spring:message>
+
+
+<script type="text/javascript">
+function cannotEnroll(){
+	alert("${cannotEnrollMessage}");
+}
+
+</script>
+
+<jsp:useBean id="now" class="java.util.Date"/>
+
 <h3><jstl:out value="${survivalClass.title}"/></h3>
 
 <p><jstl:out value="${survivalClass.description}"/></p>
@@ -41,5 +53,15 @@
 </security:authorize>
 
 <security:authorize access="hasRole('EXPLORER')">
-	<p><a href="survivalClass/explorer/enroll.do?survivalClassId=${survivalClass.id}"><spring:message code="survivalClass.enroll"/></a></p>
+	<jstl:if test="${alreadyEnrolled==true}">
+		<strong style="color:green"><spring:message code="survivalClass.enroll.alreadyEnrolled"/></strong>
+	</jstl:if>
+	<jstl:if test="${alreadyEnrolled==false}">
+		<jstl:if test="${isEnrollable==true && survivalClass.moment > now}">
+			<a href="survivalClass/explorer/enroll.do?survivalClassId=${survivalClass.id}"><spring:message code="survivalClass.enroll"/></a>
+		</jstl:if>
+		<jstl:if test="${isEnrollable==false}">
+			<p style="color:red"><spring:message code="survivalClass.enroll.denied"/><a href="javascript:cannotEnroll();"><spring:message code="survivalClass.enroll.why"/></a></p>
+		</jstl:if>
+	</jstl:if>
 </security:authorize>
