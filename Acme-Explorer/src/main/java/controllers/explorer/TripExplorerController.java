@@ -86,7 +86,7 @@ public class TripExplorerController extends AbstractController {
 
 		res = new ModelAndView("trip/list");
 		res.addObject("trips", trips);
-		res.addObject("requestURI", "/trip/list.do");
+		res.addObject("requestURI", "/trip/explorer/list.do");
 		res.addObject("actorWS", "explorer/");
 		res.addObject("canCreateTA", canCreateTA);
 

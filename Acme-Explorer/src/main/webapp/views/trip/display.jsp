@@ -46,12 +46,6 @@
 
 <p><spring:message code="trip.publicationDate"/>: <fmt:formatDate value="${trip.publicationDate}" pattern="${dateFormat}"/>
 
-<security:authorize access="hasRole('MANAGER')">
-	<jstl:if test="${now < trip.publicationDate}">
-		<a href="stage/manager/create.do?tripId=${trip.id}"><spring:message code="stage.create"/></a>
-	</jstl:if>
-</security:authorize>
-
 <p><spring:message code="trip.requirements"/>: <jstl:out value="${trip.requirements}"/></p>
 
 <p><spring:message code="category"/>: <jstl:out value="${trip.category.name}"></jstl:out></p>

@@ -4,6 +4,7 @@ package controllers;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -75,6 +76,11 @@ public class ExplorerController extends AbstractController {
 
 				this.explorerService.save(explorer);
 				res = new ModelAndView("redirect:/");
+
+			} catch (final DataIntegrityViolationException oops) {
+
+				explorer.getUserAccount().setPassword(oldPassword);
+				res = this.createEditModelAndView(explorer, "actor.username.duplicated");
 
 			} catch (final Throwable oops) {
 				explorer.getUserAccount().setPassword(oldPassword);

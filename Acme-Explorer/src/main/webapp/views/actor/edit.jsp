@@ -19,12 +19,16 @@
 		var pattern = new RegExp(/^(\+[0-9]{1,3} \([0-9]{1,3}\) [0-9]{4,}|\+[0-9]{1,3} [0-9]{4,}|[0-9]{4,})$/);
 		var phoneNumber = document.getElementById('phoneNumber').value;
 		
-		var testRes = pattern.test(phoneNumber);
-		var res = true;
-		if(!testRes){
-			res = confirm("${patternMatchError}");
+		if(phoneNumber != ""){
+			
+			var testRes = pattern.test(phoneNumber);
+			var res = true;
+			if(!testRes){
+				res = confirm("${patternMatchError}");
+			}
+			return res;
+			
 		}
-		return res;
 		
 		};
 	};
