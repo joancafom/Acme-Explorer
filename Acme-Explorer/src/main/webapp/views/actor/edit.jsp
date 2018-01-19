@@ -375,6 +375,92 @@
 	</security:authorize>
 </jstl:if>
 
+<jstl:if test="${actorClassName == 'auditor' && auditor.id==0}">
+	
+		<form:form action="${actionURI}" modelAttribute="auditor">
+		
+		<%-- Common Actor Attributes --%>
+		<form:hidden path="id"/>
+		<form:hidden path="version"/>
+		<form:hidden path="isSuspicious"/>
+		<form:hidden path="socialIDs"/>
+		<form:hidden path="sentMessages"/>
+		<form:hidden path="receivedMessages"/>
+		<form:hidden path="userAccount.authorities"/>
+
+		<%-- Auditor Attributes --%>
+	
+		<form:hidden path="notes"/>
+		<form:hidden path="audits"/>
+	
+		<%-- Edition Begins --%>
+	
+		<form:label path="name">
+			<spring:message code="actor.name" />
+		</form:label>
+		<form:input id="name" onkeyup="checkAllFields()" path="name"/>
+		<form:errors cssClass="error" path="name"></form:errors>
+		<br />
+	
+		<form:label path="surname">
+			<spring:message code="actor.surname" />
+		</form:label>
+		<form:input id="surname" onkeyup="checkAllFields()" path="surname"/>
+		<form:errors cssClass="error" path="surname"></form:errors>
+		<br />
+	
+		<form:label path="email">
+			<spring:message code="actor.email" />
+		</form:label>
+		<form:input id="email" onkeyup="checkAllFields()" path="email"/>
+		<form:errors cssClass="error" path="email"></form:errors>
+		<br />
+	
+		<form:label path="userAccount.username">
+			<spring:message code="actor.userAccount.username" />
+		</form:label>
+		<form:input id="username" onkeyup="checkAllFields()" path="userAccount.username"/>
+		<form:errors cssClass="error" path="userAccount.username"></form:errors>
+		<br />
+	
+		<form:label path="userAccount.password">
+			<spring:message code="actor.userAccount.password" />
+		</form:label>
+		<form:password id="pass1" onkeyup="checkAllFields()" path="userAccount.password"/>
+		<form:errors cssClass="error" path="userAccount.password"></form:errors>
+		<br />
+	
+		<%-- I don't want this to be sent --%>
+		<label for="pass2">
+			<spring:message code="actor.userAccount.repeatPassword" />
+		</label>
+		<input id="pass2" type="password" onkeyup="checkAllFields()" />
+		<p id="passwordMatchMessage"></p>
+	
+		<form:label path="address">
+			<spring:message code="actor.address" />
+		</form:label>
+		<form:input path="address"/>
+		<br />
+	
+		<form:label path="phoneNumber">
+			<spring:message code="actor.phoneNumber" />
+		</form:label>
+		<form:input id="phoneNumber" path="phoneNumber"/>
+		<form:errors cssClass="error" path="phoneNumber"></form:errors>
+		<br />
+	
+		<input type="button" name="cancel"
+			value="<spring:message code="actor.cancel" />"
+			onclick="javascript: relativeRedir('/welcome/index.do')" />
+		<br />
+	
+		<input id="submitButton" disabled type="submit" name="save" value="<spring:message code="actor.save" />" />
+	</form:form>
+	
+</jstl:if>
+
+
 <jstl:if test="${actorClassName == 'auditor' && auditor.id!=0}">
 	<form:form action="actor/auditor/edit.do" modelAttribute="auditor">
 	<%-- Common Actor Attributes --%>
@@ -417,6 +503,90 @@
 	<input type="button" name="cancel" value="<spring:message code="actor.cancel"/>" onclick="javascript: relativeRedir('actor/auditor/display.do');" />
 	
 </form:form>
+</jstl:if>
+
+<jstl:if test="${actorClassName == 'sponsor' && sponsor.id==0}">
+	
+		<form:form action="${actionURI}" modelAttribute="sponsor">
+		
+		<%-- Common Actor Attributes --%>
+		<form:hidden path="id"/>
+		<form:hidden path="version"/>
+		<form:hidden path="isSuspicious"/>
+		<form:hidden path="socialIDs"/>
+		<form:hidden path="sentMessages"/>
+		<form:hidden path="receivedMessages"/>
+		<form:hidden path="userAccount.authorities"/>
+
+		<%-- Sponsor Attributes --%>
+	
+		<form:hidden path="sponsorships"/>
+	
+		<%-- Edition Begins --%>
+	
+		<form:label path="name">
+			<spring:message code="actor.name" />
+		</form:label>
+		<form:input id="name" onkeyup="checkAllFields()" path="name"/>
+		<form:errors cssClass="error" path="name"></form:errors>
+		<br />
+	
+		<form:label path="surname">
+			<spring:message code="actor.surname" />
+		</form:label>
+		<form:input id="surname" onkeyup="checkAllFields()" path="surname"/>
+		<form:errors cssClass="error" path="surname"></form:errors>
+		<br />
+	
+		<form:label path="email">
+			<spring:message code="actor.email" />
+		</form:label>
+		<form:input id="email" onkeyup="checkAllFields()" path="email"/>
+		<form:errors cssClass="error" path="email"></form:errors>
+		<br />
+	
+		<form:label path="userAccount.username">
+			<spring:message code="actor.userAccount.username" />
+		</form:label>
+		<form:input id="username" onkeyup="checkAllFields()" path="userAccount.username"/>
+		<form:errors cssClass="error" path="userAccount.username"></form:errors>
+		<br />
+	
+		<form:label path="userAccount.password">
+			<spring:message code="actor.userAccount.password" />
+		</form:label>
+		<form:password id="pass1" onkeyup="checkAllFields()" path="userAccount.password"/>
+		<form:errors cssClass="error" path="userAccount.password"></form:errors>
+		<br />
+	
+		<%-- I don't want this to be sent --%>
+		<label for="pass2">
+			<spring:message code="actor.userAccount.repeatPassword" />
+		</label>
+		<input id="pass2" type="password" onkeyup="checkAllFields()" />
+		<p id="passwordMatchMessage"></p>
+	
+		<form:label path="address">
+			<spring:message code="actor.address" />
+		</form:label>
+		<form:input path="address"/>
+		<br />
+	
+		<form:label path="phoneNumber">
+			<spring:message code="actor.phoneNumber" />
+		</form:label>
+		<form:input id="phoneNumber" path="phoneNumber"/>
+		<form:errors cssClass="error" path="phoneNumber"></form:errors>
+		<br />
+	
+		<input type="button" name="cancel"
+			value="<spring:message code="actor.cancel" />"
+			onclick="javascript: relativeRedir('/welcome/index.do')" />
+		<br />
+	
+		<input id="submitButton" disabled type="submit" name="save" value="<spring:message code="actor.save" />" />
+	</form:form>
+	
 </jstl:if>
 
 <jstl:if test="${actorClassName == 'sponsor' && sponsor.id!=0}">
