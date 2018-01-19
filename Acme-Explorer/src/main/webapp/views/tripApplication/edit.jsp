@@ -9,8 +9,33 @@
 <%@taglib prefix="security"	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-
 <script>
+
+window.onload = function checkFieldOnLoad(){
+	checkField();
+};
+
+function checkField() {
+	var rejectionReason = document.getElementById('rejectionReasonTextArea').value;
+	var status = document.getElementById('selectStatus').value;
+
+	if(rejectionReason == "" && status == "REJECTED"){
+		document.getElementById('submitButton').disabled = true;
+	}else{
+		document.getElementById('submitButton').disabled = false;
+	}
+}
+
+function checkField2(){
+	var cancelationReason = document.getElementById('rejectionReasonTextArea').value;
+
+	if(cancelationReason != ""){
+		document.getElementById('submitButton').disabled = false;
+	}else{
+		document.getElementById('submitButton').disabled = true;
+	}
+};
+
 $(document).ready(function(){
 	$('#selectStatus').change(function(){
 		if($("#selectStatus").val()=="REJECTED"){
@@ -67,7 +92,7 @@ $(document).ready(function(){
 		<br><br>
 	
 		<input type="submit" name="save" value="<spring:message code="tripApplication.apply"/>">
-		<input type="button" name="cancel" value="<spring:message	code="tripApplication.cancel" />" onclick="javascript: relativeRedir('tripApplication/${actor}/list.do');" />
+		<input type="button" name="cancel" value="<spring:message	code="goBack" />" onclick="javascript: relativeRedir('tripApplication/${actor}/list.do');" />
 	</jstl:if>
 	
 	
@@ -90,21 +115,22 @@ $(document).ready(function(){
 			<form:label path="status">
 				<spring:message code="tripApplication.status"/>
 			</form:label>
-			<form:select path="status" id="selectStatus">
+			<form:select path="status" id="selectStatus" onchange="checkField()">
 				<spring:message code="tripApplication.status.REJECTED" var="rejected"/>
 				<spring:message code="tripApplication.status.DUE" var="due"/>
 				<form:option value="REJECTED" label="${rejected}"/>
 				<form:option value="DUE" label="${due}"/>
 			</form:select>
 			<br><br>
+			
 			<form:label path="rejectionReason" id="rejectionReasonLabel">
 				<spring:message code="tripApplication.rejectionReason"/>
 			</form:label>
-			<form:textarea path="rejectionReason" name="rejectionReason" id="rejectionReasonTextArea"/>
+			<form:textarea path="rejectionReason" name="rejectionReason" id="rejectionReasonTextArea" onkeyup="checkField2()"/>
 			
 			<br><br>
-			<input type="submit" name="save" value="<spring:message code="tripApplication.save"/>">
-			<input type="button" name="cancel" value="<spring:message	code="tripApplication.cancel" />" onclick="javascript: relativeRedir('tripApplication/manager/list.do');" />
+			<input type="submit" id="submitButton" name="save" value="<spring:message code="tripApplication.save"/>">
+			<input type="button" name="cancel" value="<spring:message	code="goBack" />" onclick="javascript: relativeRedir('tripApplication/manager/list.do');" />
 		</security:authorize>
 		
 		
@@ -165,13 +191,13 @@ $(document).ready(function(){
 				<br/>
 			
 				<input type="submit" name="save" value="<spring:message code="tripApplication.save"/>">
-				<input type="button" name="cancel" value="<spring:message	code="tripApplication.cancel" />" onclick="javascript: relativeRedir('tripApplication/explorer/list.do');" />
+				<input type="button" name="cancel" value="<spring:message	code="goBack" />" onclick="javascript: relativeRedir('tripApplication/explorer/list.do');" />
 			
 			</jstl:if>
 			
 			
 			<jstl:if test="${tripApplication.status == 'ACCEPTED'}">
-				<input type="submit" name="cancelTripApplication" value="Cancel this application">
+				<input type="submit" name="cancelTripApplication" value="<spring:message	code="tripApplication.cancel" />">
 			</jstl:if>
 				
 		</security:authorize>
