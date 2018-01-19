@@ -12,7 +12,7 @@ import domain.TripApplication;
 @Repository
 public interface TripApplicationRepository extends JpaRepository<TripApplication, Integer> {
 
-	@Query("select sc.trip.tripApplications from SurvivalClass sc where sc.manager.id=?1")
+	@Query("select trip.tripApplications from Trip trip where trip.manager.id=?1")
 	Collection<TripApplication> findTripApplicationsManagedByManager(int managerId);
 
 	@Query("select t from TripApplication t where t.explorer.id = ?1 order by t.status")

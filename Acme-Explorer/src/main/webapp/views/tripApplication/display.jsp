@@ -9,13 +9,6 @@
 <%@taglib prefix="security"	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<security:authorize access="hasRole('MANAGER')">
-	<jstl:set var="actor" value="manager"></jstl:set>
-</security:authorize>
-<security:authorize access="hasRole('EXPLORER')">
-	<jstl:set var="actor" value="explorer"></jstl:set>
-</security:authorize>
-<%-- 
 <h1><jstl:out value="${tripApplication.trip.title}" /> - <spring:message code="tripApplication.status.${tripApplication.status}"/></h1>
 
 <security:authorize access="hasRole('MANAGER')">
@@ -40,7 +33,7 @@
 	</p>
 </jstl:if>
 
-<p><strong><spring:message code="tripApplication.trip"/>:</strong> <a href="trip/${actor}/display.do?tripId=${tripApplication.trip.id}"><jstl:out value="${tripApplication.trip.ticker}" /></a></p>
+<p><strong><spring:message code="tripApplication.trip"/>:</strong> <a href="${tripURI}"><jstl:out value="${tripApplication.trip.ticker}" /></a></p>
 
 <spring:message code="date.format2" var="dateFormat"></spring:message>
 <p><strong><spring:message code="tripApplication.moment"/>:</strong> <fmt:formatDate value="${tripApplication.moment}" pattern="${dateFormat}" type="both"/></p>
@@ -54,4 +47,4 @@
 			<jstl:out value="${tripApplication.creditCard.number}"></jstl:out>
 		</jstl:otherwise>
 	</jstl:choose>
-</p> --%>
+</p> 

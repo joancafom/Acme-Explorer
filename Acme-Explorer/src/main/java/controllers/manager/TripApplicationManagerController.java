@@ -14,9 +14,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import security.LoginService;
+import services.ManagerService;
 import services.TripApplicationService;
 import services.TripService;
 import controllers.AbstractController;
+import domain.Manager;
 import domain.Trip;
 import domain.TripApplication;
 
@@ -30,25 +33,29 @@ public class TripApplicationManagerController extends AbstractController {
 	@Autowired
 	private TripService				tripService;
 
+	@Autowired
+	private ManagerService			managerService;
+
 
 	public TripApplicationManagerController() {
 		super();
 	}
 
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
-	public ModelAndView display(@RequestParam final Integer tripApplicationId) {
+	public ModelAndView display(@RequestParam final int tripApplicationId) {
 		final ModelAndView result;
 		TripApplication tripApplication;
+		final Manager manager = this.managerService.findByUserAccount(LoginService.getPrincipal());
 
-		Assert.notNull(tripApplicationId);
 		tripApplication = this.tripApplicationService.findOne(tripApplicationId);
+		Assert.isTrue(manager.getTrips().contains(tripApplication.getTrip()));
 
 		result = new ModelAndView("tripApplication/display");
 		result.addObject("tripApplication", tripApplication);
+		result.addObject("tripURI", "trip/manager/display.do?tripId=" + tripApplication.getTrip().getId());
 
 		return result;
 	}
-
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list(@RequestParam(required = false) final Integer tripId) {
 		final ModelAndView result;

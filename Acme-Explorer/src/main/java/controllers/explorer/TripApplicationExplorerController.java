@@ -53,11 +53,14 @@ public class TripApplicationExplorerController extends AbstractController {
 	public ModelAndView display(@RequestParam final int tripApplicationId) {
 		final ModelAndView res;
 		TripApplication tripApplication;
+		final Explorer explorer = this.explorerService.findByUserAccount(LoginService.getPrincipal());
 
 		tripApplication = this.tripApplicationService.findOne(tripApplicationId);
+		Assert.isTrue(explorer.getTripApplications().contains(tripApplication));
 
 		res = new ModelAndView("tripApplication/display");
 		res.addObject("tripApplication", tripApplication);
+		res.addObject("tripURI", "trip/explorer/display.do?tripId=" + tripApplication.getTrip().getId());
 
 		return res;
 	}
