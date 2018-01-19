@@ -59,10 +59,14 @@
 						<form:hidden path="recipient" value="${message.sender.id}"/>
 					</jstl:when>
 					<jstl:otherwise>
+						<form:label path="recipient"><spring:message code="message.recipient"/></form:label>
 						<form:select path="recipient">
 							<form:option value="0" label="----"/>
-							<form:options items="${actors}" itemValue="id" itemLabel="name"/>
+							<jstl:forEach items="${actors}" var="actorL">
+								<form:option value="${actorL.id}" label="${actorL.userAccount.username} - ${actorL.name} ${actorL.surname}"/>
+							</jstl:forEach>
 						</form:select>
+						<form:errors cssClass="error" path="recipient"/>
 					</jstl:otherwise>
 				</jstl:choose>
 			</security:authorize>
@@ -70,8 +74,8 @@
 				<form:label path="recipient"><spring:message code="message.recipient"/></form:label>
 				<form:select path="recipient">
 					<form:option value="0" label="----"/>
-					<jstl:forEach items="${actors}" var="actor">
-						<form:option value="${actor.id}" label="${actor.userAccount.username} - ${actor.name} ${actor.surname}"/>
+					<jstl:forEach items="${actors}" var="actorL">
+						<form:option value="${actorL.id}" label="${actorL.userAccount.username} - ${actorL.name} ${actorL.surname}"/>
 					</jstl:forEach>
 				</form:select>
 				<form:errors cssClass="error" path="recipient"/>
@@ -113,6 +117,7 @@
 			<security:authorize access="!hasRole('ADMIN')">
 				<input type="submit" name="save" value="<spring:message code="message.save"/>"/>
 			</security:authorize>	
+			
 			<input type="button" name="cancel" value="<spring:message code="message.cancel"/>" onclick="javascript: relativeRedir('folder/${actor}/list.do');" />
 	
 		</jstl:if>

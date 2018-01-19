@@ -54,9 +54,6 @@ public class TripService {
 	@Autowired
 	private SystemConfigurationService	systemConfigurationService;
 
-	@Autowired
-	private FinderService				finderService;
-
 
 	// Constructors ------------------------
 
