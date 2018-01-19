@@ -43,7 +43,9 @@
 	</form:label>
 	<form:select path="trip">
 		<form:option value="0" label="---"/>
-		<form:options items="${trips}" itemValue="id" itemLabel="title"/>
+		<jstl:forEach items="${trips}" var="t">
+			<form:option value="${t.id}" label="${t.ticker}, ${t.title}"/>
+		</jstl:forEach>
 	</form:select>
 	<form:errors cssClass="error" path="trip"/>
 	<br />

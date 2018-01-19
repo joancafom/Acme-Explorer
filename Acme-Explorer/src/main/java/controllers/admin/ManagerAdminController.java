@@ -4,6 +4,7 @@ package controllers.admin;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
@@ -99,6 +100,9 @@ public class ManagerAdminController extends AbstractController {
 				this.managerService.save(manager);
 				res = new ModelAndView("redirect:/");
 
+			} catch (final DataIntegrityViolationException oops) {
+				manager.getUserAccount().setPassword(oldPassword);
+				res = this.createEditModelAndView(manager, "actor.username.duplicated");
 			} catch (final Throwable oops) {
 				manager.getUserAccount().setPassword(oldPassword);
 				res = this.createEditModelAndView(manager, "actor.commit.error");

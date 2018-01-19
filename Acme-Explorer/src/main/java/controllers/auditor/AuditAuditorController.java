@@ -163,7 +163,6 @@ public class AuditAuditorController extends AbstractController {
 		res = new ModelAndView("audit/edit");
 		res.addObject("audit", audit);
 		res.addObject("trips", trips);
-		audit.setTrip(new Trip());
 
 		res.addObject("messageCode", messageCode);
 
