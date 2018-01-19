@@ -52,8 +52,8 @@
 		<a href="<jstl:out value="${socialID.link}"/>"> ${socialID.link}</a>	
 	</display:column>
 	
-	<display:column titleKey="actor.socialID.photo" sortable="true">
-		<img src="<jstl:out value="${socialID.photo}"/>"/>
+	<display:column titleKey="actor.socialID.photo" sortable="true" >
+		<img src="<jstl:out value="${socialID.photo}"/>" style="max-width: 200px"/>	
 	</display:column>
 	
 	<display:column>

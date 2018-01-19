@@ -8,15 +8,6 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<script type="text/javascript">
-function cannotEnroll(){
-	alert("You cannot enroll this survival class because you either applied for the trip associated to this survival class or your application hasn't been accepted yet.");
-}
-
-</script>
-
-<jsp:useBean id="now" class="java.util.Date"/>
-
 <h3><jstl:out value="${survivalClass.title}"/></h3>
 
 <p><jstl:out value="${survivalClass.description}"/></p>
@@ -50,15 +41,5 @@ function cannotEnroll(){
 </security:authorize>
 
 <security:authorize access="hasRole('EXPLORER')">
-	<jstl:if test="${alreadyEnrolled==true}">
-		<strong style="color:green">Already enrolled</strong>
-	</jstl:if>
-	<jstl:if test="${alreadyEnrolled==false}">
-		<jstl:if test="${isEnrollable==true && survivalClass.moment > now}">
-			<a href="survivalClass/explorer/enroll.do?survivalClassId=${survivalClass.id}"><spring:message code="survivalClass.enroll"/></a>
-		</jstl:if>
-		<jstl:if test="${isEnrollable==false}">
-			<p style="color:red">Enroll denied. <a href="javascript:cannotEnroll();">Why?</a></p>
-		</jstl:if>
-	</jstl:if>
+	<p><a href="survivalClass/explorer/enroll.do?survivalClassId=${survivalClass.id}"><spring:message code="survivalClass.enroll"/></a></p>
 </security:authorize>

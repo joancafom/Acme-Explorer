@@ -151,9 +151,11 @@ public class MessageService {
 		for (final String spamWord : this.systemConfigurationService.getCurrentSystemConfiguration().getSpamWords())
 			if (messageSender.getSubject().toLowerCase().contains(spamWord)) {
 				spam = true;
+				sender.setIsSuspicious(true);
 				break;
 			} else if (messageSender.getBody().toLowerCase().contains(spamWord)) {
 				spam = true;
+				sender.setIsSuspicious(true);
 				break;
 			}
 

@@ -1,5 +1,5 @@
 #./src/main/resources/Entities.map
-#Thu Jan 18 16:12:34 CET 2018
+#Thu Jan 18 19:19:41 CET 2018
 message7=1527
 message6=1525
 message5=1523
@@ -11,6 +11,7 @@ message1=1515
 story1=1546
 tagValue2=1552
 tagValue1=1551
+admin=1387
 folder75=1514
 folder74=1513
 folder73=1512
@@ -167,7 +168,6 @@ category2=1392
 category1=1391
 message5c=1524
 admin2=1388
-admin1=1387
 socialID6=1543
 socialID5=1419
 ranger4=1414

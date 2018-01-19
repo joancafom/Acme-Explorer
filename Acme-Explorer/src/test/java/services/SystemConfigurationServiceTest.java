@@ -30,7 +30,7 @@ public class SystemConfigurationServiceTest extends AbstractTest {
 	@Test
 	public void testSave() {
 
-		this.authenticate("admin1");
+		this.authenticate("admin");
 
 		final List<SystemConfiguration> sCs = new ArrayList<SystemConfiguration>(this.systemConfigurationService.findAll());
 		final SystemConfiguration sC2 = sCs.get(0);
@@ -47,7 +47,7 @@ public class SystemConfigurationServiceTest extends AbstractTest {
 	@Test
 	public void testGetTickerAndUpdateNext() {
 
-		this.authenticate("admin1");
+		this.authenticate("admin");
 
 		final SystemConfiguration sysConfig = this.systemConfigurationService.getCurrentSystemConfiguration();
 

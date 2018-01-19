@@ -36,7 +36,7 @@ public class ExplorerServiceTest extends AbstractTest {
 	@Test
 	public void testCreate() {
 
-		super.authenticate("admin1");
+		super.authenticate("admin");
 
 		final UserAccount userAccount = new UserAccount();
 
@@ -82,7 +82,7 @@ public class ExplorerServiceTest extends AbstractTest {
 	@Test
 	public void testFindAll() {
 
-		this.authenticate("admin1");
+		this.authenticate("admin");
 
 		final Collection<Explorer> allExplorers = new HashSet<Explorer>();
 

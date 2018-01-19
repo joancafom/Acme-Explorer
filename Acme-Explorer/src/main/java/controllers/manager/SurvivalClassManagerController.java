@@ -166,5 +166,4 @@ public class SurvivalClassManagerController extends AbstractController {
 
 		return result;
 	}
-
 }

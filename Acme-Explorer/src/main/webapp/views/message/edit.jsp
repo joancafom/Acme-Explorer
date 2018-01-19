@@ -70,9 +70,9 @@
 				<form:label path="recipient"><spring:message code="message.recipient"/></form:label>
 				<form:select path="recipient">
 					<form:option value="0" label="----"/>
-					<jstl:forEach items="${actors}" var="actor">
-						<form:option value="${actor.id}" label="${actor.userAccount.username} - ${actor.name} ${actor.surname}"/>
-					</jstl:forEach>
+					<form:options items="${actors}"
+						itemValue="id"
+						itemLabel="name"/>
 				</form:select>
 				<form:errors cssClass="error" path="recipient"/>
 			</security:authorize>
@@ -130,22 +130,16 @@
 			
 			<form:label path="folder"><spring:message code="message.folder"/>: </form:label>
 			<form:select path="folder">
-				<jstl:forEach items="${folders}" var="folder">
-					<jstl:choose>
-						<jstl:when test="${folder.parentFolder == null}">
-							<form:option value="${folder.id}" label="${folder.name}"/>
-						</jstl:when>
-						<jstl:otherwise>
-							<form:option value="${folder.id}" label="${folder.parentFolder.name} -> ${folder.name}"/>
-						</jstl:otherwise>
-					</jstl:choose>
-					
-				</jstl:forEach>
+				<form:options items="${folders}"
+					itemValue="id"
+					itemLabel="name"
+				/>
 			</form:select>
 			<form:errors cssClass="error" path="folder"/>
 			<br><br>
 			<input type="submit" name="save" value="<spring:message code="message.save"/>"/>	
 			<input type="submit" name="delete" value="<spring:message code="message.delete"/>"/>
 			<input type="button" name="cancel" value="<spring:message code="message.cancel"/>" onclick="javascript: relativeRedir('folder/${actor}/list.do');" />
+		
 		</jstl:if>
 </form:form>

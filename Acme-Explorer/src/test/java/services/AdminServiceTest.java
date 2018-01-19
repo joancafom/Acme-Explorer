@@ -44,7 +44,7 @@ public class AdminServiceTest extends AbstractTest {
 
 	@Test
 	public void testFindByUserAccount() {
-		this.authenticate("admin1");
+		this.authenticate("admin");
 
 		final UserAccount userAccount = LoginService.getPrincipal();
 
@@ -59,7 +59,7 @@ public class AdminServiceTest extends AbstractTest {
 	@Test
 	public void testBroadcastNotification() {
 
-		this.authenticate("admin1");
+		this.authenticate("admin");
 
 		final UserAccount userAccount = LoginService.getPrincipal();
 

@@ -254,8 +254,8 @@ public class TripManagerController extends AbstractController {
 		res.addObject("principalId", manager.getId());
 		res.addObject("trip", trip);
 		res.addObject("sponsorship", sponsorship);
-		res.addObject("stageRequestURI", "stage/manager/list.do?tripId=" + trip.getId());
 		res.addObject("rangerURI", "ranger/manager/display.do?tripId=" + tripId);
+		res.addObject("requestURI", "trip/manager/display.do?tripId=" + tripId);
 		res.addObject("myTrip", myTrip);
 
 		return res;

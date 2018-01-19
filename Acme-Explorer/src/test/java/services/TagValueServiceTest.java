@@ -38,7 +38,7 @@ public class TagValueServiceTest extends AbstractTest {
 	public void testCreate() {
 		TagValue tagValue;
 
-		this.authenticate("admin1");
+		this.authenticate("admin");
 
 		final Trip trip = new Trip();
 		final Collection<TagValue> tagValues = new ArrayList<TagValue>();
@@ -61,7 +61,7 @@ public class TagValueServiceTest extends AbstractTest {
 
 		final Integer currentNumberOfTagValuesInTheXML = 2;
 
-		this.authenticate("admin1");
+		this.authenticate("admin");
 
 		final Collection<TagValue> tagValues = this.tagValueService.findAll();
 
@@ -76,7 +76,7 @@ public class TagValueServiceTest extends AbstractTest {
 		TagValue tagValue1 = null;
 		TagValue tagValue2 = null;
 
-		this.authenticate("admin1");
+		this.authenticate("admin");
 
 		final Collection<TagValue> tagValues = this.tagValueService.findAll();
 
@@ -100,7 +100,7 @@ public class TagValueServiceTest extends AbstractTest {
 	public void testDelete() {
 		TagValue tagValue = null;
 
-		this.authenticate("admin1");
+		this.authenticate("admin");
 
 		final Collection<TagValue> tagValues = this.tagValueService.findAll();
 

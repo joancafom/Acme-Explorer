@@ -39,7 +39,7 @@ public class SponsorServiceTest extends AbstractTest {
 	public void testCreate() {
 		final Sponsor sponsor;
 
-		this.authenticate("admin1");
+		this.authenticate("admin");
 
 		final UserAccount userAccount = new UserAccount();
 
@@ -58,7 +58,7 @@ public class SponsorServiceTest extends AbstractTest {
 
 		final Integer currentNumberOfSponsorsInTheXML = 2;
 
-		this.authenticate("admin1");
+		this.authenticate("admin");
 
 		final Collection<Sponsor> sponsors = this.sponsorService.findAll();
 
@@ -73,7 +73,7 @@ public class SponsorServiceTest extends AbstractTest {
 		Sponsor sponsor1 = null;
 		Sponsor sponsor2 = null;
 
-		this.authenticate("admin1");
+		this.authenticate("admin");
 
 		final Collection<Sponsor> sponsors = this.sponsorService.findAll();
 
@@ -135,7 +135,7 @@ public class SponsorServiceTest extends AbstractTest {
 		Sponsor sponsor1 = null;
 		Sponsor sponsor2 = null;
 
-		this.authenticate("admin1");
+		this.authenticate("admin");
 
 		final Collection<Sponsor> sponsors = this.sponsorService.findAll();
 

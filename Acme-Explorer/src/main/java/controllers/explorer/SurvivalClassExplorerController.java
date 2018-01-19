@@ -52,36 +52,25 @@ public class SurvivalClassExplorerController extends AbstractController {
 			final Trip trip = this.tripService.findOne(tripId);
 			Assert.notNull(trip);
 			Assert.isTrue(trip.getPublicationDate().before(new Date()));
-			survivalClasses = trip.getSurvivalClasses();
 
+			survivalClasses = trip.getSurvivalClasses();
 		}
 
 		result = new ModelAndView("survivalClass/list");
 		result.addObject("survivalClasses", survivalClasses);
 		result.addObject("requestURI", "survivalClass/explorer/list.do");
+
 		return result;
 	}
 
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
 	public ModelAndView display(@RequestParam final int survivalClassId) {
 		ModelAndView result;
-		Boolean enrollable = true;
-		Boolean alreadyEnrolled = false;
-		final Explorer explorer = this.explorerService.findByUserAccount(LoginService.getPrincipal());
-
 		final SurvivalClass survivalClass = this.survivalClassService.findOne(survivalClassId);
 		Assert.notNull(survivalClass);
 
-		if (!this.explorerService.findAcceptedTripsByExplorer().contains(survivalClass.getTrip()))
-			enrollable = false;
-
-		if (explorer.getSurvivalClasses().contains(survivalClass))
-			alreadyEnrolled = true;
-
 		result = new ModelAndView("survivalClass/display");
 		result.addObject("survivalClass", survivalClass);
-		result.addObject("isEnrollable", enrollable);
-		result.addObject("alreadyEnrolled", alreadyEnrolled);
 
 		return result;
 	}
@@ -89,11 +78,15 @@ public class SurvivalClassExplorerController extends AbstractController {
 	@RequestMapping(value = "/enroll", method = RequestMethod.GET)
 	public ModelAndView enroll(@RequestParam final int survivalClassId) {
 		final ModelAndView result;
-
+		final Date now = new Date();
 		final SurvivalClass survivalClass = this.survivalClassService.findOne(survivalClassId);
 		Assert.notNull(survivalClass);
+		Assert.isTrue(now.after(survivalClass.getTrip().getPublicationDate()) || now.equals(survivalClass.getTrip().getPublicationDate()));
+		Assert.isTrue(now.before(survivalClass.getTrip().getStartingDate()));
 
 		result = this.createEditModelAndView(survivalClass);
+		//result.addObject("survivalClass", survivalClass);
+		//result.addObject("actor", "explorer");
 
 		return result;
 	}
@@ -110,7 +103,6 @@ public class SurvivalClassExplorerController extends AbstractController {
 		result.addObject("survivalClass", survivalClass);
 		result.addObject("actor", "explorer");
 		result.addObject("messageCode", messageCode);
-		result.addObject("explorer", this.explorerService.findByUserAccount(LoginService.getPrincipal()));
 
 		return result;
 	}
@@ -132,7 +124,6 @@ public class SurvivalClassExplorerController extends AbstractController {
 			} catch (final Throwable oops) {
 				res.addObject("messageCode", "survivalClass.commit.error");
 				res.addObject("survivalClass", survivalClass);
-
 			}
 
 		return res;

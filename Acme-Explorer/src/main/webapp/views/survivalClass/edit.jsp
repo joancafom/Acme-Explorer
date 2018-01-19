@@ -7,8 +7,6 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<jsp:useBean id="now" class="java.util.Date"/>
-
 <jstl:if test="${actor=='manager'}">
 <form:form action="survivalClass/manager/edit.do" modelAttribute="survivalClass">
 	<!-- Hidden Inputs -->

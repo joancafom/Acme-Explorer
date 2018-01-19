@@ -3,7 +3,6 @@ package services;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 
 import javax.transaction.Transactional;
 
@@ -13,15 +12,12 @@ import org.springframework.util.Assert;
 
 import repositories.ExplorerRepository;
 import security.Authority;
-import security.LoginService;
 import security.UserAccount;
-import domain.ApplicationStatus;
 import domain.Contact;
 import domain.Explorer;
 import domain.Finder;
 import domain.Story;
 import domain.SurvivalClass;
-import domain.Trip;
 import domain.TripApplication;
 
 @Service
@@ -88,18 +84,6 @@ public class ExplorerService {
 		final Explorer explorer = this.explorerRepository.findByUserAccountId(userAccount.getId());
 
 		return explorer;
-	}
-
-	public Collection<Trip> findAcceptedTripsByExplorer() {
-		final UserAccount userAccount = LoginService.getPrincipal();
-		final Explorer explorer = this.findByUserAccount(userAccount);
-
-		final Collection<Trip> tripsAccepted = new HashSet<Trip>();
-		for (final TripApplication tA : explorer.getTripApplications())
-			if (tA.getStatus().equals(ApplicationStatus.ACCEPTED))
-				tripsAccepted.add(tA.getTrip());
-
-		return tripsAccepted;
 	}
 
 }
