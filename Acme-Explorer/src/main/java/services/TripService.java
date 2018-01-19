@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import org.joda.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -52,6 +53,9 @@ public class TripService {
 
 	@Autowired
 	private SystemConfigurationService	systemConfigurationService;
+
+	@Autowired
+	private FinderService				finderService;
 
 
 	// Constructors ------------------------
@@ -220,29 +224,37 @@ public class TripService {
 		final SystemConfiguration sysConfig = this.systemConfigurationService.getCurrentSystemConfiguration();
 		Assert.notNull(sysConfig);
 
-		if (finder.getKeyword() == null && finder.getMinRange() == null && finder.getMaxRange() == null && finder.getMinDate() == null && finder.getMaxDate() == null) {
-			final Page<Trip> tripPage = this.tripRepository.findAllPublished(new PageRequest(0, sysConfig.getMaxNumResults()));
-			trips = tripPage.getContent();
+		LocalDateTime cacheTimeMoment = new LocalDateTime(finder.getCacheTime());
+		cacheTimeMoment = cacheTimeMoment.plusHours(sysConfig.getCacheTime());
 
-		} else if (finder.getKeyword() != null && finder.getMinRange() == null && finder.getMaxRange() == null && finder.getMinDate() == null && finder.getMaxDate() == null) {
-			final Page<Trip> tripPage = this.tripRepository.findByKeyWordPublished(new PageRequest(0, sysConfig.getMaxNumResults()), finder.getKeyword());
-			trips = tripPage.getContent();
+		if (finder.getCache().isEmpty() || cacheTimeMoment.isBefore(new LocalDateTime())) {
+			if (finder.getKeyword() == null && finder.getMinRange() == null && finder.getMaxRange() == null && finder.getMinDate() == null && finder.getMaxDate() == null) {
+				final Page<Trip> tripPage = this.tripRepository.findAllPublished(new PageRequest(0, sysConfig.getMaxNumResults()));
+				trips = tripPage.getContent();
 
-		} else if (finder.getKeyword() != null && finder.getMinRange() != null && finder.getMaxRange() != null && finder.getMinDate() == null && finder.getMaxDate() == null) {
-			final Page<Trip> tripPage = this.tripRepository.findByKeyWordAndRangePublished(new PageRequest(0, sysConfig.getMaxNumResults()), finder.getMinRange(), finder.getMaxRange(), finder.getKeyword());
-			trips = tripPage.getContent();
+			} else if (finder.getKeyword() != null && finder.getMinRange() == null && finder.getMaxRange() == null && finder.getMinDate() == null && finder.getMaxDate() == null) {
+				final Page<Trip> tripPage = this.tripRepository.findByKeyWordPublished(new PageRequest(0, sysConfig.getMaxNumResults()), finder.getKeyword());
+				trips = tripPage.getContent();
 
-		} else if (finder.getKeyword() != null && finder.getMinRange() == null && finder.getMaxRange() == null && finder.getMinDate() != null && finder.getMaxDate() != null) {
-			final Page<Trip> tripPage = this.tripRepository.findByKeyWordAndDatePublished(new PageRequest(0, sysConfig.getMaxNumResults()), finder.getMinDate(), finder.getMaxDate(), finder.getKeyword());
-			trips = tripPage.getContent();
+			} else if (finder.getKeyword() != null && finder.getMinRange() != null && finder.getMaxRange() != null && finder.getMinDate() == null && finder.getMaxDate() == null) {
+				final Page<Trip> tripPage = this.tripRepository.findByKeyWordAndRangePublished(new PageRequest(0, sysConfig.getMaxNumResults()), finder.getMinRange(), finder.getMaxRange(), finder.getKeyword());
+				trips = tripPage.getContent();
 
-		} else if (finder.getKeyword() != null && finder.getMinRange() != null && finder.getMaxRange() != null && finder.getMinDate() != null && finder.getMaxDate() != null) {
-			final Page<Trip> tripPage = this.tripRepository.findByFinderAttributesPublished(new PageRequest(0, sysConfig.getMaxNumResults()), finder.getMinRange(), finder.getMaxRange(), finder.getMinDate(), finder.getMaxDate(), finder.getKeyword());
-			trips = tripPage.getContent();
-		}
+			} else if (finder.getKeyword() != null && finder.getMinRange() == null && finder.getMaxRange() == null && finder.getMinDate() != null && finder.getMaxDate() != null) {
+				final Page<Trip> tripPage = this.tripRepository.findByKeyWordAndDatePublished(new PageRequest(0, sysConfig.getMaxNumResults()), finder.getMinDate(), finder.getMaxDate(), finder.getKeyword());
+				trips = tripPage.getContent();
 
-		Assert.notNull(trips);
+			} else if (finder.getKeyword() != null && finder.getMinRange() != null && finder.getMaxRange() != null && finder.getMinDate() != null && finder.getMaxDate() != null) {
+				final Page<Trip> tripPage = this.tripRepository.findByFinderAttributesPublished(new PageRequest(0, sysConfig.getMaxNumResults()), finder.getMinRange(), finder.getMaxRange(), finder.getMinDate(), finder.getMaxDate(), finder.getKeyword());
+				trips = tripPage.getContent();
+			}
 
+			Assert.notNull(trips);
+			finder.setCache(trips);
+			finder.setCacheTime(new Date());
+
+		} else
+			trips = finder.getCache();
 		return trips;
 	}
 	public Collection<Trip> findAllPublished() {

@@ -97,6 +97,9 @@ public class FinderService {
 		if (finder.getMinDate() != null && finder.getMaxDate() != null)
 			Assert.isTrue(finder.getMinDate().before(finder.getMaxDate()));
 
+		finder.setCache(new HashSet<Trip>());
+		finder.setCacheTime(new Date());
+
 		return this.finderRepository.save(finder);
 	}
 	// REVISAR !!!

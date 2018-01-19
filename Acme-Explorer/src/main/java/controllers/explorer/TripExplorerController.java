@@ -75,6 +75,8 @@ public class TripExplorerController extends AbstractController {
 
 		else if (keyword == null && categoryId == null && finderId != null) {
 			final Finder finder = this.finderService.findOne(finderId);
+			Assert.notNull(finder);
+			Assert.isTrue(explorer.getFinder().equals(finder));
 			trips = this.tripService.findByFinderPublished(finder);
 		}
 
